@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.newegg.ec.base.dao.mysql.IUrlDao">
+
+    <select id="getUrlList"  resultType="com.newegg.ec.base.model.Url">
+        select id as id,
+               url as url,
+               description as description
+        from url_table
+    </select>
+
+    <select id="getUserUrls"   parameterType="java.lang.String" resultType="com.newegg.ec.base.model.Url">
+        select id as id,
+        url as url,
+        description as description
+        from url_table
+        where id in (select urlid from role_url_rt where roleid in (select roleid from user_role_rt where userid =#{userId}))
+    </select>
+
+    <select id="getFilterUrlList"   parameterType="java.lang.String" resultType="com.newegg.ec.base.model.Url">
+        select id as id,
+        url as url,
+        description as description
+        from url_table
+        where url like CONCAT('%',#{searchStr},'%')
+    </select>
+
+    <insert id="addUrl" parameterType="com.newegg.ec.base.model.Url">
+        insert into url_table(id,url,description)
+        values(#{id},#{url},#{description})
+    </insert>
+
+    <update id="updateUrl" parameterType="com.newegg.ec.base.model.Url">
+        update url_table
+        set url = #{url}
+        ,description = #{description}
+        where id = #{id}
+    </update>
+
+    <delete id="deleteUrl" parameterType="com.newegg.ec.base.model.Url">
+        delete from url_table where id = #{id} and id not in (select urlid from role_url_rt)
+    </delete>
+
+</mapper>
+

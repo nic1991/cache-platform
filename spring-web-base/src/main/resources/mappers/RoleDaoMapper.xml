@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.newegg.ec.base.dao.mysql.IRoleDao">
+
+    <select id="getRoleList"  resultType="com.newegg.ec.base.model.Role">
+        select id as id,
+               rolename as name,
+               description as description
+        from role
+    </select>
+
+    <select id="getFilterRoleList"   parameterType="java.lang.String" resultType="com.newegg.ec.base.model.Role">
+        select id as id,
+        rolename as name,
+        description as description
+        from role
+        where rolename like CONCAT('%',#{searchStr},'%')
+    </select>
+
+    <insert id="addRole" parameterType="com.newegg.ec.base.model.Role">
+        insert into role(id,rolename,description)
+        values(#{id},#{name},#{description})
+    </insert>
+
+    <update id="updateRole" parameterType="com.newegg.ec.base.model.Role">
+        update role
+        set rolename = #{name}
+        ,description = #{description}
+        where id = #{id}
+    </update>
+
+    <delete id="deleteRole" parameterType="com.newegg.ec.base.model.Role">
+        delete from role where id = #{id} and id not in (select roleid from user_role_rt)
+    </delete>
+
+    <select id="getRoleMenuIds"  parameterType="java.lang.String" resultType="java.lang.String">
+        select menuid as menuId
+        from role_menu_rt
+        where roleid = #{roleId}
+    </select>
+
+    <insert id="addRoleMenu" parameterType="java.util.HashMap">
+        insert into role_menu_rt(roleid,menuid)
+        values(#{roleId},#{menuId})
+    </insert>
+
+    <delete id="deleteRoleMenu" parameterType="java.lang.String">
+        delete from role_menu_rt where roleid = #{roleId}
+    </delete>
+
+    <select id="getRoleUrlIds"  parameterType="java.lang.String" resultType="java.lang.String">
+        select urlid as urlId
+        from role_url_rt
+        where roleid = #{roleId}
+    </select>
+
+    <insert id="addRoleUrl" parameterType="java.util.HashMap">
+        insert into role_url_rt(roleid,urlid)
+        values(#{roleId},#{urlId})
+    </insert>
+
+    <delete id="deleteRoleUrl" parameterType="java.lang.String">
+        delete from role_url_rt where roleid = #{roleId}
+    </delete>
+
+</mapper>
+

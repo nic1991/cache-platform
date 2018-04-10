@@ -1,0 +1,127 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=8" />
+    <meta HTTP-EQUIV="pragma" CONTENT="no-cache" />
+    <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate" />
+    <meta HTTP-EQUIV="expires" CONTENT="0" />
+    <meta http-equiv="Cache" content="no-cache" />
+    <title>Base</title>
+    <style type="text/css">
+        body{padding:0px;margin:0px;height:100%;width:100%}
+    </style>
+    <link rel="stylesheet"  type="text/css"  href="../../tools/bootstrap/css/bootstrap.css" />
+    <script  src="../../tools/jquery-1.9.1.js" ></script>
+    <script  src="../../tools/newegg/newegg.js" ></script>
+    <script  src="../../tools/bootstrap/js/bootstrap.js" ></script>
+    <script>
+        $(document).ready(function(){
+
+          $("#portal_btn").click(function(){
+                $("#sign_switch").hide();
+                $("#portal_sign").fadeIn();
+                $("#portal_back").fadeIn();
+          })
+
+          $("#portal_back").click(function(){
+                $("#portal_sign").hide();
+                $("#portal_back").hide();
+                $("#sign_switch").fadeIn();
+          })
+
+        })
+
+        function login(){
+            var name = $("#name").val();
+            var password = $("#password").val();
+            var user = '{"name":"'+name+'","password":"'+password+'"}';
+            $.njx(
+                 basePath + "/rest/user/login",
+                  user,
+                  true,
+                 "POST",
+                 "JSON",
+                 "application/json",
+                  function(data){
+                       document.location = basePath + "/rest/pages/main";
+                  },
+                  function(){
+                        alert("error!");
+                  }
+            );
+        };
+
+        function domainLogin(){
+           $.getJSON('http://xxx/hiverlogin/default.aspx?callback=?', function(data) {
+                      var params={};
+                      params.nameStr = data.name;
+                      console.log(params);
+                      $.njx(
+                         basePath + "/rest/user/domainLogin",
+                          params,
+                          true,
+                         "GET",
+                         "JSON",
+                         "application/json",
+                          function(data){
+                               document.location = basePath + "/rest/pages/main";
+                          },
+                          function(){
+                                alert("error!");
+                          }
+                    );
+           });
+        };
+
+        function goToAbout(){
+             window.location = basePath + "/rest/pages/about";
+        };
+    </script>
+</head>
+<body>
+    <div style="position:relative;height:100%;width:100%">
+        <div class="headDiv" style="width:100%;height:50px;background:#3c8dbc;padding:0px">
+            <div style="float:left;width:200px;line-height:50px;font-size:18px;text-align:center;position:relative;z-index:10">
+                <div id="ha_locate" style="cursor:pointer;position:absolute;left:0px;top:0px;z-index:400;width:200px;height:50px;color:white">
+                    Newegg * <span style="color:white">Base</span>
+                </div>
+            </div>
+            <div style="cursor:pointer;float:right;width:100px;text-align:center;" onclick="goToAbout()">
+                <div style="cursor:pointer;margin:auto;height:50px;width:100px;line-height:50px;font-size:14px;color:white;background:none;border:none"><font>about</font></div>
+            </div>
+        </div>
+
+        <div style="margin:auto;margin-top:160px;width:400px;background:#eee;padding:20px">
+             <div style="height:40px;line-height:40px;color:black;font-size:18px">
+                 Sign in &nbsp;<span id="portal_back" class="glyphicon glyphicon-circle-arrow-left" style="cursor:pointer;display:none"></span>
+             </div>
+             <div style="height:1px;background:#ccc"></div>
+             <div id="sign_switch" style="padding:10px">
+                 <div id="ad_btn" style="cursor:pointer;text-align:center;margin:auto;width:260px;height:36px;line-height:36px;font-size:12px;color:white;background:#00a1cb;" onclick="domainLogin()">
+                     Continue With AD Account
+                 </div>
+                 <div style="margin:auto;height:20px;text-align:center">or</div>
+                 <div id="portal_btn" style="cursor:pointer;text-align:center;margin:auto;margin-top:5px;width:260px;height:36px;line-height:36px;font-size:12px;color:white;background:#7db500;">
+                     Continue With Portal Account
+                 </div>
+             </div>
+             <div id="portal_sign" style="display:none;padding:10px">
+                 <div style="margin:auto;width:340px">
+                     <div style="height:30px;line-height:30px;font-size:14px"><span class="glyphicon glyphicon-user"></span>&nbsp;user:</div>
+                     <div style="height:30px;line-height:30px"><input id="name" type="text" class="form-control" style="height:30px;width:100%;border-radius:4px;padding-left:5px;padding-right:5px" value="root" /></div>
+                     <div style="margin-top:4px;height:30px;line-height:30px;font-size:14px"><span class="glyphicon glyphicon-lock"></span>&nbsp;password:</div>
+                     <div style="height:30px;line-height:30px"><input id="password" type="password" class="form-control" style="height:30px;width:100%;border-radius:4px;padding-left:5px;padding-right:5px" value="123456" /></div>
+                     <div style="margin-top:18px;height:46px">
+                         <button type="submit" class="btn btn-primary btn-large btn-block" style="border:0;background:#00a1cb;height:44px;" onclick="login()">login</button>
+                     </div>
+                 </div>
+             </div>
+            <div style="height:1px;background:#ccc"></div>
+            <div style="height:30px;line-height:30px;color:black;font-size:18px">
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

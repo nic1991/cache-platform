@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=8" />
+    <meta HTTP-EQUIV="pragma" CONTENT="no-cache" />
+    <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate" />
+    <meta HTTP-EQUIV="expires" CONTENT="0" />
+    <meta http-equiv="Cache" content="no-cache" />
+    <title>Base</title>
+    <style type="text/css">
+        html,body{
+        height:100%;
+        }
+    </style>
+    <link rel="stylesheet"  type="text/css"  href="../../tools/bootstrap/css/bootstrap.css"/>
+    <script  src="../../tools/jquery-1.9.1.js" ></script>
+    <script  src="../../tools/newegg/newegg.js" ></script>
+    <script  src="../../tools/bootstrap/js/bootstrap.js" ></script>
+    <script>
+
+        function getUser(){
+             $.njx(
+                 basePath + "/rest/user/getUser",
+                  null,
+                  true,
+                 "GET",
+                 "JSON",
+                 "application/json",
+                  function(data){
+                      if(data.result!=null){
+                          var user = data.result;
+                          $("#user_id").val(user.id);
+                          $("#user_name").val(user.name);
+                          $("#user_password").val(user.password);
+
+                      }
+                  },
+                  function(){
+                        alert("error!");
+                  }
+             );
+        };
+
+        function saveUser(){
+                requestParams ={};
+                requestParams.id =  $("#user_id").val();
+                 if($("#user_name").val()==null || $("#user_name").val()==""){
+                    alert("name is null");
+                    return ;
+                }
+                requestParams.name =  $("#user_name").val();
+                if($("#user_password").val()==null || $("#user_password").val()==""){
+                    alert("password is null");
+                    return ;
+                }
+                requestParams.password =  $("#user_password").val();
+                var params = JSON.stringify(requestParams);
+                $.njx(
+                     basePath + "/rest/user/updateUserPassword",
+                      params,
+                      true,
+                     "POST",
+                     "json",
+                     "application/json",
+                      function(data){
+                           if(data.result!=null){
+                               login();
+                           }
+                      },
+                      function(){
+                            alert("error!");
+                      }
+                );
+        };
+
+        function changePassword(){
+                requestParams ={};
+                requestParams.id =  $("#user_id").val();
+                if($("#user_name").val()==null || $("#user_name").val()==""){
+                    alert("name is null");
+                    return ;
+                }
+                requestParams.name =  $("#user_name").val();
+                if($("#user_password_new").val()==null || $("#user_password_doubleCheck").val()==""){
+                    alert("password is null");
+                    return ;
+                }
+
+                var password_1 = $("#user_password_new").val();
+                var password_2 = $("#user_password_doubleCheck").val();
+                if( password_1 != password_2){
+                    alert("your two password is not same , please change them.");
+                    return ;
+                }
+
+                requestParams.password =  $("#user_password_new").val();
+
+                var params = JSON.stringify(requestParams);
+                $.njx(
+                     basePath + "/rest/user/updateUserPassword",
+                      params,
+                      true,
+                     "POST",
+                     "json",
+                     "application/json",
+                      function(data){
+                           if(data.result!=null){
+                           console.log("111222121");
+                               login();
+                           }
+                      },
+                      function(){
+                            alert("error!");
+                      }
+                );
+        };
+
+        function login(){
+            var name = $("#user_name").val();
+            var password = $("#user_password_new").val();
+            var user = '{"name":"'+name+'","password":"'+password+'"}';
+            $.njx(
+                 basePath + "/rest/user/login",
+                  user,
+                  true,
+                 "POST",
+                 "JSON",
+                 "application/json",
+                  function(data){
+                        getUser();
+                        parent.window.setUser(name);
+                  },
+                  function(){
+                        alert("error!");
+                  }
+            );
+        };
+
+         $(document).ready(function(){
+              getUser();
+        });
+
+    </script>
+</head>
+<body>
+<div style="width:100%;height:100%;position:relative;overflow-y:auto;padding-top:80px">
+    <div style="margin:auto;width:600px;box-shadow:1px 1px 3px 2px #8DB6CD;padding-bottom:20px;padding-top:20px">
+        <div style="line-height:40px;height:40px;font-size:20px;font-weight:bold;text-align:center">reset user password</div>
+
+        <div style="">
+            <div style="height:1px;background:#ccc;width:500px;margin:auto"></div>
+            <input id="user_id" style="display:none" />
+            <div  style="margin:auto;width:500px;margin:auto;margin-top:10px" >
+                <span  style="width:160px;text-align:left;margin-left:15px;margin-right:10px;margin-top:5px;float:left;font-size:14px;">username : </span>
+                <input id="user_name" type="text" class="form-control" placeholder="username" style="width:300px" disabled="disabled" />
+            </div>
+            <div  style="margin:auto;width:500px;margin:auto;margin-top:10px">
+                <span  style="width:160px;text-align:left;margin-left:15px;margin-right:10px;margin-top:5px;float:left;font-size:14px;">new password : </span>
+                <input id="user_password_new" type="password" class="form-control" placeholder="password" style="width:300px" />
+            </div>
+            <div  style="margin:auto;width:500px;margin:auto;margin-top:10px;margin-bottom:10px">
+                <span  style="width:160px;text-align:left;margin-left:15px;margin-right:10px;margin-top:5px;float:left;font-size:14px;">confirm password : </span>
+                <input id="user_password_doubleCheck" type="password" class="form-control" placeholder="password" style="width:300px" />
+            </div>
+            <div style="height:1px;background:#ccc;width:500px;margin:auto"></div>
+            <div style="text-align:center;margin-top:20px">
+                <button type="button" class="btn btn-primary" onclick="changePassword()">
+                    save
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

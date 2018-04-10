@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.newegg.ec.base.dao.mysql.IUserDao">
+    <select id="getUserCount"  resultType="int">
+            select count(1) from user
+    </select>
+
+    <select id="getLoginUser" parameterType="com.newegg.ec.base.model.User" resultType="com.newegg.ec.base.model.User">
+        SELECT id as id,username as name ,password as password FROM user
+        WHERE username = #{name} AND password = #{password}
+    </select>
+
+    <select id="getLoginUserByName" parameterType="com.newegg.ec.base.model.User" resultType="com.newegg.ec.base.model.User">
+        SELECT id as id,username as name ,password as password FROM user
+        WHERE username = #{name}
+    </select>
+
+    <select id="getAllUser"  resultType="com.newegg.ec.base.model.User">
+        select id as id,username as name from user where id!='1'
+    </select>
+
+    <select id="getFilterUser"   parameterType="java.lang.String" resultType="com.newegg.ec.base.model.User">
+        select id as id,username as name from user where username like CONCAT('%',#{searchStr},'%') and username!='root'
+    </select>
+
+
+    <select id="getUserByName"  parameterType="java.lang.String" resultType="com.newegg.ec.base.model.User">
+        select * from user where username = #{name}
+    </select>
+
+    <select id="getUserByNameAndId"  parameterType="com.newegg.ec.base.model.User" resultType="com.newegg.ec.base.model.User">
+        select * from user where username = #{name} and id != #{id}
+    </select>
+
+
+    <insert id="addUser" parameterType="com.newegg.ec.base.model.User">
+        insert into user(id,username,password)values(#{id},#{name},#{password})
+    </insert>
+
+    <delete id="deleteUser" parameterType="com.newegg.ec.base.model.User">
+        delete from user where id = #{id}
+    </delete>
+
+    <update id="updateUser" parameterType="com.newegg.ec.base.model.User">
+        update user set username = #{name} where id = #{id}
+    </update>
+
+    <update id="updateUserPassword" parameterType="com.newegg.ec.base.model.User">
+        update user set username = #{name} ,password = #{password} where id = #{id}
+    </update>
+
+    <insert id="addUserRole" parameterType="java.util.HashMap">
+        insert into user_role_rt(userid,roleid)
+        values(#{userId},#{roleId})
+    </insert>
+
+    <delete id="deleteUserRole" parameterType="java.lang.String">
+        delete from user_role_rt where userid = #{userId}
+    </delete>
+
+    <select id="getUserRoleIds"  parameterType="java.lang.String" resultType="java.lang.String">
+        select roleid from user_role_rt where userid = #{userId}
+    </select>
+
+
+
+</mapper>
+

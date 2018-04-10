@@ -1,0 +1,21 @@
+server:
+  tomcat.uri-encoding: UTF-8
+  port: 8008
+
+spring:
+  application:
+      name: web-base
+  http:
+      encoding:
+        enabled: true
+        force: true
+        charset: UTF-8
+  datasource:
+      name: serverbase
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://ssspark01:3306/serverbase?useUnicode=true&characterEncoding=utf-8
+      username: xxx
+      password:
+
+mybatis:
+  mapper-locations: classpath:mappers/*.xml

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=8" />
+    <meta HTTP-EQUIV="pragma" CONTENT="no-cache" />
+    <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate" />
+    <meta HTTP-EQUIV="expires" CONTENT="0" />
+    <meta http-equiv="Cache" content="no-cache" />
+    <title>Base</title>
+    <style type="text/css">
+        body{padding:0px;margin:0px;height:100%;width:100%}
+    </style>
+    <link rel="stylesheet"  type="text/css"  href="../../tools/bootstrap/css/bootstrap.css"/>
+    <script  src="../../tools/jquery-1.9.1.js" ></script>
+    <script  src="../../tools/newegg/newegg.js" ></script>
+    <script  src="../../tools/bootstrap/js/bootstrap.js" ></script>
+    <script>
+
+        $(document).ready(function(){
+
+        });
+
+        function backToLogin(){
+             window.location = basePath + "/rest/pages/index";
+        }
+
+    </script>
+</head>
+<body>
+<div style="position:relative;height:100%;width:100%">
+    <div class="headDiv" style="width:100%;height:50px;background:#3c8dbc;padding:0px">
+
+        <div style="float:left;height:50px;width:200px;line-height:50px;font-size:18px;text-align:center;position:relative;z-index:10">
+            <div id="ha_locate" style="cursor:pointer;position:absolute;left:0px;top:0px;z-index:400;width:200px;height:40px;color:white">
+                Newegg * <span style="color:#63B8FF">Base</span>
+            </div>
+        </div>
+
+        <div style="cursor:pointer;float:right;height:50px;width:100px;text-align:center;" onclick="backToLogin()">
+            <div style="cursor:pointer;margin:auto;height:50px;width:100px;line-height:50px;font-size:14px;color:white;background:none;border:none"><font>login</font></div>
+        </div>
+
+    </div>
+     <div style="margin-top:50px;margin-left:100px;margin-right:100px;padding:10px;line-height:30px;font-size:16px;background:#eee">
+         This is web base framework .<br />
+         it include the management and the control of user,role,menu and url.<br />
+         by using this we can accelerate step of our web project development.
+     </div>
+
+</div>
+</body>
+</html>

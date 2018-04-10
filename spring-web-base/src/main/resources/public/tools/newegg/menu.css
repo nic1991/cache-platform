@@ -1,0 +1,5 @@
+.menuItem {clear:both;cursor:pointer;height:40px;overflow:hidden;}
+
+.menuItem:hover{background:#1a2226}
+
+.selectFlag {width:4px;height:40px;float:left}

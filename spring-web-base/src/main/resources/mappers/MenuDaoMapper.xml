@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.newegg.ec.base.dao.mysql.IMenuDao">
+
+    <select id="getMenuList"  resultType="com.newegg.ec.base.model.Menu">
+        select id as id,
+               name as name,
+               url as url,
+               sequence as sequence,
+               parentid as parentId,
+               issysmenu as isSysMenu,
+               icon as icon,
+               description as description
+        from menu
+        order by sequence asc
+    </select>
+
+    <select id="getMenuByUser"  parameterType="java.lang.String" resultType="com.newegg.ec.base.model.Menu">
+        select id as id,
+        name as name,
+        url as url,
+        sequence as sequence,
+        parentid as parentId,
+        issysmenu as isSysMenu,
+        icon as icon,
+        description as description
+        from menu
+        where id in (select menuid from role_menu_rt where roleid in (select roleid from user_role_rt where userid =#{userId}))
+        order by sequence asc
+    </select>
+
+    <insert id="addMenu" parameterType="com.newegg.ec.base.model.Menu">
+        insert into menu(id,name,url,sequence,parentid,issysmenu,icon,description)
+        values(#{id},#{name},#{url},#{sequence},#{parentId},#{isSysMenu},#{icon},#{description})
+    </insert>
+
+    <update id="updateMenu" parameterType="com.newegg.ec.base.model.Menu">
+        update menu
+        set name = #{name}
+        ,url = #{url}
+        ,sequence = #{sequence}
+        ,parentid = #{parentId}
+        ,icon = #{icon}
+        ,description = #{description}
+        where id = #{id}
+    </update>
+
+    <delete id="deleteMenu" parameterType="com.newegg.ec.base.model.Menu">
+        delete from menu where id = #{id} and id not in (select menuid from role_menu_rt) and isSysMenu='false'
+    </delete>
+
+</mapper>
+

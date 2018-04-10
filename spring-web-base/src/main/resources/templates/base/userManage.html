@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=8" />
+    <meta HTTP-EQUIV="pragma" CONTENT="no-cache" />
+    <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate" />
+    <meta HTTP-EQUIV="expires" CONTENT="0" />
+    <meta http-equiv="Cache" content="no-cache" />
+    <title>Base</title>
+    <style type="text/css">
+        html,body{
+        height:100%;
+        }
+    </style>
+    <link rel="stylesheet"  type="text/css"  href="../../tools/bootstrap/css/bootstrap.css"/>
+    <link rel="stylesheet"  type="text/css"  href="../../tools/bootstrap-multiselect/bootstrap-multiselect.css"/>
+    <script  src="../../tools/jquery-1.9.1.js" ></script>
+    <script  src="../../tools/newegg/newegg.js" ></script>
+    <script  src="../../tools/bootstrap/js/bootstrap.js" ></script>
+    <script  src="../../tools/bootstrap-multiselect/bootstrap-multiselect.js" ></script>
+    <script  src="../../base/userManage.js" ></script>
+</head>
+<body>
+<div style="background:#f9f9f9;width:100%;height:100%;position:relative;overflow-y:auto">
+    <div style="margin-top:10px;height:40px;line-height:40px;font-size:20px;text-align:left;padding-left:20px;padding-right:20px;color:#004d6f">
+        <div style="width:140px;height:40px;float:left;font-weight:bold">user manage</div>
+        <div style="width:300px;float:right">
+            <div class="input-group">
+                  <input id="search" type="text" class="form-control" placeholder="name" style="margin-top:3px" />
+                  <span class="input-group-btn">
+                    <button class="btn btn-default"  onclick ="getUsers()" type="button">go</button>
+                  </span>
+            </div>
+        </div>
+    </div>
+    <div style="background:white;padding:5px;padding-top:0px;margin:20px;margin-top:5px;position:relative;box-shadow:1px 1px 3px 2px #ccc;">
+        <div id="tableCnt" class="tableCnt" style="margin-top:10px">
+            <div class="tableHead" style="position:relative;height:30px;line-height:30px;padding-left:5px;font-size:12px;font-weight:bold;">
+                User
+                <div style="position:absolute;right:0px;top:0px;width:30px;height:30px">
+                    <div id="add_btn" onclick="addUser()" style="cursor:pointer;width:30px;height:30px;line-height:30px;font-size:18px;text-align:center">
+                        <span class="glyphicon glyphicon-plus-sign" style="color:#337ab7;top:4px"></span>
+                    </div>
+                </div>
+            </div>
+            <table id="userTable" class="table table-striped table-bordered table-hover table-condensed executions-table">
+                <thead><tr><th>#</th><th>Name</th><th>Operate</th></tr></thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        user
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <input id="user_id" style="display:none" />
+                    <div class="input-group" style="margin:auto">
+                        <span class="input-group-addon" style="width:150px">username</span>
+                        <input id="new_user_name" type="text" class="form-control" placeholder="username" style="width:300px" />
+                    </div>
+                    <div class="input-group" style="margin:auto;display:none">
+                        <span class="input-group-addon" style="width:150px">name</span>
+                        <input id="new_user_password" type="text" class="form-control" placeholder="password" value="000000" disabled="true" style="width:300px" />
+                    </div>
+                    <div class="input-group" style="margin:auto">
+                        <span class="input-group-addon" style="width:150px">roles</span>
+                        <select id="new_user_roles" class="form-control" multiple="multiple">
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="closeEdit" type="button" class="btn btn-default" data-dismiss="modal">close
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="saveUser()">
+                        save
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
