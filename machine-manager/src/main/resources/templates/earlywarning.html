@@ -1,0 +1,232 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!--<meta http-equiv="X-UA-Compatible" content="IE=8" />-->
+    <meta HTTP-EQUIV="pragma" CONTENT="no-cache" />
+    <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate" />
+    <meta HTTP-EQUIV="expires" CONTENT="0" />
+    <meta http-equiv="Cache" content="no-cache" />
+    <title>Early Warning</title>
+
+	<link rel="stylesheet" type="text/css"  href="../../tools/bootstrap-3.3.7/css/bootstrap.min.css"/>
+	<link type="text/css" rel="stylesheet" href="../../app/css/early-warning.css"/>
+    <script src="../../tools/jquery/jquery-3.3.1.min.js"></script>
+    <script src="../../tools/bootstrap-3.3.7/js/bootstrap.min.js" ></script>
+</head>
+<body>
+    <div id="early-warning">
+       <!-- title-->
+        <div class="title-div">
+            <div class="title">Early Warning</div>
+			<div class="refresh-div">
+				<img src="../../app/images/refresh.svg" class="refresh"/>
+			</div>
+        </div>
+        <!-- body-->
+        <div class="tab-pane-div">
+        	<div>
+        		<ul id="myTab" class="nav nav-tabs">
+					<li class="active">
+                        <a href="#warningsPane" data-toggle="tab">Warning</a>
+                    </li>
+                    <li>
+                        <a href="#addRulePane" data-toggle="tab">Rule</a>
+                    </li>
+				</ul>
+        	</div>
+        	
+			<div id="myTabContent" class="tab-content">
+
+                <div class="tab-pane fade active in" id="warningsPane">
+					<div class="operate-group">
+						<div id="checkAll" class="bs-example">
+							<button type="button" class="btn btn-success">Check All</button>
+						</div>
+						<div id="deleteAll" class="bs-example">
+							<button type="button" class="btn btn-danger">Delete All</button>
+						</div>
+					</div>
+                    <div class="table-responsive">
+                        <table id="warnings-table" class="table table-striped text-nowrap table-bordered table-hover table-condensed executions-table">
+                            <thead>
+                            <tr>
+                                <th>Status</th>
+                                <th>Limit Name</th>
+                                <th>Formula</th>
+                                <th>Description</th>
+								<th>Data</th>
+                                <th>Update Time</th>
+                                <th>Operate</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td colspan="7" class="no-rules">There is no warning.</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+				<div class="tab-pane fade" id="addRulePane">
+					<div class="fields">
+						<div class="normalPane">
+							<div class="normalTitle">
+								<span><b>支持字段</b></span>
+							</div>
+							<ul class="normalContent">
+								<li class="field">
+									<span>cup_info</span>
+								</li>
+								<li class="field">
+									<span>memory_use</span>
+								</li>
+								<li class="field">
+									<span>memory_total</span>
+								</li>
+								<li class="field">
+									<span>disk_use</span>
+								</li>
+								<li class="field">
+									<span>disk_total</span>
+								</li>
+								<li class="field">
+									<span>swap_use</span>
+								</li>
+								<li class="field">
+									<span>swap_total</span>
+								</li>
+								<li class="field">
+									<span>connect_num</span>
+								</li>
+								<li class="field">
+									<span>ps_num</span>
+								</li>
+								<li class="field">
+									<span>thread_num</span>
+								</li>
+							</ul>
+						</div>
+						<div class="normalPane fields">
+							<div class="normalTitle">
+								<span><b>支持语法</b><span class="tip">示例：@{memory_use}/@{memory_total}>=0.8</span></span>
+							</div>
+							<ul class="normalContent">
+								<li class="field">
+									<span>&gt;</span>
+								</li>
+								<li class="field">
+									<span>&lt;</span>
+								</li>
+								<li class="field">
+									<span>==</span>
+								</li>
+								<li class="field">
+									<span>&gt;=</span>
+								</li>
+								<li class="field">
+									<span>&lt;=</span>
+								</li>
+								<li class="field">
+									<span>( )</span>
+								</li>
+								<li class="field">
+									<span>+</span>
+								</li>
+								<li class="field">
+									<span>-</span>
+								</li>
+								<li class="field">
+									<span>*</span>
+								</li>
+								<li class="field">
+									<span>/</span>
+								</li>
+							</ul>
+						</div>
+                        <div class="normalPane ruleList-pane">
+							<div class="add-btn-div">
+								<div class="ip-and-location">
+									<span>IP: </span><span id="ip"></span>
+								</div>
+								<button type="button" class="btn btn-primary" id="addRule" onclick="addRule()">
+									<i class="add-btn-content">
+										<img src="../../app/images/add.svg" class="add-img" />
+										<span>Add Rule</span>
+									</i>
+								</button>
+							</div>	
+							<div>
+								<table id="rules-table" class="table table-striped table-bordered table-hover table-condensed executions-table">
+				                    <thead>
+				                       <tr>
+				                           <th>Index</th>
+				                           <th>Limit Name</th>
+				                           <th>Formula</th>
+				                           <th>Description</th>
+				                           <th>Update Time</th>
+				                           <th>Operate</th>
+				                       </tr>
+				                    </thead>
+				                    <tbody>
+				                       <tr>
+				                         <td colspan="6" class="no-rules">You hava no rules, you can click the button to add a rule.</td>
+				                       </tr>
+				                    </tbody>
+				                </table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+            
+            <div class="modal fade" id="ruleModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"  data-backdrop="static" data-keyboard="false">
+	            <div class="modal-dialog">
+	                <div class="modal-content">
+	                    <div class="modal-header">
+	                        <h4 class="modal-title" id="myModalLabel">
+	                            Add Machine Rule
+	                        </h4>
+	                    </div>
+	                    <div class="modal-body">
+	                        <div class="input-group oneField">
+	                            <span class="input-group-addon field-name" >Machine IP</span>
+	                            <input id="machineIp" type="text" class="form-control field-input" placeholder="machine ip" readonly="readonly" />
+	                        </div>
+	                    </div>
+	                    <div class="modal-body">
+	                        <div class="input-group oneField">
+	                            <span class="input-group-addon field-name" >Limit Name</span>
+	                            <input id="limitName" type="text" class="form-control field-input" placeholder="limit name" />
+	                        </div>
+	                    </div>
+	                    <div class="modal-body">
+	                        <div class="input-group oneField">
+	                            <span class="input-group-addon field-name" >Formula</span>
+	                            <input id="formula" type="text" class="form-control field-input" placeholder="formula" />
+								<span class="right-span">
+									<img src="../../app/images/right.svg" class="right-img"/>
+								</span>
+	                        </div>
+	                    </div>
+						<div class="modal-body">
+	                        <div class="input-group oneField">
+	                            <span class="input-group-addon field-name" >Description</span>
+	                            <input id="description" type="text" class="form-control field-input" placeholder="description" />
+	                        </div>
+	                    </div>
+	                    <div class="modal-footer">
+	                        <button id="closeEdit" type="button" class="btn btn-default" data-dismiss="modal" onkeydown="closeWindow()">Close</button>
+							<button id="check" type="button" class="btn btn-success" onclick="checkFormula()">Check</button>
+	                        <button id="savebtn" type="button" class="btn btn-primary" onclick="saveRule()" disabled="disabled">Save</button>
+	                    </div>
+	                </div>
+	            </div>
+        	</div>
+        </div>
+    </div>
+    <script  src="../../tools/common.js" ></script>
+	<script src="../../tools/layer/layer.js" ></script>
+    <script src="../../app/early-warning.js"></script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+server:
+  tomcat.uri-encoding: UTF-8
+  port: 8181
+
+spring:
+  application:
+      name: machine-manager
+  http:
+      encoding:
+        enabled: true
+        force: true
+        charset: UTF-8
+  datasource:
+      name: serverbase
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://ssbigdata02:4000/cacheplatform?useUnicode=true&characterEncoding=utf-8
+      username: xxx
+      password:
+
+mybatis:
+  mapper-locations: classpath*:mappers/*.xml
+
+http:
+   maxTotal: 10
+   defaultMaxPerRoute: 10
+   connectTimeout: 5000
+   connectionRequestTimeout: 5000
+   socketTimeout: 3000
+   staleConnectionCheckEnabled: true

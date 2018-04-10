@@ -1,0 +1,197 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!--<meta http-equiv="X-UA-Compatible" content="IE=8" />-->
+    <meta HTTP-EQUIV="pragma" CONTENT="no-cache" />
+    <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate" />
+    <meta HTTP-EQUIV="expires" CONTENT="0" />
+    <meta http-equiv="Cache" content="no-cache" />
+    <title>Machine Info</title>
+    <style type="text/css">
+        html,body{padding:0px;margin:0px;height:100%;width:100%}
+    </style>
+    <link rel="stylesheet"  type="text/css"  href="../../tools/bootstrap/css/bootstrap.css"/>
+    <link rel="stylesheet"  type="text/css"  href="../../tools/bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet"  type="text/css"  href="../../tools/bootstrap-multiselect/bootstrap-multiselect.css"/>
+    <link rel="stylesheet"  type="text/css"  href="../../tools/alertjs/alert.css"/>
+    <link rel="stylesheet"  type="text/css"  href="../../tools/datetime/flatpickr.min.css"/>
+    <link rel="stylesheet"  type="text/css" charset="utf-8"  href="../../app/css/machine-info.css"/>
+
+</head>
+<body>
+    <div id="machineInfo" style="background:#f9f9f9;width:100%;height:100%;position:relative;overflow-y:auto">
+       <!-- title-->
+        <div style="margin-top:10px;font-size:20px; padding-left:20px;padding-right:20px;color:#004d6f; align-items: center; display: flex; justify-content: space-between;">
+            <div style="width:200px;height:40px;line-height:40px;font-weight:bold">Machine Info</div>
+            <div id="show-hide-div">
+                <a href="javascript:void(0);" id="show-hide-time" >
+                    <img src="../../app/images/time.svg" id="time-logo" />
+                    <span id="selected-range">Time ranges</span>
+                </a>
+            </div>
+        </div>
+        <div class="panel" id="time-panel" style="display: none;">
+            <div class="item-group">
+                <div>
+                    <h2 id="time-title">Time range</h2>
+                    <span>From:</span>
+                    <div>
+                        <input type="text" id="starttime" class="time-item"  data-enable-time="true" data-time_24hr="true" placeholder="star time" readonly="readonly" />
+                    </div>
+                    <span>To:</span>
+                    <div>
+                        <input type="text" id="endtime" class="time-item"  data-enable-time="true" data-time_24hr="true" placeholder="end time" readonly="readonly" />
+                    </div>
+                    <div>
+                        <button class="btn btn-primary btn-sm" id="query"  onclick="queryByTime()" type="button" >Query</button>
+                    </div>
+                    <!--<div class="tip">
+                        <span>click the input, you can use "↑,↓,←,→" to choose datetime</span>
+                    </div>-->
+                </div>
+            </div>
+            <div class="time-range">
+                <div><h2>Quick ranges</h2></div>
+                <div id="relative-section">
+                    <ul>
+                        <li data="5"><a href="javascript:void(0);">Last 5 minutes</a></li>
+                        <li data="10"><a href="javascript:void(0);">Last 10 minutes</a></li>
+                        <li data="30"><a href="javascript:void(0);">Last 30 minutes</a></li>
+                        <li data="60"><a href="javascript:void(0);">Last 60 minutes</a></li>
+                        <li data="720"><a href="javascript:void(0);">Last 12 hours</a></li>
+                    </ul>
+                    <ul>
+                        <li data="1440"><a href="javascript:void(0);">Last 1 day</a></li>
+                        <li data="4320"><a href="javascript:void(0);">Last 3 days</a></li>
+                        <li data="10080"><a href="javascript:void(0);">Last 7 days</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- body-->
+        <div style="background:white;padding:5px;padding-top:0px;margin:10px 20px 20px 20px;position:relative;box-shadow:1px 1px 3px 2px #ccc;">
+
+            <div>
+                <div style="font-size:18px;font-weight:bold;height:60px;line-height:60px;float:left;width:200px;text-align:left;padding-left:5px">
+                    性能监控
+                </div>
+            </div>
+
+            <div style="position:relative;background:#f9f9f9;border: 1px solid #ccc; margin-top:5px;width:100%; overflow:hidden">
+
+                <div class="table-responsive" style="margin:10px;margin-right:274px;background:white;padding:10px;box-shadow:1px 1px 3px 2px #ccc;" >
+
+                    <table style="margin-bottom:0px" id="machine-info" class="table table-striped text-nowrap table-bordered table-hover table-condensed executions-table">
+                        <tbody>
+                        <tr>
+                            <td><b>机器ip</b></td>
+                            <td id="ip">loading ...</td>
+                            <td><b>操作系统版本</b></td>
+                            <td id="osVersion">loading ...</td>
+                        </tr>
+                        <tr>
+                            <td><b>CPU型号</b></td>
+                            <td id="cpuModel">loading ...</td>
+                            <td><b>CPU使用率</b></td>
+                            <td id="cpuInfo">loading ...</td>
+                        </tr>
+                        <tr>
+                            <td><b>Memory使用大小(单位GB)</b></td>
+                            <td id="memory">loading ...</td>
+                            <td><b>Swap交换大小(单位MB)</b></td>
+                            <td id="swap">loading ...</td>
+                        </tr>
+                        <tr>
+                            <td><b>LoadAverage</b></td>
+                            <td id="load">loading ...</td>
+                            <td><b>机器连接数</b></td>
+                            <td id="connectnum">loading ...</td>
+                        </tr>
+                        <tr>
+                            <td><b>系统进程数</b></td>
+                            <td id="psnum">loading ...</td>
+                            <td><b>系统线程数</b></td>
+                            <td id="threadnum">loading ...</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="position:absolute;width:274px;top:0px;right:0px" >
+                    <div id="score" style="width:274px; height: 198px;text-align:center;margin-top;10px;"></div>
+                    <!--<button class="btn btn-default btn-sm" onclick="MachineAnalysis()" type="button" style="position:absolute;right:10px;top:0px;margin-top:10px; outline:none;">
+                        <span class="glyphicon glyphicon-pencil" style="color:#337ab7;"></span> <span style="text-size:18px">Score</span>
+                    </button>-->
+                    <div id="degree">
+                        <ul>
+                            <li id="degree-A"><img src="../../app/images/A.svg" /><span>A:Good</span></li>
+                            <li id="degree-B"><img src="../../app/images/B.svg" /><span>B:Warning</span></li>
+                            <li id="degree-C"><img src="../../app/images/C.svg" /><span>C:Danger</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="clear:both" ></div>
+            </div>
+
+            <div style="background:#f9f9f9;border: 1px solid #ccc;margin-top:5px;width:100%; height:350px;">
+                <div style="background:#f9f9f9;margin:10px;">
+                    <div class="tableCnt container-fluid content" style="margin-bottom:0px;height:320px; margin-left: 10px;" id="cpuMonitor">
+                    </div>
+                </div>
+            </div>
+
+            <div style="background:#f9f9f9;border: 1px solid #ccc;margin-top:5px;width:100%; height:350px;">
+                <div style="background:#f9f9f9;margin:10px;">
+                    <div class="tableCnt container-fluid content" style="margin-bottom:0px;height:320px;min-width:500px; margin-left: 10px;" id="memoryInfo">
+                    </div>
+                </div>
+            </div>
+
+            <div style="background:#f9f9f9;border: 1px solid #ccc;margin-top:5px;width:100%; height:350px;">
+                <div style="background:#f9f9f9;margin:10px;">
+                    <div class="tableCnt container-fluid content" style="margin-bottom:0px;height:320px; margin-left: 10px;" id="loadAverage" >
+                    </div>
+                </div>
+            </div>
+
+            <div style="background:#f9f9f9;border: 1px solid #ccc;margin-top:5px;width:100%; height:350px;">
+                <div style="background:#f9f9f9;margin:10px;">
+                    <div class="tableCnt container-fluid content" style="margin-bottom:0px;height:320px; margin-left: 10px;" id="network" >
+                    </div>
+                </div>
+            </div>
+
+            <div style="background:#f9f9f9;border: 1px solid #ccc; margin-top:5px;margin-bottom:5px">
+                <div class="tab-pane" id="tab-pane"  style="margin-top:10px;margin-left:10px;margin-right:10px;background-color: #000000; color: #FFFFFF;  min-height: 300px; padding: 10px; font-family: AR PL UMing HK; font-size: 14px;">
+                    <div><span>[ only read-only commands are supported ]</span></div>
+                    <div id="one-command-result">
+                        <div class="one-command">
+                            <span ><b>></b></span>
+                            <input type="text" class="current-input" id="command" />
+                        </div>
+                        <div id="result">
+                            <span class="result"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="height:50px;line-height:50px;text-align:center;color:red">只支持只读命令</div>
+            </div>
+
+        </div>
+    </div>
+
+    <script  src="../../tools/jquery-1.9.1.js" ></script>
+    <script  src="../../tools/newegg/newegg.js" ></script>
+    <script  src="../../tools/bootstrap/js/bootstrap.js" ></script>
+    <script  src="../../tools/bootstrap-multiselect/bootstrap-multiselect.js" ></script>
+    <script  src="../../tools/common.js" ></script>
+    <script  src="../../tools/layer/layer.js" ></script>
+    <script  src="../../tools/alertjs/alert.js" ></script>
+    <script  src="../../tools/echart/echarts.js" ></script>
+    <script  src="../../app/machineinfo.js" ></script>
+    <script src="../../tools/datetime/flatpickr.min.js"></script>
+</body>
+</html>

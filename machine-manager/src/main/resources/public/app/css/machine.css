@@ -1,0 +1,26 @@
+.right-span{
+    display:none;
+}
+.right-img{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    margin-left: 10px;
+    margin-top: 7px;
+}
+
+#MachineTable tr th, #warnings-table tr th, #MachineTablee tbody td, #MachineTable tbody td{
+	text-align:center;
+}
+
+.type-img{
+    width: 20px;
+    height: 20px;
+}
+
+.unread-message{
+    background-color: red;
+    color: white;
+    margin-left: -20px;
+    margin-top: -25px;
+}

@@ -1,0 +1,215 @@
+body{
+	font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-weight: 400;
+}
+#machine-info tbody tr td{
+   /* height: 100px;
+    width:120px
+    line-height:100px;*/
+}
+
+#score{
+    font-size: 120px;
+    text-align: center;
+}
+#degree{
+    line-height: 0px;
+    display: flex;
+    justify-content: space-around;
+    margin: -40px 0 0 0;
+}
+#degree ul{
+    list-style-type:none;
+    margin:0;
+    padding: 0;
+    display: inline-flex;
+}
+
+#degree ul li {
+    font-size: 12px;
+    padding: 0;
+    align-items: center;
+    display: flex;
+}
+
+#degree ul li img{
+    width:8px;
+    height: 8px;
+    margin-right: 3px;
+}
+
+#degree-A{
+    color: #57A957;
+    margin: 0 10px;
+}
+
+#degree-B{
+    color: #c48f00;
+    margin:0  10px;
+}
+
+#degree-C{
+    color: #d81e06;
+    margin: 0 10px;
+}
+
+h2{
+    padding: 0;
+    margin: 0;
+}
+
+#show-hide-div{
+    height: 40px;
+    line-height:40px;
+    margin-right: 2px;
+}
+
+#show-hide-time{
+    align-items: center;
+    display: flex;
+}
+
+#selected-range{
+    font-size: 18px;
+}
+
+#time-logo{
+    margin-right: 5px;
+    width: 18px;
+    height: 18px
+}
+
+#time-panel{
+	min-width: 500px;
+	min-height: 300px;
+	background-color: #FFFFFF;
+	box-shadow: 1px 1px 3px 2px #ccc;
+	margin: 20px;
+	margin-top: 5px;
+	display: flex;
+	justify-content: space-between;
+
+}
+
+#time-title{
+    margin-bottom: 10px;
+}
+
+.item-group{
+	width: 55%;
+	padding-right: 5%;
+	border-right: 1px solid #ccc;
+	display: flex;
+	justify-content:flex-end;
+	align-items: center;
+}
+
+#starttime, #endtime{
+    height: 30px;
+    width:200px;
+    padding-left: 10px;
+}
+
+#query{
+	margin-top: 10px;
+	height: 35px;
+    width:200px;
+}
+
+.tip{
+   padding-top: 10px;
+   text-align: center;
+   font-size: 12px;
+   color: #666;
+   width:180px;
+   word-wrap: break-word;
+   word-break: normal;
+}
+
+.time-range{
+	margin-top: 55px;
+	width: 55%;
+	padding-left: 5%;
+}
+
+#relative-section{
+    margin-top: 10px;
+	display: flex;
+	justify-content: inherit;
+}
+
+#relative-section ul{
+	margin:0;
+	padding:0 40px 0 0;
+	line-height:20px
+}
+
+#relative-section ul li{
+	list-style-type:none;
+	padding: 5px;
+}
+
+
+#relative-section ul li a, #show-hide-div a{
+	text-decoration: none;
+	color: #555555;
+}
+
+#relative-section ul li a:hover, #show-hide-div a:hover{
+	color: #000000;
+}
+
+.li-selected {
+	border-bottom: 1px solid #33B5E5;
+}
+
+.a-line{
+    margin-right: 10px;
+}
+
+// 命令行界面
+#tab-pane{
+	background-color: #000000!important;
+	color: #FFFFFF;
+	width: 80%;
+	min-height: 300px;
+	padding: 10px;
+	font-family: AR PL UMing HK;
+	font-size: 14px;
+}
+
+.tab-pane::selection {
+ background:#FFFFFF;
+ color: #000000;
+}
+
+.one-command{
+	display: flex;
+	justify-content: space-between;
+}
+
+.tab-pane input{
+	margin-left: 5px;
+	border: none;
+	width: 100%;
+	font-family: AR PL UMing HK;
+	font-size: 14px;
+}
+
+input:focus{
+	outline: none;
+}
+
+.current-input{
+	background-color: #000000;
+	color: #FFFFFF;
+}
+
+.result{
+	width: 100%;
+	word-break:normal;
+	width:auto;
+	display:block;
+	white-space:pre-wrap;
+	word-wrap : break-word;
+}

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.newegg.ec.cache.dao.MachineDao">
+    
+    <insert id="Add" parameterType="com.newegg.ec.cache.model.entity.Machine">
+        insert into cache_platform_machine(ip,usename,machineName,passwd,location,memory,coreSize,isVM,hostIp,isMonitor,remark,score,warningNum, updateTime)
+        values(#{ip},#{usename},#{machineName},#{passwd},#{location},#{memory},#{coreSize},#{isVM},#{hostIp},#{isMonitor},#{remark},#{score},#{warningNum}#{updateTime})
+    </insert>
+
+    <update id="Update" parameterType="com.newegg.ec.cache.model.entity.Machine">
+        update  cache_platform_machine set
+            ip = #{ip},
+            usename = #{usename},
+            machineName = #{machineName},
+            passwd = #{passwd},
+            location = #{location},
+            memory = #{memory},
+            coreSize = #{coreSize},
+            isVM = #{isVM},
+            hostIp = #{hostIp},
+            isMonitor = #{isMonitor},
+            remark = #{remark},
+            score = #{score},
+            updateTime = #{updateTime}
+        where
+            ip = #{ip}
+    </update>
+    <update id="returnWarningNumToZero" parameterType="java.lang.String">
+        UPDATE
+        cache_platform_machine
+        SET
+        warningNum = 0
+        WHERE
+        ip = #{ip}
+    </update>
+    <update id="setWarningNum">
+        UPDATE
+            cache_platform_machine
+        SET
+            warningNum = #{1}
+        WHERE
+            ip = #{0}
+    </update>
+    <delete id="Delete" parameterType="java.lang.String">
+        delete from cache_platform_machine where ip = #{ip};
+    </delete>
+
+   <select id="getMachineList"  parameterType="java.util.Map" resultType="com.newegg.ec.cache.model.entity.Machine">
+        SELECT
+            ip as ip,
+            usename as usename,
+            machineName as machineName,
+            passwd as passwd,
+            location as location,
+            memory as memory,
+            coreSize as coreSize,
+            isVM as isVM,
+            hostIp as hostIp,
+            isMonitor as isMonitor,
+            remark as remark,
+            score as score,
+            warningNum as warningNum,
+            updateTime as updateTime
+        FROM
+            cache_platform_machine
+       <where>
+           0 = 0
+
+           <if test="param.isMonitor != null and param.isMonitor !=''">
+                and isMonitor = #{param.isMonitor}
+           </if>
+
+           <if test="param.size != null and param.size !=''">
+               limit  #{param.size}
+           </if>
+           <if test="param.page != null and param.page !=''">
+               offset  #{param.page}
+           </if>
+
+       </where>
+   </select>
+
+    <select id="getAllMachine"  resultType="com.newegg.ec.cache.model.entity.Machine">
+        select ip as ip,
+        usename as usename,
+        machineName as machineName,
+        passwd as passwd,
+        location as location,
+        memory as memory,
+        coreSize as coreSize,
+        isVM as isVM,
+        hostIp as hostIp,
+        isMonitor as isMonitor,
+        remark as remark,
+        score as score,
+        updateTime as updateTime
+        from cache_platform_machine
+
+        where isMonitor = 1
+
+    </select>
+
+    <select id="getMachineByIp"  parameterType="java.lang.String" resultType="com.newegg.ec.cache.model.entity.Machine">
+        select ip as ip,
+            machineName as machineName,
+            usename as usename,
+            passwd as passwd,
+            location as location,
+            memory as memory,
+            coreSize as coreSize,
+            isVM as isVM,
+            hostIp as hostIp,
+            isMonitor as isMonitor,
+            remark as remark,
+            score as score,
+            updateTime as updateTime
+        from cache_platform_machine
+        where ip = #{ip};
+
+    </select>
+</mapper>

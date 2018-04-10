@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.newegg.ec.cache.dao.MachineRuleDao">
+
+    <insert id="addMachineRule" parameterType="com.newegg.ec.cache.model.entity.MachineRule">
+        INSERT
+        INTO
+            cache_platform_machine_rule
+            (id,ip,limitName,formula,description,updateTime)
+        VALUES
+            (#{id},#{ip},#{limitName},#{formula},#{description},#{updateTime})
+    </insert>
+
+    <update id="updateMachineRule" parameterType="com.newegg.ec.cache.model.entity.MachineRule">
+        UPDATE
+            cache_platform_machine_rule
+        SET
+        <if test="limitName != null and limitName != ''">
+            limitName = #{limitName},
+        </if>
+        <if test="formula != null and formula != ''">
+            formula = #{formula},
+        </if>
+        <if test="description != null and description != ''">
+            description = #{description},
+        </if>
+            updateTime = #{updateTime}
+        WHERE
+            id = #{id}
+    </update>
+
+    <delete id="deleteRuleById" parameterType="java.lang.String">
+        DELETE
+        FROM
+            cache_platform_machine_rule
+        WHERE
+            id = #{id};
+    </delete>
+
+    <select id="selectMachineRuleList"  parameterType="java.lang.String" resultType="com.newegg.ec.cache.model.entity.MachineRule">
+        SELECT
+            *
+        FROM
+            cache_platform_machine_rule
+        WHERE
+            ip = #{ip}
+        ORDER BY
+            updateTime
+        DESC
+    </select>
+
+    <select id="selectMachineRuleById"  resultType="com.newegg.ec.cache.model.entity.MachineRule">
+        SELECT
+            *
+        FROM
+            cache_platform_machine_rule
+        WHERE
+            id = #{id}
+    </select>
+    <select id="selectMachineRuleByFormula" parameterType="java.util.Map"  resultType="com.newegg.ec.cache.model.entity.MachineRule">
+        SELECT
+            *
+        FROM
+            cache_platform_machine_rule
+        WHERE
+            ip = #{params.ip}
+        AND
+            formula = #{params.formula}
+        <if test="params.id != null and params.id != ''">
+            AND
+                id
+            NOT IN (SELECT id from cache_platform_machine_rule WHERE id = #{params.id})
+        </if>
+    </select>
+</mapper>

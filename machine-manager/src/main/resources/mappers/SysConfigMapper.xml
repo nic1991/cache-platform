@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.newegg.ec.cache.dao.SysConfigDao">
+    
+    <insert id="Add" parameterType="com.newegg.ec.cache.model.entity.SystemConfig">
+        insert into
+               cache_platform_sysconfig(conf_key,conf_value,info,type)
+               values(#{conf_key},#{conf_value},#{info},#{type})
+    </insert>
+
+    <insert id="Update" parameterType="com.newegg.ec.cache.model.entity.SystemConfig" >
+        update  cache_platform_sysconfig set
+        conf_key = #{conf_key},
+        conf_value = #{conf_value},
+        info = #{info},
+        type = #{type}
+
+        where conf_key = #{conf_key};
+
+    </insert>
+
+    <delete id="Delete" parameterType="java.lang.String">
+        delete from cache_platform_sysconfig where conf_key = #{conf_key};
+    </delete>
+
+   <select id="getConfigList"   parameterType="java.util.Map" resultType="com.newegg.ec.cache.model.entity.SystemConfig">
+        select *
+        from cache_platform_sysconfig
+
+       <where>
+           0 = 0
+
+           <if test="param.type != null and param.type !=''">
+               and type = #{param.type}
+           </if>
+
+
+       </where>
+   </select>
+
+    <select id="getConfig"  parameterType="java.lang.String" resultType="com.newegg.ec.cache.model.entity.SystemConfig">
+        select *
+        from cache_platform_sysconfig
+        where conf_key = #{conf_key};
+
+    </select>
+
+
+</mapper>

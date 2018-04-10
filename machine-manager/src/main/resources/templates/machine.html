@@ -1,0 +1,177 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=8" />
+    <meta HTTP-EQUIV="pragma" CONTENT="no-cache" />
+    <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate" />
+    <meta HTTP-EQUIV="expires" CONTENT="0" />
+    <meta http-equiv="Cache" content="no-cache" />
+    <title>Machine List</title>
+    <style type="text/css">
+        html,body{padding:0px;margin:0px;height:100%;width:100%}
+    </style>
+    <link rel="stylesheet" type="text/css"  href="../../tools/bootstrap/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css"  href="../../tools/bootstrap-multiselect/bootstrap-multiselect.css"/>
+    <link rel="stylesheet" type="text/css"  href="../../tools/alertjs/alert.css"/>
+    <link rel="stylesheet" type="text/css" href="../../app/css/machine.css"/>
+
+</head>
+<body>
+<div id="machineInfo" style="background:#f9f9f9;width:100%;height:100%;position:relative;overflow-y:auto">
+
+        <!-- title-->
+        <div style="margin-top:10px;height:40px;line-height:40px;font-size:20px;text-align:left;padding-left:20px;padding-right:20px;color:#004d6f">
+            <div style="width:200px;height:40px;float:left;font-weight:bold">Machine Manage</div>
+            <div style="width:300px;float:right">
+                <div class="input-group">
+                    <input id="search" type="text" class="form-control" placeholder="machine ip" style="margin-top:3px" />
+                    <span class="input-group-btn">
+                       <button class="btn btn-default"  onclick ="QueryMachineByIp()" type="button">Search</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- body-->
+        <div style="background:white;padding:5px;padding-top:0px;margin:20px;margin-top:5px;position:relative;box-shadow:1px 1px 3px 2px #ccc;">
+            <div id="tableCnt" class="tableCnt" style="margin-top:10px">
+                <div class="tableHead" style="position:relative;height:30px;line-height:30px;padding-left:5px;">
+                    <div style="position:absolute;left:5px;top:0px;margin-top:10px;font-size:12px;font-weight:bold;">
+                        Machine
+                    </div>
+                    <button class="btn btn-default btn-sm" onclick="AddMachine()" type="button" style="position:absolute;right:0px;top:0px;margin-top:10px;">
+                        <span class="glyphicon glyphicon-plus-sign" style="color:#337ab7;"></span> <span style="text-size:18px">Add Machine</span>
+                    </button>
+                </div>
+                <div class="table-responsive">
+                    <table id="MachineTable" style="margin-top:20px;" class="table table-striped text-nowrap table-bordered table-hover table-condensed executions-table">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Status</th>
+                            <th>Machine IP</th>
+                            <th>Location</th>
+                            <th>Memory(unit:GB)</th>
+                            <th>Swap(unit:MB)</th>
+                            <th>Disk(unit:GB)</th>
+                            <th>IsVM</th>
+                            <th>HostIp</th>
+                            <th>Machine Desc</th>
+                            <th>IsMonitor</th>
+                            <th>Operate</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td colspan="10" style="text-align:center">Machine Is Empty</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!--分页-->
+                <div class="bs-docs-example" id="paging">
+                    <ul class="pager">
+                        <li><a onclick="pages(0)" id="prev" style="text-size:14px;color:black;cursor:pointer">上一页</a></li>
+                        <li><a onclick="pages(1)" id="next" style="text-size:14px;color:black;cursor:pointer">下一页</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- modal：add && update machine info-->
+        <div class="modal fade" id="machineModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"  data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">
+                            Machine
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group" style="margin:auto">
+                            <span class="input-group-addon" style="width:135px">Machine IP</span>
+                            <input id="machine_ip" type="text" class="form-control" placeholder="machine ip" style="width:200px" />
+                            <span class="right-span">
+                                <img src="../../app/images/right.svg" class="right-img"/>
+                            </span>
+                        </div>
+                        <div class="input-group" style="margin:auto;margin-top:3px">
+                            <span class="input-group-addon" style="width:135px">Location</span>
+                            <input id="location" type="text" class="form-control" placeholder="location" style="width:200px" />
+                        </div>
+                        <div class="input-group" style="margin:auto;margin-top:3px">
+                            <span class="input-group-addon" style="width:135px">Machine Name</span>
+                            <input id="machine_name" type="text" class="form-control" placeholder="machine name" style="width:200px" />
+                        </div>
+                        <div class="input-group" style="margin:auto;margin-top:3px">
+                            <span class="input-group-addon" style="width:135px">UserName</span>
+                            <input id="usename" type="text" class="form-control" placeholder="user name" style="width:200px" />
+                            <span class="right-span">
+                                <img src="../../app/images/right.svg" class="right-img"/>
+                            </span>
+                        </div>
+                        <div class="input-group" style="margin:auto;margin-top:3px">
+                            <span class="input-group-addon" style="width:135px">Password</span>
+                            <input id="passwd" type="text" class="form-control" placeholder="password" style="width:200px" />
+                            <span class="right-span">
+                                <img src="../../app/images/right.svg" class="right-img"/>
+                            </span>
+                        </div>
+                        <span id="right-show">
+                            <div class="input-group" style="margin:auto;margin-top:3px">
+                            <span class="input-group-addon" style="width:135px">CPU CoreSize</span>
+                            <input id="cpu_coresize" type="text" class="form-control" placeholder="cpu coresize" disabled="disabled" style="width:200px" />
+                        </div>
+                        <div class="input-group" style="margin:auto;margin-top:3px">
+                            <span class="input-group-addon" style="width:135px">Memory</span>
+                            <input id="memory" type="text" class="form-control" placeholder="单位:G" disabled="disabled" style="width:200px" />
+                        </div>
+                        <div class="input-group" style="margin:auto;margin-top:3px">
+                            <span class="input-group-addon" style="width:135px">是否虚拟机</span>
+                            <select id="is_vm" class="form-control" style="width:200px">
+                                <option value="1">是</option>
+                                <option value="0">否</option>
+                            </select>
+                        </div>
+                        <div class="input-group" style="margin:auto;margin-top:3px">
+                            <span class="input-group-addon" style="width:135px">HostIP</span>
+                            <input id="host_ip" type="text" class="form-control" placeholder="宿主机IP" style="width:200px" />
+                        </div>
+                        <div class="input-group" style="margin:auto;margin-top:3px">
+                            <span class="input-group-addon" style="width:135px">开启机器信息采集</span>
+                            <select id="is_monitor" class="form-control" style="width:200px">
+                                <option value="1" selected="selected">是</option>
+                                <option value="0">否</option>
+                            </select>
+                        </div>
+                        <div class="input-group" style="margin:auto;margin-top:3px">
+                            <span class="input-group-addon" style="width:135px">Machine Desc</span>
+                            <input id="remark" type="text" class="form-control" maxlength="20" placeholder="20个字以内" style="width:200px" />
+                        </div>
+                        </span>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button id="checkbtn" type="button" class="btn btn-success" onclick="checkAddInfo()">Check</button>
+                        <button id="closeEdit" type="button" class="btn btn-default" data-dismiss="modal" onkeydown="closeWindow()">Close</button>
+                        <button id="savebtn" type="button" class="btn btn-primary" onclick="saveMachine()">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</div>
+    <script  src="../../tools/jquery-1.9.1.js" ></script>
+    <script  src="../../tools/newegg/newegg.js" ></script>
+    <script  src="../../tools/bootstrap/js/bootstrap.js" ></script>
+    <script  src="../../tools/bootstrap-multiselect/bootstrap-multiselect.js" ></script>
+    <script  src="../../tools/common.js" ></script>
+    <script  src="../../tools/layer/layer.js" ></script>
+    <script  src="../../tools/alertjs/alert.js" ></script>
+    <script  src="../../app/machine.js" ></script>
+</body>
+</html>

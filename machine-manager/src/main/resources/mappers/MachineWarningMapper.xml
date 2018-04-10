@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.newegg.ec.cache.dao.MachineWarningDao">
+
+    <insert id="addMachineWarning" parameterType="com.newegg.ec.cache.model.entity.MachineWarning">
+        INSERT
+        INTO
+            cache_platform_machine_warning (id,ip,limitName,formula,grade,description,data,isChecked,updateTime)
+        VALUES
+            (#{id},#{ip},#{limitName},#{formula},#{grade},#{description},#{data},#{isChecked},#{updateTime})
+    </insert>
+
+    <select id="selectMachineWarningByIp"  resultType="com.newegg.ec.cache.model.entity.MachineWarning">
+        SELECT
+            *
+        FROM
+            cache_platform_machine_warning
+        WHERE
+            ip = #{ip}
+        ORDER BY
+            updateTime DESC
+    </select>
+
+    <select id="selectMachineWarningById"  resultType="com.newegg.ec.cache.model.entity.MachineWarning">
+        SELECT
+            *
+        FROM
+            cache_platform_machine_warning
+        WHERE
+            id = #{id}
+    </select>
+
+    <select id="selectDuplicateWarning" resultType="java.lang.String">
+        SELECT
+            id
+        FROM
+            cache_platform_machine_warning
+        WHERE
+            ip = #{0}
+        AND
+            formula = #{1}
+        AND
+            updateTime
+        BETWEEN
+            #{2}
+        AND
+            date_format(now(), '%Y-%M-%d %H:%m:%s')
+    </select>
+
+    <select id="countWarningNum" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT
+        COUNT(id)
+        FROM
+            cache_platform_machine_warning
+        WHERE
+            ip = #{ip}
+        AND
+            isChecked = 0
+    </select>
+
+    <update id="checkWarningById" parameterType="java.lang.String">
+        UPDATE
+            cache_platform_machine_warning
+        SET
+            isChecked = 1
+        WHERE
+            id = #{id}
+    </update>
+
+    <update id="checkAllWarningByIp" parameterType="java.lang.String">
+        UPDATE
+            cache_platform_machine_warning
+        SET
+            isChecked = 1
+        WHERE
+            ip = #{ip}
+    </update>
+    <delete id="deleteWarningById" parameterType="java.lang.String">
+        DELETE
+        FROM
+            cache_platform_machine_warning
+        WHERE
+            id = #{id}
+    </delete>
+    <delete id="deleteAllWarningCheckedByIp" parameterType="java.lang.String">
+        DELETE
+        FROM
+            cache_platform_machine_warning
+        WHERE
+            ip = #{ip}
+        AND
+            isChecked = 1
+    </delete>
+
+    <!-- 批量删除操作 -->
+    <delete id="batchDeleteWarning" parameterType="java.util.List">
+        DELETE
+        FROM
+            cache_platform_machine_warning
+        WHERE
+            id
+        IN
+        <foreach collection="list" index="index" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+
+
+    <delete id="deleteData">
+        DELETE
+        FROM
+            cache_platform_machine_warning
+        WHERE
+            updateTime
+        <![CDATA[< DATE_FORMAT(date_sub(now(), interval 3 day),'%Y%m%d%H%m%s');]]>
+    </delete>
+</mapper>

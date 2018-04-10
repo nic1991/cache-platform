@@ -1,0 +1,171 @@
+html,body{padding:0px;margin:0px;height:100%;width:100%}
+
+#early-warning{
+	background: #f9f9f9;
+	width: 100%;
+	height: 100%;
+	position: relative;
+	overflow-y: auto;
+}
+
+.title-div{
+	margin-top: 10px;
+	font-size: 20px; 
+	padding-left: 20px;
+	padding-right: 20px;
+	color: #004d6f; 
+	align-items: center; 
+	display: flex; 
+	justify-content: space-between;
+}
+
+.title{
+	width: 200px;
+	height: 40px;
+	line-height:40px;
+	font-weight: bold;
+}
+
+.tab-pane-div{
+	background: white;
+	padding: 10px;
+	margin: 10px 20px 20px 20px;
+	box-shadow: 1px 1px 3px 2px #ccc;
+	height: auto;
+}
+
+.normalPane{
+	background:#f9f9f9;
+	border: 1px solid #ccc; 
+	margin-top:10px;
+	width:100%; 
+}
+
+.normalTitle{
+	font-size: 18px;
+	margin: 0px 20px;
+	padding: 20px 0px;
+	border-bottom: 1px solid #E2E2E2;
+}
+
+.normalContent{
+	padding: 20px;
+	font-size: 16px;
+	width: 100%;
+	display: inline-block;
+}
+
+.fields ul li{
+    list-style-type: none;
+}
+
+.field{
+	float: left;
+	margin:0 30px 20px 0;
+	font-weight: 600;
+}
+
+.tip{
+	font-size: 14px;
+	color: #666666;
+	margin-left: 20px;
+	word-wrap: break-word; 
+	word-break: normal;
+}
+
+.add-btn-div{
+	margin: 20px 0;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.ip-and-location{
+	font-size: 18px;
+	font-weight: 600;
+}
+
+#location{
+	margin-right: 20px;
+}
+
+.add-btn-content{
+	line-height: 20px;
+    display: inline-flex;
+    margin-top: 5px;
+}
+.add-img{
+	width: 20px;
+	height: 20px;
+	margin-right: 5px;
+}
+
+#rules-table tr th, #warnings-table tr th, #rules-table tbody td, #warnings-table tbody td{
+	text-align:center;
+}
+
+#warnings-table{
+	margin-top: 20px;
+}
+
+.no-rules{
+	text-align:center;
+}
+
+.oneField{
+	width: 60%;
+	margin: auto;
+}
+.field-name{
+	width: 120px;
+}
+
+.field-input{
+	width: 250px;
+}
+
+.spacing{
+    margin-left: 20px;
+}
+
+.ruleList-pane{
+    padding: 0px 20px;
+}
+
+.refresh{
+    width: 16px;
+    height: 16px;
+    margin-right: 20px;
+}
+
+.refresh-div{
+    height: 40px;
+    line-height:40px;
+    cursor: pointer;
+}
+
+.warning-img{
+    height: 15px;
+    width: 15px;
+}
+
+.operate-group{
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+#checkAll{
+    margin-right: 20px;
+}
+
+.right-span{
+    display:none;
+}
+.right-img{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    margin-left: 10px;
+    margin-top: 7px;
+}
