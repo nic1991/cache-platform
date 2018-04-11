@@ -13,9 +13,9 @@ spring:
   datasource:
       name: serverbase
       driver-class-name: com.mysql.jdbc.Driver
-      url: jdbc:mysql://ssspark01:3306/serverbase?useUnicode=true&characterEncoding=utf-8
-      username: xxx
+      url: jdbc:mysql://10.16.46.191:3306/serverbase?useUnicode=true&characterEncoding=utf-8
+      username: root
       password:
 
 mybatis:
-  mapper-locations: classpath:mappers/*.xml
+  mapper-locations: classpath*:mappers/*.xml
