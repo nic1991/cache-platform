@@ -4,7 +4,6 @@
 ## 一、主要特性
 1. MachineManager 包含了大部分的运维所需要的监控指标，并且支持七天范围内的历史数据查询
 2. MachineManager 实现原理是通过 ssh 去获取机器的监控信息，所以架构上更简单不需要安装 agent
-3.
 
 ## 二、安装方式
 > MachineManager 是一个 web 项目，所以他除了包含依赖的 jar 包文件，还会依赖一些 resource(html,css 配置等)，所以您可以参考以下过程进行安装
@@ -33,7 +32,7 @@
 
 1 http://*****:***/rest/pages/main 查看
 2 如图
-<img src="/docs/images/info.png" />
+<img src="./docs/images/info.png" />
 
 
 
