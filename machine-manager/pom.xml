@@ -102,11 +102,11 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <configuration>
                     <excludes>
-                        <exclude>com/newegg/ec/cache/**MachineManagerServer.class</exclude>
-                        <exclude>*.xml</exclude>
-                        <exclude>*.yml</exclude>
+                        <exclude>mappers/**</exclude>
+                        <exclude>public/**</exclude>
+                        <exclude>templates/**</exclude>
                         <exclude>*.properties</exclude>
-                        <exclude>*.sh</exclude>
+                        <exclude>*.yml</exclude>
                         <exclude>*.avro</exclude>
                         <exclude>*.ini</exclude>
                         <exclude>test/**</exclude>
