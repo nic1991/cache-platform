@@ -3,7 +3,7 @@
         "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.newegg.ec.cache.dao.UserDao">
+<mapper namespace="com.newegg.ec.cache.dao.IUserDao">
     <select id="getUserList"  resultType="com.newegg.ec.cache.model.User">
         select username, password, user_group as userGroup from user limit 200
     </select>

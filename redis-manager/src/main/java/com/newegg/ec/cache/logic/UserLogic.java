@@ -1,6 +1,6 @@
 package com.newegg.ec.cache.logic;
 
-import com.newegg.ec.cache.dao.UserDao;
+import com.newegg.ec.cache.dao.IUserDao;
 import com.newegg.ec.cache.model.User;
 import com.newegg.ec.cache.util.RedisNodeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ public class UserLogic {
     RedisNodeUtil redisNodeUtil;
 
     @Autowired
-    private UserDao userDao;
+    private IUserDao userDao;
 
     public List<User> getUserList(){
         return userDao.getUserList();
