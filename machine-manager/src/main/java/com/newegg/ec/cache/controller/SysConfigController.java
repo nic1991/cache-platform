@@ -61,7 +61,7 @@ public class SysConfigController {
         String key =  jsonObject.getString("key").trim();
 
         JSONObject obj = new JSONObject();
-        if(sysConfigService.Delete(key)){
+        if(sysConfigService.delete(key)){
             obj.put("code", "0");
         }else{
             obj.put("code", "1");
@@ -85,7 +85,7 @@ public class SysConfigController {
         conf.setInfo(info);
         conf.setType(type);
         JSONObject obj = new JSONObject();
-        if(sysConfigService.Add(conf)){
+        if(sysConfigService.add(conf)){
             obj.put("code", "0");
         }else{
             obj.put("code", "1");
@@ -104,7 +104,7 @@ public class SysConfigController {
         SystemConfig conf = sysConfigService.getConfig(key);
         conf.setConf_value(value);
         JSONObject obj = new JSONObject();
-        if(sysConfigService.Update(conf)){
+        if(sysConfigService.update(conf)){
             obj.put("code", "0");
         }else{
             obj.put("code", "1");

@@ -33,7 +33,7 @@ public class SysConfigServiceImp implements SysConfigService {
     }
 
     @Override
-    public boolean Add(SystemConfig config) {
+    public boolean add(SystemConfig config) {
 
         boolean flag = true;
 
@@ -48,7 +48,7 @@ public class SysConfigServiceImp implements SysConfigService {
     }
 
     @Override
-    public boolean Update(SystemConfig config) {
+    public boolean update(SystemConfig config) {
         boolean flag = true;
 
         try{
@@ -62,7 +62,7 @@ public class SysConfigServiceImp implements SysConfigService {
     }
 
     @Override
-    public boolean Delete(String key) {
+    public boolean delete(String key) {
         boolean flag = true;
 
         try{

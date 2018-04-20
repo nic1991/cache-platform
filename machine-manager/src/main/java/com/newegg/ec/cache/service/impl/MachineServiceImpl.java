@@ -32,40 +32,37 @@ public class MachineServiceImpl implements MachineService{
     }
 
     @Override
-    public boolean Add(Machine machine) {
+    public boolean add(Machine machine) {
         boolean flag = true;
-
         try{
-            machineDao.Add(machine);
+            machineDao.add(machine);
         }catch (Exception e){
             flag = false;
             logger.error(e);
-            e.printStackTrace();
+        }
+        return flag;
+    }
+
+    @Override
+    public boolean update(Machine machine) {
+        boolean flag = true;
+
+        try{
+            machineDao.update(machine);
+        }catch (Exception e){
+            flag = false;
+            logger.error(e);
         }
 
         return flag;
     }
 
     @Override
-    public boolean Update(Machine machine) {
+    public boolean delete(String ip) {
         boolean flag = true;
 
         try{
-            machineDao.Update(machine);
-        }catch (Exception e){
-            flag = false;
-            logger.error(e);
-        }
-
-        return flag;
-    }
-
-    @Override
-    public boolean Delete(String ip) {
-        boolean flag = true;
-
-        try{
-            machineDao.Delete(ip);
+            machineDao.delete(ip);
         }catch (Exception e){
             flag = false;
             logger.error(e);

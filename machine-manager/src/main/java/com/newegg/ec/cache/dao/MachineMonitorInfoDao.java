@@ -13,14 +13,13 @@ import java.util.Map;
 @Repository
 public interface MachineMonitorInfoDao {
 
-
     public List<MachineMonitorInfo> getInfoList(@Param("param")Map<String,Object> param);
 
     public MachineMonitorInfo getNewestInfo(String ip);
 
-    public void Add(MachineMonitorInfo machineMonitorInfo);
+    public void add(MachineMonitorInfo machineMonitorInfo);
 
     //清空历史监控信息（只保留最近3天的）
-    public void Delete();
+    public void delete();
 
 }

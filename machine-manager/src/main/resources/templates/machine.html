@@ -93,29 +93,29 @@
                     <div class="modal-body">
                         <div class="input-group" style="margin:auto">
                             <span class="input-group-addon" style="width:135px">Machine IP</span>
-                            <input id="machine_ip" type="text" class="form-control" placeholder="machine ip" style="width:200px" />
+                            <input name="machine_ip" type="text" class="form-control" placeholder="machine ip" style="width:200px" />
                             <span class="right-span">
                                 <img src="../../app/images/right.svg" class="right-img"/>
                             </span>
                         </div>
                         <div class="input-group" style="margin:auto;margin-top:3px">
                             <span class="input-group-addon" style="width:135px">Location</span>
-                            <input id="location" type="text" class="form-control" placeholder="location" style="width:200px" />
+                            <input name="location" type="text" class="form-control" placeholder="location" style="width:200px" />
                         </div>
                         <div class="input-group" style="margin:auto;margin-top:3px">
                             <span class="input-group-addon" style="width:135px">Machine Name</span>
-                            <input id="machine_name" type="text" class="form-control" placeholder="machine name" style="width:200px" />
+                            <input name="machine_name" type="text" class="form-control" placeholder="machine name" style="width:200px" />
                         </div>
                         <div class="input-group" style="margin:auto;margin-top:3px">
                             <span class="input-group-addon" style="width:135px">UserName</span>
-                            <input id="usename" type="text" class="form-control" placeholder="user name" style="width:200px" />
+                            <input name="usename" type="text" class="form-control" placeholder="user name" style="width:200px" />
                             <span class="right-span">
                                 <img src="../../app/images/right.svg" class="right-img"/>
                             </span>
                         </div>
                         <div class="input-group" style="margin:auto;margin-top:3px">
                             <span class="input-group-addon" style="width:135px">Password</span>
-                            <input id="passwd" type="text" class="form-control" placeholder="password" style="width:200px" />
+                            <input name="passwd" type="text" class="form-control" placeholder="password" style="width:200px" />
                             <span class="right-span">
                                 <img src="../../app/images/right.svg" class="right-img"/>
                             </span>
@@ -123,11 +123,11 @@
                         <span id="right-show">
                             <div class="input-group" style="margin:auto;margin-top:3px">
                             <span class="input-group-addon" style="width:135px">CPU CoreSize</span>
-                            <input id="cpu_coresize" type="text" class="form-control" placeholder="cpu coresize" disabled="disabled" style="width:200px" />
+                            <input name="cpu_coresize" type="text" class="form-control" placeholder="cpu coresize" disabled="disabled" style="width:200px" />
                         </div>
                         <div class="input-group" style="margin:auto;margin-top:3px">
                             <span class="input-group-addon" style="width:135px">Memory</span>
-                            <input id="memory" type="text" class="form-control" placeholder="单位:G" disabled="disabled" style="width:200px" />
+                            <input name="memory" type="text" class="form-control" placeholder="单位:G" disabled="disabled" style="width:200px" />
                         </div>
                         <div class="input-group" style="margin:auto;margin-top:3px">
                             <span class="input-group-addon" style="width:135px">是否虚拟机</span>
@@ -138,7 +138,7 @@
                         </div>
                         <div class="input-group" style="margin:auto;margin-top:3px">
                             <span class="input-group-addon" style="width:135px">HostIP</span>
-                            <input id="host_ip" type="text" class="form-control" placeholder="宿主机IP" style="width:200px" />
+                            <input name="host_ip" type="text" class="form-control" placeholder="宿主机IP" style="width:200px" />
                         </div>
                         <div class="input-group" style="margin:auto;margin-top:3px">
                             <span class="input-group-addon" style="width:135px">开启机器信息采集</span>
@@ -149,16 +149,16 @@
                         </div>
                         <div class="input-group" style="margin:auto;margin-top:3px">
                             <span class="input-group-addon" style="width:135px">Machine Desc</span>
-                            <input id="remark" type="text" class="form-control" maxlength="20" placeholder="20个字以内" style="width:200px" />
+                            <input name="remark" type="text" class="form-control" maxlength="20" placeholder="20个字以内" style="width:200px" />
                         </div>
                         </span>
 
                     </div>
 
                     <div class="modal-footer">
-                        <button id="checkbtn" type="button" class="btn btn-success" onclick="checkAddInfo()">Check</button>
+                        <button type="button" class="btn btn-success" id="checkAddInfo" >Check</button>
                         <button id="closeEdit" type="button" class="btn btn-default" data-dismiss="modal" onkeydown="closeWindow()">Close</button>
-                        <button id="savebtn" type="button" class="btn btn-primary" onclick="saveMachine()">Save</button>
+                        <button type="button" class="btn btn-primary" id="saveMachine">Save</button>
                     </div>
                 </div>
             </div>
@@ -172,6 +172,7 @@
     <script  src="../../tools/common.js" ></script>
     <script  src="../../tools/layer/layer.js" ></script>
     <script  src="../../tools/alertjs/alert.js" ></script>
+    <script  src="../../tools/tpl.js" ></script>
     <script  src="../../app/machine.js" ></script>
 </body>
 </html>

@@ -19,11 +19,11 @@ public interface MachineDao {
 
     List<Machine> getAllMachine();
 
-    void Add(Machine machine);
+    void add(Machine machine);
 
-    void Update(Machine machine);
+    void update(Machine machine);
 
-    void Delete(String ip);
+    void delete(String ip);
 
     int returnWarningNumToZero(String ip);
 

@@ -5,12 +5,12 @@
 
 <mapper namespace="com.newegg.ec.cache.dao.MachineMonitorInfoDao">
     
-    <insert id="Add" parameterType="com.newegg.ec.cache.model.entity.MachineMonitorInfo">
+    <insert id="add" parameterType="com.newegg.ec.cache.model.entity.MachineMonitorInfo">
         insert into cache_platform_machine_monitor(ip,osVersion,cpuModel,cpuInfo,disk,memory,loadAverage,swap,connectNum,psNum,treadNum,network,topThree,logType,updateTime)
         values(#{ip},#{osVersion},#{cpuModel},#{cpuInfo},#{disk},#{memory},#{loadAverage},#{swap},#{connectNum},#{psNum},#{treadNum},#{network},#{topThree},#{logType},#{updateTime})
     </insert>
 
-    <delete id="Delete">
+    <delete id="delete">
         delete from cache_platform_machine_monitor where updateTime
         <![CDATA[
                             < DATE_FORMAT(date_sub(now(), interval 3 day),'%Y%m%d%H%i');

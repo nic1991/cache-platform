@@ -5,12 +5,12 @@
 
 <mapper namespace="com.newegg.ec.cache.dao.MachineDao">
     
-    <insert id="Add" parameterType="com.newegg.ec.cache.model.entity.Machine">
+    <insert id="add" parameterType="com.newegg.ec.cache.model.entity.Machine">
         insert into cache_platform_machine(ip,usename,machineName,passwd,location,memory,coreSize,isVM,hostIp,isMonitor,remark,score,warningNum, updateTime)
-        values(#{ip},#{usename},#{machineName},#{passwd},#{location},#{memory},#{coreSize},#{isVM},#{hostIp},#{isMonitor},#{remark},#{score},#{warningNum}#{updateTime})
+        values(#{ip},#{usename},#{machineName},#{passwd},#{location},#{memory},#{coreSize},#{isVM},#{hostIp},#{isMonitor},#{remark},#{score},#{warningNum},#{updateTime})
     </insert>
 
-    <update id="Update" parameterType="com.newegg.ec.cache.model.entity.Machine">
+    <update id="update" parameterType="com.newegg.ec.cache.model.entity.Machine">
         update  cache_platform_machine set
             ip = #{ip},
             usename = #{usename},
@@ -44,7 +44,7 @@
         WHERE
             ip = #{0}
     </update>
-    <delete id="Delete" parameterType="java.lang.String">
+    <delete id="delete" parameterType="java.lang.String">
         delete from cache_platform_machine where ip = #{ip};
     </delete>
 

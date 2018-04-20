@@ -17,11 +17,11 @@ public interface SysConfigService {
 
     public SystemConfig getConfig(String key);
 
-    public boolean Add(SystemConfig config);
+    public boolean add(SystemConfig config);
 
-    public boolean Update(SystemConfig config);
+    public boolean update(SystemConfig config);
 
-    public boolean Delete(String key);
+    public boolean delete(String key);
 
 
 }

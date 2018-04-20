@@ -1,3 +1,30 @@
+function post(url, data, callback, errorcall) {
+    ajax("POST",url, data, callback, errorcall);
+}
+
+function get(url, callback, errorcall) {
+    ajax("GET",url, {}, callback, errorcall);
+}
+
+function ajax(type,url, data, callback, errorcall){
+    $.ajax({
+        type: type,
+        url: url,
+        async: false,
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(data),
+        dataType: "json",
+        success: callback,
+        error:errorcall,
+        beforeSend:function(XMLHttpRequest){
+            layer.load(2,{shade:[0.75,'#fff'] });
+        },
+        complete:function(XMLHttpRequest){
+            closeLayer();
+        }
+    });
+}
+
 function getUrlParam(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
     var r = window.location.search.substr(1).match(reg);  //匹配目标参数
@@ -31,3 +58,17 @@ function UUID() {
         return uuid;
 }
 
+
+function getInputStr(name){
+    return $('input[name="'+  name +'"]').val().trim();
+}
+
+function getFormInput( id ){
+    var obj = {};
+    $( "#" + id ).find("input").each(function(i, input){
+        var id = $(input).attr("name");
+        var value = $(input).val().trim();
+        obj[id] = value;
+    });
+    return obj;
+}

@@ -5,13 +5,13 @@
 
 <mapper namespace="com.newegg.ec.cache.dao.SysConfigDao">
     
-    <insert id="Add" parameterType="com.newegg.ec.cache.model.entity.SystemConfig">
+    <insert id="add" parameterType="com.newegg.ec.cache.model.entity.SystemConfig">
         insert into
                cache_platform_sysconfig(conf_key,conf_value,info,type)
                values(#{conf_key},#{conf_value},#{info},#{type})
     </insert>
 
-    <insert id="Update" parameterType="com.newegg.ec.cache.model.entity.SystemConfig" >
+    <insert id="update" parameterType="com.newegg.ec.cache.model.entity.SystemConfig" >
         update  cache_platform_sysconfig set
         conf_key = #{conf_key},
         conf_value = #{conf_value},
@@ -29,15 +29,11 @@
    <select id="getConfigList"   parameterType="java.util.Map" resultType="com.newegg.ec.cache.model.entity.SystemConfig">
         select *
         from cache_platform_sysconfig
-
        <where>
            0 = 0
-
            <if test="param.type != null and param.type !=''">
                and type = #{param.type}
            </if>
-
-
        </where>
    </select>
 
@@ -45,8 +41,6 @@
         select *
         from cache_platform_sysconfig
         where conf_key = #{conf_key};
-
     </select>
-
 
 </mapper>

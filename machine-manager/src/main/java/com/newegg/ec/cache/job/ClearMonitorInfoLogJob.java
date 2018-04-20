@@ -29,8 +29,8 @@ public class ClearMonitorInfoLogJob  {
     public void run() {
         logger.info("Start Clear MonitorInfoLog .");
         //删除3天前的日志
-        machineMonitorInfoDao.Delete();
-        machineNetWorkDao.Delete();
+        machineMonitorInfoDao.delete();
+        machineNetWorkDao.delete();
         logger.info("Clear MonitorInfoLog Success .");
         machineWarningDao.deleteData();
         logger.info("Clear Machine Warning Success .");

@@ -14,7 +14,7 @@ public interface MachineMonitorInfoService {
 
     public MachineMonitorInfo getNewestInfo(String ip);
 
-    public boolean Add(MachineMonitorInfo machineMonitorInfo);
+    public boolean add(MachineMonitorInfo machineMonitorInfo);
 
-    public boolean Delete();
+    public boolean delete();
 }

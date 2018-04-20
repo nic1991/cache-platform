@@ -27,7 +27,7 @@ import java.util.concurrent.Executors;
  * @date 2018/3/31
  */
 @Component
-public class MachineInfoJob implements ApplicationListener<ContextRefreshedEvent> {
+public class MachineInfoJob{
 
     private static final Logger logger = Logger.getLogger(MachineInfoJob.class);
 
@@ -46,15 +46,8 @@ public class MachineInfoJob implements ApplicationListener<ContextRefreshedEvent
     @Autowired
     private MachineRuleDao machineRuleDao;
 
-    public static ExecutorService pool;
+    public static ExecutorService pool = Executors.newFixedThreadPool(50);
     public static DecimalFormat df;
-
-    @Override
-    public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
-        if (contextRefreshedEvent.getApplicationContext().getParent() == null) {
-            this.pool =  Executors.newFixedThreadPool(50);
-        }
-    }
 
     @Scheduled(fixedDelay = 61 * 1000)
     public void run() {
@@ -88,7 +81,7 @@ public class MachineInfoJob implements ApplicationListener<ContextRefreshedEvent
             // monitor info
             MachineMonitorInfo monitorInfo = formatData(monitorMap);
             try {
-                machineMonitorInfoDao.Add(monitorInfo);
+                machineMonitorInfoDao.add(monitorInfo);
             } catch (DuplicateKeyException e){
                 logger.error("主键重复");
             } catch (Exception e){
@@ -111,7 +104,7 @@ public class MachineInfoJob implements ApplicationListener<ContextRefreshedEvent
                 Map<String, String> result = mapCombine(list);
                 MachineNetWorkInfo networkInfo = FormatData(result);
                 try {
-                    machineNetWorkDao.Add(networkInfo);
+                    machineNetWorkDao.add(networkInfo);
                 } catch (DuplicateKeyException e){
                     logger.error("主键重复", e.getCause());
                 } catch (Exception e){

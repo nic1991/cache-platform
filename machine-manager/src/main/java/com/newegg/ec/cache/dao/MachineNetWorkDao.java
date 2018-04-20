@@ -15,9 +15,9 @@ public interface MachineNetWorkDao {
 
     public List<MachineNetWorkInfo> getInfoList(@Param("param") Map<String, Object> param);
 
-    public void Add(MachineNetWorkInfo machineNetWorkInfo);
+    public void add(MachineNetWorkInfo machineNetWorkInfo);
 
     //清空历史监控信息（只保留最近3天的）
-    public void Delete();
+    public void delete();
 
 }

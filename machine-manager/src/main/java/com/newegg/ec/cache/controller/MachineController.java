@@ -104,7 +104,7 @@ public class MachineController {
             if (null != existsMachine){
                 object.put("code", "1");
             } else {
-                if (machineService.Add(machine)){
+                if (machineService.add(machine)){
                     object.put("code", "0");
                 } else {
                     object.put("code", "2");
@@ -112,7 +112,7 @@ public class MachineController {
             }
         } else {
             machine.setScore("-");
-            if (machineService.Update(machine)){
+            if (machineService.update(machine)){
                 object.put("code", "0");
             } else {
                 object.put("code", "2");
@@ -148,7 +148,7 @@ public class MachineController {
     @ResponseBody
     public JSONObject deleteMachineById(HttpServletRequest request) throws IOException {
         String ip = IOUtils.toString(request.getInputStream(), "UTF-8");
-        boolean delete = machineService.Delete(ip);
+        boolean delete = machineService.delete(ip);
         JSONObject object = new JSONObject();
         if (delete){
             object.put("code", "0");

@@ -14,7 +14,7 @@ spring:
       name: serverbase
       driver-class-name: com.mysql.jdbc.Driver
       url: jdbc:mysql://ssbigdata02:4000/cacheplatform?useUnicode=true&characterEncoding=utf-8
-      username: xxx
+      username: root
       password:
 
 mybatis:

@@ -199,7 +199,7 @@ public class BizServiceImpl implements BizService{
         //统计cpu ，memory ，swap ，loadaverage 四项评分
         double score = Analysis(confMap,machineInfoMap);
         machine.setScore(getLevel(score));
-        machineService.Update(machine);
+        machineService.update(machine);
         JSONObject obj = new JSONObject();
         obj.put("level",getLevel(score));
         return obj;

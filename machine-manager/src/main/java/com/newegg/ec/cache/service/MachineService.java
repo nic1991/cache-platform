@@ -14,9 +14,9 @@ public interface MachineService {
 
     public List<Machine> getMachineList(Map<String, Object > param);
 
-    public boolean Add(Machine machine);
+    public boolean add(Machine machine);
 
-    public boolean Update(Machine machine);
+    public boolean update(Machine machine);
 
-    public boolean Delete(String ip);
+    public boolean delete(String ip);
 }

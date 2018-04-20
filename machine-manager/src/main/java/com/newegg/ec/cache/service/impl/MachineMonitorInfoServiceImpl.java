@@ -33,11 +33,11 @@ public class MachineMonitorInfoServiceImpl implements MachineMonitorInfoService{
     }
 
     @Override
-    public boolean Add(MachineMonitorInfo machineMonitorInfo) {
+    public boolean add(MachineMonitorInfo machineMonitorInfo) {
         boolean flag = true;
 
         try{
-            machineMonitorInfoDao.Add(machineMonitorInfo);
+            machineMonitorInfoDao.add(machineMonitorInfo);
         }catch (Exception e){
             flag = false;
             logger.error(e);
@@ -47,11 +47,11 @@ public class MachineMonitorInfoServiceImpl implements MachineMonitorInfoService{
     }
 
     @Override
-    public boolean Delete() {
+    public boolean delete() {
         boolean flag = true;
 
         try{
-            machineMonitorInfoDao.Delete();
+            machineMonitorInfoDao.delete();
         }catch (Exception e){
             flag = false;
             logger.error(e);

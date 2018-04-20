@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * Created by jn50 on 2018/3/14.
  */
 @SpringBootApplication
-@ComponentScan(basePackages={"com.newegg.ec.base","com.newegg.ec.cache"})
+//@ComponentScan(basePackages={"com.newegg.ec.base","com.newegg.ec.cache"})
 @MapperScan(basePackages={"com.newegg.ec.base.dao.mysql","com.newegg.ec.cache.dao"})
 @EnableScheduling //开启定时job
 @EnableTransactionManagement
