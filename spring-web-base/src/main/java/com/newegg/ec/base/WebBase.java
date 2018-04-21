@@ -20,11 +20,11 @@ public class WebBase {
         SpringApplication.run(WebBase.class, args);
     }
 
-    @Bean
+    /*@Bean
     public FilterRegistrationBean someFilterRegistration() {
         FilterRegistrationBean registration = new FilterRegistrationBean();
         registration.setFilter(authenticationFilter());
-        registration.addUrlPatterns("/rest/*");
+        registration.addUrlPatterns("/rest*//*");
         registration.addInitParameter("paramName", "paramValue");
         registration.setName("sessionFilter");
         return registration;
@@ -33,5 +33,5 @@ public class WebBase {
     @Bean(name = "sessionFilter")
     public Filter authenticationFilter() {
         return new AuthenticationFIlter();
-    }
+    }*/
 }
