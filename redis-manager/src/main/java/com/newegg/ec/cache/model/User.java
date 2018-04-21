@@ -1,12 +1,29 @@
 package com.newegg.ec.cache.model;
 
+import com.newegg.ec.cache.core.mysql.MysqlField;
+import com.newegg.ec.cache.core.mysql.MysqlTable;
+
 /**
  * Created by gl49 on 2018/4/20.
  */
+@MysqlTable( name = "user", autoCreate = true)
 public class User {
+    @MysqlField(isPrimaryKey = true, field = "id", type = "int")
+    private int id;
+    @MysqlField(field = "username", type = "varchar(64)", notNull = true)
     private String username;
+    @MysqlField(field = "password", type = "varchar(64)", notNull = true)
     private String password;
+    @MysqlField(field = "user_group", type = "varchar(30)", notNull = true)
     private String userGroup;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getUsername() {
         return username;
@@ -35,7 +52,8 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "username='" + username + '\'' +
+                "id=" + id +
+                ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", userGroup='" + userGroup + '\'' +
                 '}';

@@ -1,8 +1,8 @@
 package com.newegg.ec.cache.controller;
 
 import com.newegg.ec.cache.component.NodeManager;
-import com.newegg.ec.cache.plugin.manager.INodeRequest;
-import com.newegg.ec.cache.plugin.model.PluginType;
+import com.newegg.ec.cache.plugin.INodeRequest;
+import com.newegg.ec.cache.plugin.basemodel.PluginType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,14 +20,14 @@ public class NodeController {
     @RequestMapping("/cluster")
     public String cluster(Model model, @RequestParam PluginType pluginType) {
         nodeRequest = nodeManager.factoryRequest(pluginType);
-        String template = nodeRequest.showInstall();;
+        String template = nodeRequest.showInstall();
         return template;
     }
 
     @RequestMapping("/manager")
     public String manager(Model model, @RequestParam PluginType pluginType) {
         nodeRequest = nodeManager.factoryRequest(pluginType);
-        String template = nodeRequest.showManager();;
+        String template = nodeRequest.showManager();
         return template;
     }
 }

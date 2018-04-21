@@ -5,15 +5,15 @@
 
 <mapper namespace="com.newegg.ec.cache.dao.IUserDao">
     <select id="getUserList"  resultType="com.newegg.ec.cache.model.User">
-        select username, password, user_group as userGroup from user limit 200
+        select username, password, user_group as userGroup from user limit 500
+    </select>
+    <select id="getUser"  resultType="com.newegg.ec.cache.model.User">
+        select username, password, user_group as userGroup from user where id=#{id}
     </select>
     <delete id="removeUser" parameterType="int">
         delete from user where id = #{id};
     </delete>
     <insert id="addUser"  parameterType="com.newegg.ec.cache.model.User">
-        insert into user(username, password, user_group) values('#{username}','#{password}','#{userGroup}')
+        insert into user(username, password, user_group) values(#{username},#{password},#{userGroup})
     </insert>
-    <select id="getUser"  resultType="com.newegg.ec.cache.model.User">
-        select username, password, user_group as userGroup from user where id=#{id}
-    </select>
 </mapper>

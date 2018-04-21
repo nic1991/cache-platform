@@ -6,7 +6,8 @@ create table if not exists user (
   username varchar(64) not null,
   password varchar(64) not null,
   user_group varchar(30) not null
-);
+)ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 create table if not exists cluster (
   id int auto_increment primary key,
   user_group varchar(30) not null,
@@ -14,4 +15,4 @@ create table if not exists cluster (
   port int not null,
   ssl_username varchar(64) DEFAULT NULL,
   ssl_password varchar(64) DEFAULT NULL
-);
+)ENGINE=MyISAM DEFAULT CHARSET=utf8;

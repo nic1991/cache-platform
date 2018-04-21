@@ -1,5 +1,5 @@
 # RedisManager
-> redis manager
+> redis manager  spring jpa， 页面共用模块设计
 
 ```  代码结构
 ├── README.MD

@@ -10,8 +10,8 @@ import java.util.List;
  */
 @Repository
 public interface IUserDao {
-    public List<User> getUserList();
-    public User getUser(int id);
-    public void removeUser(int id);
-    public void addUser(User user);
+    List<User> getUserList();
+    User getUser(int id);
+    void removeUser(int id);
+    void addUser(User user);
 }

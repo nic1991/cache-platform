@@ -1,31 +1,34 @@
 package com.newegg.ec.cache.logic;
 
+import com.newegg.ec.cache.dao.IClusterDao;
 import com.newegg.ec.cache.dao.IUserDao;
+import com.newegg.ec.cache.model.Cluster;
 import com.newegg.ec.cache.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 import java.util.List;
 
 /**
- * Created by gl49 on 2018/4/20.
+ * Created by gl49 on 2018/4/21.
  */
 @Component
-public class UserLogic {
+public class ClusterLogic {
     @Autowired
-    private IUserDao userDao;
+    private IClusterDao clusterDao;
 
-    public User getUser(int id){
-        return userDao.getUser( id );
+    public Cluster getCluster(int id){
+        return clusterDao.getCluster( id );
     }
 
-    public List<User> getUserList(){
-        return userDao.getUserList();
+    public List<Cluster> getClusterList(){
+        return clusterDao.getClusterList();
     }
 
-    public boolean removeUser(int id){
+    public boolean removeCluster(int id){
         boolean res = false;
         try {
-            userDao.removeUser( id );
+            clusterDao.removeCluster( id );
             res = true;
         }catch (Exception e){
 
@@ -33,15 +36,14 @@ public class UserLogic {
         return res;
     }
 
-    public boolean addUser(User user){
+    public boolean addCluster(Cluster cluster){
         boolean res = false;
         try {
-            userDao.addUser( user );
+            clusterDao.addCluster( cluster );
             res = true;
         }catch (Exception e){
             e.printStackTrace();
         }
         return res;
     }
-
 }

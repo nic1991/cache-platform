@@ -1,8 +1,8 @@
 package com.newegg.ec.cache.component;
 
-import com.newegg.ec.cache.plugin.manager.INodeOperate;
-import com.newegg.ec.cache.plugin.manager.INodeRequest;
-import com.newegg.ec.cache.plugin.model.PluginType;
+import com.newegg.ec.cache.plugin.INodeOperate;
+import com.newegg.ec.cache.plugin.INodeRequest;
+import com.newegg.ec.cache.plugin.basemodel.PluginType;
 
 /**
  * Created by lzz on 2018/4/20.
