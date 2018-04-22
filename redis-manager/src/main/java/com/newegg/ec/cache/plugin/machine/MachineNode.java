@@ -1,51 +1,115 @@
 package com.newegg.ec.cache.plugin.machine;
 
-import com.newegg.ec.cache.plugin.INodeOperate;
-import com.newegg.ec.cache.plugin.INodeRequest;
-import com.newegg.ec.cache.plugin.basemodel.*;
-
 /**
- * Created by lzz on 2018/4/20.
+ * Created by gl49 on 2018/4/22.
  */
-public class MachineNode implements INodeOperate,INodeRequest {
+public class MachineNode {
+    private int id;
+    private String image;
+    private String clusterName;
+    private String group;
+    private String username;
+    private String password;
+    private String ip;
+    private int port;
+    private String startService;
+    private String stopService;
+    private String installPath;
+    private int addTime;
 
-    @Override
-    public boolean pullImage(String imageUrl) {
-        return false;
+    public int getId() {
+        return id;
     }
 
-    @Override
-    public boolean install(InstallParam installParam) {
-        return false;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    @Override
-    public boolean start(StartParam startParam) {
-        return false;
+    public String getImage() {
+        return image;
     }
 
-    @Override
-    public boolean stop(StopParam stopParam) {
-        return false;
+    public void setImage(String image) {
+        this.image = image;
     }
 
-    @Override
-    public boolean restart(RestartParam restartParam) {
-        return false;
+    public String getClusterName() {
+        return clusterName;
     }
 
-    @Override
-    public boolean remove(RemovePram removePram) {
-        return false;
+    public void setClusterName(String clusterName) {
+        this.clusterName = clusterName;
     }
 
-    @Override
-    public String showInstall() {
-        return null;
+    public String getGroup() {
+        return group;
     }
 
-    @Override
-    public String showManager() {
-        return null;
+    public void setGroup(String group) {
+        this.group = group;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
+    }
+
+    public int getPort() {
+        return port;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
+    }
+
+    public String getStartService() {
+        return startService;
+    }
+
+    public void setStartService(String startService) {
+        this.startService = startService;
+    }
+
+    public String getStopService() {
+        return stopService;
+    }
+
+    public void setStopService(String stopService) {
+        this.stopService = stopService;
+    }
+
+    public String getInstallPath() {
+        return installPath;
+    }
+
+    public void setInstallPath(String installPath) {
+        this.installPath = installPath;
+    }
+
+    public int getAddTime() {
+        return addTime;
+    }
+
+    public void setAddTime(int addTime) {
+        this.addTime = addTime;
     }
 }

@@ -1,4 +1,4 @@
-package com.newegg.ec.cache.plugin.humback;
+package com.newegg.ec.cache.plugin.machine;
 
 import com.newegg.ec.cache.plugin.INodeOperate;
 import com.newegg.ec.cache.plugin.INodeRequest;
@@ -7,7 +7,7 @@ import com.newegg.ec.cache.plugin.basemodel.*;
 /**
  * Created by lzz on 2018/4/20.
  */
-public class HumBackNode implements INodeOperate,INodeRequest {
+public class MachineManager implements INodeOperate,INodeRequest {
 
     @Override
     public boolean pullImage(String imageUrl) {

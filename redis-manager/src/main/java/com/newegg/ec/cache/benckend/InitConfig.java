@@ -27,7 +27,7 @@ public class InitConfig implements ApplicationListener<ContextRefreshedEvent> {
      */
     public void initMysqlTable(){
         List<String> packages = new ArrayList();
-        packages.add( "com.newegg.ec.cache.model" );
+        packages.add( "com.newegg.ec.cache" );
         List<String> sqlList = MysqlUtil.initMysqlTable( packages );
         for( String createSql : sqlList ){
             jdbcTemplate.execute( createSql );

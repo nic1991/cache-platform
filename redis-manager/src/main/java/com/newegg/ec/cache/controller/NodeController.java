@@ -24,10 +24,16 @@ public class NodeController {
         return template;
     }
 
+    @RequestMapping("/create")
+    public String create222(Model model) {
+        return "createCluster";
+    }
+
     @RequestMapping("/manager")
     public String manager(Model model, @RequestParam PluginType pluginType) {
         nodeRequest = nodeManager.factoryRequest(pluginType);
         String template = nodeRequest.showManager();
         return template;
     }
+
 }
