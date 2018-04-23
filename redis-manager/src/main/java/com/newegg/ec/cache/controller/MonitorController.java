@@ -1,16 +1,12 @@
 package com.newegg.ec.cache.controller;
 
 import com.newegg.ec.cache.logic.MonitorLogic;
-import com.newegg.ec.cache.model.User;
+import com.newegg.ec.cache.model.NodeInfo;
 import net.sf.json.JSONObject;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * Created by gl49 on 2018/4/21.
@@ -23,9 +19,19 @@ public class MonitorController {
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     @ResponseBody
-    public boolean create(){
-        return logic.addCluster("aaaddd");
+    public boolean create(@RequestParam String tableName){
+        return logic.addCluster( tableName );
     }
+
+
+    @RequestMapping(value = "/node-info", method = RequestMethod.GET)
+    @ResponseBody
+    public NodeInfo nodeInfo(@RequestParam String tableName, @RequestParam int id){
+        return logic.getNodeInfo(tableName, id);
+    }
+
+
+
 
 
     @RequestMapping(value = "/slowLogs", method = RequestMethod.POST)

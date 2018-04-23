@@ -1,6 +1,7 @@
 package com.newegg.ec.cache.logic;
 
-import com.newegg.ec.cache.dao.INodeInfoDao;
+import com.newegg.ec.cache.dao.impl.NodeInfoDao;
+import com.newegg.ec.cache.model.NodeInfo;
 import net.sf.json.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
@@ -17,10 +18,15 @@ import java.util.*;
 @Component
 public class MonitorLogic {
     @Resource
-    private INodeInfoDao nodeInfoDao;
+    private NodeInfoDao nodeInfoDao;
 
     public boolean addCluster(String tableName){
         return nodeInfoDao.createTable( tableName );
+    }
+
+    public NodeInfo getNodeInfo(String tableName, int id){
+        //return nodeInfoDao.getNodeInfo(tableName, id);
+        return null;
     }
 
 

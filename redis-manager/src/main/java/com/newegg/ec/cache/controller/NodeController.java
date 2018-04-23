@@ -1,12 +1,16 @@
 package com.newegg.ec.cache.controller;
 
 import com.newegg.ec.cache.component.NodeManager;
+import com.newegg.ec.cache.controller.websocket.CreateClusterLogHandler;
+import com.newegg.ec.cache.model.Response;
 import com.newegg.ec.cache.plugin.INodeRequest;
 import com.newegg.ec.cache.plugin.basemodel.PluginType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Created by lzz on 2018/4/20.
@@ -27,6 +31,13 @@ public class NodeController {
     @RequestMapping("/create")
     public String create222(Model model) {
         return "createCluster";
+    }
+
+    @RequestMapping(value = "/sendMsg", method = RequestMethod.GET)
+    @ResponseBody
+    public Response getUser(@RequestParam int id){
+        CreateClusterLogHandler.appendLog("abcd", "hello " + id);
+        return Response.OK();
     }
 
     @RequestMapping("/manager")

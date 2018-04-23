@@ -6,13 +6,13 @@
     <script src="../vender/jquery/jquery-2.2.3.min.js"></script>
     <script src="/webjars/sockjs-client/sockjs.min.js"></script>
     <script src="/webjars/stomp-websocket/stomp.min.js"></script>
-    <script src="../js/websocket.js"></script>
+    <script src="../core/websocket.js"></script>
 </head>
 <body>
     <h1>hello world</h1>
 </body>
 <script>
     var url = "/webSocket/createClusterLog";
-    connect( "aaaa", url );
+    connect( '{"clusterid":"abcd"}', url );
 </script>
 </html>

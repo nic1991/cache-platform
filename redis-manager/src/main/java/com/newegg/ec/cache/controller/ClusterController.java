@@ -1,5 +1,6 @@
 package com.newegg.ec.cache.controller;
 
+import com.newegg.ec.cache.core.userapi.UserAccess;
 import com.newegg.ec.cache.logic.ClusterLogic;
 import com.newegg.ec.cache.model.Cluster;
 import com.newegg.ec.cache.model.Response;
@@ -14,6 +15,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/cluster")
+@UserAccess
 public class ClusterController {
     @Autowired
     private ClusterLogic logic;

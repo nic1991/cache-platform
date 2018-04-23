@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.newegg.ec.cache.dao.INodeInfoDao">
+    <select id="getNodeInfo"  resultType="com.newegg.ec.cache.model.NodeInfo" statementType="STATEMENT">
+        select id, connected_clients as connectedClients from ${tableName} where id = ${id}
+    </select>
+    <insert id="add" parameterType="com.newegg.ec.cache.model.NodeInfo" statementType="STATEMENT">
+        insert into
+        ${tableName}
+        (
+          connected_clients,
+          blocked_clients
+        )
+        values
+        (
+          ${q.connectedClients},
+          ${q.blockedClients}
+        )
+    </insert>
+</mapper>

@@ -1,5 +1,6 @@
 package com.newegg.ec.cache.controller;
 
+import com.newegg.ec.cache.core.userapi.UserAccess;
 import com.newegg.ec.cache.logic.CheckLogic;
 import net.sf.json.JSONObject;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 @RequestMapping("/check")
+@UserAccess(autoCreate = false)
 public class CheckControl {
     @RequestMapping("/check_port")
     @ResponseBody
@@ -30,6 +32,7 @@ public class CheckControl {
         }
         return CheckLogic.checkPort(ip, port);
     }
+
 
 
     @RequestMapping("/check_ip")
@@ -95,6 +98,12 @@ public class CheckControl {
         String username = reqObject.getString("username");
         String password = reqObject.getString("password");
         return CheckLogic.checkUsernameAndPassword(ip, username, password);
+    }
+
+    @RequestMapping("/check_ip_password2")
+    @ResponseBody
+    public JSONObject checkIpPassword2(@RequestParam String ip, @RequestParam String port){
+        return null;
     }
 
     @RequestMapping("/check_cluster_name")

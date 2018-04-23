@@ -1,6 +1,8 @@
 package com.newegg.ec.cache.controller;
 
+import com.newegg.ec.cache.core.userapi.UserAccess;
 import com.newegg.ec.cache.logic.UserLogic;
+import com.newegg.ec.cache.model.Cluster;
 import com.newegg.ec.cache.model.Response;
 import com.newegg.ec.cache.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/user")
+@UserAccess
 public class UserController {
     @Autowired
     private UserLogic logic;
@@ -33,7 +36,7 @@ public class UserController {
 
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
     @ResponseBody
-    public Response addUser(@RequestBody User user){
+    public Response addUser(@RequestBody User user, Cluster cluster){
         boolean res = logic.addUser( user );
         return Response.Obj(0, res);
     }

@@ -41,7 +41,7 @@ public class MysqlUtil {
                             break;
                         }
                         String tableName = mysqlTable.name();
-                        createTable = createTableStr( claz, mysqlTable, tableName );
+                        createTable = createTableSql( claz, mysqlTable, tableName );
                     }
                 }
             }
@@ -51,8 +51,12 @@ public class MysqlUtil {
         }
         return createTable;
     }
+    public static String createTableSql(Class claz, String tableName){
+        MysqlTable mysqlTable = (MysqlTable) claz.getAnnotation( MysqlTable.class );
+        return createTableSql(claz, mysqlTable, tableName);
+    }
 
-    public static String createTableStr(Class claz, MysqlTable mysqlTable, String tableName) {
+    public static String createTableSql(Class claz, MysqlTable mysqlTable, String tableName) {
         String createTableStr = "create table if not exists %s(%s)engine=%s DEFAULT CHARSET=%s";
         String engine = mysqlTable.engine();
         String charset = mysqlTable.charset();
@@ -60,7 +64,11 @@ public class MysqlUtil {
         Field[]  fieldsDecrs=claz.getDeclaredFields();
         for(Field field:fieldsDecrs){
             MysqlField fieldMeta = field.getAnnotation(MysqlField.class);
-            String baseStr = fieldMeta.field() + " " + fieldMeta.type();
+            String fieldName = fieldMeta.field();
+            if( StringUtils.isBlank( fieldName ) ){
+                fieldName = field.getName();
+            }
+            String baseStr = fieldName + " " + fieldMeta.type();
             if( fieldMeta.isPrimaryKey() ){
                 fieldList.add( baseStr  + " auto_increment primary key");
             }else if( fieldMeta.notNull() ){
@@ -72,5 +80,11 @@ public class MysqlUtil {
         String fieldStr = StringUtils.join( fieldList, ",");
         String createTable = String.format(createTableStr, tableName, fieldStr, engine, charset);
         return createTable;
+    }
+
+    public static String insertSql(Class claz, String tableName, Object obj) {
+
+        MysqlTable mysqlTable = (MysqlTable) claz.getAnnotation( MysqlTable.class );
+        return "";
     }
 }

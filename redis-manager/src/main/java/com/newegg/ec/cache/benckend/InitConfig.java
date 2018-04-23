@@ -1,6 +1,7 @@
 package com.newegg.ec.cache.benckend;
 
 import com.newegg.ec.cache.core.mysql.MysqlUtil;
+import com.newegg.ec.cache.core.userapi.UserApiUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -19,7 +20,9 @@ public class InitConfig implements ApplicationListener<ContextRefreshedEvent> {
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
+        initUserApi();
         initMysqlTable();
+        System.out.println("aaa");
     }
 
     /**
@@ -32,5 +35,15 @@ public class InitConfig implements ApplicationListener<ContextRefreshedEvent> {
         for( String createSql : sqlList ){
             jdbcTemplate.execute( createSql );
         }
+    }
+
+    /**
+     * 初始化用户 api
+     */
+    public void initUserApi(){
+        List<String> packages = new ArrayList<>();
+        packages.add( "com.newegg.ec.cache" );
+        String file = "/Users/lzz/work/java/cache-platform/redis-manager/src/main/resources/public/core/userApi.js";
+        UserApiUtil.autoGeneriesAllApi( packages, file);
     }
 }

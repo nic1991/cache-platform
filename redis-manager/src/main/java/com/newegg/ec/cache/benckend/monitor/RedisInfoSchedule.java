@@ -2,7 +2,6 @@ package com.newegg.ec.cache.benckend.monitor;
 
 import com.newegg.ec.cache.core.logger.CommonLogger;
 import com.newegg.ec.cache.dao.IClusterDao;
-import com.newegg.ec.cache.dao.INodeInfoDao;
 import com.newegg.ec.cache.dao.impl.NodeInfoDao;
 import com.newegg.ec.cache.model.NodeInfo;
 import com.newegg.ec.cache.util.DateUtil;
@@ -19,7 +18,9 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Field;
 import java.nio.charset.Charset;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.TimerTask;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -32,7 +33,7 @@ public class RedisInfoSchedule {
     @Resource
     private IClusterDao clusterDao;
     @Resource
-    private INodeInfoDao nodeInfoDao;
+    private NodeInfoDao nodeInfoDao;
 
     @Scheduled(fixedRate = 5000)
     public void reportCurrentTime() {
@@ -197,8 +198,8 @@ public class RedisInfoSchedule {
                         resInfo.setIp( nodeIp );
                         resInfo.setPort( nodePort );
                         // 添加到数据库中
-                        NodeInfoDao dao = new NodeInfoDao();
-                        dao.add( this.clusterid, resInfo );
+                        //NodeInfoDao dao = new NodeInfoDao();
+                        //dao.add( this.clusterid, resInfo );
                     }catch ( Exception e ){
 
                     }finally {

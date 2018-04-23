@@ -1,15 +1,14 @@
 package com.newegg.ec.cache.dao;
 
 import com.newegg.ec.cache.model.NodeInfo;
-import com.newegg.ec.cache.model.NodeInfoReqParam;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 /**
  * Created by gl49 on 2018/4/21.
  */
+@Repository
 public interface INodeInfoDao {
-    boolean createTable(String tableName);
-    boolean add(String tableName, NodeInfo nodeInfo);
-    boolean remove(String tableName, int id);
-    NodeInfo getNodeInfo(String tableName, int id);
-    NodeInfo getNodeInfoList(NodeInfoReqParam param);
+    boolean add(@Param("tableName") String tableName, @Param("q") NodeInfo nodeInfo);
+    NodeInfo getNodeInfo(@Param("tableName") String tableName, @Param("id") int id);
 }
