@@ -3,17 +3,21 @@
         "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.newegg.ec.cache.dao.IClusterDao">
-    <select id="getClusterList"  resultType="com.newegg.ec.cache.model.Cluster">
-        select ip, user_group as userGroup, port, ssl_username as sslUsername,ssl_password as sslPassword  from cluster limit 500
+<mapper namespace="com.newegg.ec.cache.app.dao.IClusterDao">
+    <select id="getClusterList"  resultType="com.newegg.ec.cache.app.model.Cluster" parameterType="String">
+        select * from cluster
+        <if test="_parameter != null">
+            where user_group=#{userGroup}
+        </if>
+        limit 500
     </select>
-    <select id="getCluster" parameterType="int" resultType="com.newegg.ec.cache.model.Cluster">
-        select ip, user_group as userGroup,port, ssl_username as sslUsername,ssl_password as sslPassword from cluster where id=#{id}
+    <select id="getCluster" parameterType="int" resultType="com.newegg.ec.cache.app.model.Cluster">
+        select * from cluster where id=#{id}
     </select>
     <delete id="removeCluster" parameterType="int">
         delete from cluster where id = #{id};
     </delete>
-    <insert id="addCluster"  parameterType="com.newegg.ec.cache.model.Cluster">
-        insert into cluster(ip, user_group, port, ssl_username, ssl_password ) values(#{ip},#{userGroup},#{port},#{sslUsername},#{sslPassword})
+    <insert id="addCluster"  parameterType="com.newegg.ec.cache.app.model.Cluster">
+        insert into cluster(address,cluster_name,user_group, ssl_username, ssl_password ) values(#{address},#{clusterName},#{userGroup},#{sslUsername},#{sslPassword})
     </insert>
 </mapper>

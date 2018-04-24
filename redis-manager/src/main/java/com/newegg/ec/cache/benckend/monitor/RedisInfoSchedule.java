@@ -1,17 +1,17 @@
 package com.newegg.ec.cache.benckend.monitor;
 
+import com.newegg.ec.cache.app.dao.INodeInfoDao;
+import com.newegg.ec.cache.app.dao.impl.NodeInfoDao;
 import com.newegg.ec.cache.core.logger.CommonLogger;
-import com.newegg.ec.cache.dao.IClusterDao;
-import com.newegg.ec.cache.dao.impl.NodeInfoDao;
-import com.newegg.ec.cache.model.NodeInfo;
-import com.newegg.ec.cache.util.DateUtil;
-import com.newegg.ec.cache.util.JedisUtil;
-import com.newegg.ec.cache.util.NetUtil;
+import com.newegg.ec.cache.app.dao.IClusterDao;
+import com.newegg.ec.cache.app.model.NodeInfo;
+import com.newegg.ec.cache.app.util.DateUtil;
+import com.newegg.ec.cache.app.util.JedisUtil;
+import com.newegg.ec.cache.app.util.NetUtil;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StopWatch;
 import redis.clients.jedis.Jedis;
-
 import javax.annotation.Resource;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -38,7 +38,6 @@ public class RedisInfoSchedule {
     @Scheduled(fixedRate = 5000)
     public void reportCurrentTime() {
         System.out.println( "The time is now aaa");
-
     }
 
     public static CommonLogger logger = new CommonLogger( RedisInfoSchedule.class );

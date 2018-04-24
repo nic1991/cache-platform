@@ -1,6 +1,6 @@
 package com.newegg.ec.cache.core.mysql;
 
-import com.newegg.ec.cache.util.ClassUtil;
+import com.newegg.ec.cache.app.util.ClassUtil;
 import org.apache.commons.lang3.StringUtils;
 
 import java.lang.annotation.Annotation;
@@ -64,6 +64,9 @@ public class MysqlUtil {
         Field[]  fieldsDecrs=claz.getDeclaredFields();
         for(Field field:fieldsDecrs){
             MysqlField fieldMeta = field.getAnnotation(MysqlField.class);
+            if( null == fieldMeta ){
+                continue;
+            }
             String fieldName = fieldMeta.field();
             if( StringUtils.isBlank( fieldName ) ){
                 fieldName = field.getName();
