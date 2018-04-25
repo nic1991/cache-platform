@@ -491,7 +491,7 @@ function input_box_blur()
 				if ( re.code > 0 )
 				{
 					url_check = false;
-					url_check_msg = re.error_msg;
+					url_check_msg = re.msg;
 				}
 				show_check_result();
 			}, false, input);

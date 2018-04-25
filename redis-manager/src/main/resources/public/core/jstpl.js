@@ -19,7 +19,7 @@ String.prototype.format = function(args) {
         }
     }
     return result;
-}
+};
 
 function tpl(template, data){
     var url = "/tpl/" + template + ".tpl";

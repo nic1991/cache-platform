@@ -30,6 +30,11 @@ public class DemoController {
         return "demo/form";
     }
 
+    @RequestMapping("/ajax")
+    public String ajax(Model model){
+        return "demo/ajax";
+    }
+
     @RequestMapping(value = "/getList", method = RequestMethod.GET)
     @ResponseBody
     public Response getList(){

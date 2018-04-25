@@ -72,6 +72,12 @@ function sparrow_error_handle( data )
 {
 	console.log( data );
 }
+function bind( fn, obj ){
+	return function()
+	{
+		return 	fn.apply( obj, arguments );
+	};
+}
 /**
  * 改良的ajax对象
  */
@@ -112,9 +118,9 @@ sparrow_ajax.prototype = {
 			dataType : this.data_type,
 			contentType: 'application/json',
 			type : this.type,
-			error : sparrow.bind( this.error_handle, this ),
-			success: sparrow.bind( this.success_handle, this ),
-			complete: sparrow.bind( this.complete_handle, this )
+			error : bind( this.error_handle, this ),
+			success: bind( this.success_handle, this ),
+			complete: bind( this.complete_handle, this )
 		};
 		if ( this.ajax_data && 'POST' === this.type )
 		{
@@ -154,7 +160,6 @@ sparrow_ajax.prototype = {
 			{
 				has_error = true;
 				sparrow_error_handle( data );
-
 			}
 
 		}
@@ -166,14 +171,13 @@ sparrow_ajax.prototype = {
 			}
 			catch ( err )
 			{
-				sparrow.debug( 'Ajax 请求回调函数执行出错' );
-				sparrow.error( err );
-				sparrow.error( err.message );
-				sparrow.debug( this );
+				console.error( err );
+				console.error( this );
 			}
 		}
 	}
 };
+
 
 var ajax = {
 	get: function( url, callback, is_loading, callback_arg )
