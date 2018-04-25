@@ -43,13 +43,14 @@ public class DemoController {
 
     @RequestMapping(value = "/postList", method = RequestMethod.POST)
     @ResponseBody
-    public Response postList(@RequestBody String req){
+    public Response postList(@RequestBody String req) throws InterruptedException {
         List list = new ArrayList<>();
         Map<String, String> obj = new HashMap<>();
         obj.put("username", "username001");
         obj.put("password", "password001");
         obj.put("req", req.toString());
         list.add( obj );
+        Thread.sleep(2000);
         return Response.Obj(0, list);
     }
 
