@@ -463,6 +463,7 @@ var sparrow_form = {}
 			    data[ alias ] = data[ name ];
 			}
 			var relationstr = input.data("relation");
+			var ajax_type = input.data("ajax-type");
 			var relations = relationstr.split(",");
 			var check_field = true;
 			for(var i in relations){
@@ -487,13 +488,13 @@ var sparrow_form = {}
                 ajax.post( url, JSON.stringify(data), function( re, arg ){
                     arg.data( 'checking', 0 );
                     reset_tip_box( tip_box, tip_box_type );
-                    if ( re.sparrow_error_code > 0 )
+                    if ( re.code > 0 )
                     {
                         url_check = false;
                         url_check_msg = re.error_msg;
                     }
                     show_check_result();
-                }, false, input );
+                }, false, input);
 			}
 		}
 		else
@@ -566,9 +567,7 @@ var sparrow_form = {}
 		if ( 'format-msg' === msg_type )
 		{
 			var def_type_arr = {
-				qq: 'QQ号码必须是5-13位数字',
 				email: 'email格式填写不正确',
-				color: '颜色格式不正确',
 				mobile: '手机号码格式错误',
 				tel: '电话号码格式错误',
 				url: '网址格式错误',
@@ -771,38 +770,6 @@ var sparrow_form = {}
 		return ( arr[ 0 ] < 24 && arr[ 1 ] < 60 && arr[ 2 ] < 60 );
 	}
 
-	/**
-	 * 验证码
-	 */
-	check_type.captcha = function( input, value )
-	{
-		if ( 'string' !== typeof( value ) )
-		{
-			return false;
-		}
-		if ( 4 !== value.length )
-		{
-			return false;
-		}
-		var check_key = input.data( 'captcha-check' );
-		if ( 'string' === typeof check_key )
-		{
-			var tmp = check_key.split( '_' );
-			if ( 2 === tmp.length )
-			{
-				return sparrow_md5( tmp[ 1 ] + value.toLowerCase() ) === tmp[ 0 ];
-			}
-		}
-		return true;
-	}
-
-	/**
-	 * 颜色
-	 */
-	check_type.color = function( input, str )
-	{
-		return /^#[0-9a-fA-F]{6}$/.test( str );
-	}
 
 	/**
 	 * 验证email
@@ -854,15 +821,7 @@ var sparrow_form = {}
 		return tmp;
 	}
 
-	/**
-	 * QQ号检查
-	 */
-	check_type.qq = function( input, str )
-	{
-		var tmp = sbc_case_convert( str );
-		input.val( tmp );
-		return /^[1-9][\d]{4,12}$/.test( tmp );
-	}
+
 
 	/**
 	 * 数字检查

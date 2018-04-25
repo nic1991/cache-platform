@@ -1,10 +1,8 @@
 
 	var $ = jQuery.noConflict();
-
+	empty = sparrow.empty;
 	var make_page_index = 'key';
 	var make_page_arg = { };
-	window.empty = sparrow.empty;
-	window.isset = sparrow.isset;
 	var current_tpl_name = null;
 
 	//模板编译之后的
@@ -43,7 +41,7 @@
 	var include_tpl_arr = [];
 	//全局的编译模板的方式
 	var global_parse_eval;
-	var smarty = {
+	window.smarty = {
 		/**
 		 * 生成获取模板文件的URL
 		 * @param {string} tpl_name 模板名称
@@ -53,11 +51,7 @@
 			//var url = window.SCRIPT_FILE.replace( 'index.php', 'static/jstpl/' );
 			/* lzz */
 			var url = window.JSTPL_URL;
-			url += tpl_name + '.tpl';
-			if ( sparrow.is_dev() )
-			{
-				url += '?r=' + Math.random();
-			}
+			url += tpl_name + '.tpl?r=' + Math.random();
 			return url;
 		},
 		/**
@@ -322,7 +316,7 @@
 		}
 		else
 		{
-			if ( sparrow.is_dev() || window.FORCE_LOAD_TPL )
+			if ( window.FORCE_LOAD_TPL )
 			{
 				ajax.get_text( smarty.make_tpl_url( tpl_name ), function( tpl_str ) {
 					smarty_parse_tpl( tpl_str, real_name );
@@ -332,14 +326,6 @@
 			//正式的环境, 直接使用编译好的tpl
 			else
 			{
-                /*
-				var tpl_dir = tpl_name.split( '/' );
-				tpl_dir.pop();
-				tpl_dir.push( 'tpl' );
-				tpl_name = tpl_dir.join( '/' );
-				var js_file = window.STATIC_URL + 'jstpl/' + tpl_name + '.js';
-				seajs.use( js_file, _on_tpl_load );
-				 */
 				ajax.get_text( smarty.make_tpl_url( tpl_name ), function( tpl_str ) {
                     smarty_parse_tpl( tpl_str, real_name );
                     _on_tpl_load();
@@ -524,7 +510,7 @@
 			var result = { };
 			str = str.replace( /\s*=\s*/g, '=' );
 			//@todo 此处还有bug 如果传过来的字符串中间有空格, 会解析出错, 应该做严格 字符串解析
-			var tmp = sparrow_array_unset( str.split( ' ' ), '' );
+			var tmp = sparrow.array_unset( str.split( ' ' ), '' );
 			var tmp_name = tmp.shift();
 			result.func = tmp_name;
 			result.arg = tmp;
@@ -1365,215 +1351,6 @@
 		}
 	};
 	window.smartyGrep = smartyGrep;
-	/**
-	 * debug error
-	 */
-	function dev_debug_error( str )
-	{
-		sparrow.error( str );
-		if ( sparrow.is_dev() )
-		{
-			sparrow_win.alert( str );
-		}
-	}
-	var pop_active_id = null;
-	$( document ).bind( 'click', function( eve ) {
-		var target = eve.target;
-		var capture = target.getAttribute( 'data-capture' );
-		if ( capture )
-		{
-			var dom = sparrow.get_id( capture );
-			if ( dom )
-			{
-				sparrow_win.capture( dom );
-			}
-			return;
-		}
-		var pop_id = target.getAttribute( 'data-pop-id' );
-		if ( !pop_id )
-		{
-			return;
-		}
-		var self = $( target );
-		var opt = {
-			modal : true
-		};
-		var title = self.data( 'title' );
-		if ( title )
-		{
-			opt.title = title;
-		}
-		var width = self.data( 'width' );
-		if ( width )
-		{
-			opt.width = width;
-		}
-		var height = self.data( 'height' );
-		if ( height )
-		{
-			opt.height = height;
-		}
-		var padding = self.data( 'padding' ) || 0;
-		opt.padding = sparrow.intval( padding );
-		var tpl = self.data( 'tpl' );
-		if ( tpl )
-		{
-			opt.sparrow_tpl = tpl;
-		}
-		else
-		{
-			var dom = $( '#' + pop_id );
-			if ( dom.length > 0 )
-			{
-				var tmp_css = 'sparrow_pop_window_tmp_css';
-				if ( dom.hasClass( 'hide' ) )
-				{
-					var tmp_dom = $( '<div class="hide"></div>' ).appendTo( sparrow.body );
-					dom.removeClass( 'hide' ).addClass( tmp_css ).appendTo( tmp_dom );
-					var html_str = tmp_dom.html();
-					tmp_dom.remove();
-					opt.onclose = function() {
-						dom.appendTo( sparrow.body ).addClass( 'hide' ).removeClass( tmp_css );
-					}
-					sparrow_win.open( html_str, opt );
-				}
-				else if ( dom.hasClass( tmp_css ) )
-				{
-					return;
-				}
-				else
-				{
-					dev_debug_error( 'error , pop-data-id:' + pop_id + ' without include hide class' );
-				}
-			}
-			else
-			{
-				dev_debug_error( 'error ， data-pop-id:' + pop_id + ' without tpl parmas, and without ID' );
-			}
-			return;
-		}
-		opt.id = pop_id;
-		var tpl_url = self.data( 'url' );
-		//需要请求服务器
-		if ( tpl_url )
-		{
-			var post_data = self.data( 'post' );
-			if ( post_data )
-			{
-				post_data = parse_json( post_data );
-				ajax.post( tpl_url, post_data, pop_open_win, true, opt );
-			}
-			else
-			{
-				ajax.get( tpl_url, pop_open_win, true, opt );
-			}
-		}
-		//不用请求服务器
-		else
-		{
-			var tpl_data = parse_tpl_data( self.data( 'tpl-data' ) );
-			pop_open_win( tpl_data, opt );
-		}
-	} );
-
-	/**
-	 * 解析模板数据
-	 */
-	function parse_tpl_data( tpl_data_str )
-	{
-		if ( !tpl_data_str || 'string' !== typeof tpl_data_str )
-		{
-			return {};
-		}
-		if ( 0 === tpl_data_str.indexOf( 'PACK::' ) )
-		{
-			if ( !sparrow_pack )
-			{
-				sparrow.error( 'please load sparrow_pack and json' );
-			}
-			tpl_data_str = tpl_data_str.substring( 6 );
-			return sparrow_pack.decode( tpl_data_str );
-		}
-		else
-		{
-			return parse_json( tpl_data_str );
-		}
-	}
-
-    /**
-    * 压缩模板数据
-    */
-    function encode_tpl_data( obj, need_field )
-	{
-		if ( !sparrow_pack )
-		{
-			sparrow.error( 'without loading sparrow/pack, json model, please main file load js file' );
-		}
-		var data = { };
-		if ( 'string' === typeof need_field )
-		{
-			var tmp_need = need_field.split( ',' );
-			for ( var i = 0; i < tmp_need.length; i++ )
-			{
-				var tmp_key = tmp_need[ i ].trim();
-				if ( 0 == tmp_key.length || !sparrow.isset( obj[ tmp_key ] ) )
-				{
-					continue;
-				}
-				data[ tmp_key ] = obj[ tmp_key ];
-			}
-		}
-		else
-		{
-			data = obj;
-		}
-		var str = sparrow_pack.encode( data );
-		return 'PACK::' + str;
-	}
-
-	/**
-	 * 数据parse
-	 */
-	function parse_json( json )
-	{
-		if ( 'string' !== typeof json )
-		{
-			json = '';
-		}
-		json = json.replace( /'/g, '"' );
-		var re;
-		try
-		{
-			re = sparrow_json.decode( json );
-		}
-		catch ( e )
-		{
-			re = { };
-		}
-		return re;
-	}
-
-	/**
-	 * 弹
-	 */
-	function pop_open_win( data, opt )
-	{
-		smarty.open( opt.sparrow_tpl, data, opt, function() {
-			pop_win_clear( opt.id );
-		} );
-	}
-
-	/**
-	 * 窗口管理
-	 */
-	function pop_win_clear( pop_id )
-	{
-		if ( pop_active_id && pop_active_id != pop_id )
-		{
-			sparrow_win.close( pop_active_id );
-		}
-		pop_active_id = pop_id;
-	}
 
 	//默认的插件
 	function default_url( url, page_arg )
@@ -1605,302 +1382,6 @@
 		}
 		return re;
 	}
-	/**
-	 * 一页
-	 */
-	function a_page( page, goto_page, css_name, link_text )
-	{
-		if ( page === goto_page )
-		{
-			css_name = 'active';
-		}
-		if ( 'undefined' === typeof link_text )
-		{
-			link_text = goto_page;
-		}
-		var str = '<a';
-		if ( 'string' === typeof css_name && css_name.length > 0 )
-		{
-			str += ' class="' + css_name + '"';
-		}
-		str += ' href="javascript:void(0)"';
-		if ( 'event' === make_page_arg[ make_page_index ] )
-		{
-			str += ' data-form-item="page" data-value="' + goto_page + '"';
-		}
-		else
-		{
-			str += ' onclick="smarty_plugin_page( ' + goto_page + ', \'' + make_page_index + '\' )"';
-		}
-		str += '>' + link_text + '</a>';
-		return str;
-	}
-
-	window.smarty_plugin_page = function( page, key )
-	{
-		if ( 'function' !== typeof make_page_arg[ key ] )
-		{
-			sparrow.error( 'turn page is error!' );
-		}
-		make_page_arg[ key ].apply( window, [ page ] );
-	}
-
-	window.smarty_jump_page = function( key )
-	{
-		var dom_id = 'page_jump_' + key;
-		var page = document.getElementById( dom_id ).value;
-		if ( page < 1 )
-		{
-			page = 1;
-		}
-		smarty_plugin_page( page, key );
-	}
-	/**
-	 * 翻页
-	 */
-	function smarty_function_make_page( params )
-	{
-		if ( !sparrow.isset( params[ 'page_count' ] ) )
-		{
-			throw 'Make_page without page_count parmas';
-		}
-		//当前页
-		var page = sparrow.isset( params[ 'page' ] ) ? sparrow.intval( params[ 'page' ] ) : 1;
-		//总页数
-		var page_count = sparrow.intval( params[ 'page_count' ] );
-		//控制翻页变更的名字
-		var page_arg = sparrow.isset( params[ 'page_arg' ] ) ? params[ 'page_arg' ] : 'page';
-		//url
-		var url = 'string' === typeof params[ 'url' ] ? params[ 'url' ] : document.location.href;
-		//模板名
-		var tpl = 'string' === typeof params[ 'tpl' ] ? params[ 'tpl' ] : smarty.current_tpl();
-		//服务器控制不使用smarty输出的变量名
-		var no_tpl_arg = 'string' === typeof params[ 'no_tpl' ] ? params[ 'no_tpl' ] : 'no_tpl';
-		//总共显示多少页
-		var page_length = sparrow.isset( params[ 'page_len' ] ) ? sparrow.intval( params[ 'page_len' ] ) : 10;
-		//左边固定多少页
-		var left_fix_page = sparrow.isset( params[ 'left_fix' ] ) ? sparrow.intval( params[ 'left_fix' ] ) : 2;
-		//右边固定多少页
-		var right_fix_page = sparrow.isset( params[ 'right_fix' ] ) ? sparrow.intval( params[ 'right_fix' ] ) : -1;
-		//显示上一页
-		var show_pre = true === params[ 'disable_pre' ] ? false : true;
-		//显示下一页
-		var show_next = true === params[ 'disable_next' ] ? false : true;
-		//显示总共页数
-		var show_page_count = true === params[ 'disable_total' ] ? false : true;
-		//跳转
-		var show_page_jump = false === params[ 'disable_jump' ] ? true : false;
-		//显示方式
-		var view_type = sparrow.intval( params[ 'view_type' ] );
-		if ( view_type < 1 || view_type > 3 )
-		{
-			view_type = 3;
-		}
-		make_page_index = tpl.replace( /\//g, '_' );
-		//如果url是一个可执行函数
-		if ( 'function' === typeof window[ url ] )
-		{
-			make_page_arg[ make_page_index ] = window[ url ];
-		}
-		else if ( 'event' === url )
-		{
-			make_page_arg[ make_page_index ] = url;
-		}
-		else
-		{
-			url = default_url( url, page_arg );
-			if ( 'string' !== typeof params[ 'id' ] )
-			{
-				return '<div class="sparrow_page_list red">make_page url is not call function and id parmas is must<div class="clear"></div></div>';
-			}
-			var div_id = params[ 'id' ];
-			//加载内容存放的ID
-			make_page_arg[ make_page_index ] = function( page ) {
-				//var new_url = url + page_arg + '=' + page;
-				/* lzz */
-				var new_url = url + "?" + page_arg + '=' + page;
-				var data = { };
-				data[ no_tpl_arg ] = 1;
-				smarty.post( new_url, data, tpl, div_id );
-			}
-		}
-
-		//分页的主要逻辑
-		var result_arr = [ ];
-		if ( page_count <= page_length )
-		{
-			for ( var i = 1;i <= page_count;++i )
-			{
-				result_arr.push( a_page( page, i ) );
-			}
-		}
-		else
-		{
-			if ( left_fix_page + right_fix_page >= page_length )
-			{
-				left_fix_page = right_fix_page = sparrow.intval( page_length / 2 );
-			}
-			//从第一页开始
-			result_arr.push( '' );
-			var beg_page = 1;
-			var end_page = page_count;
-			var left_position = page_length;
-			var tmp_result_arr = [ ];
-			if ( left_fix_page > 0 )
-			{
-				for ( i = 1;i <= left_fix_page;i++ )
-				{
-					result_arr.push( i );
-					beg_page++;
-					left_position--;
-				}
-			}
-			if ( right_fix_page > 0 )
-			{
-				for ( i = right_fix_page;i > 0;--i )
-				{
-					result_arr[ page_length - i + 1 ] = page_count - i + 1;
-					end_page--;
-					left_position--;
-				}
-			}
-			var while_beg = page;
-			if ( page < beg_page )
-			{
-				while_beg = beg_page;
-			}
-			else if ( page > end_page )
-			{
-				while_beg = end_page;
-			}
-			tmp_result_arr.push( while_beg );
-			--left_position;
-			var rank = 1;
-			while ( left_position > 0 )
-			{
-				if ( while_beg + rank <= end_page )
-				{
-					tmp_result_arr.push( while_beg + rank );
-					if ( 0 === --left_position )
-					{
-						break;
-					}
-				}
-				if ( while_beg - rank >= beg_page )
-				{
-					tmp_result_arr.unshift( while_beg - rank );
-					--left_position;
-				}
-				rank++;
-			}
-			for ( i = 0;i < tmp_result_arr.length;i++ )
-			{
-				result_arr[ i + beg_page ] = tmp_result_arr[ i ];
-			}
-			//左边固定长度
-			if ( left_fix_page > 0 )
-			{
-				if ( left_fix_page > 1 && result_arr[ left_fix_page ] + 1 !== result_arr[ left_fix_page + 1 ] )
-				{
-					result_arr[ left_fix_page ] = -1;
-				}
-			}
-			//右边固定
-			if ( right_fix_page > 0 )
-			{
-				if ( right_fix_page > 1 && result_arr[ page_length - right_fix_page + 1 ] - 1 !== result_arr[ page_length - right_fix_page ] )
-				{
-					result_arr[ page_length - right_fix_page + 1 ] = -1;
-				}
-			}
-			for ( i = 1;i <= page_length;i++ )
-			{
-				if ( -1 === result_arr[ i ] )
-				{
-					result_arr[ i ] = '<a class="more">...</a>';
-				}
-				else
-				{
-					result_arr[ i ] = a_page( page, result_arr[ i ] );
-				}
-			}
-		}
-		//显示前一页
-		if ( show_pre )
-		{
-			var text = '';
-			//需要显示文字
-			if ( view_type & 1 )
-			{
-				text = i18n.get( 'previous' );
-			}
-			if ( page > 1 )
-			{
-				result_arr.unshift( a_page( page, page - 1, 'pre', text ) );
-			}
-			else
-			{
-				result_arr.unshift( '<a class="pre disabled">' + text + '</a>' );
-			}
-
-		}
-		//显示下一页
-		if ( show_next )
-		{
-			//需要显示文字
-			if ( view_type & 1 )
-			{
-				text = i18n.get( 'next' );
-			}
-			if ( page !== page_count )
-			{
-				result_arr.push( a_page( page, page + 1, 'next', text ) );
-			}
-			else
-			{
-				result_arr.push( '<a class="next disabled">' + text + '</a>' );
-			}
-		}
-		//显示图标
-		if ( view_type & 2 )
-		{
-			var css_name = 'arrowOnly';
-			//还要显示文字
-			if ( view_type & 1 )
-			{
-				css_name = 'arrow';
-			}
-			result_arr.unshift( '<span class="page ' + css_name + '">' );
-			result_arr.push( '</span>' );
-		}
-
-		//显示总共有多少页
-		if ( show_page_count )
-		{
-			var tmp_count_str = '<span class="total"><span>共</span><span class="b">' + page_count + '</span><span>页</span></span>';
-			result_arr.push( tmp_count_str );
-		}
-		//显示跳转
-		if ( show_page_jump )
-		{
-			var dom_id = 'page_jump_' + make_page_index;
-			var jump_tmp_str = '<span class="to"><span>去第</span><input id="' + dom_id + '" class="num" type="number" value="' + page + '" min="1" max="' + page_count + '"><span>页</span>';
-			if ( 'event' === url ) {
-				jump_tmp_str += '<input class="btn" type="button" value="确定" data-form-item="page" data-value="input:'+ dom_id +'">';
-			}
-			else {
-				jump_tmp_str += '<input class="btn" type="button" value="确定" onclick="smarty_jump_page(\'' + make_page_index + '\')">';
-			}
-			result_arr.push( jump_tmp_str );
-		}
-		result_arr.unshift( '<div class="sparrow_page_list">' );
-		result_arr.push( '</div>' );
-		return result_arr.join( '' );
-	}
-	smarty.register_function( 'make_page', smarty_function_make_page );
-	smarty.register_function( 'fix_static', function( arg ) {
-		return sparrow.fix_static( arg.file );
-	} );
 
 	/**
 	 * 截取字符串修正器
@@ -1939,19 +1420,6 @@
 	} );
 
 	smarty.register_modifier( 'fix_static', sparrow.fix_static );
-	smarty.register_modifier( 'json_encode', function( obj, is_replace )
-	{
-		var str = json.encode( obj );
-		if ( false === is_replace )
-		{
-			return str;
-		}
-		return sparrow.filt_quote( str );
-	} );
-	/**
-	 * 将数据导出到前端
-	 */
-	smarty.register_modifier( 'msgpack', encode_tpl_data );
 
 	/**
 	 * 强转数字
@@ -1985,77 +1453,11 @@
 		return { ext_str : ext_str, val_str : val_str };
 	}
 
-	/**
-	 * 生成radio
-	 */
-	smarty.register_function( 'make_radio', function( params ) {
-		var normal_arr = { radio : 1, checked : 1 };
-		var ext = param_ext_string( params, normal_arr, { } );
-		var name = params[ 'name' ];
-		var checked = sparrow.isset( params[ 'checked' ] ) ? params[ 'checked' ] : null;
-		var result = [ ];
-		for ( var value in params.radio )
-		{
-			result.push( '<label><input type="radio" value="' + value + '" name="' + name + '"' );
-			if ( checked == value )
-			{
-				result.push( ' checked="checked"' );
-			}
-			result.push( ext.ext_str + '>', params.radio[ value ] + "</label>\n" );
-		}
-		return result.join( '' );
-	} );
 
-	/**
-	 * 生成checkbox
-	 */
-	smarty.register_function( 'make_checkbox', function( params ) {
-		var normal_arr = { checkbox : 1, checked : 1 };
-		var validate_arr = { 'data-require' : 1, 'data-require-msg' : 1, 'data-max-check' : 1, 'data-max-check-msg' : 1 };
-		var ext = param_ext_string( params, normal_arr, validate_arr );
-		var checked = sparrow.isset( params[ 'checked' ] ) ? params[ 'checked' ] : null;
-		var name = params[ 'name' ];
-		var result = [ ], is_first = true;
-		for ( var value in params.checkbox )
-		{
-			result.push( '<label><input  type="checkbox"  value="' + value + '"name="' + name + '"' );
-			if ( checked == value )
-			{
-				result.push( ' checked="checked"' );
-			}
-			if ( is_first )
-			{
-				result.push( ext.val_str );
-				is_first = false;
-			}
-			result.push( ext.ext_str + '>' + params.checkbox[ value ] + '</label>\r' );
-		}
-		return result.join( '' );
-	} );
 
-	/**
-	 * 生成select
-	 */
-	smarty.register_function( 'make_select', function( params ) {
-		var normal_arr = { ext_option : 1, option : 1, selected : 1 };
-		var ext = param_ext_string( params, normal_arr, { } );
-		var def_value = sparrow.isset( params[ 'selected' ] ) ? params[ 'selected' ] : null;
-		var result = [ '<select', ext.ext_str, '>' ];
-		for ( var value in params.option )
-		{
-			result.push( '<option value="' + value + '"' );
-			if ( value == def_value )
-			{
-				result.push( ' selected="selected"' );
-			}
-			result.push( '>', params.option[ value ], "</option>\n" );
-		}
-		result.push( "</select>\n" );
-		return result.join( '' );
-	} );
+
 	/**
 	 * 格式化时间
 	 */
 	smarty.register_modifier( 'date', sparrow.date );
 
-	//return smarty;

@@ -239,21 +239,14 @@ var ajax_loading= {
 		},
 		error_handle: function( ajax_obj )
 		{
-			if ( sparrow.is_dev() )
-			{
-				var title = '服务器返回错误';
-				//需要ajax数据, 返回的不是ajax数据
-				if ( 'json' === this.data_type && 4 === ajax_obj.readyState && ajax_obj.status < 300 )
-				{
-					title += '，返回结果非JSON';
-				}
-				title += ' status:' + ajax_obj.status +' ' + ajax_obj.statusText;
-				sparrow_win.open( ajax_obj.responseText, {title:title, width:900} );
-			}
-			else
-			{
-				//sparrow_win.alert( 'sorry please retry or contact admin' );
-			}
+			var title = '服务器返回错误';
+            //需要ajax数据, 返回的不是ajax数据
+            if ( 'json' === this.data_type && 4 === ajax_obj.readyState && ajax_obj.status < 300 )
+            {
+                title += '，返回结果非JSON';
+            }
+            title += ' status:' + ajax_obj.status +' ' + ajax_obj.statusText;
+            console.log( title );
 		},
 		success_handle: function( data )
 		{
