@@ -27,34 +27,34 @@ public class ClusterController {
     @ResponseBody
     public Response listCluster(@RequestParam String group){
         List<Cluster> listCluster = logic.getClusterList( group );
-        return Response.Obj(0, listCluster);
+        return Response.Result(0, listCluster);
     }
 
     @RequestMapping(value = "/getCluster", method = RequestMethod.GET)
     @ResponseBody
     public Response getCluster(@RequestParam int id){
         Cluster cluster = logic.getCluster( id );
-        return Response.Obj(0, cluster);
+        return Response.Result(0, cluster);
     }
 
     @RequestMapping(value = "/addCluster", method = RequestMethod.POST)
     @ResponseBody
     public Response addCluster(@RequestBody Cluster cluster){
         boolean res = logic.addCluster( cluster );
-        return Response.Obj(0, res);
+        return Response.Result(0, res);
     }
 
     @RequestMapping(value = "/removeCluster", method = RequestMethod.GET)
     @ResponseBody
     public Response removeCluster(@RequestParam int id){
         boolean res = logic.removeCluster( id );
-        return Response.Obj(0, res);
+        return Response.Result(0, res);
     }
 
     @RequestMapping(value = "/getClusterInfo", method = RequestMethod.GET)
     @ResponseBody
     public Response removeCluster(@RequestParam String ip, @RequestParam int port){
         Map<String, String> res = logic.getClusterInfo(ip, port);
-        return Response.Obj(0, res);
+        return Response.Result(0, res);
     }
 }

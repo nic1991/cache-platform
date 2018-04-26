@@ -4,6 +4,11 @@ package com.newegg.ec.cache.app.model;
  * Created by gl49 on 2018/3/22.
  */
 public class Response {
+    public static final int DEFAULT = 0;
+    public static final int INFO = -1;
+    public static final int ERROR = 1;
+    public static final int WARN = 2;
+
     private int code;
     private String msg;
     private Object res;
@@ -19,15 +24,21 @@ public class Response {
         this.msg = msg;
     }
 
-    public static Response Obj(int code, Object res){
+    public static Response Result(int code, Object res){
         return new Response(code, res, null );
     }
-    public static Response OK(){
-        return new Response(0, "success");
-    }
 
-    public static Response Fail(){
-        return new Response(1, "fail");
+    public static Response Success(){
+        return new Response(DEFAULT, "success");
+    }
+    public static Response Info(String msg){
+        return new Response(INFO, msg);
+    }
+    public static Response Warn(String msg){
+        return new Response(WARN, msg);
+    }
+    public static Response Error(String msg){
+        return new Response(ERROR, msg);
     }
 
     public int getCode() {

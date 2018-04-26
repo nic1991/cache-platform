@@ -156,21 +156,22 @@ sparrow_ajax.prototype = {
 		var has_error = false;
 		if ( 'json' === this.data_type )
 		{
-			if ( data.code > 0 )
-			{
-				has_error = true;
-				sparrow_error_handle( data );
-			}
-
+		    if( data.code == 1 ){
+		        sparrow_error_handle( data.msg );
+		    }else if( data.code == -1 ){
+		        layer.msg( data.msg );
+		    }else if( data.code == 2 ){
+		        layer.alert( data.msg, {
+                  icon: 1,
+                  skin: 'layer-ext-moon',
+                  title: 'aaa'
+                });
+		    }
 		}
-		if ( !has_error && this.callback )
-		{
-			try
-			{
+		if ( !has_error && this.callback ){
+			try{
 				this.callback( data, this.callback_arg );
-			}
-			catch ( err )
-			{
+			}catch ( err ){
 				console.error( err );
 				console.error( this );
 			}
@@ -180,38 +181,33 @@ sparrow_ajax.prototype = {
 
 
 var ajax = {
-	get: function( url, callback, is_loading, callback_arg )
-	{
+	get: function( url, callback, is_loading, callback_arg ){
 		var tmp_req = new sparrow_ajax( url, callback, null, is_loading, callback_arg );
 		tmp_req.set_data_type( 'json' );
 		ajax_push_pool( tmp_req );
 	},
-	post: function( url, data, callback, is_loading, callback_arg )
-	{
+	post: function( url, data, callback, is_loading, callback_arg ){
 		var tmp_req = new sparrow_ajax( url, callback, data, is_loading, callback_arg );
 		tmp_req.set_data_type( 'json' );
 		tmp_req.set_type( 'POST' );
 		ajax_push_pool( tmp_req );
 	},
-	get_text: function( url, callback, is_loading, callback_arg )
-	{
+	get_text: function( url, callback, is_loading, callback_arg ){
 		var tmp_req = new sparrow_ajax( url, callback, null, is_loading, callback_arg );
 		ajax_push_pool( tmp_req );
 	},
-	post_text: function( url, data, callback, is_loading, callback_arg )
-	{
+	post_text: function( url, data, callback, is_loading, callback_arg ){
 		var tmp_req = new sparrow_ajax( url, callback, data, is_loading, callback_arg );
 		tmp_req.set_type( 'POST' );
 		ajax_push_pool( tmp_req );
 	},
 	async_post: function (url, data, callback) {
-		var tmp_req = new sparrow_ajax( url, callback, data, true, null );
+		var tmp_req = new sparrow_ajax( url, callback, JSON.stringify(data), true, null );
 		tmp_req.set_data_type( 'json' );
 		tmp_req.set_type( 'POST' );
 		tmp_req.send();
 	},
-	async_get: function( url, callback)
-	{
+	async_get: function( url, callback){
 		var tmp_req = new sparrow_ajax( url, callback, null, true, null );
 		tmp_req.set_data_type( 'json' );
 		tmp_req.send();

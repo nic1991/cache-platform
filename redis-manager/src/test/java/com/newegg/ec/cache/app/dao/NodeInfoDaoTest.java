@@ -26,7 +26,7 @@ public class NodeInfoDaoTest {
 
     @Test
     public void testCreate(){
-        nodeInfoTable.createTable("hello");
+        nodeInfoTable.createTable("node_info_5");
     }
 
     @Test
@@ -36,7 +36,7 @@ public class NodeInfoDaoTest {
         nodeInfo.setBlockedClients(10100);
         nodeInfo.setAddTime(130);
         nodeInfo.setHost("10.16.46.192:8018");
-        nodeInfoDao.addNodeInfo("hello", nodeInfo);
+        nodeInfoDao.addNodeInfo("node_info_5", nodeInfo);
     }
 
     @Test

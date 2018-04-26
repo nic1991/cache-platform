@@ -24,27 +24,27 @@ public class UserController {
     @ResponseBody
     public Response list(){
         List<User> userList = logic.getUserList();
-        return Response.Obj(0, userList);
+        return Response.Result(0, userList);
     }
 
     @RequestMapping(value = "/getUser", method = RequestMethod.GET)
     @ResponseBody
     public Response getUser(@RequestParam int id){
         User user = logic.getUser( id );
-        return Response.Obj(0, user);
+        return Response.Result(0, user);
     }
 
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
     @ResponseBody
     public Response addUser(@RequestBody User user, Cluster cluster){
         boolean res = logic.addUser( user );
-        return Response.Obj(0, res);
+        return Response.Result(0, res);
     }
 
     @RequestMapping(value = "/removeUser", method = RequestMethod.GET)
     @ResponseBody
     public Response removeUser(@RequestParam int id){
         boolean res = logic.removeUser( id );
-        return Response.Obj(0, res);
+        return Response.Result(0, res);
     }
 }

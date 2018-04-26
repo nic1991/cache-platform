@@ -29,42 +29,42 @@ public class MonitorController {
     @ResponseBody
     public Response getGroupNodeInfo(String tableName,int startTime,int endTime, String host, String type, String date){
         List<NodeInfo> list = logic.getGroupNodeInfo(tableName, startTime, endTime, host, type, date);
-        return Response.Obj(0, list);
+        return Response.Result(0, list);
     }
 
     @RequestMapping(value = "/getMaxField", method = RequestMethod.GET)
     @ResponseBody
     public Response getMaxField(String tableName, int startTime, int endTime, String key, int limit){
         List<Map> list = logic.getMaxField(tableName, startTime, endTime, key, limit);
-        return Response.Obj(0, list);
+        return Response.Result(0, list);
     }
 
     @RequestMapping(value = "/getMinField", method = RequestMethod.GET)
     @ResponseBody
     public Response getMinField(String tableName,int startTime,int endTime, String key, int limit){
         List<Map> list = logic.getMinField(tableName, startTime, endTime, key, limit);
-        return Response.Obj(0, list);
+        return Response.Result(0, list);
     }
 
     @RequestMapping(value = "/getAvgField", method = RequestMethod.GET)
     @ResponseBody
     public Response getAvgField(String tableName, int startTime, int endTime, String host, String key){
         String res = logic.getAvgField(tableName, startTime, endTime, host, key);
-        return Response.Obj(0, res);
+        return Response.Result(0, res);
     }
 
     @RequestMapping(value = "/getAllField", method = RequestMethod.GET)
     @ResponseBody
     public Response getAllField(String tableName, int startTime, int endTime, String key){
         String res = logic.getAllField(tableName, startTime, endTime, key);
-        return Response.Obj(0, res);
+        return Response.Result(0, res);
     }
 
     @RequestMapping(value = "/getLastNodeInfo", method = RequestMethod.GET)
     @ResponseBody
     public Response getLastNodeInfo(String tableName, int startTime, int endTime, String host){
         NodeInfo list = logic.getLastNodeInfo(tableName, startTime, endTime, host);
-        return Response.Obj(0, list);
+        return Response.Result(0, list);
     }
 
 

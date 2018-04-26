@@ -1,13 +1,15 @@
 package com.newegg.ec.cache.benckend.monitor;
 
 import com.newegg.ec.cache.app.dao.INodeInfoDao;
-import com.newegg.ec.cache.app.dao.impl.NodeInfoDao;
+import com.newegg.ec.cache.app.model.Cluster;
 import com.newegg.ec.cache.core.logger.CommonLogger;
 import com.newegg.ec.cache.app.dao.IClusterDao;
 import com.newegg.ec.cache.app.model.NodeInfo;
 import com.newegg.ec.cache.app.util.DateUtil;
 import com.newegg.ec.cache.app.util.JedisUtil;
 import com.newegg.ec.cache.app.util.NetUtil;
+import com.newegg.ec.cache.core.mysql.MysqlField;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StopWatch;
@@ -18,10 +20,9 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Field;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.TimerTask;
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -29,70 +30,40 @@ import java.util.concurrent.Executors;
  * Created by lzz on 2018/4/20.
  */
 @Component
-public class RedisInfoSchedule {
+public class RedisInfoSchedule{
     @Resource
     private IClusterDao clusterDao;
     @Resource
-    private NodeInfoDao nodeInfoDao;
+    private INodeInfoDao infoDao;
 
-    @Scheduled(fixedRate = 5000)
+    @Scheduled(fixedRate = 1000*60)
     public void reportCurrentTime() {
-        System.out.println( "The time is now aaa");
+        List<Cluster>  clusterList = clusterDao.getClusterList("");
+        for (Cluster cluster: clusterList) {
+            try {
+                String address = cluster.getAddress();
+                int clusterid = cluster.getId();
+                String[] hostArr = StringUtils.split(address, ",");
+                if( null != hostArr && hostArr.length >=0 ){
+                    String host = hostArr[0];
+                    String[] tmpArr = host.split(":");
+                    String ip = tmpArr[0];
+                    String port = tmpArr[1];
+                    infoProducer(clusterid, ip, Integer.parseInt(port));
+                }
+            }catch (Exception e){
+                //
+            }
+
+        }
+
+
     }
 
     public static CommonLogger logger = new CommonLogger( RedisInfoSchedule.class );
     private static final int JEDIS_TIMEOUT = 1000;
     private static ExecutorService threadPool = Executors.newFixedThreadPool(200);
 
-
-    public static class DeleteMonitor extends TimerTask {
-        public DeleteMonitor(){}
-        @Override
-        public void run() {
-            try {
-                startDeleteData();
-            }catch (Exception e ){
-
-            }
-        }
-    }
-
-
-    private static void startDeleteData(){
-        List<String> tableList = getMonitorTables();
-        int sevcenTime = DateUtil.getTime() - 7*24*60*60;
-        for(String tableName : tableList){
-            try {
-                String sql = "delete from " + tableName + " where add_time < " + sevcenTime;
-                //MysqlUtil.delete( sql );
-            }catch (Exception e){
-                //logger.error( e );
-            }
-        }
-    }
-
-    /**
-     * 获取监控表
-     * @return
-     */
-    private static  List<String>  getMonitorTables(){
-        /*
-        List<String> tables = new ArrayList<>();
-        try{
-            List<Map> list = MysqlUtil.getTables();
-            for(Map table : list){
-                String tableName = (String) table.get("Tables_in_redis_monitor");
-                if( tableName.contains("node_info") ){
-                    tables.add( tableName );
-                }
-            }
-        }catch (Exception e){
-            logger.error( e );
-        }
-        return tables;
-        */
-        return null;
-    }
 
     public static NodeInfo getNodeMonitorInfo(String strInfo) {
         NodeInfo o = null;
@@ -108,8 +79,13 @@ public class RedisInfoSchedule {
                         continue;
                     }
                     for(Field f : fields){
+                        String fieldName = f.getName();
                         f.setAccessible(true);
-                        if( arr[0].equals( f.getName() ) ){
+                        MysqlField mysqlField = f.getAnnotation(MysqlField.class);
+                        if( mysqlField != null ){
+                            fieldName = mysqlField.field();
+                        }
+                        if( arr[0].equals( fieldName ) ){
                             String type = f.getGenericType().toString();
                             if( type.equals("class java.lang.String") ){
                                 f.set( o, String.valueOf(arr[1]) );
@@ -163,71 +139,61 @@ public class RedisInfoSchedule {
         return info;
     }
 
-    private static class InfoProducer implements Runnable {
-        private String clusterid;
-        private  List<Map<String, String>> nodeList;
-        private CountDownLatch countDownLatch;
-        public InfoProducer (String clusterid, List<Map<String, String>> nodeList, CountDownLatch countDownLatch) {
-            this.clusterid  = clusterid;
-            this.nodeList = nodeList;
-            this.countDownLatch = countDownLatch;
+    private long responTimeProcess(long pingTime, long responTime) {
+        pingTime = 2 * pingTime;
+        long redisTime = 0;
+        if( responTime > pingTime ){
+            redisTime = responTime - pingTime;
+        }else{
+            redisTime = 1;
+        }
+        // redis 调用往返
+        redisTime = redisTime/2;
+        if( redisTime == 0 ){
+            redisTime = 1;
+        }
+        return redisTime;
+    }
+
+    public void infoProducer(int clusterid, String ip, int port){
+        // 获取集群的所有节点
+        List<Map<String, String>> nodeList = new ArrayList<>();
+        if( JedisUtil.getRedisVersion(ip, port) > 2 ){
+            nodeList = JedisUtil.getNodeList(ip, port);
+        }else{
+            nodeList = JedisUtil.getRedis2Nodes(ip, port);
         }
 
-        @Override
-        public void run() {
-            try {
-                String ip= this.nodeList.get(0).get("ip");
-                long pingTime = NetUtil.pingTime( ip.trim() );
-                for(Map<String, String> node : this.nodeList){
-                    Jedis jedis = null;
-                    try {
-                        String nodeIp = node.get("ip");
-                        int nodePort = Integer.parseInt(node.get("port"));
-                        StopWatch stopWatch = new StopWatch();
-                        stopWatch.start();
-                        jedis = new Jedis(nodeIp, nodePort, JEDIS_TIMEOUT);
-                        String strInfo = jedis.info();
-                        stopWatch.stop();
-                        long responTime = stopWatch.getTotalTimeMillis();
-                        NodeInfo info = getNodeMonitorInfo(strInfo);
-                        info.setResponseTime( responTimeProcess(pingTime, responTime) );
-                        NodeInfo resInfo = changeNodeInfoTime( info );
-                        resInfo.setClusterid( this.clusterid );
-                        resInfo.setHost( nodeIp +":" + nodePort);
-                        resInfo.setIp( nodeIp );
-                        resInfo.setPort( nodePort );
-                        // 添加到数据库中
-                        //NodeInfoDao dao = new NodeInfoDao();
-                        //dao.add( this.clusterid, resInfo );
-                    }catch ( Exception e ){
-
-                    }finally {
-                        if( null != jedis ){
-                            jedis.close();
-                        }
+        try {
+            long pingTime = NetUtil.pingTime( ip.trim() );
+            for(Map<String, String> node : nodeList){
+                Jedis jedis = null;
+                try {
+                    String nodeIp = node.get("ip");
+                    int nodePort = Integer.parseInt(node.get("port"));
+                    StopWatch stopWatch = new StopWatch();
+                    stopWatch.start();
+                    jedis = new Jedis(nodeIp, nodePort, JEDIS_TIMEOUT);
+                    String strInfo = jedis.info();
+                    stopWatch.stop();
+                    long responTime = stopWatch.getTotalTimeMillis();
+                    NodeInfo info = getNodeMonitorInfo(strInfo);
+                    info.setResponseTime( responTimeProcess(pingTime, responTime) );
+                    NodeInfo resInfo = changeNodeInfoTime( info );
+                    resInfo.setHost( nodeIp +":" + nodePort);
+                    resInfo.setIp( nodeIp );
+                    resInfo.setPort( nodePort );
+                    infoDao.addNodeInfo( "node_info_" + clusterid, resInfo );
+                }catch ( Exception e ){
+                    logger.error( "", e );
+                }finally {
+                    if( null != jedis ){
+                        jedis.close();
                     }
                 }
-            }catch ( Exception e ){
-
-            }finally {
-                countDownLatch.countDown();
             }
-        }
-
-        private long responTimeProcess(long pingTime, long responTime) {
-            pingTime = 2 * pingTime;
-            long redisTime = 0;
-            if( responTime > pingTime ){
-                redisTime = responTime - pingTime;
-            }else{
-                redisTime = 1;
-            }
-            // redis 调用往返
-            redisTime = redisTime/2;
-            if( redisTime == 0 ){
-                redisTime = 1;
-            }
-            return redisTime;
+        }catch ( Exception e ){
+            logger.error( "", e );
         }
     }
 }

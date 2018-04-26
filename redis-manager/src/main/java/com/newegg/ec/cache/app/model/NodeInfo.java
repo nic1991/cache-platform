@@ -78,17 +78,13 @@ public class NodeInfo {
     private long avgTtl;
     @MysqlField(field = "response_time", type = "bigint")
     private long responseTime;
-    @MysqlField(field = "clusterid", type = "varchar(50)")
-    private String clusterid;
-    @MysqlField(field = "nodeid", type = "varchar(255)")
-    private String nodeid;
     @MysqlField(field = "host", type = "varchar(30)")
     private String host;
     @MysqlField(field = "ip", type = "varchar(25)")
     private String ip;
     @MysqlField(field = "port", type = "smallint")
     private int port;
-    @MysqlField(field = "day", type = "tinyint")
+    @MysqlField(field = "day", type = "int")
     private int day;
     @MysqlField(field = "hour", type = "tinyint")
     private int hour;
@@ -378,22 +374,6 @@ public class NodeInfo {
         this.responseTime = responseTime;
     }
 
-    public String getClusterid() {
-        return clusterid;
-    }
-
-    public void setClusterid(String clusterid) {
-        this.clusterid = clusterid;
-    }
-
-    public String getNodeid() {
-        return nodeid;
-    }
-
-    public void setNodeid(String nodeid) {
-        this.nodeid = nodeid;
-    }
-
     public String getHost() {
         return host;
     }
@@ -496,8 +476,6 @@ public class NodeInfo {
                 ", expires=" + expires +
                 ", avgTtl=" + avgTtl +
                 ", responseTime=" + responseTime +
-                ", clusterid='" + clusterid + '\'' +
-                ", nodeid='" + nodeid + '\'' +
                 ", host='" + host + '\'' +
                 ", ip='" + ip + '\'' +
                 ", port=" + port +
