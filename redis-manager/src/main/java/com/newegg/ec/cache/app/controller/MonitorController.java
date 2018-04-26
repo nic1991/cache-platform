@@ -27,9 +27,9 @@ public class MonitorController {
 
     @RequestMapping(value = "/getGroupNodeInfo", method = RequestMethod.GET)
     @ResponseBody
-    public Response getGroupNodeInfo(String tableName,int startTime,int endTime, String host, String type, String date){
+    public Response getGroupNodeInfo(@RequestParam String tableName,@RequestParam int startTime,@RequestParam int endTime,@RequestParam  String host,@RequestParam String type,@RequestParam String date){
         List<NodeInfo> list = logic.getGroupNodeInfo(tableName, startTime, endTime, host, type, date);
-        return Response.Result(0, list);
+        return Response.Result(Response.DEFAULT, list);
     }
 
     @RequestMapping(value = "/getMaxField", method = RequestMethod.GET)

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <link href="../vender/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet" charset="utf-8" />
+    <script src="../vender/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="../vender/amcharts/amcharts.js" type="text/javascript"></script>
+    <script src="../vender/amcharts/serial.js" type="text/javascript"></script>
+    <script src="../vender/amcharts/themes/light.js" type="text/javascript"></script>
+    <script src="../vender/sparrow/layer/layer.js"></script>
+    <script src="../vender/sparrow/ajax.js"></script>
+    <script src="../vender/sparrow/util.js"></script>
+    <script src="../vender/sparrow/smarty.js"></script>
+    <style>
+        .select-hover:hover{
+            background-color:#5bc0de;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Info Detail</h3>
+            </div>
+            <div class="panel-body" style="overflow: auto">
+                <div class="row">
+                    <div id="node-info-chart" class="col-md-12" style="height: 450px"></div>
+                </div>
+            </div>
+            <div class="panel-body" style="overflow: auto;max-height:400px">
+                <table class="table table-bordered" id="command-table">
+                    <thead>
+                    <tr id="field-title">
+                        <th class="select-hover" data-field="date">date</th>
+                        <th class="select-hover selected" data-field="responseTime">response_time</th>
+                        <th class="select-hover" data-field="usedCpuSys">used_cpu_sys</th>
+                        <th class="select-hover" data-field="connectedClients">connected_clients</th>
+                        <th class="select-hover" data-field="blocked_clients">blocked_clients</th>
+                        <th class="select-hover" data-field="used_memory">used_memory/m</th>
+                        <th class="select-hover" data-field="used_memory_rss">used_memory_rss/m</th>
+                        <th class="select-hover" data-field="used_memory_peak">used_memory_peak/m</th>
+                        <th class="select-hover" data-field="mem_fragmentation_ratio">mem_fragmentation_ratio</th>
+                        <th class="select-hover" data-field="aof_enabled">aof_enabled</th>
+                        <th class="select-hover" data-field="total_connections_received">total_connections_received</th>
+                        <th class="select-hover" data-field="total_commands_processed">total_commands_processed</th>
+                        <th class="select-hover" data-field="instantaneous_ops_per_sec">instantaneous_ops_per_sec</th>
+                        <th class="select-hover" data-field="total_net_input_bytes">total_net_input_bytes</th>
+                        <th class="select-hover" data-field="total_net_output_bytes">total_net_output_bytes</th>
+                        <th class="select-hover" data-field="instantaneous_input_kbps">instantaneous_input_kbps</th>
+                        <th class="select-hover" data-field="instantaneous_output_kbps">instantaneous_output_kbps</th>
+                        <th class="select-hover" data-field="rejected_connections">rejected_connections</th>
+                        <th class="select-hover" data-field="sync_full">sync_full</th>
+                        <th class="select-hover" data-field="sync_partial_ok">sync_partial_ok</th>
+                        <th class="select-hover" data-field="sync_partial_err">sync_partial_err</th>
+                        <th class="select-hover" data-field="expired_keys">expired_keys</th>
+                        <th class="select-hover" data-field="evicted_keys">evicted_keys</th>
+                        <th class="select-hover" data-field="keyspace_hits">keyspace_hits</th>
+                        <th class="select-hover" data-field="keyspace_misses">keyspace_misses</th>
+                        <th class="select-hover" data-field="pubsub_channels">pubsub_channels</th>
+                        <th class="select-hover" data-field="pubsub_patterns">pubsub_patterns</th>
+                        <th class="select-hover" data-field="latest_fork_usec">latest_fork_usec</th>
+                        <th class="select-hover" data-field="migrate_cached_sockets">migrate_cached_sockets</th>
+                        <th class="select-hover" data-field="used_cpu_user">used_cpu_user</th>
+                        <th class="select-hover" data-field="used_cpu_sys_children">used_cpu_sys_children</th>
+                        <th class="select-hover" data-field="used_cpu_user_children">used_cpu_user_children</th>
+                        <th class="select-hover" data-field="total_keys">total_keys</th>
+                    </tr>
+                    </thead>
+                    <tbody id="node-info-table">
+
+                    </tbody>
+                </table>
+            </div><!-- .panel-body -->
+        </div>
+    </div><!-- .row -->
+</div>
+</body>
+<script src="../js/monitor.js"></script>
+</html>
