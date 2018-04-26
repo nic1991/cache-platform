@@ -38,7 +38,7 @@ public class RedisInfoSchedule{
 
     @Scheduled(fixedRate = 1000*60)
     public void reportCurrentTime() {
-        List<Cluster>  clusterList = clusterDao.getClusterList("");
+        List<Cluster>  clusterList = clusterDao.getClusterList(null);
         for (Cluster cluster: clusterList) {
             try {
                 String address = cluster.getAddress();
