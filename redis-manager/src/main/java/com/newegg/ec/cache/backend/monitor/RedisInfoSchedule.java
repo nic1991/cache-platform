@@ -1,19 +1,20 @@
-package com.newegg.ec.cache.benckend.monitor;
+package com.newegg.ec.cache.backend.monitor;
 
+import com.newegg.ec.cache.app.dao.IClusterDao;
 import com.newegg.ec.cache.app.dao.INodeInfoDao;
 import com.newegg.ec.cache.app.model.Cluster;
-import com.newegg.ec.cache.core.logger.CommonLogger;
-import com.newegg.ec.cache.app.dao.IClusterDao;
 import com.newegg.ec.cache.app.model.NodeInfo;
 import com.newegg.ec.cache.app.util.DateUtil;
 import com.newegg.ec.cache.app.util.JedisUtil;
 import com.newegg.ec.cache.app.util.NetUtil;
+import com.newegg.ec.cache.core.logger.CommonLogger;
 import com.newegg.ec.cache.core.mysql.MysqlField;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StopWatch;
 import redis.clients.jedis.Jedis;
+
 import javax.annotation.Resource;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -36,20 +37,20 @@ public class RedisInfoSchedule{
     @Resource
     private INodeInfoDao infoDao;
 
-    @Scheduled(fixedRate = 1000*60)
+    @Scheduled(fixedRate = 1000 * 120)
     public void reportCurrentTime() {
         List<Cluster>  clusterList = clusterDao.getClusterList(null);
         for (Cluster cluster: clusterList) {
             try {
                 String address = cluster.getAddress();
-                int clusterid = cluster.getId();
+                String clusterName = cluster.getClusterName();
                 String[] hostArr = StringUtils.split(address, ",");
                 if( null != hostArr && hostArr.length >=0 ){
                     String host = hostArr[0];
                     String[] tmpArr = host.split(":");
                     String ip = tmpArr[0];
                     String port = tmpArr[1];
-                    infoProducer(clusterid, ip, Integer.parseInt(port));
+                    infoProducer(clusterName, ip, Integer.parseInt(port));
                 }
             }catch (Exception e){
                 //
@@ -155,7 +156,7 @@ public class RedisInfoSchedule{
         return redisTime;
     }
 
-    public void infoProducer(int clusterid, String ip, int port){
+    public void infoProducer(String clusterName, String ip, int port){
         // 获取集群的所有节点
         List<Map<String, String>> nodeList = new ArrayList<>();
         if( JedisUtil.getRedisVersion(ip, port) > 2 ){
@@ -183,7 +184,7 @@ public class RedisInfoSchedule{
                     resInfo.setHost( nodeIp +":" + nodePort);
                     resInfo.setIp( nodeIp );
                     resInfo.setPort( nodePort );
-                    infoDao.addNodeInfo( "node_info_" + clusterid, resInfo );
+                    infoDao.addNodeInfo( "node_info_" + clusterName, resInfo );
                 }catch ( Exception e ){
                     logger.error( "", e );
                 }finally {

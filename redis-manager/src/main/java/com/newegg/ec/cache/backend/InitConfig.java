@@ -1,4 +1,4 @@
-package com.newegg.ec.cache.benckend;
+package com.newegg.ec.cache.backend;
 
 import com.newegg.ec.cache.core.mysql.MysqlUtil;
 import com.newegg.ec.cache.core.userapi.UserApiUtil;
@@ -22,7 +22,7 @@ public class InitConfig implements ApplicationListener<ContextRefreshedEvent> {
     public void onApplicationEvent(ContextRefreshedEvent event) {
         initUserApi();
         initMysqlTable();
-        System.out.println("aaa");
+        System.out.println("****************** init success ********************");
     }
 
     /**
@@ -43,7 +43,7 @@ public class InitConfig implements ApplicationListener<ContextRefreshedEvent> {
     public void initUserApi(){
         List<String> packages = new ArrayList<>();
         packages.add( "com.newegg.ec.cache" );
-        String file = "D:/work/java/cache-platform/redis-manager/src/main/resources/public/core/userApi.js";
+        String file = "D:/leo/newegg-cache-platform/redis-manager/src/main/resources/public/core/userApi.js";
         UserApiUtil.autoGeneriesAllApi( packages, file);
     }
 }

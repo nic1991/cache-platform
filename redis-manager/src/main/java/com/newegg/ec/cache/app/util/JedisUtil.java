@@ -2,6 +2,8 @@ package com.newegg.ec.cache.app.util;
 
 import org.apache.commons.lang3.StringUtils;
 import redis.clients.jedis.Jedis;
+import redis.clients.util.Slowlog;
+
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -130,7 +132,7 @@ public class JedisUtil {
                     Map<String, String> resMap = RedisMsgUtil.changeStrToMap( value );
                     if( null != resMap && !resMap.isEmpty() ){
                         resMap.put("db", key);
-                        resList.add( resMap );
+                        resList.add(resMap);
                     }
                 }
             }
@@ -318,4 +320,19 @@ public class JedisUtil {
         }
         return Integer.parseInt( strPort );
     }
+
+    public static List<Slowlog> getSlowLog(String ip, int port,long size) {
+        Jedis jedis = new Jedis( ip, port);
+        List<Slowlog> list = new ArrayList((int)size);
+        try {
+            list = jedis.slowlogGet(size);
+        }catch ( Exception e ){
+            e.printStackTrace();
+        }finally {
+            jedis.close();
+        }
+        return list;
+    }
+
+
 }
