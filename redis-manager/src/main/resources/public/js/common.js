@@ -1,15 +1,11 @@
 $(function(){
-	var ipRegex = /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])(\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])){3}$/;
+
 	
 	$("#redisIp").on("blur", function(){
 		var obj = $("#redisIp");
 		var ip = obj.val().trim();
 		if(ip != null && ip != ""){
-			if(!checkIp(ip, ipRegex)) {
-			obj.addClass("input-error");
-			} else {
-				obj.removeClass("input-error");
-			}
+            checkIp(obj, ip);
 		}
 	})
 	
@@ -27,22 +23,28 @@ $(function(){
 	})
 })
 
-function checkIp(ip, ipRegex){
+function checkIp(obj, ip){
+    var ipRegex = /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])(\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])){3}$/;
 	if(!ipRegex.test(ip)){
-		layer.msg("ip address wrong", function(){});
+        obj.addClass("input-error");
+        layer.msg("ip address wrong");
 		return false;
 	} else {
+	    obj.removeClass("input-error");
 		return true;
 	}
 }
 
+/*only enter numbers*/
 function enterNumber(){
 	var keyCode = event.keyCode;
 	alert(keyCode);
 	if (keyCode >= 48 && keyCode <= 57) {  
         event.returnValue = true;    
-    } else {    
+    } else {
     	layer.msg("port wrong", function(){});
         event.returnValue = false;    
     } 
 }
+
+

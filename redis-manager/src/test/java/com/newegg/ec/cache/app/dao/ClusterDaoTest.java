@@ -47,6 +47,6 @@ public class ClusterDaoTest {
 
     @Test
     public void removeClusterTest(){
-        clusterDao.removeCluster(1);
+        clusterDao.removeCluster(1, "");
     }
 }

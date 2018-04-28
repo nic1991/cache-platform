@@ -1,10 +1,8 @@
 $(function(){
-	
+	/*select menu li*/
 	$(".active-list li").on('click', function() {
 		$(this).addClass("active").siblings().removeClass("active")
 	})
-
-	
 	
 	/*show or hide sidebar*/
 	$(".sidebar-icon").on("click", function(){

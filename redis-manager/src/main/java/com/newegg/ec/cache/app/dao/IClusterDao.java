@@ -10,7 +10,10 @@ import java.util.List;
 @Repository
 public interface IClusterDao {
     List<Cluster> getClusterList(String userGroup);
+
     Cluster getCluster(int id);
-    void removeCluster(int id);
+
+    void removeCluster(int id, String clusterName);
+
     void addCluster(Cluster cluster);
 }

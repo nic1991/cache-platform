@@ -10,15 +10,15 @@ $(function(){
 		console.log(timeRange);
 	})
 	
-	/*init echarts*/
 
 
-	/*show log*/
+	// show log
 	$(".show-log").on("click", function(){
 		$(".log-progress-bar").show();
 		$(".progress-bar").css("width", "80%")
 	})
-	
+
+	// init echarts
 	buildLineChartExample();
 })
 
