@@ -21,7 +21,7 @@ public class MonitorController {
     private MonitorLogic logic;
 
     @RequestMapping(value = "/manager")
-    public java.lang.String manager(Model model){
+    public String manager(Model model){
         return "monitor";
     }
 

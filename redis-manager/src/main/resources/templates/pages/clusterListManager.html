@@ -1,119 +1,119 @@
 <!DOCTYPE HTML>
 <html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=8" />
-    <meta HTTP-EQUIV="pragma" CONTENT="no-cache" />
-    <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate" />
-    <meta HTTP-EQUIV="expires" CONTENT="0" />
-    <meta http-equiv="Cache" content="no-cache" />
-    <title>Redis Cluster</title>
-    
-    <link rel="stylesheet" type="text/css" href="../lib/bootstrap-3.3.7/css/bootstrap.css"/>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="../css/common.css"/>
-	<link rel="stylesheet" type="text/css" href="../css/cluster-list-manager.css"/>
-	
-	<script type="text/javascript" src="../lib/jquery-3.3.1.min.js"></script>
-	<script type="text/javascript" src="../lib/bootstrap-3.3.7/js/bootstrap.js"></script>
-	<script type="text/javascript" src="../lib/bootbox.min.js"></script>
-	<script type="text/javascript" src="../lib/layer/layer.js"></script>
-</head>
-<body>
-    <div class="body-contain scrollbar-div scrollbar-div-1">
-        <div class="data-container scrollbar">
-            <!-- body-->
-            <div class="cluster-list-container">
-                <ul>
-                	<li data="ClusterName1">
-	        			<div class="cluster-item">
-	        			<div class="delete-container">
-	        				<i class="material-icons">close</i>
-	        			</div>
-	        			<a href="redisMonitorDetail.html" class="to-detail" title="see cluster detail">
-	        				<div class="one-data">
-	            				<span><b>ClusterName1</b></span>
-	            			</div>
-	            			<div class="one-data">
-	            				<span>State:</span>
-	            				<span class="state-good">OK</span>
-	            			</div>
-	            			<div class="one-data">
-	            				<span>Group:</span>
-	            				<span>AAA</span>
-	            			</div>
-	            			<div class="one-data">
-	            				<span>Add Time:</span>
-	            				<span>2017-12-25 15:56:44</span>
-	            			</div>
-	        			</a>
-	        			<div class="operation-btn-swapper">
-	        				<a href="managerCluster.html" class="operation-btn">
-	        					<span>Manager</span>
-	        				</a>
-	        			</div>
-	        		</div>
-                	</li>
-                	<li class="add-li" title="import cluster">
-                		<div class="add-btn">
-		                    <i class="glyphicon glyphicon-plus"></i>
-			            </div>
-                	</li>
-                </ul>
-            </div>
-        </div>
-        
-        <div class="modal fade" id="redis-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"  data-backdrop="static" data-keyboard="false">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title" >
-                            Add New Cluster
-                        </h4>
-                    </div>
-                    <div class="modal-body">
-                    	<div class="input-group item">
-	                        <span class="input-group-addon input-title" >Cluster Name</span>
-	                        <input id="clusterName" type="text" class="form-control"  maxlength="20" placeholder="cluster name" />
-	                    </div>
-	                    <div class="input-group item">
-	                        <span class="input-group-addon input-title" >IP</span>
-	                        <input id="redisIp" type="text" class="form-control" maxlength="15" placeholder="127.0.0.1" />
-	                    </div>
-	                    <div class="input-group item">
-	                        <span class="input-group-addon input-title" >Port</span>
-	                        <input id="redisPort" type="text" class="form-control" maxlength="5" style="ime-mode:disabled" onpaste="return false" placeholder="6379" />
-	                    </div>
-	                    <div class="input-group item">
-                            <span class="input-group-addon input-title">Group</span>
-                            <select id="group" class="form-control">
-                                <option value="1">admin</option>
-                                <option value="0">one</option>
-                            </select>
-                        </div>
-                        <span class="no-machine" style="display: none;" >
-                        	<div class="tip">
-                        		<span>*All node machines must have the same username and password</span>
-                        	</div>
-                        	<div class="input-group item">
-		                        <span class="input-group-addon input-title" >User Name</span>
-		                        <input id="userName" type="text" class="form-control" placeholder="please enter user name" />
-		                    </div>
-		                    <div class="input-group item">
-		                        <span class="input-group-addon input-title" >Password</span>
-		                        <input id="password" type="password" class="form-control" placeholder="please enter user password" />
-		                    </div>
-                        </span>
-                    <div class="modal-footer">
-                    	<button id="close" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button id="savebtn" type="button" class="btn btn-primary">Save</button>
-                    </div>
-                </div>
-            </div>
-            
-        </div>
-    </div>
-    <script type="text/javascript" src="../js/redis-cluster.js"></script>
-    <script type="text/javascript" src="../js/common.js"></script>
-</body>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=8" />
+		<meta HTTP-EQUIV="pragma" CONTENT="no-cache" />
+		<meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate" />
+		<meta HTTP-EQUIV="expires" CONTENT="0" />
+		<meta http-equiv="Cache" content="no-cache" />
+
+		<title>Redis Cluster</title>
+
+		<link rel="stylesheet" href="../lib/bootstrap-3.3.7/css/bootstrap.css"/>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+		<link rel="stylesheet" href="../css/common.css"/>
+		<link rel="stylesheet" href="../css/cluster-list-manager.css"/>
+
+		<script type="text/javascript" src="../lib/jquery-3.3.1.min.js"></script>
+		<script type="text/javascript" src="../lib/bootstrap-3.3.7/js/bootstrap.js"></script>
+		<script type="text/javascript" src="../lib/bootbox.min.js"></script>
+		<script type="text/javascript" src="../lib/layer/layer.js"></script>
+	</head>
+	<body>
+		<div class="body-contain scrollbar-div scrollbar-div-1">
+			<div class="data-container scrollbar">
+				<!-- body-->
+				<div class="cluster-list-container">
+					<ul>
+						<li data="ClusterName1">
+							<div class="cluster-item">
+							<div class="delete-container">
+								<i class="material-icons">close</i>
+							</div>
+							<a href="/pages/redisMonitorDetail" class="to-detail" title="see cluster detail">
+								<div class="one-data">
+									<span><b>ClusterName1</b></span>
+								</div>
+								<div class="one-data">
+									<span>State:</span>
+									<span class="state-good">OK</span>
+								</div>
+								<div class="one-data">
+									<span>Group:</span>
+									<span>AAA</span>
+								</div>
+								<div class="one-data">
+									<span>Add Time:</span>
+									<span>2017-12-25 15:56:44</span>
+								</div>
+							</a>
+							<div class="operation-btn-swapper">
+								<!-- 后期需要带参 -->
+								<a href="/pages/managerCluster" class="operation-btn">
+									<span>Manager</span>
+								</a>
+							</div>
+						</div>
+						</li>
+						<li class="add-li" title="import cluster">
+							<div class="add-btn">
+								<i class="glyphicon glyphicon-plus"></i>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="modal fade" id="redis-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"  data-backdrop="static" data-keyboard="false">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title" >Add New Cluster</h4>
+						</div>
+						<div class="modal-body">
+							<div class="input-group item">
+								<span class="input-group-addon input-title" >Cluster Name</span>
+								<input id="clusterName" type="text" class="form-control"  maxlength="20" placeholder="cluster name" />
+							</div>
+							<div class="input-group item">
+								<span class="input-group-addon input-title" >IP</span>
+								<input id="redisIp" type="text" class="form-control" maxlength="15" placeholder="127.0.0.1" />
+							</div>
+							<div class="input-group item">
+								<span class="input-group-addon input-title" >Port</span>
+								<input id="redisPort" type="text" class="form-control" maxlength="5" style="ime-mode:disabled" onpaste="return false" placeholder="6379" />
+							</div>
+							<div class="input-group item">
+								<span class="input-group-addon input-title">Group</span>
+								<select id="group" class="form-control">
+									<option value="1">admin</option>
+									<option value="0">one</option>
+								</select>
+							</div>
+							<span class="no-machine" style="display: none;" >
+								<div class="tip">
+									<span>*All node machines must have the same username and password</span>
+								</div>
+								<div class="input-group item">
+									<span class="input-group-addon input-title" >User Name</span>
+									<input id="userName" type="text" class="form-control" placeholder="please enter user name" />
+								</div>
+								<div class="input-group item">
+									<span class="input-group-addon input-title" >Password</span>
+									<input id="password" type="password" class="form-control" placeholder="please enter user password" />
+								</div>
+							</span>
+							<div class="modal-footer">
+								<button id="close" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+								<button id="savebtn" type="button" class="btn btn-primary">Save</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="../js/redis-cluster.js"></script>
+		<script type="text/javascript" src="../js/common.js"></script>
+	</body>
 </html>
