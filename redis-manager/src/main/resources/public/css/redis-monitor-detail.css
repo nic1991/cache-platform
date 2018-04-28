@@ -1,0 +1,145 @@
+.container-color, .data-container  {
+	background-color: #FFFFFF;
+}
+
+.data-container {
+	padding: 20px 10px;
+}
+
+
+.cluster-name-container{
+	font-size: 24px;
+	display: flex;
+	align-items: center;
+}
+
+.brand-icon{
+	width: 100px;
+	margin-right: 10px;
+	color: #D82C22;
+}
+
+.detail-header{
+	padding-bottom: 10px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+/*filter container*/
+.filter-container{
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+.value-type-container {
+	margin-right: 15px;
+}
+
+.time-img{
+	margin-right: 5px;
+}
+
+.time-filter-container{
+	font-size: 16px;
+}
+
+.time-filter-container a{
+	color: #737373;
+	display: flex;
+	align-items: center;
+	text-decoration: none;
+}
+
+.time-filter-container a:hover{
+	color: #333333;
+}
+
+/*cluster or one node base info*/
+.base-info{
+	width: 100%;
+	padding: 10px 0;
+    overflow: hidden;
+}
+
+.base-info-title{
+	padding-bottom: 10px;
+	border-bottom: 1px solid #dadada;
+}
+
+.base-info-list ul{
+	display: flex;
+	justify-content: space-between;
+	margin: 20px 0;
+	padding: 0;
+	list-style-type: none;
+}
+
+.base-info-list ul li{
+	width: 24%;
+    height: auto;
+    padding: 10px;
+    /*line-height: 150px;
+	text-align: center;
+	align-items: center;*/
+	border: 1px solid #dadada;
+	border-radius: 2px;
+	background-color: white;
+}
+
+.info-title-container {
+	display: flex;
+	align-items: center;
+}
+
+.base-info-list a {
+	color: #269ABC;
+}
+
+.base-info-list a:hover {
+	color: #337AB7;
+}
+
+.one-base-info-title {
+	margin-left: 5px;
+	font-size: 16px;
+}
+
+.top-item {
+	margin-top: 5px;
+}
+
+/*Important Metric*/
+.echarts{
+	margin-top: 20px;
+	height: auto;
+}
+
+.info-echarts {
+	width: 100%; 
+	height: 500px;
+}
+
+.detail-table, .show-log-container{
+	margin: 20px 0;
+}
+
+/*show log*/
+.show-log-container{
+	display: flex;
+    align-items: center;
+}
+
+.log-progress-bar{
+	width: 60%;
+	margin: 0 20px;
+}
+
+.show-log {
+	display: inline-block;
+	padding: 5px 10px;
+	border: 1px solid #DADADA;
+	border-radius: 5px;
+	color: #737373;
+}

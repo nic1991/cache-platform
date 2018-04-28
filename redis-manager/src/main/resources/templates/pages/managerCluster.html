@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Manager Cluster</title>
+		<link rel="stylesheet" href="../lib/bootstrap-3.3.7/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="../lib/bootstrap-select-1.12.4/dist/css/bootstrap-select.css"  	/>
+		<link rel="stylesheet" href="../css/common.css"/>
+		<link rel="stylesheet" href="../css/manager-cluster.css"/>
+		
+		<script type="text/javascript" src="../lib/jquery-3.3.1.min.js"></script>
+		<script type="text/javascript" src="../lib/bootstrap-3.3.7/js/bootstrap.js"></script>
+		<script type="text/javascript" src="../lib/bootstrap-select-1.12.4/dist/js/bootstrap-select.js"></script>
+	</head>
+	<body>
+		<div class="body-contain container-color">
+			<div class="header-swapper">
+        		<div class="title-container">
+		            <span>Cluster Name</span>
+		            <span class="state-good detail-state-font">OK</span>
+	            </div>
+	            <div class="select-btn">
+					<form class="form-horizontal" role="form">
+							<select id="basic" class="selectpicker show-tick form-control" data-live-search="true" data-width="220px">
+								<option>E11:online</option>
+								<option>one</option>
+								<option>two</option>
+								<option>three</option>
+							</select>
+					</form>
+	            </div>
+	        </div>
+	        <div class="main-swapper">
+	        	<div class="cluster-header">
+		        	<ul class="nav nav-tabs">
+		        		<li class="active">
+							<a href="#clusterManager" data-toggle="tab">Cluster Manager</a>
+						</li>
+						<li >
+							<a href="#nodeManager" data-toggle="tab">Node Manager</a>
+						</li>
+					</ul>
+		        </div>
+		        <div class="base-info-operation">
+		        	
+		        </div>
+		        <div id="clsuterContent" class="tab-content" >
+		        	<div class="tab-pane fade in active" id="clusterManager">
+						<div class="cluster-nodes">
+							<table class="table table-bordered">
+							  <caption>
+							  	<div class="base-info">
+				            		<div class="base-info-title">
+				            			<span>Cluster Know Node:</span>
+				        				<span class="info-color"><b>120</b></span>
+				        				<span>|</span>
+				        				<span>Cluster Master:</span>
+				        				<span class="info-color"><b>40</b></span>
+				        				<span>|</span>
+				        				<span>Cluster Slave:</span>
+				        				<span class="info-color"><b>80</b></span>
+				            		</div>
+			            		</div>
+							  </caption>
+							  <thead>
+							    <tr>
+							      <th>Expand</th>
+							      <th>Status</th>
+							      <th>Role</th>
+							      <th>Host</th>
+							      <th>Node</th>
+							      <th>Slot</th>
+							      <th>Operaion</th>
+							    </tr>
+							  </thead>
+							  <tbody>
+							    <tr>
+								    <td><i class="glyphicon glyphicon-plus"></i></td>
+								    <td><span class="label label-success">normal</span></td>
+								    <td>master</td>
+								    <td>10.16.46.121:6380</td>
+								    <td>ae167089972107258c9ac9500dd136c413abf7ed</td>
+								    <td>16384</td>
+								    <td><a>delete</a></td>
+							    </tr>
+							    <tr>
+								    <td><i class="glyphicon glyphicon-plus"></i></td>
+								    <td><span class="label label-danger">bad</span></td>
+								    <td>master</td>
+								    <td>10.16.46.121:6380</td>
+								    <td>ae167089972107258c9ac9500dd136c413abf7ed</td>
+								    <td>16384</td>
+								    <td><a>delete</a></td>
+							    </tr>
+							  </tbody>
+							</table>
+						</div>
+					</div>
+					
+					<div class="tab-pane fade" id="nodeManager">
+						<div class="node-manager-panel">
+							<div class="node-header">
+					        	<ul class="nav nav-tabs">
+					        		<li class="active">
+										<a href="#nodeList" data-toggle="tab">Node List</a>
+									</li>
+									<li >
+										<a href="#addNode" data-toggle="tab">Add Node</a>
+									</li>
+									
+								</ul>
+					        </div>
+					        <div id="nodeContent" class="tab-content" >
+					        	<div class="tab-pane fade in active" id="nodeList">
+									<div class="cluster-nodes">
+										<table class="table table-bordered">
+										  <caption>边框表格布局</caption>
+										  <thead>
+										    <tr>
+										      <th>名称</th>
+										      <th>城市</th>
+										      <th>邮编</th>
+										    </tr>
+										  </thead>
+										  <tbody>
+										    <tr>
+										      <td>Tanmay</td>
+										      <td>Bangalore</td>
+										      <td>560001</td>
+										    </tr>
+										    <tr>
+										      <td>Sachin</td>
+										      <td>Mumbai</td>
+										      <td>400003</td>
+										    </tr>
+										    <tr>
+										      <td>Uma</td>
+										      <td>Pune</td>
+										      <td>411027</td>
+										    </tr>
+										  </tbody>
+										</table>
+									</div>
+								</div>
+								<div class="tab-pane fade " id="addNode">
+									<div class="cluster-nodes">
+										<table class="table table-bordered">
+										  <caption>边框表格布局</caption>
+										  <thead>
+										    <tr>
+										      <th>名称</th>
+										      <th>城市</th>
+										      <th>邮编</th>
+										    </tr>
+										  </thead>
+										  <tbody>
+										    <tr>
+										      <td>Tanmay</td>
+										      <td>Bangalore</td>
+										      <td>560001</td>
+										    </tr>
+										    <tr>
+										      <td>Sachin</td>
+										      <td>Mumbai</td>
+										      <td>400003</td>
+										    </tr>
+										    <tr>
+										      <td>Uma</td>
+										      <td>Pune</td>
+										      <td>411027</td>
+										    </tr>
+										  </tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+	        </div>
+	        
+       </div>
+	</body>
+</html>

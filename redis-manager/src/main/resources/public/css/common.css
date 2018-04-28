@@ -1,0 +1,169 @@
+html,body {
+	padding: 0px;
+	margin: 0px;
+	height: 100%;
+	width: 100%;
+	font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+h2 {
+	margin: 0;
+	padding: 0;
+}
+
+button, input{
+	outline: none; !important
+}
+
+a, a:hover{
+	cursor: pointer;
+	text-decoration: none;
+}
+
+.body-contain{
+	width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    background: #f1f2f7;
+}
+
+.general-title{
+	margin: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #004d6f;
+    border-bottom: 1px solid #DADADA;
+}
+
+.header-swapper{
+	margin: 0 10px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: 1px solid #dadada;
+}
+.title-container{
+	font-size: 24px;
+	display: flex;
+	align-items: center;
+}
+
+.data-container{
+	background-color: #f1f2f7;
+    /*box-shadow: 1px 1px 3px 2px #ccc;*/
+}
+
+.data-header{
+	margin: 0 0 10px 8px;
+    width: 100%;
+	display: inline-flex;
+    justify-content: space-between;
+}
+
+.title-text{
+	margin-left: 5px;
+	line-height: 30px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.list-table tr th, .list-table tbody td{
+	text-align:center;
+
+}
+
+.list-table tbody tr td{
+	display: table-cell; 
+	vertical-align: middle;
+}
+
+/*弹出框样式*/
+
+.item{
+	margin: 0 auto 15px;
+	width: 80%;
+}
+
+.input-title{
+	width: 120px;
+}
+
+.detail-state-font {
+	margin-left: 10px;
+	font-size: 16px;
+}
+
+.state-good {
+	padding: 0 5px;
+	border-radius: 2px;
+	background-color: #76bd1d;
+	color:	#FFFFFF;
+}
+
+.state-bad {
+	padding: 0 5px;
+	border-radius: 2px;
+	background-color: #FF5722;
+	color:	#FFFFFF;
+}
+
+.input-error {
+	border: 1px solid #f20d0d;
+}
+
+
+.scrollbar-div{
+    /*min-height: 700px;*/
+   `height: 100%;
+    overflow: auto;
+    width: 100%;
+}
+.scrollbar{
+    width: 100%;
+    margin: 0 auto;
+}
+.scrollbar-div-1::-webkit-scrollbar {/*滚动条整体样式*/
+    width: 0px;     /*高宽分别对应横竖滚动条的尺寸*/
+    height: 0px;
+}
+.scrollbar-div-1::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+    border-radius: 5px;
+    -webkit-box-shadow: inset 0 0 5px rgba(149, 149, 149, 0.2);
+    background: #979797;
+}
+
+.scrollbar-div-1::-webkit-scrollbar-track {/*滚动条里面轨道*/
+    -webkit-box-shadow: inset 0 0 5px rgba(149, 149, 149, 0.2);
+    border-radius: 5px;
+    background: #EDEDED;
+}
+
+.brand-icon{
+	width: 100px;
+	margin-right: 10px;
+	color: #D82C22;
+}
+
+/*button style*/
+.operation-btn-swapper{
+	padding: 10px 0;
+	display: flex;
+	justify-content: center;
+}
+
+.operation-btn {
+	padding: 3px 10px;
+	border: 1px solid #DADADA;
+	border-radius: 2px;
+}
+
+.operation-btn:hover{
+	background: linear-gradient(to top, #F9F9F9, white);
+}
+
+
+/*color*/
+
+.info-color {
+	color: #5cb85c;
+}

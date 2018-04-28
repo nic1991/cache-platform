@@ -1,0 +1,163 @@
+/*cluster list base info*/
+
+.list-info {
+	padding: 10px 0 0;
+}
+
+.list-info ul {
+	width: 100%;
+	margin: 0 0 50px 0;
+	padding: 0;
+	display: flex;
+	justify-content: space-between;
+	list-style-type: none;
+}
+
+.list-container ul {
+	width: 100%;
+	display: inline-block;
+	margin-top: 10px;
+	padding: 0;
+	list-style-type: none;
+}
+
+.list-info ul li {
+	width: 25%;
+	height: auto;
+	display: flex;
+	align-items: center;
+	border-radius: 5px;
+	/*border: 1px solid #dadada;*/
+	background-color: #FFFFFF;
+}
+
+
+.margin-right {
+	margin-right: 20px;
+}
+
+.list-container ul li {
+	float: left;
+	width: 24%;
+	height: auto;
+	padding: 1%;
+	margin: 0 0.5% 1%;
+	border-radius: 5px;
+	border: 1px solid #dadada;
+	box-shadow: 0 9px 30px -6px rgba(0,0,0,.2);
+}
+
+.icon-chart-container {
+	width: 50%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-bottom-left-radius: 5px;
+	border-top-left-radius: 5px;
+}
+
+.total-icon {
+	background-color: #46b8da;
+}
+
+.good-icon {
+	background-color: #009F95;
+}
+
+.bad-icon {
+	background-color: #FF5722;
+}
+
+.keys-icon {
+	background-color: #333333;
+}
+
+.warning-icon {
+	background-color: #FFB800;
+}
+
+.icon-chart {
+	font-size: 54px;
+	color: white;
+}
+
+.total-data-container {
+	width: 50%;
+	height: 100%;
+	font-size: 24px;
+}
+
+.data {
+	margin: 5% 0 0;
+	display: flex;
+	justify-content: center;
+	font-size: 36px;
+}
+
+.total-data-title {
+	display: flex;
+    justify-content: center;
+	padding: 10px 0;
+	color: #999999;
+	font-size: 12px;
+}
+
+/*cluster list*/
+.my-list-panel {
+	border: none;
+}
+
+.my-list-panel-header {
+	margin: 0;
+	border-radius: 3px;
+	border: 1px solid #EBEBEB;
+	background-color: #F9F9F9;
+}
+
+.my-list-panel-header:hover {
+	background-color: #FFFFFF;
+	color: #333333;
+}
+.my-list-panel-header a {
+	display: block;
+	padding: 10px;
+	color: #737373;
+	text-decoration: none;
+}
+
+.master-name {
+	font-size: 16px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #dadada;
+}
+
+.summary {
+	margin: 5%;
+}
+
+.one-data {
+	display: flex;
+    align-items: center;
+	margin-top: 10px;
+}
+
+.one-data i{
+	font-size: 18px;
+	margin-right: 8px;
+}
+
+.one-data-name {
+	margin-right: 5px;
+}
+
+.detail {
+	padding-top: 8%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.detail button {
+	width: 100px;
+}
+
