@@ -1,0 +1,223 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=8" />
+    <meta HTTP-EQUIV="pragma" CONTENT="no-cache" />
+    <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate" />
+    <meta HTTP-EQUIV="expires" CONTENT="0" />
+    <meta http-equiv="Cache" content="no-cache" />
+
+    <title>Redis Monitor List</title>
+
+    <link rel="stylesheet" href="../lib/bootstrap-3.3.7/css/bootstrap.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+	<link rel="stylesheet" href="../css/common.css"/>
+	<link rel="stylesheet" href="../css/redis-monitor-list.css"/>
+	
+	<script type="text/javascript" src="../lib/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="../lib/bootstrap-3.3.7/js/bootstrap.js"></script>
+	<script type="text/javascript" src="../lib/layer/layer.js"></script>
+</head>
+<body>
+    <div  class="body-contain scrollbar-div scrollbar-div-1"> 
+        <div class="data-container scrollbar">
+            <div class="list-info">
+            	<ul>
+            		<li class="margin-right">
+            			<div class="icon-chart-container total-icon">
+            				<i class="fa fa-bar-chart icon-chart"></i>
+            			</div>
+            			<div class="total-data-container">
+            				<div class="data">
+            					<a>5</a>
+            				</div>
+            				<div class="total-data-title">
+            					<span>Redis Cluster</span>
+            				</div>
+            			</div>
+            		</li>
+            		<li class="margin-right">
+            			<div class="icon-chart-container good-icon">
+            				<i class="fa fa-heartbeat icon-chart"></i>
+            			</div>
+            			<div class="total-data-container">
+            				<div class="data">
+            					<a>4</a>
+            				</div>
+            				<div class="total-data-title">
+            					<span>Good Cluster</span>
+            				</div>
+            			</div>
+            		</li>
+            		<li class="margin-right">
+            			<div class="icon-chart-container bad-icon">
+            				<i class="fa fa-stethoscope icon-chart"></i>
+            			</div>
+            			<div class="total-data-container">
+            				<div class="data">
+            					<a>1</a>
+            				</div>
+            				<div class="total-data-title">
+            					<span>Bad Cluster</span>
+            				</div>
+            			</div>
+            		</li>
+            		<li class="margin-right">
+            			<div class="icon-chart-container keys-icon">
+            				<i class="material-icons icon-chart">storage</i>
+            			</div>
+            			<div class="total-data-container">
+            				<div class="data">
+            					<a>146</a>
+            				</div>
+            				<div class="total-data-title">
+            					<span>All Keys</span>
+            				</div>
+            			</div>
+            		</li>
+            		<li>
+            			<div class="icon-chart-container warning-icon">
+            				<i class="fa fa-bell icon-chart"></i>
+            			</div>
+            			<div class="total-data-container">
+            				<div class="data">
+            					<a>7</a>
+            				</div>
+            				<div class="total-data-title">
+            					<span>Cluster Warning</span>
+            				</div>
+            			</div>
+            		</li>
+            	</ul>
+            </div>
+            <div class="panel panel-default my-list-panel">
+            	<div class="my-list-panel-header">
+	            	<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="list-active">
+						<h4 class="panel-title">AAAA Group</h4>
+					</a>
+				</div>
+				<div id="collapseOne" class="panel-collapse collapse in">
+					<div class="list-container">
+		            	<ul>
+		            		<li>
+		            			<div>
+		            				<div class="master-name">
+		            					<span><b>Cluster Name</b></span>
+		            				</div>
+		            				<div class="summary">
+		            					<div class="one-data">
+		            						<i class="fa fa-heartbeat"></i>
+		            						<div>
+			            						<span class="one-data-name">Cluster State:</span>
+			            						<span class="state-good">OK</span>
+			            					</div>
+			            				</div>
+			            				<div class="one-data">
+			            					<i class="material-icons">record_voice_over</i>
+			            					<div>
+			            						<span class="one-data-name">Cluster Master:</span>
+			            						<span><b>5</b></span>
+			            					</div>
+			            				</div>
+			            				<div class="one-data">
+			            					<i class="material-icons">rowing</i>
+			            					<div>
+			            						<span class="one-data-name">Cluster Slave:</span>
+			            						<span><b>6</b></span>
+			            					</div>
+			            				</div>
+			            				<div class="one-data">
+			            					<i class="material-icons">dashboard</i>
+			            					<div>
+			            						<span class="one-data-name">Cluster Nodes:</span>
+			            						<span><b>11</b></span>
+			            					</div>
+			            				</div>
+			            				<div class="one-data">
+			            					<i class="material-icons">flip_to_back</i>
+			            					<div>
+			            						<span class="one-data-name">Slots Assigned(ok/all):</span>
+			            						<span><b>16384/16384</b></span>
+			            					</div>
+			            				</div>
+			            				<div class="one-data">
+			            					<i class="material-icons">settings_input_component</i>
+			            					<div class="one-data-name">
+			            						<span class="one-data-name">Slots Pfail:</span>
+			            						<span><b>0</b></span>
+			            					</div>
+			            				</div>
+			            				<div class="one-data">
+			            					<i class="material-icons">settings_input_component</i>
+			            					<div>
+			            						<span class="one-data-name">Slots Fail:</span>
+			            						<span><b>0</b></span>
+			            					</div>
+			            				</div>
+			            				<div class="one-data">
+			            					<i class="material-icons">label</i>
+			            					<div>
+			            						<span class="one-data-name">Current Epoch:</span>
+			            						<span><b>173</b></span>
+			            					</div>
+			            				</div>
+			            				<div class="one-data">
+			            					<i class="material-icons">label_outline</i>
+			            					<div>
+			            						<span class="one-data-name">My Epoch:</span>
+			            						<span><b>173</b></span>
+			            					</div>
+			            				</div>
+			            				<div class="one-data">
+			            					<i class="material-icons">settings_ethernet</i>
+			            					<div>
+				            					<span class="one-data-name">Stats Messages Sent/Received:</span>
+				            					<span><b>11626244/11626257</b></span>
+			            					</div>
+			            				</div>
+		            				</div>
+		            				<div class="detail">
+										<!-- 后期更改带参数 -->
+		            					<a href="/pages/redisMonitorDetail"><button class="btn btn-primary btn-sm" type="button">Detail</button></a>
+		            				</div>
+		            			</div>
+		            		</li>
+		            		
+		            	</ul>
+		            </div>
+				</div>
+			</div>
+			<div class="panel panel-default my-list-panel">
+            	<div class="my-list-panel-header">
+	            	<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" class="list-active">
+						<h4 class="panel-title">BBBB Group</h4>
+					</a>
+				</div>
+				<div id="collapseTwo" class="panel-collapse collapse">
+					<div class="list-container">
+		            	<ul>
+
+		            	</ul>
+		            </div>
+				</div>
+			</div>
+			<div class="panel panel-default my-list-panel">
+            	<div class="my-list-panel-header">
+	            	<a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" class="list-active">
+						<h4 class="panel-title">CCCC Group</h4>
+					</a>
+				</div>
+				<div id="collapseThree" class="panel-collapse collapse">
+					<div class="list-container">
+		            	<ul>
+
+		            	</ul>
+					</div>
+				</div>
+			</div>
+        </div>
+    </div>
+</body>
+</html>

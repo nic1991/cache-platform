@@ -28,10 +28,10 @@ public class ClusterLogic {
         return clusterDao.getClusterList( group );
     }
 
-    public boolean removeCluster(int id){
+    public boolean removeCluster(int id, String clusterName){
         boolean res = false;
         try {
-            clusterDao.removeCluster( id );
+            clusterDao.removeCluster(id, clusterName);
             res = true;
         }catch (Exception e){
 

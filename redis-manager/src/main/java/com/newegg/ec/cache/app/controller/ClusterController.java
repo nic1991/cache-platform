@@ -46,8 +46,8 @@ public class ClusterController {
 
     @RequestMapping(value = "/removeCluster", method = RequestMethod.GET)
     @ResponseBody
-    public Response removeCluster(@RequestParam int id){
-        boolean res = logic.removeCluster( id );
+    public Response removeCluster(@RequestParam int id, @RequestParam String clusterName){
+        boolean res = logic.removeCluster(id, clusterName);
         return Response.Result(0, res);
     }
 
