@@ -43,7 +43,7 @@ public class InitConfig implements ApplicationListener<ContextRefreshedEvent> {
     public void initUserApi(){
         List<String> packages = new ArrayList<>();
         packages.add( "com.newegg.ec.cache" );
-        String file = "D:/work/java/cache-platform/redis-manager/src/main/resources/public/core/userApi.js";
+        String file = "/Users/lzz/work/java/cache-platform/redis-manager/src/main/resources/public/core/userApi.js";
         UserApiUtil.autoGeneriesAllApi( packages, file);
     }
 }

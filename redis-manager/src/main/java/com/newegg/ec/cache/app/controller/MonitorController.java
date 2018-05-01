@@ -3,6 +3,7 @@ package com.newegg.ec.cache.app.controller;
 import com.newegg.ec.cache.app.logic.MonitorLogic;
 import com.newegg.ec.cache.app.model.NodeInfo;
 import com.newegg.ec.cache.app.model.Response;
+import com.newegg.ec.cache.core.userapi.UserAccess;
 import net.sf.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +17,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/monitor")
+@UserAccess(name = "monitor")
 public class MonitorController {
     @Resource
     private MonitorLogic logic;
