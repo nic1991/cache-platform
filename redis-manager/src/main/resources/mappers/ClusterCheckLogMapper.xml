@@ -6,8 +6,8 @@
 <mapper namespace="com.newegg.ec.cache.app.dao.IClusterCheckLogDao">
 
      <insert id="addClusterCheckLog"  parameterType="com.newegg.ec.cache.app.model.ClusterCheckLog">
-         insert into cluster_check_logs(id, cluster_id,node_id,formula,log_type,log_info,is_checked,update_time)
-                                values(#{id},#{clusterId},#{nodeId},#{formula},#{logType},#{logInfo},#{isChecked},#{updateTime})
+         insert into cluster_check_logs(id, cluster_id,node_id,formula,log_type,log_info,description,is_checked,update_time)
+                                values(#{id},#{clusterId},#{nodeId},#{formula},#{logType},#{logInfo},#{description},#{isChecked},#{updateTime})
      </insert>
 
      <select id="getClusterCheckLogs" parameterType="java.util.Map" resultType="com.newegg.ec.cache.app.model.ClusterCheckLog">

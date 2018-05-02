@@ -4,38 +4,43 @@ package com.newegg.ec.cache.app.model;
  * Created by lf52 on 2018/4/27.
  */
 public class RedisSlowLog {
+    private String host;
+    private String showDate;
+    private long runTime;
+    private String type;
+    private String command;
+    private long addTime;
 
-    //慢查询标识id
-    private  long id;
-    //发生的时间戳
-    private  long timeStamp;
-    //命令耗时
-    private  long executionTime;
-    //命令内容
-    private  String command;
-
-    public long getId() {
-        return id;
+    public String getHost() {
+        return host;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setHost(String host) {
+        this.host = host;
     }
 
-    public long getTimeStamp() {
-        return timeStamp;
+    public String getShowDate() {
+        return showDate;
     }
 
-    public void setTimeStamp(long timeStamp) {
-        this.timeStamp = timeStamp;
+    public void setShowDate(String showDate) {
+        this.showDate = showDate;
     }
 
-    public long getExecutionTime() {
-        return executionTime;
+    public long getRunTime() {
+        return runTime;
     }
 
-    public void setExecutionTime(long executionTime) {
-        this.executionTime = executionTime;
+    public void setRunTime(long runTime) {
+        this.runTime = runTime;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getCommand() {
@@ -46,14 +51,11 @@ public class RedisSlowLog {
         this.command = command;
     }
 
-    @Override
-    public String toString() {
-        return "RedisSlowLog{" +
-                "id=" + id +
-                ", timeStamp=" + timeStamp +
-                ", executionTime=" + executionTime +
-                ", command='" + command + '\'' +
-                '}';
+    public long getAddTime() {
+        return addTime;
     }
 
+    public void setAddTime(long addTime) {
+        this.addTime = addTime;
+    }
 }
