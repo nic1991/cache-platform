@@ -3,6 +3,7 @@ package com.newegg.ec.cache.backend.monitor;
 import com.newegg.ec.cache.app.dao.IClusterDao;
 import com.newegg.ec.cache.app.dao.INodeInfoDao;
 import com.newegg.ec.cache.app.model.Cluster;
+import com.newegg.ec.cache.app.model.Common;
 import com.newegg.ec.cache.app.model.NodeInfo;
 import com.newegg.ec.cache.app.util.DateUtil;
 import com.newegg.ec.cache.app.util.JedisUtil;
@@ -21,7 +22,6 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Field;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
@@ -179,7 +179,7 @@ public class RedisInfoSchedule{
                     resInfo.setIp( nodeIp );
                     resInfo.setPort( nodePort );
 
-                    infoDao.addNodeInfo( "node_info_" + clusterId, resInfo );
+                    infoDao.addNodeInfo( Common.NODE_INFO_TABLE_FORMAT + clusterId, resInfo );
                 }catch ( Exception e ){
                     logger.error( "", e );
                 }finally {
