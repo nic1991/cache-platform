@@ -31,6 +31,7 @@ public class ClusterCheckLogDaoTest {
         log.setNodeId("10.16.46.192:8018");
         log.setFormula("@{mem_fragmentation_ratio}>2.2");
         log.setLogInfo("mem_fragmentation_ratio = 5.0 !!!");
+        log.setDescription("Redis节点磁盘碎片率");
         log.setLogType(ClusterCheckLog.LogType.warnlog);
         log.setUpdateTime(DateUtil.getTime());
         System.out.println(logDao.addClusterCheckLog(log));
