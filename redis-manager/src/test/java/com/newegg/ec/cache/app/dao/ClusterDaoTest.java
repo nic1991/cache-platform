@@ -33,6 +33,7 @@ public class ClusterDaoTest {
         nodeInfoTable.createTable("node_info_" + cluster.getClusterName());
     }
 
+
     @Test
     public void getClusterTest(){
         Cluster cluster = clusterDao.getCluster(1);

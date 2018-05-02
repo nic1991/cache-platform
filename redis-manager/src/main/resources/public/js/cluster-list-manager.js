@@ -8,13 +8,19 @@ $(function(){
         var id = params["id"];
         var div_id = "clustre-state-" +  id;
         getClusterInfoByAddress(address, function(obj){
-            $("#" + div_id).html( "<span>state:</span><span class='state-good'>OK</span>" + address );
+            var state = obj.res.state;
+            if(state == "ok"){
+                $("#" + div_id).html( "<span>state:</span><span class='state-good'>OK1</span>" );
+            } else {
+                $("#" + div_id).html( "<span>state:</span><span class='state-bad'>Fail</span>" );
+            }
+
         });
     });
 
 
 	/*add redis cluster*/
-	$(".add-btn").on("click", function(){
+	$("body").delegate(".add-btn", "click", function(){
         $('#redis-modal').modal({
             keyboard: true
         })
