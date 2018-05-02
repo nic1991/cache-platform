@@ -1,7 +1,14 @@
-window.HOST_URL = "http://" + window.location.host + "/";
-window.STATIC_URL = window.HOST_URL;
-window.JSTPL_URL = window.STATIC_URL + "jstpl/";
 
+function getQueryString(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var r = window.location.search.substr(1).match(reg); //获取url中"?"符后的字符串并正则匹配
+    var context = "";
+    if (r != null)
+        context = r[2];
+    reg = null;
+    r = null;
+    return context == null || context == "" || context == "undefined" ? "" : context;
+}
 
 $(function(){
 

@@ -19,6 +19,11 @@ public class DateUtil {
         return df.format(new Date());
     }
 
+    public static String getFormatDate(long timeStamp){
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        return df.format(new Date( timeStamp ));
+    }
+
     public static int getTime(){
         return (int) (System.currentTimeMillis() / 1000);
     }
