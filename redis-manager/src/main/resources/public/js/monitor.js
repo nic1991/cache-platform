@@ -7,7 +7,7 @@ $("#field-title > th").click(function () {
     if( field != "date" ){
         $("#field-title > th").removeClass("selected");
         $(this).addClass("selected");
-        ajax.async_get("/monitor/getGroupNodeInfo?tableName=node_info_10&startTime=0&endTime=1624732279&host=all&type=max&date=minute", function(obj){
+        ajax.async_get("/monitor/getGroupNodeInfo?tableName=node_info_23&startTime=0&endTime=1624732279&host=all&type=max&date=minute", function(obj){
             makeCharts("light", "#FFFFFF", field, obj.res);
             smarty.html( "monitor/node_info_table", obj, "node-info-table",function () {
                 console.log("html ...");
