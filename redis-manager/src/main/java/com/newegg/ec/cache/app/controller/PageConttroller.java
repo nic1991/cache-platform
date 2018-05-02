@@ -17,26 +17,26 @@ public class PageConttroller {
 
     @RequestMapping("/pages/redisMonitorList")
     public String accessMonitorList(){
-        return "pages/redisMonitorList";
+        return "redisMonitorList";
     }
 
     @RequestMapping("/pages/clusterListManager")
     public String accessClusterListManager(){
-        return "pages/clusterListManager";
+        return "clusterListManager";
     }
 
     @RequestMapping("/pages/createCluster")
     public String accessCreateCluster(){
-        return "pages/createCluster";
+        return "createCluster";
     }
 
     @RequestMapping("/pages/managerCluster")
     public String accessManagerCluster(){
-        return "pages/managerCluster";
+        return "managerCluster";
     }
 
     @RequestMapping("/pages/redisMonitorDetail")
     public String accessClusterDetail(){
-        return "pages/redisMonitorDetail";
+        return "redisMonitorDetail";
     }
 }

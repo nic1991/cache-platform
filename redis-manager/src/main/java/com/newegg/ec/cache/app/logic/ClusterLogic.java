@@ -2,7 +2,10 @@ package com.newegg.ec.cache.app.logic;
 
 import com.newegg.ec.cache.app.component.RedisManager;
 import com.newegg.ec.cache.app.dao.IClusterDao;
+import com.newegg.ec.cache.app.dao.INodeInfoDao;
+import com.newegg.ec.cache.app.dao.impl.NodeInfoDao;
 import com.newegg.ec.cache.app.model.Cluster;
+import com.newegg.ec.cache.app.model.Common;
 import com.newegg.ec.cache.app.model.Host;
 import com.newegg.ec.cache.app.util.NetUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +22,8 @@ import java.util.Map;
 public class ClusterLogic {
     @Autowired
     private IClusterDao clusterDao;
+    @Autowired
+    private NodeInfoDao nodeInfoTable;
     @Resource
     private RedisManager redisManager;
 
@@ -30,10 +35,12 @@ public class ClusterLogic {
         return clusterDao.getClusterList( group );
     }
 
-    public boolean removeCluster(int id, String clusterName){
+    public boolean removeCluster(int id){
         boolean res = false;
         try {
             clusterDao.removeCluster(id);
+            String tableName = Common.NODE_INFO_TABLE_FORMAT + id;
+            nodeInfoTable.dropTable( tableName );
             res = true;
         }catch (Exception e){
 
@@ -49,8 +56,7 @@ public class ClusterLogic {
                 cluster.setAddress(cluster.getAddress());
                 cluster.setUserGroup(cluster.getUserGroup());
                 cluster.setClusterName(cluster.getClusterName());
-                clusterDao.addCluster(cluster);
-                /*nodeInfoTable.createTable("node_info_" + cluster.getClusterName());*/
+                nodeInfoTable.createTable(Common.NODE_INFO_TABLE_FORMAT + cluster.getId());
                 res = true;
             } else {
                 return false;

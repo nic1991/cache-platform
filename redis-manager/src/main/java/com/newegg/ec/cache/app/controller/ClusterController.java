@@ -1,6 +1,7 @@
 package com.newegg.ec.cache.app.controller;
 
 import com.newegg.ec.cache.app.component.RedisManager;
+import com.newegg.ec.cache.app.dao.impl.NodeInfoDao;
 import com.newegg.ec.cache.core.userapi.UserAccess;
 import com.newegg.ec.cache.app.logic.ClusterLogic;
 import com.newegg.ec.cache.app.model.Cluster;
@@ -24,6 +25,9 @@ public class ClusterController {
     @Autowired
     private ClusterLogic logic;
 
+    @Autowired
+    private NodeInfoDao nodeInfoTable;
+
     @RequestMapping("/clusterListManager")
     public String form(Model model){
         return "clusterListManager";
@@ -33,9 +37,10 @@ public class ClusterController {
     @ResponseBody
     public Response listCluster(@RequestParam String group){
         List<Cluster> listCluster = logic.getClusterList( group );
-        System.out.println( listCluster );
+        System.out.println( listCluster.size());
         return Response.Result(0, listCluster);
     }
+
 
     @RequestMapping(value = "/getCluster", method = RequestMethod.GET)
     @ResponseBody
@@ -51,10 +56,11 @@ public class ClusterController {
         return Response.Result(0, res);
     }
 
-    @RequestMapping(value = "/removeCluster", method = RequestMethod.GET)
+    @RequestMapping(value = "/removeCluster", method = RequestMethod.POST)
     @ResponseBody
-    public Response removeCluster(@RequestParam int id, @RequestParam String clusterName){
-        boolean res = logic.removeCluster(id, clusterName);
+    public Response removeCluster(@RequestParam String clusterId){
+        int id = Integer.parseInt(clusterId);
+        boolean res = logic.removeCluster(id);
         return Response.Result(0, res);
     }
 
@@ -69,6 +75,7 @@ public class ClusterController {
     @ResponseBody
     public Response getClusterInfoByAddress(@RequestParam String address){
         Map<String, String> res = logic.getClusterInfo(address);
+        System.out.println( res );
         return Response.Result(0, res);
     }
 }

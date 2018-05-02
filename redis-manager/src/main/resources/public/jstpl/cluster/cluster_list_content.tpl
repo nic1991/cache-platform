@@ -1,25 +1,25 @@
 <ul>
     {{if $code == 0 }}
         {{foreach from=$res item=cluster}}
-            <li data="ClusterName1">
+            <li data="{{$cluster.clusterName}}">
                     <div class="cluster-item">
-                        <div class="delete-container">
+                        <div class="delete-container" data-cluster-id="{{$cluster.id}}">
                             <i class="material-icons">close</i>
                         </div>
                         <a href="/pages/redisMonitorDetail" class="to-detail" title="see cluster detail">
                             <div class="one-data">
                                 <span><b>{{$cluster.clusterName}}</b></span>
                             </div>
-                            <div class="one-data" id="clustre-state-{{$cluster.id}}">
-                                {{cluster_state address=$cluster.address id=$cluster.id}}
+                            <div class="one-data" id="cluster-state-{{$cluster.id}}">
+                                <b>{{cluster_state address=$cluster.address id=$cluster.id}}</b>
                             </div>
                             <div class="one-data">
-                                <span>Group:</span>
-                                <span>{{$cluster.userGroup}}</span>
+                                <span>Group:&nbsp</span>
+                                <span><b>{{$cluster.userGroup}}</b></span>
                             </div>
                             <div class="one-data">
-                                <span>Address:</span>
-                                <span>{{$cluster.address}}</span>
+                                <span>Address:&nbsp</span>
+                                <span><b>{{$cluster.address}}</b></span>
                             </div>
                         </a>
                         <div class="operation-btn-swapper">

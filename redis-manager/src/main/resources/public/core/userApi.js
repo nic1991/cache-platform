@@ -1,13 +1,10 @@
 /******************************** com.newegg.ec.cache.app.controller.MonitorController ********************************/
 /**
- * @type GET 
- * @param  int 
- * @param  int 
- * @param  int 
- * @param  String
+ * @type POST 
+ * @param  com.newegg.ec.cache.app.model.SlowLogParam@46e190ed
  */
-function  monitorGetLastNodeInfo(clusterId,startTime,endTime,host,callback){
-   ajax.async_get("/monitor/getLastNodeInfo?clusterId="+clusterId+"&startTime="+startTime+"&endTime="+endTime+"&host="+host+"",callback);
+function  monitorSlowLogs(logParam,callback){
+   ajax.async_post("/monitor/slowLogs",logParam,callback);
 }
 /**
  * @type GET 
@@ -15,10 +12,11 @@ function  monitorGetLastNodeInfo(clusterId,startTime,endTime,host,callback){
  * @param  int 
  * @param  int 
  * @param  String 
- * @param  int
+ * @param  String 
+ * @param  String
  */
-function  monitorGetMinField(clusterId,startTime,endTime,key,limit,callback){
-   ajax.async_get("/monitor/getMinField?clusterId="+clusterId+"&startTime="+startTime+"&endTime="+endTime+"&key="+key+"&limit="+limit+"",callback);
+function  monitorGetGroupNodeInfo(clusterId,startTime,endTime,host,type,date,callback){
+   ajax.async_get("/monitor/getGroupNodeInfo?clusterId="+clusterId+"&startTime="+startTime+"&endTime="+endTime+"&host="+host+"&type="+type+"&date="+date+"",callback);
 }
 /**
  * @type GET 
@@ -43,11 +41,25 @@ function  monitorGetAvgField(clusterId,startTime,endTime,host,key,callback){
    ajax.async_get("/monitor/getAvgField?clusterId="+clusterId+"&startTime="+startTime+"&endTime="+endTime+"&host="+host+"&key="+key+"",callback);
 }
 /**
- * @type POST 
- * @param  com.newegg.ec.cache.app.model.SlowLogParam@6723610b
+ * @type GET 
+ * @param  int 
+ * @param  int 
+ * @param  int 
+ * @param  String 
+ * @param  int
  */
-function  monitorSlowLogs(logParam,callback){
-   ajax.async_post("/monitor/slowLogs",logParam,callback);
+function  monitorGetMinField(clusterId,startTime,endTime,key,limit,callback){
+   ajax.async_get("/monitor/getMinField?clusterId="+clusterId+"&startTime="+startTime+"&endTime="+endTime+"&key="+key+"&limit="+limit+"",callback);
+}
+/**
+ * @type GET 
+ * @param  int 
+ * @param  int 
+ * @param  int 
+ * @param  String
+ */
+function  monitorGetLastNodeInfo(clusterId,startTime,endTime,host,callback){
+   ajax.async_get("/monitor/getLastNodeInfo?clusterId="+clusterId+"&startTime="+startTime+"&endTime="+endTime+"&host="+host+"",callback);
 }
 /**
  * @type GET 
@@ -59,24 +71,27 @@ function  monitorSlowLogs(logParam,callback){
 function  monitorGetAllField(clusterId,startTime,endTime,key,callback){
    ajax.async_get("/monitor/getAllField?clusterId="+clusterId+"&startTime="+startTime+"&endTime="+endTime+"&key="+key+"",callback);
 }
-/**
- * @type GET 
- * @param  int 
- * @param  int 
- * @param  int 
- * @param  String 
- * @param  String 
- * @param  String
- */
-function  monitorGetGroupNodeInfo(clusterId,startTime,endTime,host,type,date,callback){
-   ajax.async_get("/monitor/getGroupNodeInfo?clusterId="+clusterId+"&startTime="+startTime+"&endTime="+endTime+"&host="+host+"&type="+type+"&date="+date+"",callback);
-}
 /******************************** com.newegg.ec.cache.app.controller.UserController ********************************/
 /**
  * @type GET
  */
 function  list(callback){
    ajax.async_get("/user/listUser",callback);
+}
+/**
+ * @type POST 
+ * @param  User{id=0, username='null', password='null', userGroup='null'} 
+ * @param  Cluster{id=0, clusterName='null', userGroup='null', address='null', sslUsername='null', sslPassword='null'}
+ */
+function  addUser(user,cluster,callback){
+   ajax.async_post("/user/addUser",user,cluster,callback);
+}
+/**
+ * @type GET 
+ * @param  int
+ */
+function  removeUser(id,callback){
+   ajax.async_get("/user/removeUser?id="+id+"",callback);
 }
 /**
  * @type GET 
@@ -89,46 +104,16 @@ function  getUser(id,callback){
  * @type GET 
  * @param  int
  */
-function  removeUser(id,callback){
-   ajax.async_get("/user/removeUser?id="+id+"",callback);
-}
-/**
- * @type POST 
- * @param  User{id=0, username='null', password='null', userGroup='null'} 
- * @param  Cluster{id=0, clusterName='null', userGroup='null', address='null', sslUsername='null', sslPassword='null'}
- */
-function  addUser(user,cluster,callback){
-   ajax.async_post("/user/addUser",user,cluster,callback);
+function  listGroup(id,callback){
+   ajax.async_get("/user/listGroup?id="+id+"",callback);
 }
 /******************************** com.newegg.ec.cache.app.controller.ClusterController ********************************/
-/**
- * @type GET 
- * @param  String
- */
-function  getClusterInfoByAddress(address,callback){
-   ajax.async_get("/cluster/getClusterInfoByAddress?address="+address+"",callback);
-}
 /**
  * @type GET 
  * @param  int
  */
 function  getCluster(id,callback){
    ajax.async_get("/cluster/getCluster?id="+id+"",callback);
-}
-/**
- * @type POST 
- * @param  Cluster{id=0, clusterName='null', userGroup='null', address='null', sslUsername='null', sslPassword='null'}
- */
-function  addCluster(cluster,callback){
-   ajax.async_post("/cluster/addCluster",cluster,callback);
-}
-/**
- * @type GET 
- * @param  int 
- * @param  String
- */
-function  removeCluster(id,clusterName,callback){
-   ajax.async_get("/cluster/removeCluster?id="+id+"&clusterName="+clusterName+"",callback);
 }
 /**
  * @type GET 
@@ -144,4 +129,25 @@ function  listCluster(group,callback){
  */
 function  getClusterInfo(ip,port,callback){
    ajax.async_get("/cluster/getClusterInfo?ip="+ip+"&port="+port+"",callback);
+}
+/**
+ * @type GET 
+ * @param  String
+ */
+function  removeCluster(clusterId,callback){
+   ajax.async_get("/cluster/removeCluster?clusterId="+clusterId+"",callback);
+}
+/**
+ * @type POST 
+ * @param  Cluster{id=0, clusterName='null', userGroup='null', address='null', sslUsername='null', sslPassword='null'}
+ */
+function  addCluster(cluster,callback){
+   ajax.async_post("/cluster/addCluster",cluster,callback);
+}
+/**
+ * @type GET 
+ * @param  String
+ */
+function  getClusterInfoByAddress(address,callback){
+   ajax.async_get("/cluster/getClusterInfoByAddress?address="+address+"",callback);
 }

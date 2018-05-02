@@ -8,6 +8,8 @@ import com.newegg.ec.cache.app.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -46,5 +48,15 @@ public class UserController {
     public Response removeUser(@RequestParam int id){
         boolean res = logic.removeUser( id );
         return Response.Result(0, res);
+    }
+
+    @RequestMapping(value = "/listGroup", method = RequestMethod.GET)
+    @ResponseBody
+    public Response listGroup(@RequestParam int id){
+        List<String> list = new ArrayList<>();
+        list.add("admin");
+        list.add("admin2");
+        list.add("itemservice");
+        return Response.Result(0, list);
     }
 }
