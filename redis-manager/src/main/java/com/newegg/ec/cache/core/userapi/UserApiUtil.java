@@ -20,8 +20,8 @@ import java.util.Set;
  * Created by lzz on 2018/4/22.
  */
 public class UserApiUtil {
-    public static final String GET_METHOD_NAME = "async_get";
-    public static final String POST_METHOD_NAME = "async_post";
+    public static final String GET_METHOD_NAME = "ajax.async_get";
+    public static final String POST_METHOD_NAME = "ajax.async_post";
     public static void autoGeneriesAllApi(List<String> packages, String file){
         Set<Class<?>> classSets = new HashSet<>();
         for(String p : packages){

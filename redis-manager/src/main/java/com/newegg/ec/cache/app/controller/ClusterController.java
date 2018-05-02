@@ -7,6 +7,7 @@ import com.newegg.ec.cache.app.model.Cluster;
 import com.newegg.ec.cache.app.model.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -23,10 +24,16 @@ public class ClusterController {
     @Autowired
     private ClusterLogic logic;
 
+    @RequestMapping("/clusterListManager")
+    public String form(Model model){
+        return "clusterListManager";
+    }
+
     @RequestMapping(value = "/listCluster", method = RequestMethod.GET)
     @ResponseBody
     public Response listCluster(@RequestParam String group){
         List<Cluster> listCluster = logic.getClusterList( group );
+        System.out.println( listCluster );
         return Response.Result(0, listCluster);
     }
 
@@ -53,8 +60,15 @@ public class ClusterController {
 
     @RequestMapping(value = "/getClusterInfo", method = RequestMethod.GET)
     @ResponseBody
-    public Response removeCluster(@RequestParam String ip, @RequestParam int port){
+    public Response getClusterInfo(@RequestParam String ip, @RequestParam int port){
         Map<String, String> res = logic.getClusterInfo(ip, port);
+        return Response.Result(0, res);
+    }
+
+    @RequestMapping(value = "/getClusterInfoByAddress", method = RequestMethod.GET)
+    @ResponseBody
+    public Response getClusterInfoByAddress(@RequestParam String address){
+        Map<String, String> res = logic.getClusterInfo(address);
         return Response.Result(0, res);
     }
 }

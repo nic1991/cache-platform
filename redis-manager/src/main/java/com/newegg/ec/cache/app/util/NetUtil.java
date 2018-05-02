@@ -1,8 +1,12 @@
 package com.newegg.ec.cache.app.util;
 
+import com.newegg.ec.cache.app.model.Host;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by lzz on 2018/2/5.
@@ -86,5 +90,21 @@ public class NetUtil {
             res = false;
         }
         return res;
+    }
+
+    public static List<Host> getHostByAddress(String addressStr) {
+        String[] addressArr = addressStr.split(",");
+        List<Host> listHost = new ArrayList<>();
+        for(String address : addressArr){
+            String[] tmpArr = address.split(":");
+            if( tmpArr.length == 2 ){
+                Host host = new Host();
+                host.setIp( tmpArr[0]);
+                host.setPort(Integer.parseInt(tmpArr[1]));
+                listHost.add( host );
+            }
+        }
+        return listHost;
+
     }
 }
