@@ -19,6 +19,7 @@ public class Cluster {
     private String sslUsername;
     @MysqlField(field = "ssl_password", type = "varchar(64)", notNull = false)
     private String sslPassword;
+    @MysqlField(field = "cluster_type", type = "varchar(10)", notNull = true)
     private String clusterType;
 
     public int getId() {
@@ -69,6 +70,14 @@ public class Cluster {
         this.sslPassword = sslPassword;
     }
 
+    public String getClusterType() {
+        return clusterType;
+    }
+
+    public void setClusterType(String clusterType) {
+        this.clusterType = clusterType;
+    }
+
     @Override
     public String toString() {
         return "Cluster{" +
@@ -78,6 +87,7 @@ public class Cluster {
                 ", address='" + address + '\'' +
                 ", sslUsername='" + sslUsername + '\'' +
                 ", sslPassword='" + sslPassword + '\'' +
+                ", clusterType='" + clusterType + '\'' +
                 '}';
     }
 }

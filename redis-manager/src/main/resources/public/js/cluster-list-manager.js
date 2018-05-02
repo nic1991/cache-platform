@@ -71,6 +71,7 @@ $(function(){
         cluster.clusterName = clusterName;
         cluster.address = address;
         cluster.userGroup =  userGroup;
+        cluster.clusterType = "machine";
         addCluster(cluster, function(obj){
             location.reload();
         });
