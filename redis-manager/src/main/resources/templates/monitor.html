@@ -8,8 +8,6 @@
 
     <script src="../vender/jquery/jquery-2.2.3.min.js"></script>
     <script src="../vender/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
-    <script src="../vender/datatables/jquery.dataTables.min.js"></script>
-    <script src="../vender/datatables/dataTables.bootstrap.min.js"></script>
     <script src="../vender/amcharts/amcharts.js" type="text/javascript"></script>
     <script src="../vender/amcharts/serial.js" type="text/javascript"></script>
     <script src="../vender/amcharts/themes/light.js" type="text/javascript"></script>
@@ -19,15 +17,83 @@
     <script src="../vender/sparrow/util.js"></script>
     <script src="../vender/sparrow/smarty.js"></script>
     <script src="../js/common.js"></script>
+    <script src="../vender/datatables/jquery.dataTables.min.js"></script>
+    <script src="../vender/datatables/dataTables.bootstrap.min.js"></script>
     <style>
         .select-hover:hover{
             background-color:#5bc0de;
             color: #fff;
         }
+        .top-data-div{
+            height:145px;
+        }
+        .top-data-title{
+            font-size:20px;
+            margin-bottom:10px;
+            display:block;
+        }
+        .top-item{
+            max-width: 260px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            padding-left: 25px;
+        }
+        .top_request_monitor{
+            cursor:pointer;
+            color:#5bc0de;
+        }
     </style>
 </head>
 <body>
 <div class="container-fluid">
+    <div class="row">
+        <div class="panel panel-default" style="height:223px;background-color:#d9f2fb">
+            <div class="panel-heading" style="height:45px">
+                <div class="pull-left" style="margin-left:10px">
+                    <p>
+                        <span class="label label-success">Cluster Healthy</span>
+                        cluster_known_nodes: <b class="success">2</b> | cluster_size: <b class="success">1</b>
+                    </p>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="col-md-3">
+                    <div class="panel panel-info top-data-div">
+                        <div class="panel-body" id="top-response-time">
+                            <p class="top-data-title"><span class="glyphicon glyphicon-hourglass info"></span> AvgResponse : <span id="avg-response">1</span>/ms</p>
+                        </div>
+                    </div>
+                </div><!-- .col-md-3 -->
+                <div class="col-md-3">
+                    <div class="panel panel-info top-data-div">
+                        <div class="panel-body" id="top-connection">
+                            <p class="top-data-title"><span class="glyphicon glyphicon-piggy-bank info"></span> AllKeys : <span id="all-key">931001</span></p>
+                            <p class="top-item">Max: [<span class="top_request_monitor" id="max-all-host">10.16.46.192:8018</span>] <span class="danger" id="max-all-key">931026</span></p>
+                            <p class="top-item">Min: [<span class="top_request_monitor" id="min-all-host">10.16.46.192:8008</span>] <span class="danger" id="min-all-key">930976</span></p>
+                        </div>
+                    </div>
+                </div><!-- .col-md-3 -->
+                <div class="col-md-3">
+                    <div class="panel panel-info top-data-div">
+                        <div class="panel-body" id="top-avg-connection">
+                            <p class="top-data-title"><span class="glyphicon glyphicon-transfer info"></span> AvgConnection : <span id="avg-connection">147</span></p>
+                        </div>
+                    </div>
+                </div><!-- .col-md-3 -->
+                <div class="col-md-3">
+                    <div class="panel panel-info top-data-div">
+                        <div class="panel-body">
+                            <div class="panel-body" id="top-avg-instantaneous">
+                                <p class="top-data-title"><span class="glyphicon glyphicon-transfer info"></span> Instantaneous : <span id="avg-instantaneous">147</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- .col-md-3 -->
+            </div>
+        </div><!-- .panel -->
+    </div>
+
     <div class="row">
         <div class="panel panel-default">
             <div class="panel-heading">
