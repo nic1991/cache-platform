@@ -4,10 +4,7 @@ import com.newegg.ec.cache.app.dao.IClusterCheckLogDao;
 import com.newegg.ec.cache.app.dao.IClusterCheckRuleDao;
 import com.newegg.ec.cache.app.dao.IClusterDao;
 import com.newegg.ec.cache.app.dao.INodeInfoDao;
-import com.newegg.ec.cache.app.model.Cluster;
-import com.newegg.ec.cache.app.model.ClusterCheckLog;
-import com.newegg.ec.cache.app.model.ClusterCheckRule;
-import com.newegg.ec.cache.app.model.NodeInfo;
+import com.newegg.ec.cache.app.model.*;
 import com.newegg.ec.cache.app.util.CommonUtil;
 import com.newegg.ec.cache.app.util.DateUtil;
 import com.newegg.ec.cache.app.util.JedisUtil;
@@ -19,7 +16,6 @@ import org.springframework.stereotype.Component;
 import redis.clients.util.Slowlog;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -96,6 +92,7 @@ public class RedisInfoChecker {
         @Override
         public void run() {
             //获取当前cluster所有配置的rule
+            int cluster_id = cluster.getId();
             String clusterName = cluster.getClusterName();
             String host = cluster.getAddress().split(",")[0];
             String ip = host.split(":")[0];
@@ -108,7 +105,7 @@ public class RedisInfoChecker {
             for(ClusterCheckRule rule : ruleList){
                 String formula = rule.getFormula();
                 for(Map<String, String> node : nodeList){
-                    NodeInfo nodeInfo = infoDao.getLastNodeInfo("node_info_" + clusterName, 0, DateUtil.getTime(), host);
+                    NodeInfo nodeInfo = infoDao.getLastNodeInfo(Common.NODE_INFO_TABLE_FORMAT + cluster_id, 0, DateUtil.getTime(), host);
                     if(nodeInfo != null){
                         Map<String, Object> nodeInfoMap = formatNodeInfo(nodeInfo);
                         try {

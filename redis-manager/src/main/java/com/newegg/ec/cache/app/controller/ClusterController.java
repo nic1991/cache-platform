@@ -71,4 +71,11 @@ public class ClusterController {
         Map<String, String> res = logic.getClusterInfo(address);
         return Response.Result(0, res);
     }
+
+    @RequestMapping(value = "/nodeList", method = RequestMethod.GET)
+    @ResponseBody
+    public Response nodeList(@RequestParam String ip, @RequestParam int port){
+        List<Map<String, String>> list = logic.nodeList(ip, port);
+        return Response.Result(0, list);
+    }
 }

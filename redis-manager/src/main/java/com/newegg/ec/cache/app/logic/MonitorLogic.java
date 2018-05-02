@@ -56,27 +56,30 @@ public class MonitorLogic {
         String ip = host.getIp();
         int port = host.getPort();
         List<RedisSlowLog>  cmdList = new ArrayList<>();
-        try {
-            List<Slowlog> slowList = JedisUtil.getSlowLog(ip, port, slowLogParam.getLogLimit());
-            for( Slowlog log : slowList){
-                String slowDate =DateUtil.getFormatDate( log.getTimeStamp() * 1000 );
-                long logTime = log.getExecutionTime();
-                int runTime = (int) (logTime / 1000);
-                List<String> args = log.getArgs();
-                String type = args.get(0);
-                List<String> commands = args.subList(1, args.size());
-                String command = StringUtils.join(commands, " ");
-                RedisSlowLog redisSlowLog = new RedisSlowLog();
-                redisSlowLog.setCommand( command );
-                redisSlowLog.setHost( ip + ":" + port );
-                redisSlowLog.setRunTime( runTime );
-                redisSlowLog.setType( type );
-                redisSlowLog.setShowDate( slowDate );
-                redisSlowLog.setAddTime( logTime );
-                cmdList.add( redisSlowLog );
-            }
-        }catch (Exception e){
+        List<Host> ipList = slowLogParam.getHostList();
+        for(Host host1 : ipList){
+            try {
+                List<Slowlog> slowList = JedisUtil.getSlowLog(host1.getIp(), host1.getPort(), slowLogParam.getLogLimit());
+                for( Slowlog log : slowList){
+                    String slowDate =DateUtil.getFormatDate( log.getTimeStamp() * 1000 );
+                    long logTime = log.getExecutionTime();
+                    int runTime = (int) (logTime / 1000);
+                    List<String> args = log.getArgs();
+                    String type = args.get(0);
+                    List<String> commands = args.subList(1, args.size());
+                    String command = StringUtils.join(commands, " ");
+                    RedisSlowLog redisSlowLog = new RedisSlowLog();
+                    redisSlowLog.setCommand( command );
+                    redisSlowLog.setHost( host1.getIp() + ":" + host1.getPort() );
+                    redisSlowLog.setRunTime( runTime );
+                    redisSlowLog.setType( type );
+                    redisSlowLog.setShowDate( slowDate );
+                    redisSlowLog.setAddTime( logTime );
+                    cmdList.add( redisSlowLog );
+                }
+            }catch (Exception e){
 
+            }
         }
         return cmdList;
     }
