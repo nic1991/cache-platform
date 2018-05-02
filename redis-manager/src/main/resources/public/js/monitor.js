@@ -83,7 +83,7 @@ nodeList("10.16.46.192", 8018, function(obj){
 
 $("#show_log").click(function(){
     var $btn = $(this).button('loading');
-    $("#slow-log-table").empty();
+    $("#slow-log-table>tbody").empty();
     var logParam = {"logLimit":5};
     logParam.hostList = window.nodeList;
     monitorSlowLogs(logParam,function(obj){
@@ -98,13 +98,13 @@ $("#show_log").click(function(){
             tr += "<td>" + items[index].command + "</td>";
             tr += "</tr>";
         }
-        $("#slow-log-table").append( tr );
-        $btn.button('reset');
+        $("#slow-log-table>tbody").append( tr );
         $("#slow-log-table").dataTable({
             pageLength:15,
             lengthMenu: [15, 30, 50, 100, 200, 300 ],
             order: [[ 1, 'asc' ]]
         });
+        $btn.button('reset');
     });
 });
 
