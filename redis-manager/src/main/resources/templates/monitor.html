@@ -19,6 +19,8 @@
     <script type="text/javascript" src="../lib/bootstrap-3.3.7/js/bootstrap.js"></script>
     <script type="text/javascript" src="../lib/layer/layer.js"></script>
     <script type="text/javascript" src="../lib/bootstrap-select-1.12.4/dist/js/bootstrap-select.js"></script>
+    <script src="../vender/datatables/jquery.dataTables.min.js"></script>
+    <script src="../vender/datatables/dataTables.bootstrap.min.js"></script>
 
     <script src="../vender/amcharts/amcharts.js" type="text/javascript"></script>
     <script src="../vender/amcharts/serial.js" type="text/javascript"></script>
@@ -28,8 +30,6 @@
     <script src="../vender/sparrow/util.js"></script>
     <script src="../vender/sparrow/smarty.js"></script>
     <script src="../js/common.js"></script>
-    <script src="../vender/datatables/jquery.dataTables.min.js"></script>
-    <script src="../vender/datatables/dataTables.bootstrap.min.js"></script>
     <style>
         .select-hover:hover{
             background-color:#5bc0de;
@@ -266,49 +266,11 @@
                                     <th>command</th>
                                 </tr>
                                 </thead>
+                                <tbody></tbody>
                             </table>
                         </div>
                     </div>
                 </div><!-- .row -->
-            </div>
-
-            <div class="show-log-container">
-                <div>
-                    <a class="show-log">
-                        <span>Show Log&gt;&gt;</span>
-                    </a>
-                </div>
-                <div class="progress log-progress-bar" style="display: none;">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 00%;">
-                        <span class="sr-only">00</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="table-responsive">
-                <table class="table table-striped text-nowrap table-bordered table-hover table-condensed executions-table list-table">
-                    <thead>
-                    <tr>
-                        <th>Host</th>
-                        <th>Date</th>
-                        <th>Runtime</th>
-                        <th>Type</th>
-                        <th>Command</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <!--<tr>
-                        <td colspan="4">No Redis Cluster</td>
-                    </tr>-->
-                    <tr>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                    </tr>
-                    </tbody>
-                </table>
             </div>
         </div>
     </div>
