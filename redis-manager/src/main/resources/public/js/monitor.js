@@ -1,13 +1,10 @@
-window.HOST_URL = "http://" + window.location.host + "/";
-window.STATIC_URL = window.HOST_URL;
-window.JSTPL_URL = window.STATIC_URL + "jstpl/";
-
 $("#field-title > th").click(function () {
     var field = $(this).data("field");
     if( field != "date" ){
         $("#field-title > th").removeClass("selected");
         $(this).addClass("selected");
-        ajax.async_get("/monitor/getGroupNodeInfo?tableName=node_info_23&startTime=0&endTime=1624732279&host=all&type=max&date=minute", function(obj){
+        var clusterId = getQueryString("clusterId");
+        ajax.async_get("/monitor/getGroupNodeInfo?clusterId=" + clusterId + "&startTime=0&endTime=1624732279&host=all&type=max&date=minute", function(obj){
             makeCharts("light", "#FFFFFF", field, obj.res);
             smarty.html( "monitor/node_info_table", obj, "node-info-table",function () {
                 console.log("html ...");

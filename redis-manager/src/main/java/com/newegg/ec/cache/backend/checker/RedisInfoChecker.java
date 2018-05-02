@@ -103,12 +103,7 @@ public class RedisInfoChecker {
             List<ClusterCheckRule> ruleList = checkRuleDao.getClusterRuleList(clusterName);
 
             //获取每个cluster所有的node
-            List<Map<String, String>> nodeList = new ArrayList<>();
-            if( JedisUtil.getRedisVersion(ip, port) > 2 ){
-                nodeList = JedisUtil.getNodeList(ip, port);
-            }else{
-                nodeList = JedisUtil.getRedis2Nodes(ip, port);
-            }
+            List<Map<String, String>> nodeList = JedisUtil.nodeList(ip, port);
 
             for(ClusterCheckRule rule : ruleList){
                 String formula = rule.getFormula();
