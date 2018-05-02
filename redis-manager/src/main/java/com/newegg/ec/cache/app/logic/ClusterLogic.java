@@ -7,6 +7,7 @@ import com.newegg.ec.cache.app.dao.impl.NodeInfoDao;
 import com.newegg.ec.cache.app.model.Cluster;
 import com.newegg.ec.cache.app.model.Common;
 import com.newegg.ec.cache.app.model.Host;
+import com.newegg.ec.cache.app.util.JedisUtil;
 import com.newegg.ec.cache.app.util.NetUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -74,5 +75,10 @@ public class ClusterLogic {
     public Map<String, String> getClusterInfo(String address){
         List<Host> host = NetUtil.getHostByAddress( address );
         return redisManager.getClusterInfo(host.get(0).getIp(), host.get(0).getPort());
+    }
+
+    public List<Map<String, String>> nodeList(String ip, int port){
+        List<Map<String, String>> list = JedisUtil.nodeList( ip, port );
+        return list;
     }
 }

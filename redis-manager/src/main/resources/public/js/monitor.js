@@ -1,3 +1,4 @@
+
 $("#field-title > th").click(function () {
     var field = $(this).data("field");
     if( field != "date" ){
@@ -13,6 +14,41 @@ $("#field-title > th").click(function () {
     }
 });
 
+
+nodeList("10.16.46.192", 8018, function(obj){
+    window.nodeList = obj.res;
+});
+
+$("#show_log").click(function(){
+    var $btn = $(this).button('loading');
+    $("#slow-log-table").empty();
+    for(var i = 0; i < window.nodeList.length; i++){
+        var logParam = {"logLimit":5};
+        logParam.hostList = window.nodeList;
+        monitorSlowLogs(logParam,function(obj){
+            var items = obj.res;
+            var tr = "";
+            for(var index in items){
+                tr += "<tr>";
+                tr += "<td class='one_slow_log info-hover'>" + items[index].host + "</td>";
+                tr += "<td>" + items[index].showDate + "</td>";
+                tr += "<td>" + items[index].runTime + "</td>";
+                tr += "<td>" + items[index].type + "</td>";
+                tr += "<td>" + items[index].command + "</td>";
+                tr += "</tr>";
+            }
+            $("#slow-log-table").append( tr );
+        });
+    }
+    $("#slow-log-table").DataTable({
+        pageLength:15,
+        lengthMenu: [15, 30, 50, 100, 200, 300 ],
+        order: [[ 1, 'asc' ]]
+    });
+    $btn.button('reset');
+});
+
+
 function makeCharts(theme, bgColor, field, char_data_table) {
     var len = char_data_table.length;
 
@@ -21,7 +57,6 @@ function makeCharts(theme, bgColor, field, char_data_table) {
     if (chart1) {
         chart1.clear();
     }
-
     // background
     if (document.body) {
         document.body.style.backgroundColor = bgColor;

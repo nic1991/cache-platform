@@ -6,7 +6,6 @@ import com.newegg.ec.cache.app.model.RedisSlowLog;
 import com.newegg.ec.cache.app.model.Response;
 import com.newegg.ec.cache.app.model.SlowLogParam;
 import com.newegg.ec.cache.core.userapi.UserAccess;
-import net.sf.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;

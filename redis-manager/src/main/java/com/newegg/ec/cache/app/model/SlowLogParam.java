@@ -24,4 +24,12 @@ public class SlowLogParam {
     public void setLogLimit(int logLimit) {
         this.logLimit = logLimit;
     }
+
+    @Override
+    public String toString() {
+        return "SlowLogParam{" +
+                "hostList=" + hostList +
+                ", logLimit=" + logLimit +
+                '}';
+    }
 }
