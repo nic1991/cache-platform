@@ -158,13 +158,7 @@ public class RedisInfoSchedule{
 
     public void infoProducer(int clusterId, String ip, int port){
         // 获取集群的所有节点
-        List<Map<String, String>> nodeList = new ArrayList<>();
-        if( JedisUtil.getRedisVersion(ip, port) > 2 ){
-            nodeList = JedisUtil.getNodeList(ip, port);
-        }else{
-            nodeList = JedisUtil.getRedis2Nodes(ip, port);
-        }
-
+        List<Map<String, String>> nodeList = JedisUtil.nodeList(ip, port);
         try {
             long pingTime = NetUtil.pingTime( ip.trim() );
             for(Map<String, String> node : nodeList){

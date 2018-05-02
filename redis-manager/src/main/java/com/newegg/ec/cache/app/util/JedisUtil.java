@@ -62,48 +62,6 @@ public class JedisUtil {
     }
 
 
-    public static List<Map<String, String>> getRedis2Nodes(String ip, int port){
-        List<Map<String, String>> resList = new ArrayList<>();
-        Map<String, String> infoMap = getMapInfo(ip, port);
-        if( infoMap.get("role").equals("slave") ){
-            ip = infoMap.get("master_host");
-            port = Integer.parseInt(infoMap.get("master_port"));
-            infoMap = getMapInfo(ip, port);
-        }
-        for(Map.Entry<String, String> item: infoMap.entrySet()){
-            String key = item.getKey();
-            String value = item.getValue();
-            Map<String, String> node = new HashMap<>();
-            if( key.contains("slave") ){
-                String[] tmpArr = value.split(",");
-                String tmpip = null;
-                String tmpport = null;
-                for(String tmp: tmpArr){
-                    String[] tmpInnArr = tmp.split("=");
-                    if( tmpInnArr[0].equals("ip") ){
-                        tmpip = tmpInnArr[1];
-                    }else if( tmpInnArr[0].equals("port") ){
-                        tmpport = tmpInnArr[1];
-                    }
-                }
-                if( !StringUtils.isBlank( tmpip ) && !StringUtils.isBlank(tmpport) ){
-                    node.put("ip", tmpip);
-                    node.put("port", tmpport);
-                    node.put("role", "slave");
-                }
-            }
-            if( null != node && !node.isEmpty() ){
-                resList.add( node );
-            }
-        }
-        Map<String, String> master = new HashMap<>();
-        master.put("ip", ip);
-        master.put("port", String.valueOf(port));
-        master.put("role", "master");
-        resList.add( master );
-        return resList;
-    }
-
     public static int getRedisVersion(String ip, int port){
         int res = 0;
         Map<String, String> resMap = getMapInfo(ip, port);
@@ -214,7 +172,17 @@ public class JedisUtil {
         return result;
     }
 
-    public static List<Map<String, String>> getNodeList (String ip, int port) {
+    public static List<Map<String, String>> nodeList (String ip, int port){
+        List<Map<String, String>> nodeList = new ArrayList<>();
+        if( JedisUtil.getRedisVersion(ip, port) > 2 ){
+            nodeList = JedisUtil.getNodeList(ip, port);
+        }else{
+            nodeList = JedisUtil.getRedis2Nodes(ip, port);
+        }
+        return nodeList;
+    }
+
+    private static List<Map<String, String>> getNodeList (String ip, int port) {
         return getNodeList (ip, port, false);
     }
 
@@ -224,7 +192,7 @@ public class JedisUtil {
      * @param port
      * @return
      */
-    public static List<Map<String, String>> getNodeList (String ip, int port, boolean filterMaster) {
+    private static List<Map<String, String>> getNodeList (String ip, int port, boolean filterMaster) {
         Map<String, Map> result = new HashMap<>();
         if( filterMaster ){
             result = JedisUtil.getMasterNodes(ip, port);
@@ -257,6 +225,48 @@ public class JedisUtil {
         return nodeList;
     }
 
+    private static List<Map<String, String>> getRedis2Nodes(String ip, int port){
+        List<Map<String, String>> resList = new ArrayList<>();
+        Map<String, String> infoMap = getMapInfo(ip, port);
+        if( infoMap.get("role").equals("slave") ){
+            ip = infoMap.get("master_host");
+            port = Integer.parseInt(infoMap.get("master_port"));
+            infoMap = getMapInfo(ip, port);
+        }
+        for(Map.Entry<String, String> item: infoMap.entrySet()){
+            String key = item.getKey();
+            String value = item.getValue();
+            Map<String, String> node = new HashMap<>();
+            if( key.contains("slave") ){
+                String[] tmpArr = value.split(",");
+                String tmpip = null;
+                String tmpport = null;
+                for(String tmp: tmpArr){
+                    String[] tmpInnArr = tmp.split("=");
+                    if( tmpInnArr[0].equals("ip") ){
+                        tmpip = tmpInnArr[1];
+                    }else if( tmpInnArr[0].equals("port") ){
+                        tmpport = tmpInnArr[1];
+                    }
+                }
+                if( !StringUtils.isBlank( tmpip ) && !StringUtils.isBlank(tmpport) ){
+                    node.put("ip", tmpip);
+                    node.put("port", tmpport);
+                    node.put("role", "slave");
+                }
+            }
+            if( null != node && !node.isEmpty() ){
+                resList.add( node );
+            }
+        }
+        Map<String, String> master = new HashMap<>();
+        master.put("ip", ip);
+        master.put("port", String.valueOf(port));
+        master.put("role", "master");
+        resList.add( master );
+        return resList;
+    }
+
     /**
      * 获取集群节点信息
      * @param ip
@@ -277,7 +287,7 @@ public class JedisUtil {
         return result;
     }
 
-    public static Map<String,Map> getMasterNodes (String ip, int port) {
+    private static Map<String,Map> getMasterNodes (String ip, int port) {
         Jedis jedis = new Jedis( ip, port);
         Map<String, Map> result = new HashMap<>();
         try {
@@ -297,7 +307,7 @@ public class JedisUtil {
      * @param port
      * @return
      */
-    public static String clusterFailover (String ip, int port) {
+    private static String clusterFailover (String ip, int port) {
         Jedis jedis = new Jedis( ip, port);
         String result = "";
         try {
