@@ -14,8 +14,8 @@
     <select id="getCluster" parameterType="int" resultType="com.newegg.ec.cache.app.model.Cluster">
         select * from cluster where id=#{id}
     </select>
-    <delete id="removeCluster" parameterType="int">
-        delete from cluster where id = #{id};
+    <delete id="removeCluster">
+        delete from cluster where id = #{0} and cluster_name = #{1};
     </delete>
     <insert id="addCluster"  parameterType="com.newegg.ec.cache.app.model.Cluster"  useGeneratedKeys="true" keyProperty="id">
         insert into cluster(address,cluster_name,user_group, ssl_username, ssl_password ) values(#{address},#{clusterName},#{userGroup},#{sslUsername},#{sslPassword})

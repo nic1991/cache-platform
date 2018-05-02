@@ -51,4 +51,16 @@ public class DateUtil {
         timeStemp = (int) (tmp / 1000);
         return timeStemp;
     }
+
+    /**
+     * 获取当前某个小时的时间戳
+     * @param ihour
+     * @return
+     */
+    public static long getBeforeHourTime(int ihour){
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, calendar.get(Calendar.HOUR_OF_DAY) - ihour);
+        return calendar.getTimeInMillis();
+    }
+
 }

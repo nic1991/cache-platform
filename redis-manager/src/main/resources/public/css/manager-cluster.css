@@ -1,0 +1,37 @@
+.container-color {
+	background-color: #FFFFFF;
+}
+
+.header-swapper {
+	padding: 20px 0;
+}
+.main-swapper {
+	padding: 20px 10px;
+}
+
+.main-swapper a{
+	color: #403D39;
+}
+
+.header-swapper {
+	color: #000000;
+	font-weight: 600;
+}
+
+.base-info-operation {
+	margin: 20px 0 10px;
+}
+
+.node-manager-panel {
+	margin: 20px 0;
+}
+
+.node-header {
+	margin-bottom: 20px;
+}
+
+.node-header ul{
+	display: flex;
+	justify-content: flex-end;
+}
+

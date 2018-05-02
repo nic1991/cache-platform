@@ -20,7 +20,8 @@ import java.util.Set;
  * Created by lzz on 2018/4/22.
  */
 public class UserApiUtil {
-
+    public static final String GET_METHOD_NAME = "ajax.async_get";
+    public static final String POST_METHOD_NAME = "ajax.async_post";
     public static void autoGeneriesAllApi(List<String> packages, String file){
         Set<Class<?>> classSets = new HashSet<>();
         for(String p : packages){
@@ -45,6 +46,7 @@ public class UserApiUtil {
         if( userAccess == null || !userAccess.autoCreate() ){
             return apiStr;
         }
+        String controllerName = userAccess.name();
         Annotation[] annotations = claz.getAnnotations();
         for(Annotation annotation : annotations){
             if( annotation instanceof Controller){
@@ -58,14 +60,14 @@ public class UserApiUtil {
                 }
                 Method[] methods = claz.getMethods();
                 for(Method method : methods){
-                    apiStr += createMethodApi(basePath, method);
+                    apiStr += createMethodApi(basePath, method, controllerName);
                 }
             }
         }
         return apiStr;
     }
 
-    private static String createMethodApi(String basePath, Method method) {
+    private static String createMethodApi(String basePath, Method method, String controllerName) {
         String methodName = "";
         String mapperPath = "";
         String requestType = "GET";
@@ -78,6 +80,9 @@ public class UserApiUtil {
         }
         //获取方法名
         methodName = method.getName();
+        if( !StringUtils.isBlank( controllerName ) ){
+            methodName = controllerName + upperCaseFirst(methodName);
+        }
         //获取方法路径
         mapperPath = methodPath.value()[0];
         //获取参数类型
@@ -126,9 +131,9 @@ public class UserApiUtil {
         annotation += "\n */";
         String funParam = StringUtils.join(params, ",");
         if( StringUtils.isBlank(funParam ) ){
-            methodStr += " " + methodName + "(callback,errorCall){";
+            methodStr += " " + methodName + "(callback){";
         }else{
-            methodStr += " " + methodName + "(" + funParam + ",callback,errorCall){";
+            methodStr += " " + methodName + "(" + funParam + ",callback){";
         }
 
         if( requestType.equals("GET") ){
@@ -143,9 +148,9 @@ public class UserApiUtil {
                 }
                 paramStr += params.get(i) + "=\"+" + params.get(i) + "+\"" +  endStr;
             }
-            methodStr += "\n   get(\""+ basePath + mapperPath + paramStr +"\",callback,errorCall);";
+            methodStr += "\n   " + GET_METHOD_NAME + "(\""+ basePath + mapperPath + paramStr +"\",callback);";
         }else{
-            methodStr += "\n   post(\"" + basePath + mapperPath +"\"," + funParam +",callback,errorCall);";
+            methodStr += "\n   " + POST_METHOD_NAME + "(\"" + basePath + mapperPath +"\"," + funParam +",callback);";
         }
         methodStr += "\n}";
         apiStr = annotation + "\n" + methodStr+ "\n";
@@ -161,4 +166,13 @@ public class UserApiUtil {
             e.printStackTrace();
         }
     }
+
+    public static String upperCaseFirst(String str){
+        char[] strChar=str.toCharArray();
+        if( 'a' < strChar[0] && strChar[0] < 'z' ){
+            strChar[0] = (char) (strChar[0] - 32);
+        }
+        return String.valueOf(strChar);
+    }
+
 }
