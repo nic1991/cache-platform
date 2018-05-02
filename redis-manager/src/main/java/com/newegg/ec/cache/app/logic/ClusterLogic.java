@@ -3,6 +3,8 @@ package com.newegg.ec.cache.app.logic;
 import com.newegg.ec.cache.app.component.RedisManager;
 import com.newegg.ec.cache.app.dao.IClusterDao;
 import com.newegg.ec.cache.app.model.Cluster;
+import com.newegg.ec.cache.app.model.Host;
+import com.newegg.ec.cache.app.util.NetUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -42,8 +44,17 @@ public class ClusterLogic {
     public boolean addCluster(Cluster cluster){
         boolean res = false;
         try {
-            clusterDao.addCluster( cluster );
-            res = true;
+            int row = clusterDao.addCluster(cluster);
+            if (row > 0){
+                cluster.setAddress(cluster.getAddress());
+                cluster.setUserGroup(cluster.getUserGroup());
+                cluster.setClusterName(cluster.getClusterName());
+                clusterDao.addCluster(cluster);
+                /*nodeInfoTable.createTable("node_info_" + cluster.getClusterName());*/
+                res = true;
+            } else {
+                return false;
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -52,5 +63,10 @@ public class ClusterLogic {
 
     public Map<String, String> getClusterInfo(String ip, int port){
         return redisManager.getClusterInfo(ip, port);
+    }
+
+    public Map<String, String> getClusterInfo(String address){
+        List<Host> host = NetUtil.getHostByAddress( address );
+        return redisManager.getClusterInfo(host.get(0).getIp(), host.get(0).getPort());
     }
 }

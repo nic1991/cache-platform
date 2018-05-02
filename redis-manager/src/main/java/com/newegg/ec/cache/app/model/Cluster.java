@@ -19,6 +19,7 @@ public class Cluster {
     private String sslUsername;
     @MysqlField(field = "ssl_password", type = "varchar(64)", notNull = false)
     private String sslPassword;
+    private String clusterType;
 
     public int getId() {
         return id;

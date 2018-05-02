@@ -30,7 +30,7 @@ public class ClusterDaoTest {
         cluster.setUserGroup("admin");
         cluster.setClusterName("ssspark");
         clusterDao.addCluster(cluster);
-        nodeInfoTable.createTable("node_info_" + cluster.getClusterName());
+        nodeInfoTable.createTable("node_info_" + cluster.getId());
     }
 
     @Test

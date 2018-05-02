@@ -1,3 +1,8 @@
+window.HOST_URL = "http://" + window.location.host + "/";
+window.STATIC_URL = window.HOST_URL;
+window.JSTPL_URL = window.STATIC_URL + "jstpl/";
+
+
 $(function(){
 
 	

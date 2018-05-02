@@ -1,5 +1,16 @@
 $(function(){
-    // TODO:get cluster list base info
+    smarty.get( "/cluster/listCluster?group=admin", "cluster/cluster_list_content", "cluster-list-content", function(){
+        console.log("get...");
+    }, true );
+
+    smarty.register_function( 'cluster_state', function( params ){
+        var address = params['address'];
+        var id = params["id"];
+        var div_id = "clustre-state-" +  id;
+        getClusterInfoByAddress(address, function(obj){
+            $("#" + div_id).html( "<span>state:</span><span class='state-good'>OK</span>" + address );
+        });
+    });
 
 
 	/*add redis cluster*/

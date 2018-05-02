@@ -10,7 +10,7 @@
     <script src="../vender/amcharts/themes/light.js" type="text/javascript"></script>
     <script src="../vender/sparrow/layer/layer.js"></script>
     <script src="../vender/sparrow/ajax.js"></script>
-    <script src="../vender/core/userApi.js"></script>
+    <script src="../core/userApi.js"></script>
     <script src="../vender/sparrow/util.js"></script>
     <script src="../vender/sparrow/smarty.js"></script>
     <style>
@@ -40,35 +40,35 @@
                         <th class="select-hover selected" data-field="responseTime">response_time</th>
                         <th class="select-hover" data-field="usedCpuSys">used_cpu_sys</th>
                         <th class="select-hover" data-field="connectedClients">connected_clients</th>
-                        <th class="select-hover" data-field="blocked_clients">blocked_clients</th>
-                        <th class="select-hover" data-field="used_memory">used_memory/m</th>
-                        <th class="select-hover" data-field="used_memory_rss">used_memory_rss/m</th>
-                        <th class="select-hover" data-field="used_memory_peak">used_memory_peak/m</th>
-                        <th class="select-hover" data-field="mem_fragmentation_ratio">mem_fragmentation_ratio</th>
-                        <th class="select-hover" data-field="aof_enabled">aof_enabled</th>
-                        <th class="select-hover" data-field="total_connections_received">total_connections_received</th>
-                        <th class="select-hover" data-field="total_commands_processed">total_commands_processed</th>
-                        <th class="select-hover" data-field="instantaneous_ops_per_sec">instantaneous_ops_per_sec</th>
-                        <th class="select-hover" data-field="total_net_input_bytes">total_net_input_bytes</th>
-                        <th class="select-hover" data-field="total_net_output_bytes">total_net_output_bytes</th>
-                        <th class="select-hover" data-field="instantaneous_input_kbps">instantaneous_input_kbps</th>
-                        <th class="select-hover" data-field="instantaneous_output_kbps">instantaneous_output_kbps</th>
-                        <th class="select-hover" data-field="rejected_connections">rejected_connections</th>
-                        <th class="select-hover" data-field="sync_full">sync_full</th>
-                        <th class="select-hover" data-field="sync_partial_ok">sync_partial_ok</th>
-                        <th class="select-hover" data-field="sync_partial_err">sync_partial_err</th>
-                        <th class="select-hover" data-field="expired_keys">expired_keys</th>
-                        <th class="select-hover" data-field="evicted_keys">evicted_keys</th>
-                        <th class="select-hover" data-field="keyspace_hits">keyspace_hits</th>
-                        <th class="select-hover" data-field="keyspace_misses">keyspace_misses</th>
-                        <th class="select-hover" data-field="pubsub_channels">pubsub_channels</th>
-                        <th class="select-hover" data-field="pubsub_patterns">pubsub_patterns</th>
-                        <th class="select-hover" data-field="latest_fork_usec">latest_fork_usec</th>
-                        <th class="select-hover" data-field="migrate_cached_sockets">migrate_cached_sockets</th>
-                        <th class="select-hover" data-field="used_cpu_user">used_cpu_user</th>
-                        <th class="select-hover" data-field="used_cpu_sys_children">used_cpu_sys_children</th>
-                        <th class="select-hover" data-field="used_cpu_user_children">used_cpu_user_children</th>
-                        <th class="select-hover" data-field="total_keys">total_keys</th>
+                        <th class="select-hover" data-field="blockedClients">blocked_clients</th>
+                        <th class="select-hover" data-field="usedMemory">used_memory/m</th>
+                        <th class="select-hover" data-field="usedMemoryRss">used_memory_rss/m</th>
+                        <th class="select-hover" data-field="usedMemoryPeak">used_memory_peak/m</th>
+                        <th class="select-hover" data-field="memFragmentationRatio">mem_fragmentation_ratio</th>
+                        <th class="select-hover" data-field="aofEnabled">aof_enabled</th>
+                        <th class="select-hover" data-field="totalConnectionsReceived">total_connections_received</th>
+                        <th class="select-hover" data-field="totalCommandsProcessed">total_commands_processed</th>
+                        <th class="select-hover" data-field="instantaneousOpsPerSec">instantaneous_ops_per_sec</th>
+                        <th class="select-hover" data-field="totalNetInputBytes">total_net_input_bytes</th>
+                        <th class="select-hover" data-field="totalNetOutputBytes">total_net_output_bytes</th>
+                        <th class="select-hover" data-field="instantaneousInputKbps">instantaneous_input_kbps</th>
+                        <th class="select-hover" data-field="instantaneousOutputKbps">instantaneous_output_kbps</th>
+                        <th class="select-hover" data-field="rejectedConnections">rejected_connections</th>
+                        <th class="select-hover" data-field="syncFull">sync_full</th>
+                        <th class="select-hover" data-field="syncPartialOk">sync_partial_ok</th>
+                        <th class="select-hover" data-field="syncPartialErr">sync_partial_err</th>
+                        <th class="select-hover" data-field="expiredKeys">expired_keys</th>
+                        <th class="select-hover" data-field="evictedKeys">evicted_keys</th>
+                        <th class="select-hover" data-field="keyspaceHits">keyspace_hits</th>
+                        <th class="select-hover" data-field="keyspaceMisses">keyspace_misses</th>
+                        <th class="select-hover" data-field="pubsubChannels">pubsub_channels</th>
+                        <th class="select-hover" data-field="pubsubPatterns">pubsub_patterns</th>
+                        <th class="select-hover" data-field="latestForkUsec">latest_fork_usec</th>
+                        <th class="select-hover" data-field="migrateCachedSockets">migrate_cached_sockets</th>
+                        <th class="select-hover" data-field="usedCpuUser">used_cpu_user</th>
+                        <th class="select-hover" data-field="usedCpuSysChildren">used_cpu_sys_children</th>
+                        <th class="select-hover" data-field="usedCpuUserChildren">used_cpu_user_children</th>
+                        <th class="select-hover" data-field="totalKeys">total_keys</th>
                     </tr>
                     </thead>
                     <tbody id="node-info-table">
