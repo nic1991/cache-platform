@@ -127,6 +127,7 @@ public class RedisInfoChecker {
                                 log.setLogInfo(MathExpressionCalculateUtil.getRuleDataStr(formula, nodeInfoMap));
                                 log.setLogType(ClusterCheckLog.LogType.warnlog);
                                 log.setUpdateTime(DateUtil.getTime());
+                                log.setDescription(rule.getDescription());
                                 checkLogDao.addClusterCheckLog(log);
                             }
                         } catch (Exception e){
@@ -169,6 +170,7 @@ public class RedisInfoChecker {
                 ClusterCheckLog log = new ClusterCheckLog();
                 log.setId(CommonUtil.getUuid());
                 log.setClusterId(cluster.getClusterName());
+                log.setDescription("Redis slow logs warnning");
                 log.setLogInfo("There are more than 100 slowlogs in last 1 hour on Cluster " + cluster.getClusterName());
                 log.setLogType(ClusterCheckLog.LogType.slowlog);
                 log.setUpdateTime(DateUtil.getTime());

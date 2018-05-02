@@ -24,6 +24,8 @@ public class ClusterCheckLog implements Serializable{
     private LogType logType;
     @MysqlField(field = "log_info", type = "varchar(512)", notNull = true)
     private String logInfo;
+    @MysqlField(field = "description", type = "varchar(256)", notNull = true)
+    private String description;
     //某个cluster的某个formula是否check通过
     @MysqlField(field = "is_checked", type = "int", notNull = true)
     private Integer isChecked;
@@ -99,6 +101,13 @@ public class ClusterCheckLog implements Serializable{
         this.nodeId = nodeId;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     @Override
     public String toString() {
@@ -109,12 +118,13 @@ public class ClusterCheckLog implements Serializable{
                 ", formula='" + formula + '\'' +
                 ", logType=" + logType +
                 ", logInfo='" + logInfo + '\'' +
-                ", updateTime=" + updateTime +
+                ", description='" + description + '\'' +
                 ", isChecked=" + isChecked +
+                ", updateTime=" + updateTime +
                 '}';
     }
 
-    public enum LogType {
+    public static enum LogType {
         warnlog,slowlog
     }
 
