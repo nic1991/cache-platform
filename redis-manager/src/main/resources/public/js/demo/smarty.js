@@ -37,3 +37,10 @@ smarty.register_function( 'test_fun', function( params ){
     var id = params['id'];
     return id + 100;
 });
+
+/*smarty.getSlaveNumber('cluster_slave', function(params){
+    var nodes = parseInt(params['nodes']);
+    var master = parseInt(params["master"]);
+    var slave = nodesNum - master;
+    return slave;
+})*/

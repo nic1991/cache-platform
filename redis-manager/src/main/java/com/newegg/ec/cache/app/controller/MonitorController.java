@@ -28,6 +28,11 @@ public class MonitorController {
         return "monitor";
     }
 
+    @RequestMapping("/clusterMonitorList")
+    public String accessMonitorList(){
+        return "clusterMonitorList";
+    }
+
     @RequestMapping(value = "/getGroupNodeInfo", method = RequestMethod.GET)
     @ResponseBody
     public Response getGroupNodeInfo(@RequestParam int clusterId,@RequestParam int startTime,@RequestParam int endTime,@RequestParam  String host,@RequestParam String type,@RequestParam String date){

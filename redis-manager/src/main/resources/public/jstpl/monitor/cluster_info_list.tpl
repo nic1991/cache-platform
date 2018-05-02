@@ -2,7 +2,7 @@
     {{foreach from=$res item=cluster}}
         <li>
             <div>
-                <div class="cluster-info-detail master-name"  data-cluster-address="{{$cluster.address}}" data-cluster-id="{{$cluster.id}}" >
+                <div class="cluster-info-detail cluster-name"  data-cluster-address="{{$cluster.address}}" data-cluster-id="{{$cluster.id}}" >
                     <span><b>{{$cluster.clusterName}}</b></span>
                 </div>
                 <div id="cluster-info-{{$cluster.id}}"></div>

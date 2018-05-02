@@ -8,35 +8,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 
 @Controller
-public class PageConttroller {
+public class IndexConttroller {
 
     @RequestMapping("/")
     public String accessIndex(){
         return "index";
     }
 
-    @RequestMapping("/pages/redisMonitorList")
-    public String accessMonitorList(){
-        return "redisMonitorList";
-    }
-
-    @RequestMapping("/pages/clusterListManager")
-    public String accessClusterListManager(){
-        return "clusterListManager";
-    }
-
+    /**
+     * TODO: 后期会移动
+     */
     @RequestMapping("/pages/createCluster")
     public String accessCreateCluster(){
         return "createCluster";
     }
 
+    /**
+     * TODO: 后期会移动
+      */
     @RequestMapping("/pages/managerCluster")
     public String accessManagerCluster(){
         return "managerCluster";
     }
 
-    @RequestMapping("/pages/redisMonitorDetail")
-    public String accessClusterDetail(){
-        return "redisMonitorDetail";
-    }
 }

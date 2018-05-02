@@ -11,9 +11,9 @@ $(function(){
         getClusterInfoByAddress(address, function(obj){
             var state = obj.res.cluster_state;
             if(state == "ok"){
-                $("#" + div_id).html( "<span>state:&nbsp</span><span class='state-good'>OK</span>" );
+                $("#" + div_id).html( "<span>state:&nbsp</span><span class='state-ok'>OK</span>" );
             } else {
-                $("#" + div_id).html( "<span>state:&nbsp</span><span class='state-bad'>Fail</span>" );
+                $("#" + div_id).html( "<span>state:&nbsp</span><span class='state-fail'>Fail</span>" );
             }
 
         });

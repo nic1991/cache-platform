@@ -93,14 +93,14 @@ a, a:hover{
 	font-size: 16px;
 }
 
-.state-good {
+.state-ok {
 	padding: 0 5px;
 	border-radius: 2px;
 	background-color: #76bd1d;
 	color:	#FFFFFF;
 }
 
-.state-bad {
+.state-fail {
 	padding: 0 5px;
 	border-radius: 2px;
 	background-color: #FF5722;

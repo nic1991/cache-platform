@@ -7,7 +7,7 @@
             </div>
             <div id="{{$group}}" class="panel-collapse collapse">
                 <div class="list-container" id="group-id-{{$group}}">
-
+        
                 </div>
             </div>
         </div>
