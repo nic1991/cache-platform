@@ -28,11 +28,16 @@ public class ClusterDaoTest {
         Cluster cluster = new Cluster();
         cluster.setAddress("10.16.46.192:8008");
         cluster.setUserGroup("admin");
-        cluster.setClusterName("ssspark");
+        cluster.setClusterName("yat-test2");
         clusterDao.addCluster(cluster);
-        nodeInfoTable.createTable("node_info_" + cluster.getClusterName());
+        nodeInfoTable.createTable("node_info_" + cluster.getId());
     }
-
+    @Test
+    public void removeClaster(){
+        int id =  33;
+        clusterDao.removeCluster( id );
+        nodeInfoTable.dropTable( "node_info_" + id );
+    }
 
     @Test
     public void getClusterTest(){
@@ -46,8 +51,4 @@ public class ClusterDaoTest {
         System.out.println( clusterList );
     }
 
-    @Test
-    public void removeClusterTest(){
-        clusterDao.removeCluster(1, "");
-    }
 }

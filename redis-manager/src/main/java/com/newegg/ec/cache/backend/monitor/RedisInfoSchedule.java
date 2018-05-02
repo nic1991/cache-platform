@@ -43,14 +43,14 @@ public class RedisInfoSchedule{
         for (Cluster cluster: clusterList) {
             try {
                 String address = cluster.getAddress();
-                String clusterName = cluster.getClusterName();
+                int clusterId = cluster.getId();
                 String[] hostArr = StringUtils.split(address, ",");
                 if( null != hostArr && hostArr.length >=0 ){
                     String host = hostArr[0];
                     String[] tmpArr = host.split(":");
                     String ip = tmpArr[0];
                     String port = tmpArr[1];
-                    infoProducer(clusterName, ip, Integer.parseInt(port));
+                    infoProducer(clusterId, ip, Integer.parseInt(port));
                 }
             }catch (Exception e){
                 //
@@ -156,7 +156,7 @@ public class RedisInfoSchedule{
         return redisTime;
     }
 
-    public void infoProducer(String clusterName, String ip, int port){
+    public void infoProducer(int clusterId, String ip, int port){
         // 获取集群的所有节点
         List<Map<String, String>> nodeList = new ArrayList<>();
         if( JedisUtil.getRedisVersion(ip, port) > 2 ){
@@ -184,7 +184,7 @@ public class RedisInfoSchedule{
                     resInfo.setHost( nodeIp +":" + nodePort);
                     resInfo.setIp( nodeIp );
                     resInfo.setPort( nodePort );
-                    infoDao.addNodeInfo( "node_info_" + clusterName, resInfo );
+                    infoDao.addNodeInfo( "node_info_" + clusterId, resInfo );
                 }catch ( Exception e ){
                     logger.error( "", e );
                 }finally {

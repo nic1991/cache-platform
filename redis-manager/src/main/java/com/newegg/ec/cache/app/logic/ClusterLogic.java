@@ -33,7 +33,7 @@ public class ClusterLogic {
     public boolean removeCluster(int id, String clusterName){
         boolean res = false;
         try {
-            clusterDao.removeCluster(id, clusterName);
+            clusterDao.removeCluster(id);
             res = true;
         }catch (Exception e){
 
