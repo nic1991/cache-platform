@@ -2,409 +2,173 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <title>Cluster Detail</title>
-    <link rel="stylesheet" href="../lib/bootstrap-3.3.7/css/bootstrap.css"/>
+    <title>Title</title>
+    <link href="../vender/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet" charset="utf-8" />
     <link href="../vender/datatables/dataTables.bootstrap.css" rel="stylesheet" charset="utf-8" />
-     <!-- icon font -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 
-    <link rel="stylesheet" href="../lib/bootstrap-select-1.12.4/dist/css/bootstrap-select.css" />
-    <link rel="stylesheet" href="../css/time-range.css" />
-    <link rel="stylesheet" href="../lib/datetime/flatpickr.min.css" />
-    <link rel="stylesheet" href="../css/common.css"/>
-    <link rel="stylesheet" href="../css/redis-monitor-detail.css"/>
-
-    <script type="text/javascript" src="../lib/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="../lib/bootstrap-3.3.7/js/bootstrap.js"></script>
-    <script type="text/javascript" src="../lib/layer/layer.js"></script>
-    <script type="text/javascript" src="../lib/bootstrap-select-1.12.4/dist/js/bootstrap-select.js"></script>
-
-    <script src="../vender/datatables/jquery.dataTables.min.js"></script>
-    <script src="../vender/datatables/dataTables.bootstrap.min.js"></script>
+    <script src="../vender/jquery/jquery-2.2.3.min.js"></script>
+    <script src="../vender/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
     <script src="../vender/amcharts/amcharts.js" type="text/javascript"></script>
     <script src="../vender/amcharts/serial.js" type="text/javascript"></script>
     <script src="../vender/amcharts/themes/light.js" type="text/javascript"></script>
+    <script src="../vender/sparrow/layer/layer.js"></script>
     <script src="../vender/sparrow/ajax.js"></script>
     <script src="../core/userApi.js"></script>
     <script src="../vender/sparrow/util.js"></script>
     <script src="../vender/sparrow/smarty.js"></script>
     <script src="../js/common.js"></script>
+    <script src="../vender/datatables/jquery.dataTables.min.js"></script>
+    <script src="../vender/datatables/dataTables.bootstrap.min.js"></script>
     <style>
         .select-hover:hover{
             background-color:#5bc0de;
             color: #fff;
         }
+        .top-data-div{
+            height:145px;
+        }
+        .top-data-title{
+            font-size:20px;
+            margin-bottom:10px;
+            display:block;
+        }
+        .top-item{
+            max-width: 260px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            padding-left: 25px;
+        }
+        .top_request_monitor{
+            cursor:pointer;
+            color:#5bc0de;
+        }
     </style>
 </head>
 <body>
-<div class="body-contain container-color scrollbar-div scrollbar-div-1">
-    <div class="data-container scrollbar">
-        <div class="detail-header">
-            <div class="cluster-name-container">
-                <!--<img src="../img/redis.svg" class="brand-icon"/>-->
-                <!--<i class="fa fa-codepen brand-icon"></i>-->
-                <span>Cluster Name</span>
-                <span class="state-ok detail-state-font">OK</span>
-                <!--<div class="data-title">
-                    <span class="title-text">Redis Cluster Monitor</span>
-                </div>-->
-            </div>
-            <div class="filter-container">
-                <div class="select-node">
-                    <form class="form-horizontal" role="form">
-                        <div class="col-lg-10">
-                            <select id="basic" class="selectpicker show-tick form-control" data-live-search="true" data-width="220px">
-                                <option>192.168.172.456:8181</option>
-                                <option>192.168.172.456:8010</option>
-                                <option>192.168.172.456:6380</option>
-                                <option>192.168.172.456:6390</option>
-                            </select>
-                        </div>
-                    </form>
-                </div>
-                <div class="value-type-container">
-                    <select class="selectpicker" data-width="100%">
-                        <option>Max</option>
-                        <option>Min</option>
-                        <option>Avg</option>
-                    </select>
-                </div>
-                <div class="btn-group value-type-container">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                        Command <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">cluster info</a></li>
-                        <li><a href="#">info</a></li>
-                    </ul>
-                </div>
-                <div class="time-filter-container">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#time-select-panel" class="list-active">
-                        <img src="../img/time.svg" class="time-img"/>
-                        <span id="selected-range">Time ranges</span>
-                    </a>
+<div class="container-fluid">
+    <div class="row">
+        <div class="panel panel-default" style="height:223px;background-color:#d9f2fb">
+            <div class="panel-heading" style="height:45px">
+                <div class="pull-left" style="margin-left:10px">
+                    <p>
+                        <span class="label label-success">Cluster Healthy</span>
+                        cluster_known_nodes: <b class="success">2</b> | cluster_size: <b class="success">1</b>
+                    </p>
                 </div>
             </div>
-        </div>
-        <!-- time selector panel -->
-        <div id="time-select-panel" class="panel-collapse collapse">
-            <div class="panel time-panel">
-                <div class="item-group">
-                    <div>
-                        <h2 class="time-title">Time range</h2>
-                        <span>From:</span>
-                        <div>
-                            <input type="text" id="startTime" class="time-item start-time"  data-enable-time="true" data-time_24hr="true" placeholder="star time" readonly="readonly" />
-                        </div>
-                        <span>To:</span>
-                        <div>
-                            <input type="text" id="endTime" class="time-item end-time"  data-enable-time="true" data-time_24hr="true" placeholder="end time" readonly="readonly" />
-                        </div>
-                        <div>
-                            <button class="btn btn-primary btn-sm query" type="button" >Query</button>
+            <div class="panel-body">
+                <div class="col-md-3">
+                    <div class="panel panel-info top-data-div">
+                        <div class="panel-body" id="top-response-time">
+                            <p class="top-data-title"><span class="glyphicon glyphicon-hourglass info"></span> AvgResponse : <span id="avg-response">1</span>/ms</p>
                         </div>
                     </div>
-                </div>
-                <div class="time-range">
-                    <div>
-                        <div><h2>Quick ranges</h2></div>
-                        <div class="relative-section">
-                            <ul>
-                                <li data="5"><a href="javascript:void(0);">Last 5 minutes</a></li>
-                                <li data="10"><a href="javascript:void(0);">Last 10 minutes</a></li>
-                                <li data="30"><a href="javascript:void(0);">Last 30 minutes</a></li>
-                                <li data="60"><a href="javascript:void(0);">Last 60 minutes</a></li>
-                                <li data="720"><a href="javascript:void(0);">Last 12 hours</a></li>
-                            </ul>
-                            <ul>
-                                <li data="1440"><a href="javascript:void(0);">Last 1 day</a></li>
-                                <li data="4320"><a href="javascript:void(0);">Last 3 days</a></li>
-                                <li data="10080"><a href="javascript:void(0);">Last 7 days</a></li>
-                            </ul>
+                </div><!-- .col-md-3 -->
+                <div class="col-md-3">
+                    <div class="panel panel-info top-data-div">
+                        <div class="panel-body" id="top-connection">
+                            <p class="top-data-title"><span class="glyphicon glyphicon-piggy-bank info"></span> AllKeys : <span id="all-key">931001</span></p>
+                            <p class="top-item">Max: [<span class="top_request_monitor" id="max-all-host">10.16.46.192:8018</span>] <span class="danger" id="max-all-key">931026</span></p>
+                            <p class="top-item">Min: [<span class="top_request_monitor" id="min-all-host">10.16.46.192:8008</span>] <span class="danger" id="min-all-key">930976</span></p>
                         </div>
                     </div>
-
-                </div>
+                </div><!-- .col-md-3 -->
+                <div class="col-md-3">
+                    <div class="panel panel-info top-data-div">
+                        <div class="panel-body" id="top-avg-connection">
+                            <p class="top-data-title"><span class="glyphicon glyphicon-transfer info"></span> AvgConnection : <span id="avg-connection">147</span></p>
+                        </div>
+                    </div>
+                </div><!-- .col-md-3 -->
+                <div class="col-md-3">
+                    <div class="panel panel-info top-data-div">
+                        <div class="panel-body">
+                            <div class="panel-body" id="top-avg-instantaneous">
+                                <p class="top-data-title"><span class="glyphicon glyphicon-transfer info"></span> Instantaneous : <span id="avg-instantaneous">147</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- .col-md-3 -->
             </div>
-        </div>
-        <div class="detail-container">
-            <div class="base-info">
-                <div class="base-info-title">
-                    <span>Cluster Know Node:</span>
-                    <span class="info-color"><b>120</b></span>
-                    <span>|</span>
-                    <span>Cluster Master:</span>
-                    <span class="info-color"><b>40</b></span>
-                    <span>|</span>
-                    <span>Cluster Slave:</span>
-                    <span class="info-color"><b>80</b></span>
-                </div>
-                <div class="base-info-list">
-                    <ul>
-                        <li>
-                            <div>
-                                <div class="info-title-container">
-                                    <i class="material-icons">hourglass_empty</i>
-                                    <span class="one-base-info-title">
-            								<b>
-            									<span>AvgResponse&nbsp;:&nbsp;</span>
-            									<span>2/ms</span>
-            								</b>
-            							</span>
-                                </div>
-                                <div class="top-item">
-                                    <span>Top 1:</span>
-                                    <span>[
-            								<a>000.000.000.000:8888</a>
-            							]</span>
-                                    <span>200ms</span>
-                                </div>
-                                <div class="top-item">
-                                    <span>Top 2:</span>
-                                    <span>[
-            								<a>000.000.000.000:8888</a>
-            							]</span>
-                                    <span>200ms</span>
-                                </div>
-                                <div class="top-item">
-                                    <span>Top 3:</span>
-                                    <span>[
-            								<a>000.000.000.000:8888</a>
-            							]</span>
-                                    <span>200ms</span>
-                                </div>
-                            </div>
+        </div><!-- .panel -->
+    </div>
 
-                        </li>
-                        <li>
-                            <div>
-                                <div class="info-title-container">
-                                    <i class="material-icons">storage</i>
-                                    <span class="one-base-info-title">
-            								<b>
-            									<span>AllKeys&nbsp;:&nbsp;</span>
-            									<span>648915</span>
-            								</b>
-            							</span>
-                                </div>
-                                <div class="top-item">
-                                    <span>Top 1:</span>
-                                    <span>[
-            								<a>000.000.000.000:8888</a>
-            							]</span>
-                                    <span>416541</span>
-                                </div>
-                                <div class="top-item">
-                                    <span>Top 2:</span>
-                                    <span>[
-            								<a>000.000.000.000:8888</a>
-            							]</span>
-                                    <span>416541</span>
-                                </div>
-                                <div class="top-item">
-                                    <span>Top 3:</span>
-                                    <span>[
-            								<a>000.000.000.000:8888</a>
-            							]</span>
-                                    <span>416541</span>
-                                </div>
-                            </div>
-
-                        </li>
-                        <li>
-                            <div>
-                                <div class="info-title-container">
-                                    <i class="material-icons">cast_connected</i>
-                                    <span class="one-base-info-title">
-            								<b>
-            									<span>AvgConnection&nbsp;:&nbsp;</span>
-            									<span>1176</span>
-            								</b>
-            							</span>
-                                </div>
-                                <div class="top-item">
-                                    <span>Top 1:</span>
-                                    <span>[
-            								<a>000.000.000.000:8888</a>
-            							]</span>
-                                    <span>1122</span>
-                                </div>
-                                <div class="top-item">
-                                    <span>Top 2:</span>
-                                    <span>[
-            								<a>000.000.000.000:8888</a>
-            							]</span>
-                                    <span>2221</span>
-                                </div>
-                                <div class="top-item">
-                                    <span>Top 3:</span>
-                                    <span>[
-            								<a>000.000.000.000:8888</a>
-            							]</span>
-                                    <span>1045</span>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <div class="info-title-container">
-                                    <i class="material-icons">visibility</i>
-                                    <span class="one-base-info-title">
-            								<b>
-            									<span>AvgResponse&nbsp;:&nbsp;</span>
-            									<span>2/ms</span>
-            								</b>
-            							</span>
-                                </div>
-                                <div class="top-item">
-                                    <span>Top 1:</span>
-                                    <span>[
-            								<a>000.000.000.000:8888</a>
-            							]</span>
-                                    <span>200ms</span>
-                                </div>
-                                <div class="top-item">
-                                    <span>Top 2:</span>
-                                    <span>[
-            								<a>000.000.000.000:8888</a>
-            							]</span>
-                                    <span>200ms</span>
-                                </div>
-                                <div class="top-item">
-                                    <span>Top 3:</span>
-                                    <span>[
-            								<a>000.000.000.000:8888</a>
-            							]</span>
-                                    <span>200ms</span>
-                                </div>
-                            </div>
-
-                        </li>
-                    </ul>
-                </div>
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Info Detail</h3>
             </div>
-
-            <div class="container-fluid">
+            <div class="panel-body" style="overflow: auto">
                 <div class="row">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Info Detail</h3>
-                        </div>
-                        <div class="panel-body" style="overflow: auto">
-                            <div class="row">
-                                <div id="node-info-chart" class="col-md-12" style="height: 450px"></div>
-                            </div>
-                        </div>
-                        <div class="panel-body" style="overflow: auto;max-height:400px">
-                            <table class="table table-bordered" id="command-table">
-                                <thead>
-                                <tr id="field-title">
-                                    <th class="select-hover" data-field="date">date</th>
-                                    <th class="select-hover selected" data-field="responseTime">response_time</th>
-                                    <th class="select-hover" data-field="usedCpuSys">used_cpu_sys</th>
-                                    <th class="select-hover" data-field="connectedClients">connected_clients</th>
-                                    <th class="select-hover" data-field="blockedClients">blocked_clients</th>
-                                    <th class="select-hover" data-field="usedMemory">used_memory/m</th>
-                                    <th class="select-hover" data-field="usedMemoryRss">used_memory_rss/m</th>
-                                    <th class="select-hover" data-field="usedMemoryPeak">used_memory_peak/m</th>
-                                    <th class="select-hover" data-field="memFragmentationRatio">mem_fragmentation_ratio</th>
-                                    <th class="select-hover" data-field="aofEnabled">aof_enabled</th>
-                                    <th class="select-hover" data-field="totalConnectionsReceived">total_connections_received</th>
-                                    <th class="select-hover" data-field="totalCommandsProcessed">total_commands_processed</th>
-                                    <th class="select-hover" data-field="instantaneousOpsPerSec">instantaneous_ops_per_sec</th>
-                                    <th class="select-hover" data-field="totalNetInputBytes">total_net_input_bytes</th>
-                                    <th class="select-hover" data-field="totalNetOutputBytes">total_net_output_bytes</th>
-                                    <th class="select-hover" data-field="instantaneousInputKbps">instantaneous_input_kbps</th>
-                                    <th class="select-hover" data-field="instantaneousOutputKbps">instantaneous_output_kbps</th>
-                                    <th class="select-hover" data-field="rejectedConnections">rejected_connections</th>
-                                    <th class="select-hover" data-field="syncFull">sync_full</th>
-                                    <th class="select-hover" data-field="syncPartialOk">sync_partial_ok</th>
-                                    <th class="select-hover" data-field="syncPartialErr">sync_partial_err</th>
-                                    <th class="select-hover" data-field="expiredKeys">expired_keys</th>
-                                    <th class="select-hover" data-field="evictedKeys">evicted_keys</th>
-                                    <th class="select-hover" data-field="keyspaceHits">keyspace_hits</th>
-                                    <th class="select-hover" data-field="keyspaceMisses">keyspace_misses</th>
-                                    <th class="select-hover" data-field="pubsubChannels">pubsub_channels</th>
-                                    <th class="select-hover" data-field="pubsubPatterns">pubsub_patterns</th>
-                                    <th class="select-hover" data-field="latestForkUsec">latest_fork_usec</th>
-                                    <th class="select-hover" data-field="migrateCachedSockets">migrate_cached_sockets</th>
-                                    <th class="select-hover" data-field="usedCpuUser">used_cpu_user</th>
-                                    <th class="select-hover" data-field="usedCpuSysChildren">used_cpu_sys_children</th>
-                                    <th class="select-hover" data-field="usedCpuUserChildren">used_cpu_user_children</th>
-                                    <th class="select-hover" data-field="totalKeys">total_keys</th>
-                                </tr>
-                                </thead>
-                                <tbody id="node-info-table">
-
-                                </tbody>
-                            </table>
-                        </div><!-- .panel-body -->
-                        <br/>
-                        <button  class="btn btn-default selected pull-left" data-loading-text="loading..." type="button" autocomplete="off" id="show_log">
-                            <span class="glyphicon" aria-hidden="true">slow-log </span>
-                        </button>
-                        <br/>
-                        <div class="panel-body" style="overflow: auto;max-height:600px;width:100%">
-                            <table class="table table-bordered" id="slow-log-table">
-                                <thead>
-                                <tr>
-                                    <th style="width:180px">host</th>
-                                    <th style="width:120px">slow_date</th>
-                                    <th style="width:100px">run_time</th>
-                                    <th style="width:120px">type</th>
-                                    <th>command</th>
-                                </tr>
-                                </thead>
-                            </table>
-                        </div>
-                    </div>
-                </div><!-- .row -->
-            </div>
-            <div class="show-log-container">
-                <div>
-                    <a class="show-log">
-                        <span>Show Log&gt;&gt;</span>
-                    </a>
-                </div>
-                <div class="progress log-progress-bar" style="display: none;">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 00%;">
-                        <span class="sr-only">00</span>
-                    </div>
+                    <div id="node-info-chart" class="col-md-12" style="height: 450px"></div>
                 </div>
             </div>
-
-            <div class="table-responsive">
-                <table class="table table-striped text-nowrap table-bordered table-hover table-condensed executions-table list-table">
+            <div class="panel-body" style="overflow: auto;max-height:400px">
+                <table class="table table-bordered" id="command-table">
                     <thead>
-                    <tr>
-                        <th>Host</th>
-                        <th>Date</th>
-                        <th>Runtime</th>
-                        <th>Type</th>
-                        <th>Command</th>
+                    <tr id="field-title">
+                        <th class="select-hover" data-field="date">date</th>
+                        <th class="select-hover selected" data-field="responseTime">response_time</th>
+                        <th class="select-hover" data-field="usedCpuSys">used_cpu_sys</th>
+                        <th class="select-hover" data-field="connectedClients">connected_clients</th>
+                        <th class="select-hover" data-field="blockedClients">blocked_clients</th>
+                        <th class="select-hover" data-field="usedMemory">used_memory/m</th>
+                        <th class="select-hover" data-field="usedMemoryRss">used_memory_rss/m</th>
+                        <th class="select-hover" data-field="usedMemoryPeak">used_memory_peak/m</th>
+                        <th class="select-hover" data-field="memFragmentationRatio">mem_fragmentation_ratio</th>
+                        <th class="select-hover" data-field="aofEnabled">aof_enabled</th>
+                        <th class="select-hover" data-field="totalConnectionsReceived">total_connections_received</th>
+                        <th class="select-hover" data-field="totalCommandsProcessed">total_commands_processed</th>
+                        <th class="select-hover" data-field="instantaneousOpsPerSec">instantaneous_ops_per_sec</th>
+                        <th class="select-hover" data-field="totalNetInputBytes">total_net_input_bytes</th>
+                        <th class="select-hover" data-field="totalNetOutputBytes">total_net_output_bytes</th>
+                        <th class="select-hover" data-field="instantaneousInputKbps">instantaneous_input_kbps</th>
+                        <th class="select-hover" data-field="instantaneousOutputKbps">instantaneous_output_kbps</th>
+                        <th class="select-hover" data-field="rejectedConnections">rejected_connections</th>
+                        <th class="select-hover" data-field="syncFull">sync_full</th>
+                        <th class="select-hover" data-field="syncPartialOk">sync_partial_ok</th>
+                        <th class="select-hover" data-field="syncPartialErr">sync_partial_err</th>
+                        <th class="select-hover" data-field="expiredKeys">expired_keys</th>
+                        <th class="select-hover" data-field="evictedKeys">evicted_keys</th>
+                        <th class="select-hover" data-field="keyspaceHits">keyspace_hits</th>
+                        <th class="select-hover" data-field="keyspaceMisses">keyspace_misses</th>
+                        <th class="select-hover" data-field="pubsubChannels">pubsub_channels</th>
+                        <th class="select-hover" data-field="pubsubPatterns">pubsub_patterns</th>
+                        <th class="select-hover" data-field="latestForkUsec">latest_fork_usec</th>
+                        <th class="select-hover" data-field="migrateCachedSockets">migrate_cached_sockets</th>
+                        <th class="select-hover" data-field="usedCpuUser">used_cpu_user</th>
+                        <th class="select-hover" data-field="usedCpuSysChildren">used_cpu_sys_children</th>
+                        <th class="select-hover" data-field="usedCpuUserChildren">used_cpu_user_children</th>
+                        <th class="select-hover" data-field="totalKeys">total_keys</th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <!--<tr>
-                        <td colspan="4">No Redis Cluster</td>
-                    </tr>-->
-                    <tr>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                    </tr>
+                    <tbody id="node-info-table">
+
                     </tbody>
+                </table>
+            </div><!-- .panel-body -->
+            <br/>
+            <button  class="btn btn-default selected pull-left" data-loading-text="loading..." type="button" autocomplete="off" id="show_log">
+                <span class="glyphicon" aria-hidden="true">slow-log </span>
+            </button>
+            <br/>
+            <div class="panel-body" style="overflow: auto;max-height:600px;width:100%">
+                <table class="table table-bordered" id="slow-log-table">
+                    <thead>
+                    <tr>
+                        <th style="width:180px">host</th>
+                        <th style="width:120px">slow_date</th>
+                        <th style="width:100px">run_time</th>
+                        <th style="width:120px">type</th>
+                        <th>command</th>
+                    </tr>
+                    </thead>
                 </table>
             </div>
         </div>
-    </div>
+    </div><!-- .row -->
 </div>
-<script type="text/javascript" src="../lib/datetime/flatpickr.min.js"></script>
-<script type="text/javascript" src="../js/redis-monitor-detail.js"></script>
-
 </body>
 <script src="../js/monitor.js"></script>
 </html>
