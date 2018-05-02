@@ -1,6 +1,5 @@
 package com.newegg.ec.cache;
 
-import com.newegg.ec.base.EnableWebBase;
 import com.newegg.ec.base.filter.AuthenticationFIlter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -13,7 +12,6 @@ import javax.servlet.Filter;
  * Created by jn50 on 2018/3/14.
  */
 @EnableAutoConfiguration
-@EnableWebBase
 @EnableMachineManager
 @EnableTransactionManagement
 public class MachineManagerServer {

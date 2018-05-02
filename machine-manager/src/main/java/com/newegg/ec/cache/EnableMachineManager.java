@@ -10,7 +10,7 @@ import java.lang.annotation.*;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@ComponentScan(basePackages = {"com.newegg.ec.cache"})
-@MapperScan(basePackages = {"com.newegg.ec.cache.dao"})
+@ComponentScan(basePackages = {"com.newegg.ec.base","com.newegg.ec.cache"})
+@MapperScan(basePackages = {"com.newegg.ec.base.dao.mysql","com.newegg.ec.cache.dao"})
 public @interface EnableMachineManager {
 }
