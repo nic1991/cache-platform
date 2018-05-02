@@ -1,13 +1,40 @@
 $(document).ready(function(){
     window.clusterId = getQueryString("clusterId");
-    window.startTime = 0;
-    window.endTime = 1624732279;
-    window.host = "all";
-    window.type = "max";
-    window.date = "minute";
+    window.endTime = getQueryString("endTime") || getCurrentTime();
+    window.startTime = getQueryString("startTime") || (window.endTime - 60);
+    window.host = getQueryString("host") || "all";
+    window.date = getQueryString("date") || "minute";
+    window.type = getQueryString("type") || "max";
     $('th[data-field="responseTime"]').trigger("click");
     init();
+
+    // init time selector
+    $(".start-time").flatpickr();
+    $(".end-time").flatpickr();
 });
+
+function getCurrentTime(){
+    return Date.parse(new Date())/1000;
+}
+// select time
+$(".relative-section ul li").on("click", function(){
+    var timeRangeObj = $(this);
+    timeRangeObj.addClass("selected").siblings().removeClass("selected");
+    timeRangeObj.parent().siblings().children().removeClass('selected');
+    var timeRange = parseInt(timeRangeObj.attr("data"));
+    var currentTime = getCurrentTime();
+    window.endTime = currentTime;
+    window.startTime = window.endTime - timeRange * 60;
+    console.log(currentTime);
+    console.log(timeRange);
+    console.log(timeRange * 60);
+    reloadMonitor();
+})
+
+
+function reloadMonitor(){
+    window.location.href = "/monitor/manager?clusterId="+window.clusterId+"&startTime=" + window.startTime + "&endTime="+window.endTime + "&host=" + window.host + "&type=" + window.type + "&date=" + window.date;
+}
 
 function init(){
     monitorGetMaxField(window.clusterId,window.startTime,window.endTime,"response_time", 2,function(obj){
