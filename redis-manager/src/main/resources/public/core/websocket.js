@@ -65,11 +65,17 @@ function echo_msg(message) {
     if( msgs.length == 2 ){
         message = msgs[1];
     }
-    try
-    {
-        console.log( message );
-    }
-    catch( e )
+    try{
+        var terminal = document.getElementById('console');
+        var p = document.createElement('p');
+        p.style.wordWrap = 'break-word';
+        p.appendChild(document.createTextNode(message));
+        terminal.appendChild(p);
+        if (terminal.childNodes.length > 200) {
+            terminal.removeChild( terminal.firstElementChild );
+        }
+        terminal.scrollTop = terminal.scrollHeight;
+    }catch( e )
     {
         console.log( e );
         disconnect();

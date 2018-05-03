@@ -38,3 +38,21 @@ smarty.html( "node/humpback/create_cluster_step", {}, "create-cluster-container"
         return true;
     });
 });
+
+$(document).on("click", "#start-install-node", function(){
+    $('#smartwizard').smartWizard("next");
+    smarty.html( "node/redis_console", {}, "redis-config-tpl",function () {
+        var data = {};
+        data.clusterId = $("input[name='clusterId']").val();
+        connect( JSON.stringify(data), "/webSocket/createClusterLog");
+    });
+});
+
+$(document).on("click", "#install-all-node", function(){
+    $('#smartwizard').smartWizard("next");
+});
+
+$(document).on("click", "#set-master-finish", function(){
+    disconnect();
+    $('#smartwizard').smartWizard("next");
+});

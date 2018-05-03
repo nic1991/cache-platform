@@ -1,15 +1,21 @@
 package com.newegg.ec.cache.plugin.docker;
 
+import com.google.common.collect.Lists;
 import com.newegg.ec.cache.plugin.INodeOperate;
 import com.newegg.ec.cache.plugin.INodeRequest;
 import com.newegg.ec.cache.plugin.basemodel.*;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * Created by lzz on 2018/4/20.
  */
 @Component
 public class DockerManager implements INodeOperate,INodeRequest {
+
+    private String dockerImage;
 
     @Override
     public boolean pullImage(String imageUrl) {
@@ -39,6 +45,11 @@ public class DockerManager implements INodeOperate,INodeRequest {
     @Override
     public boolean remove(RemovePram removePram) {
         return false;
+    }
+
+    @Override
+    public List<String> getImageList() {
+        return Lists.newArrayList(dockerImage.split(","));
     }
 
     @Override

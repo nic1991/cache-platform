@@ -5,6 +5,8 @@ import com.newegg.ec.cache.plugin.INodeRequest;
 import com.newegg.ec.cache.plugin.basemodel.*;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 /**
  * Created by lzz on 2018/4/20.
  */
@@ -39,6 +41,11 @@ public class MachineManager implements INodeOperate,INodeRequest {
     @Override
     public boolean remove(RemovePram removePram) {
         return false;
+    }
+
+    @Override
+    public List<String> getImageList() {
+        return null;
     }
 
     @Override

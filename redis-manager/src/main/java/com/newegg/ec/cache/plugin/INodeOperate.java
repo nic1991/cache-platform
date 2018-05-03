@@ -2,6 +2,8 @@ package com.newegg.ec.cache.plugin;
 
 import com.newegg.ec.cache.plugin.basemodel.*;
 
+import java.util.List;
+
 /**
  * Created by lzz on 2018/4/20.
  */
@@ -12,4 +14,6 @@ public interface INodeOperate {
     boolean stop(StopParam stopParam);
     boolean restart(RestartParam restartParam);
     boolean remove(RemovePram removePram);
+
+    List<String> getImageList();
 }

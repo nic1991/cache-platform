@@ -171,3 +171,6 @@ a, a:hover{
 .navbar-inverse .navbar-brand,.navbar-inverse .navbar-nav>li>a{
     color:#fff;
 }
+nav.sw-toolbar.sw-toolbar-bottom{
+    display:none;
+}

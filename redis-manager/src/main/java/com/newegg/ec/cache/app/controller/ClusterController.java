@@ -1,6 +1,5 @@
 package com.newegg.ec.cache.app.controller;
 
-import com.newegg.ec.cache.app.controller.filter.WebSecurityConfig;
 import com.newegg.ec.cache.app.dao.impl.NodeInfoDao;
 import com.newegg.ec.cache.app.logic.ClusterLogic;
 import com.newegg.ec.cache.app.model.Cluster;

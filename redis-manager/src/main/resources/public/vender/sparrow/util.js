@@ -331,7 +331,13 @@ var sparrow ={
     	}
     	return new_arr;
     },
-
+    url_format_param: function( url, param ){
+        url += "?"
+        for(var key in param){
+            url += key + "=" + param[key] + "&";
+        }
+        return url;
+    }
 }
 
 /**

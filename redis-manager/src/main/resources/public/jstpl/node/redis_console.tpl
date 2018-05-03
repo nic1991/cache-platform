@@ -1,5 +1,6 @@
-<div id="console" style="font-size: 16px;">
-    <pre style="color:#ffffff;background-color:#363636 !important;border:0px;font-size: 16px;"><br>
+<div class="panel-heading" style="background-color: #f5f5f5;">Create Cluster Log</div>
+<div style="font-size: 16px;">
+    <pre id="console" style="color:#ffffff;background-color:#363636 !important;border:0px;font-size: 16px;"><br>
                 Welcome use redis cluster
     <br>                _._
     <br>           _.-``__ ''-._
