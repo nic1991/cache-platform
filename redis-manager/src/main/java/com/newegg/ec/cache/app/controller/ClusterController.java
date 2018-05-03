@@ -36,7 +36,6 @@ public class ClusterController {
     @ResponseBody
     public Response listCluster(@RequestParam String group){
         List<Cluster> listCluster = logic.getClusterList( group );
-        System.out.println( listCluster.size());
         return Response.Result(0, listCluster);
     }
 
@@ -74,7 +73,6 @@ public class ClusterController {
     @ResponseBody
     public Response getClusterInfoByAddress(@RequestParam String address){
         Map<String, String> res = logic.getClusterInfo(address);
-        System.out.println( res );
         return Response.Result(0, res);
     }
 

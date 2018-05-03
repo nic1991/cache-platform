@@ -13,11 +13,13 @@ spring:
   datasource:
       name: serverbase
       driver-class-name: com.mysql.jdbc.Driver
-      url: jdbc:mysql://127.0.0.1:3306/redis_manager_new?useUnicode=true&characterEncoding=utf-8
-      username: root
-      password: root
+      url: jdbc:mysql://10.16.46.170:3306/redis_manager_new?useUnicode=true&characterEncoding=utf-8
+      username: test
+      password: test
 
 mybatis:
   mapper-locations: classpath*:mappers/*.xml
   configuration:
       mapUnderscoreToCamelCase: true
+
+user.api.path: E:/github/cache-platform/redis-manager/src/main/resources/public/core/userApi.js

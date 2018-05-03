@@ -3,6 +3,7 @@ package com.newegg.ec.cache.backend;
 import com.newegg.ec.cache.core.mysql.MysqlUtil;
 import com.newegg.ec.cache.core.userapi.UserApiUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -17,6 +18,9 @@ import java.util.List;
 public class InitConfig implements ApplicationListener<ContextRefreshedEvent> {
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    @Value("${user.api.path}")
+    private String userApiPath;
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
@@ -45,7 +49,8 @@ public class InitConfig implements ApplicationListener<ContextRefreshedEvent> {
         packages.add( "com.newegg.ec.cache" );
         // D:/leo/newegg-cache-platform/redis-manager/src/main/resources/public/core/userApi.js
         // jay E:/github/cache-platform/redis-manager/src/main/resources/public/core/userApi.js
-        String file = "/Users/lzz/work/java/cache-platform/redis-manager/src/main/resources/public/core/userApi.js";
+        System.out.println(userApiPath);
+        String file = userApiPath;
         UserApiUtil.autoGeneriesAllApi( packages, file);
     }
 }

@@ -103,10 +103,12 @@ $("#field-title > th").click(function () {
     }
 });
 
+getClusterAddressByid(function(res){
+    nodeList(res.ip, res/port, function(obj){
+        window.nodeList = obj.res;
+    });
+})
 
-nodeList("10.16.46.192", 8018, function(obj){
-    window.nodeList = obj.res;
-});
 
 $("#show_log").click(function(){
     var $btn = $(this).button('loading');
