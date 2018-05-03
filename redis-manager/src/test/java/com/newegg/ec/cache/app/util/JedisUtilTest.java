@@ -1,6 +1,7 @@
 package com.newegg.ec.cache.app.util;
 
 import org.junit.Test;
+import redis.clients.jedis.Jedis;
 
 import java.util.List;
 import java.util.Map;
@@ -20,5 +21,11 @@ public class JedisUtilTest {
     public void test454(){
         int size = JedisUtil.dbSize("10.16.46.196", 8700);
         System.out.println( size );
+    }
+
+    @Test
+    public void testConfig(){
+        Map map = JedisUtil.getRedisConfig("10.16.46.192", 8008);
+        System.out.println( map );
     }
 }

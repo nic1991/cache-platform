@@ -88,20 +88,20 @@ $('#dataType').on('changed.bs.select', function (e) {
 });
 
 // cluster info command
-$("#clusterInfo, .cluster-info").on("click", function(){
+$(".cluster-info").on("click", function(){
     getClusterHost(window.clusterId, function(obj){
         var ip = obj.res.ip;
         var port = parseInt(obj.res.port);
         getClusterInfo(ip, port, function(obj){
-            var clusterInfo = obj.res.detail.replace("\n", "<br/>");
             layer.open({
                 title: 'Cluster Info',
                 type: 1,
+                area: '500px;',
                 skin: 'layui-layer-demo', //样式类名
                 closeBtn: 1, //显示关闭按钮
                 anim: 2,
                 shadeClose: true, //开启遮罩关闭
-                content: '<div style="padding: 20px;">'+ clusterInfo +'</div>'
+                content: '<pre style="padding: 20px;">'+ syntaxHighlight(obj.res) +'</pre>'
             });
         })
     })
@@ -109,28 +109,50 @@ $("#clusterInfo, .cluster-info").on("click", function(){
 
 // info command
 $("#info").on("click", function(){
-    getClusterHost(window.clusterId, function(obj){
-        var host = window.host;
-        if(host != "all" && host != "" && host != null){
-            getMapInfo(host, function(obj){
-                var info = obj.res.detail;
-                layer.open({
-                    title: 'Info',
-                    type: 1,
-                    area: '600px;',
-                    skin: 'layui-layer-demo', //样式类名
-                    closeBtn: 1, //显示关闭按钮
-                    anim: 2,
-                    shadeClose: true, //开启遮罩关闭
-                    content: '<div style="padding: 20px;">'+ info +'</div>'
-                });
-                console.log(info)
-            })
-        } else {
-            layer.msg("Please select one node");
-        }
-    })
+    var host = window.host;
+    if(host != "all" && host != "" && host != null){
+        getNodeInfo(host, function(obj){
+            var info = obj.res;
+            layer.open({
+                title: 'Info',
+                type: 1,
+                area: '600px;',
+                skin: 'layui-layer-demo', //样式类名
+                closeBtn: 1, //显示关闭按钮
+                anim: 2,
+                shadeClose: true, //开启遮罩关闭
+                content: '<pre style="padding: 20px;">'+ syntaxHighlightRedisResult( obj.res ) +'</pre>'
+            });
+            console.log(info)
+        })
+    } else {
+        layer.msg("Please select one node");
+    }
 })
+
+// redis config
+$("#config").on("click", function(){
+    var host = window.host;
+    if(host != "all" && host != "" && host != null){
+        getRedisConfig(host, function(obj){
+            var info = obj.res;
+            layer.open({
+                title: 'Config',
+                type: 1,
+                area: '600px;',
+                skin: 'layui-layer-demo', //样式类名
+                closeBtn: 1, //显示关闭按钮
+                anim: 2,
+                shadeClose: true, //开启遮罩关闭
+                content: '<pre style="padding: 20px;">'+ syntaxHighlightRedisResult( obj.res ) +'</pre>'
+            });
+            console.log(info)
+        })
+    } else {
+        layer.msg("Please select one node");
+    }
+})
+
 
 
 function reloadMonitor(){

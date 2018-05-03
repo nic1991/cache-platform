@@ -62,6 +62,27 @@ public class JedisUtil {
         return  getMapInfo(strInfo);
     }
 
+    public static Map<String, String> getRedisConfig(String ip, int port){
+        Jedis jedis = new Jedis( ip, port);
+        Map<String, String> configMap = new HashMap();
+        try {
+            List<String> list = jedis.configGet("*");
+            String field = "";
+            for(String item : list){
+                if( "".equals(field) ){
+                    field = item;
+                }else{
+                    configMap.put( field, item );
+                    field = "";
+                }
+            }
+        }catch ( Exception e ){
+
+        }finally {
+            jedis.close();
+        }
+        return configMap;
+    }
 
     public static int getRedisVersion(String ip, int port){
         int res = 0;
@@ -164,7 +185,6 @@ public class JedisUtil {
         try {
             String info  = jedis.clusterInfo();
             result = RedisMsgUtil.changeClusterInfoMap( info );
-            result.put("detail", info);
         }catch ( Exception e ){
             e.printStackTrace();
         }finally {

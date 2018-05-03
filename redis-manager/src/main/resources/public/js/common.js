@@ -10,6 +10,98 @@ function getQueryString(name) {
     return context == null || context == "" || context == "undefined" ? "" : context;
 }
 
+
+function isJSON(str) {
+    if (typeof str == 'string') {
+        try {
+            var obj=JSON.parse(str);
+            if(str.indexOf('{')>-1){
+                return true;
+            }else{
+                return false;
+            }
+
+        } catch(e) {
+            console.log(e);
+            return false;
+        }
+    }else if(typeof str == 'object'){
+        return true;
+    }
+    return false;
+}
+
+function syntaxHighlightRedisResult(content){
+    if( !content ){
+        return;
+    }
+    var res = "";
+    if( isJSON(content) ){
+        res = syntaxHighlight( content );
+    }else{
+        var arr = content.split(",");
+        var cls = 'string';
+        for( var i in arr ){
+            var tmps = arr[i].split("=");
+            if( tmps.length == 2 ){
+                res += '<span class="key">' + tmps[0] + '</span>';
+                res += '=';
+                res += '<span class="string">' + tmps[1] + '</span><br>';
+            }else{
+                res += '<span class="redis-result-item ' + cls + '">' + arr[i] + '</span><br>';
+            }
+        }
+    }
+    return res;
+}
+
+
+function syntaxHighlightLine(content, splitStr){
+    if( !content ){
+        return;
+    }
+    var separate =  splitStr || "\n";
+    var arr = content.split( separate );
+    var res = "";
+    var cls = 'number';
+    for( var i in arr ){
+        var tmps = arr[i].split(":");
+        if( tmps.length == 2 ){
+            res += '<span class="key">' + tmps[0] + '</span>';
+            res += ':';
+            res += '<span class="string">' + tmps[1] + '</span>';
+        }else{
+            res += '<span class="' + cls + '">' + arr[i] + '</span>';
+        }
+    }
+    return res;
+}
+
+function syntaxHighlight(json) {
+    if (typeof json != 'string') {
+        json = JSON.stringify(json, undefined, 2);
+    }
+    json = json.replace(/&/g, '&');
+    json = json.replace(/</g, '<');
+    json = json.replace(/>/g, '>');
+    return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function(match) {
+        var cls = 'number';
+        if (/^"/.test(match)) {
+            if (/:$/.test(match)) {
+                cls = 'key';
+            } else {
+                cls = 'string';
+            }
+        } else if (/true|false/.test(match)) {
+            cls = 'boolean';
+        } else if (/null/.test(match)) {
+            cls = 'null';
+        }
+        return '<span class="' + cls + '">' + match + '</span>';
+    });
+}
+
+
 $(function(){
 
 	

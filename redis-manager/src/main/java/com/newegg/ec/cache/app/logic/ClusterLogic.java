@@ -78,11 +78,18 @@ public class ClusterLogic {
         return redisManager.getClusterInfo(host.get(0).getIp(), host.get(0).getPort());
     }
 
-    public Map<String, String> getMapInfo(String host){
+    public Map<String, String> getNodeInfo(String host){
         String[] ipAndHost = host.split(":");
         String ip = ipAndHost[0];
         int port = Integer.parseInt(ipAndHost[1]);
         return redisManager.getMapInfo(ip, port);
+    }
+
+    public Map<String, String> getRedisConfig(String host){
+        String[] ipAndHost = host.split(":");
+        String ip = ipAndHost[0];
+        int port = Integer.parseInt(ipAndHost[1]);
+        return redisManager.getRedisConfig(ip, port);
     }
 
     public List<Map<String, String>> nodeList(String ip, int port){
