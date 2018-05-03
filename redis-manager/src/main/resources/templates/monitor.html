@@ -139,12 +139,12 @@
                                             <span class="glyphicon glyphicon-piggy-bank info"></span>
                                             <span class="title"> AllKeys : <span id="all-key">931001</span></span>
                                         </span>
-                                        <span class="top-item">Max: [<span class="top_request_monitor" id="max-all-host">10.16.46.192:8018</span>]
+                                        <p class="top-item">Max: [<span class="top_request_monitor" id="max-all-host">10.16.46.192:8018</span>]
                                             <span class="danger" id="max-all-key">931026</span>
-                                        </span>
-                                        <span class="top-item">Min: [<span class="top_request_monitor" id="min-all-host">10.16.46.192:8008</span>]
+                                        </p>
+                                        <p class="top-item">Min: [<span class="top_request_monitor" id="min-all-host">10.16.46.192:8008</span>]
                                             <span class="danger" id="min-all-key">930976</span>
-                                        </span>
+                                        </p>
                                     </div>
                                 </li>
                                 <li>
@@ -178,7 +178,7 @@
                                 <div id="node-info-chart" class="col-md-12" style="height: 450px"></div>
                             </div>
                         </div>
-                        <div class="panel-body" style="overflow: auto;max-height:400px">
+                        <div class="panel-body info-detail">
                             <table class="table table-bordered" id="command-table">
                                 <thead>
                                 <tr id="field-title">
@@ -222,19 +222,19 @@
                                 </tbody>
                             </table>
                         </div><!-- .panel-body -->
-                        <br/>
-                        <button  class="btn btn-default selected pull-left" data-loading-text="loading..." type="button" autocomplete="off" id="show_log">
-                            <span class="glyphicon" aria-hidden="true">slow-log </span>
-                        </button>
-                        <br/>
-                        <div class="panel-body" style="overflow: auto;max-height:600px;width:100%">
+                        <div class="show-log-container">
+                            <button  class="btn btn-default" data-loading-text="loading..." type="button" autocomplete="off" id="show_log">
+                                <span class="glyphicon" aria-hidden="true">slow-log </span>
+                            </button>
+                        </div>
+                        <div class="panel-body log-table-wrapper" >
                             <table class="table table-bordered" id="slow-log-table">
                                 <thead>
                                 <tr>
-                                    <th style="width:180px">host</th>
-                                    <th style="width:120px">slow_date</th>
-                                    <th style="width:100px">run_time</th>
-                                    <th style="width:120px">type</th>
+                                    <th width="180px">host</th>
+                                    <th width="120px">slow_date</th>
+                                    <th width="100px">run_time</th>
+                                    <th width="120px">type</th>
                                     <th>command</th>
                                 </tr>
                                 </thead>

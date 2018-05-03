@@ -80,6 +80,13 @@ $("#nodeList").on('changed.bs.select', function (e){
     reloadMonitor();
 })
 
+$("body").delegate(".top_request_monitor", "click", function(){
+    var host = $(this).text();
+    console.log(host);
+    window.host = host;
+    reloadMonitor();
+});
+
 
 $('#dataType').on('changed.bs.select', function (e) {
     var type = $(this).selectpicker('val').toLowerCase();
@@ -231,7 +238,6 @@ $("#field-title > th").click(function () {
 });
 
 
-
 $("#show_log").click(function(){
     var $btn = $(this).button('loading');
     $("#slow-log-table>tbody").empty();
@@ -255,7 +261,8 @@ $("#show_log").click(function(){
             lengthMenu: [15, 30, 50, 100, 200, 300 ],
             order: [[ 1, 'asc' ]]
         });
-        $btn.button('reset');
+        /*$btn.button('reset');*/
+        $btn.css("disabled", "true")
     });
 });
 
