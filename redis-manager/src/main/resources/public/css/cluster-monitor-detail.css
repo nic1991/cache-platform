@@ -21,6 +21,7 @@
 
 .detail-header{
 	padding-bottom: 10px;
+	margin-right: 10px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -28,6 +29,7 @@
 
 /*filter container*/
 .filter-container{
+    margin-right: 10px;
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
@@ -57,15 +59,33 @@
 }
 
 /*cluster or one node base info*/
-.base-info{
-	width: 100%;
-	padding: 10px 0;
-    overflow: hidden;
+.label-success {
+    background-color: #5cb85c;
+    color: #FFFFFF;
+    padding: 0 5px;
 }
 
-.base-info-title{
-	padding-bottom: 10px;
-	border-bottom: 1px solid #dadada;
+.cluster-info {
+    cursor: pointer;
+}
+
+.dropdown-menu {
+    min-width: 106px;
+}
+
+.dropdown-menu li a {
+    padding: 3px 10px;
+}
+
+.panel-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.my-panel {
+    border: none;
+    box-shadow: none;
 }
 
 .base-info-list ul{
@@ -80,22 +100,49 @@
 	width: 24%;
     height: auto;
     padding: 10px;
-    /*line-height: 150px;
-	text-align: center;
-	align-items: center;*/
 	border: 1px solid #dadada;
-	border-radius: 2px;
+	border-radius: 3px;
 	background-color: white;
 }
 
-.info-title-container {
+.info-container {
 	display: flex;
 	align-items: center;
+	font-size:20px;
+    margin-bottom:10px;
+}
+
+.title {
+    margin-left: 5px;
+    font-weight: 500;
+}
+
+.select-hover:hover{
+    background-color:#5bc0de;
+    color: #fff;
+}
+
+.top-data-div{
+    height:145px;
+}
+
+.top-item{
+    max-width: 260px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    padding-left: 25px;
+}
+
+.top_request_monitor{
+    cursor:pointer;
+    color:#5bc0de;
 }
 
 .base-info-list a {
 	color: #269ABC;
 }
+
 
 .base-info-list a:hover {
 	color: #337AB7;

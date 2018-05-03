@@ -22,7 +22,6 @@
 	<script type="text/javascript" src="../lib/jquery-3.3.1.min.js"></script>
 	<script type="text/javascript" src="../lib/bootstrap-3.3.7/js/bootstrap.js"></script>
 	<script type="text/javascript" src="../lib/layer/layer.js"></script>
-	<script type="text/javascript" src="../lib/echart/echarts.min.js"></script>
 	<script type="text/javascript" src="../lib/bootstrap-select-1.12.4/dist/js/bootstrap-select.js"></script>
 </head>
 <body>
@@ -30,13 +29,7 @@
         <div class="data-container scrollbar">
         	<div class="detail-header">
         		<div class="cluster-name-container">
-        			<!--<img src="../img/redis.svg" class="brand-icon"/>-->
-		           	<!--<i class="fa fa-codepen brand-icon"></i>-->
-		            <span>Cluster Name</span>
-		            <span class="state-ok detail-state-font">OK</span>
-	            	<!--<div class="data-title">
-		            	<span class="title-text">Redis Cluster Monitor</span>
-		            </div>-->
+		            <span id="clusterName">Cluster Name</span>
 	            </div>
         		<div class="filter-container">
 	            	<div class="select-node">

@@ -53,6 +53,7 @@ public class JedisUtil {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        resMap.put("detail", strInfo);
         return resMap;
     }
 

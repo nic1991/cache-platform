@@ -14,4 +14,9 @@ public class RedisManager {
         Map<String, String> res = JedisUtil.getClusterInfo(ip, port);
         return res;
     }
+
+    public Map<String, String> getMapInfo(String ip, int port){
+        Map<String, String> res = JedisUtil.getMapInfo(ip, port);
+        return res;
+    }
 }
