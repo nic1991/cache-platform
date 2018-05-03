@@ -455,7 +455,6 @@ function input_box_blur()
 			return;
 		}
 		input.data( 'checking', 1 );
-		//var ajax = require( 'ajax' );
 		var data = {};
 		data[ name ] = input.val().trim();
 		var alias = input.data('alias');
@@ -464,7 +463,10 @@ function input_box_blur()
 		}
 		var relationstr = input.data("relation");
 		var ajax_type = input.data("ajax-type");
-		var relations = relationstr.split(",");
+		var relations = [];
+		if( relationstr ){
+		    relations = relationstr.split(",");
+		}
 		var check_field = true;
 		for(var i in relations){
 			var relation = relations[i];
@@ -485,16 +487,23 @@ function input_box_blur()
 			{
 				show_tip_msg( tip_box, tip_box_type, 'checking ...', info_css );
 			}
-			ajax.post( url, JSON.stringify(data), function( re, arg ){
-				arg.data( 'checking', 0 );
-				reset_tip_box( tip_box, tip_box_type );
-				if ( re.code > 0 )
-				{
-					url_check = false;
-					url_check_msg = re.msg;
-				}
-				show_check_result();
-			}, false, input);
+			function ajax_check (  re, arg ){
+                arg.data( 'checking', 0 );
+                reset_tip_box( tip_box, tip_box_type );
+                if ( re.code > 0 )
+                {
+                    url_check = false;
+                    url_check_msg = re.msg;
+                }
+                show_check_result();
+			};
+			if( ajax_type != "get" ){
+			    ajax.post( url, JSON.stringify(data), ajax_check, false, input);
+			}else{
+			    var param_url = sparrow.url_format_param(url, data);
+			    ajax.get( param_url, ajax_check, false, input);
+			}
+
 		}
 	}
 	else

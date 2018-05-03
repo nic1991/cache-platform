@@ -149,7 +149,11 @@ sparrow_ajax.prototype = {
 			title += '，返回结果非JSON';
 		}
 		title += ' status:' + ajax_obj.status +' ' + ajax_obj.statusText;
-		console.log( title );
+		layer.alert( title, {
+          icon: 1,
+          skin: 'layer-ext-moon',
+          title: 'System error'
+        });
 	},
 	success_handle: function( data )
 	{

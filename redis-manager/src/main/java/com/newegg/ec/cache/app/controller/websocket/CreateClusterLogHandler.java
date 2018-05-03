@@ -18,6 +18,7 @@ public class CreateClusterLogHandler implements WebSocketHandler {
 
     @Override
     public void afterConnectionEstablished(WebSocketSession webSocketSession) throws Exception {
+        webSocketSession.getAttributes();
         createLogQueue(webSocketSession);
         appendLog(webSocketSession, "success connection");
     }
@@ -25,12 +26,11 @@ public class CreateClusterLogHandler implements WebSocketHandler {
     @Override
     public void handleMessage(WebSocketSession webSocketSession, WebSocketMessage<?> webSocketMessage) throws Exception {
         JSONObject reqObject = JSONObject.fromObject(webSocketMessage.getPayload().toString());
-        webSocketAndClustertable.put( reqObject.getString("clusterid"), webSocketSession);
-        int i = 0;
+        webSocketAndClustertable.put( reqObject.getString("clusterId"), webSocketSession);
         while (true){
-            System.out.println( webSocketAndClustertable.size() + "---" + logMap.size());
             BlockingDeque<String> logQueue = getLogQueue( webSocketSession );
             String message = logQueue.poll();
+            System.out.println( logQueue.size() + "-------" + message);
             if( !StringUtils.isEmpty( message )){
                 webSocketSession.sendMessage(new TextMessage("aaa " + message));
             }else{
@@ -50,7 +50,7 @@ public class CreateClusterLogHandler implements WebSocketHandler {
     @Override
     public void afterConnectionClosed(WebSocketSession webSocketSession, CloseStatus closeStatus) throws Exception {
         System.out.println( "close" );
-        removeLogQueue( webSocketSession );;
+        removeLogQueue( webSocketSession );
     }
 
     @Override

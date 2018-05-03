@@ -22,5 +22,7 @@ mybatis:
   configuration:
       mapUnderscoreToCamelCase: true
 
-cache.user.api.path: E:\github\cache-platform\redis-manager\src\main\resources\public\core\userApi.js
-cache.mysql.scan.package: com.newegg.ec.cache
+    user.api.path: D:/work/java/cache-platform/redis-manager/src/main/resources/public/core/userApi.js
+    mysql.scan.package: com.newegg.ec.cache
+    humpback.image: humpback-hub.newegg.org/shec/redis3.0.6:v3,docker.neg/shec/redis-4.0.8:v1
+

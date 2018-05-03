@@ -171,10 +171,3 @@ a, a:hover{
 .navbar-inverse .navbar-brand,.navbar-inverse .navbar-nav>li>a{
     color:#fff;
 }
-
-
-.string { color: green; }
-.number { color: darkorange; }
-.boolean { color: blue; }
-.null { color: magenta; }
-.key { color: red; }
