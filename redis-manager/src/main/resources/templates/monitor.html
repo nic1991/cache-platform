@@ -30,73 +30,30 @@
     <script src="../vender/sparrow/util.js"></script>
     <script src="../vender/sparrow/smarty.js"></script>
     <script src="../js/common.js"></script>
-    <style>
-        .select-hover:hover{
-            background-color:#5bc0de;
-            color: #fff;
-        }
-        .top-data-div{
-            height:145px;
-        }
-        .top-data-title{
-            font-size:20px;
-            margin-bottom:10px;
-            display:block;
-        }
-        .top-item{
-            max-width: 260px;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            overflow: hidden;
-            padding-left: 25px;
-        }
-        .top_request_monitor{
-            cursor:pointer;
-            color:#5bc0de;
-        }
-    </style>
 </head>
 <body>
 <div class="body-contain container-color scrollbar-div scrollbar-div-1">
     <div class="data-container scrollbar">
         <div class="detail-header">
             <div class="cluster-name-container">
-                <!--<img src="../img/redis.svg" class="brand-icon"/>-->
-                <!--<i class="fa fa-codepen brand-icon"></i>-->
-                <span>Cluster Name</span>
-                <span class="state-ok detail-state-font">OK</span>
-                <!--<div class="data-title">
-                    <span class="title-text">Redis Cluster Monitor</span>
-                </div>-->
+                <span id="clusterName">Cluster Name</span>
             </div>
             <div class="filter-container">
                 <div class="select-node">
                     <form class="form-horizontal" role="form">
                         <div class="col-lg-10">
-                            <select id="basic" class="selectpicker show-tick form-control" data-live-search="true" data-width="220px">
-                                <option>192.168.172.456:8181</option>
-                                <option>192.168.172.456:8010</option>
-                                <option>192.168.172.456:6380</option>
-                                <option>192.168.172.456:6390</option>
+                            <select id="nodeList" class="selectpicker show-tick form-control" data-live-search="true" data-width="250px">
+                                <option>all</option>
                             </select>
                         </div>
                     </form>
                 </div>
                 <div class="value-type-container">
-                    <select class="selectpicker" data-width="100%">
+                    <select class="selectpicker" data-width="100%" id="dataType">
                         <option>Max</option>
                         <option>Min</option>
                         <option>Avg</option>
                     </select>
-                </div>
-                <div class="btn-group value-type-container">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                        Command <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">cluster info</a></li>
-                        <li><a href="#">info</a></li>
-                    </ul>
                 </div>
                 <div class="time-filter-container">
                     <a data-toggle="collapse" data-parent="#accordion" href="#time-select-panel" class="list-active">
@@ -114,11 +71,11 @@
                         <h2 class="time-title">Time range</h2>
                         <span>From:</span>
                         <div>
-                            <input type="text" id="startTime" class="time-item start-time"  data-enable-time="true" data-time_24hr="true" placeholder="star time" readonly="readonly" />
+                            <input type="text" id="startTime" class="time-item start-time" data-enable-time="true" data-time_24hr="true" placeholder="star time" readonly="readonly" />
                         </div>
                         <span>To:</span>
                         <div>
-                            <input type="text" id="endTime" class="time-item end-time"  data-enable-time="true" data-time_24hr="true" placeholder="end time" readonly="readonly" />
+                            <input type="text" id="endTime" class="time-item end-time" data-enable-time="true" data-time_24hr="true" placeholder="end time" readonly="readonly" />
                         </div>
                         <div>
                             <button class="btn btn-primary btn-sm query" type="button" >Query</button>
@@ -150,48 +107,63 @@
         <div class="detail-container">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="panel panel-default" style="height:223px;background-color:#d9f2fb">
-                        <div class="panel-heading" style="height:45px">
-                            <div class="pull-left" style="margin-left:10px">
-                                <p>
-                                    <span class="label label-success">Cluster Healthy</span>
-                                    cluster_known_nodes: <b class="success">2</b> | cluster_size: <b class="success">1</b>
-                                </p>
+                    <div class="panel panel-default my-panel">
+                        <div class="panel-heading">
+                            <div>
+                                <span class="label-success cluster-info">Cluster Healthy</span>
+                                Cluster nodes: <b class="label-success">2</b> | Master Size: <b class="label-success">1</b>
+                            </div>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                    Command <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu" >
+                                    <li><a href="javascript:void(0);" id="clusterInfo">cluster info</a></li>
+                                    <li><a href="javascript:void(0);" id="info">info</a></li>
+                                </ul>
                             </div>
                         </div>
-                        <div class="panel-body">
-                            <div class="col-md-3">
-                                <div class="panel panel-info top-data-div">
+                        <div class="base-info-list">
+                            <ul>
+                                <li>
                                     <div class="panel-body" id="top-response-time">
-                                        <p class="top-data-title"><span class="glyphicon glyphicon-hourglass info"></span> AvgResponse : <span id="avg-response">1</span>/ms</p>
+                                        <span class="info-container">
+                                            <span class="glyphicon glyphicon-hourglass info"></span>
+                                            <span class="title"> AvgResponse : <span id="avg-response">1</span>/ms</span>
+                                        </span>
                                     </div>
-                                </div>
-                            </div><!-- .col-md-3 -->
-                            <div class="col-md-3">
-                                <div class="panel panel-info top-data-div">
+                                </li>
+                                <li>
                                     <div class="panel-body" id="top-connection">
-                                        <p class="top-data-title"><span class="glyphicon glyphicon-piggy-bank info"></span> AllKeys : <span id="all-key">931001</span></p>
-                                        <p class="top-item">Max: [<span class="top_request_monitor" id="max-all-host">10.16.46.192:8018</span>] <span class="danger" id="max-all-key">931026</span></p>
-                                        <p class="top-item">Min: [<span class="top_request_monitor" id="min-all-host">10.16.46.192:8008</span>] <span class="danger" id="min-all-key">930976</span></p>
+                                        <span class="info-container">
+                                            <span class="glyphicon glyphicon-piggy-bank info"></span>
+                                            <span class="title"> AllKeys : <span id="all-key">931001</span></span>
+                                        </span>
+                                        <span class="top-item">Max: [<span class="top_request_monitor" id="max-all-host">10.16.46.192:8018</span>]
+                                            <span class="danger" id="max-all-key">931026</span>
+                                        </span>
+                                        <span class="top-item">Min: [<span class="top_request_monitor" id="min-all-host">10.16.46.192:8008</span>]
+                                            <span class="danger" id="min-all-key">930976</span>
+                                        </span>
                                     </div>
-                                </div>
-                            </div><!-- .col-md-3 -->
-                            <div class="col-md-3">
-                                <div class="panel panel-info top-data-div">
+                                </li>
+                                <li>
                                     <div class="panel-body" id="top-avg-connection">
-                                        <p class="top-data-title"><span class="glyphicon glyphicon-transfer info"></span> AvgConnection : <span id="avg-connection">147</span></p>
+                                        <span class="info-container">
+                                            <span class="glyphicon glyphicon-transfer info"></span>
+                                            <span class="title"> AvgConnection : <span id="avg-connection">147</span></span>
+                                        </span>
                                     </div>
-                                </div>
-                            </div><!-- .col-md-3 -->
-                            <div class="col-md-3">
-                                <div class="panel panel-info top-data-div">
-                                    <div class="panel-body">
-                                        <div class="panel-body" id="top-avg-instantaneous">
-                                            <p class="top-data-title"><span class="glyphicon glyphicon-transfer info"></span> Instantaneous : <span id="avg-instantaneous">147</span></p>
-                                        </div>
+                                </li>
+                                <li>
+                                    <div class="panel-body" id="top-avg-instantaneous">
+                                        <span class="info-container">
+                                            <span class="glyphicon glyphicon-transfer info"></span>
+                                            <span class="title"> Instantaneous : <span id="avg-instantaneous">147</span></span>
+                                        </span>
                                     </div>
-                                </div>
-                            </div><!-- .col-md-3 -->
+                                </li>
+                            </ul>
                         </div>
                     </div><!-- .panel -->
                 </div>
@@ -276,7 +248,6 @@
     </div>
 </div>
 <script type="text/javascript" src="../lib/datetime/flatpickr.min.js"></script>
-<script type="text/javascript" src="../js/cluster-monitor-detail.js"></script>
 <script src="../js/monitor.js"></script>
 </body>
 

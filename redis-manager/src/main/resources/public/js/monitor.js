@@ -11,11 +11,30 @@ $(document).ready(function(){
     // init time selector
     $(".start-time").flatpickr();
     $(".end-time").flatpickr();
+
+    // set node options
+    getClusterHost(window.clusterId, function(hostResult){
+        var host = hostResult.res;
+        nodeList(host.ip, host.port, function(nodeObj){
+            var nodeList = nodeObj.res
+            window.nodeList = nodeList;
+            var options = "";
+            for(var i = 0, len = nodeList.length; i < len; i++){
+                var node = nodeList[i];
+                var host = node.ip + ":" + node.port;
+                var role = node.role;
+                options += '<option data-subtext="'+role+'">'+host+'</option>';
+            }
+            $("#nodeList").append(options);
+            $('#nodeList').selectpicker('refresh');
+        });
+    })
 });
 
 function getCurrentTime(){
     return Date.parse(new Date())/1000;
 }
+
 // select time
 $(".relative-section ul li").on("click", function(){
     var timeRangeObj = $(this);
@@ -25,10 +44,92 @@ $(".relative-section ul li").on("click", function(){
     var currentTime = getCurrentTime();
     window.endTime = currentTime;
     window.startTime = window.endTime - timeRange * 60;
-    console.log(currentTime);
-    console.log(timeRange);
-    console.log(timeRange * 60);
+    if(timeRange > 720) {
+        window.date = "hour";
+    }
     reloadMonitor();
+})
+
+// query by time selector
+$(".query").on("click", function(){
+    var startStr = $('#startTime').val().trim();
+    var endStr = $('#endTime').val().trim();
+    if(startStr == '' || endStr == ''){
+        layer.msg("datetime can't be null", function(){});
+        return;
+    }
+    var startTime = Date.parse(new Date(startStr.replace(/-/g, '/')));
+    var endTime = Date.parse(new Date(endStr.replace(/-/g, '/')));
+    if(startTime < endTime){
+        var timeRange = (endTime - startTime) / 1000 / 60 / 60;
+        if(timeRange > 12){
+            window.date = "hour";
+        }
+        window.startTime = startTime / 1000;
+        window.endTime = endTime / 1000;
+        reloadMonitor();
+    } else {
+        layer.msg("End time needs to be greater than start time");
+        return;
+    }
+})
+
+$("#nodeList").on('changed.bs.select', function (e){
+    var host = $(this).selectpicker('val');
+    window.host = host;
+    reloadMonitor();
+})
+
+
+$('#dataType').on('changed.bs.select', function (e) {
+    var type = $(this).selectpicker('val').toLowerCase();
+    window.type = type;
+    reloadMonitor();
+});
+
+// cluster info command
+$("#clusterInfo, .cluster-info").on("click", function(){
+    getClusterHost(window.clusterId, function(obj){
+        var ip = obj.res.ip;
+        var port = parseInt(obj.res.port);
+        getClusterInfo(ip, port, function(obj){
+            var clusterInfo = obj.res.detail.replace("\n", "<br/>");
+            layer.open({
+                title: 'Cluster Info',
+                type: 1,
+                skin: 'layui-layer-demo', //样式类名
+                closeBtn: 1, //显示关闭按钮
+                anim: 2,
+                shadeClose: true, //开启遮罩关闭
+                content: '<div style="padding: 20px;">'+ clusterInfo +'</div>'
+            });
+        })
+    })
+})
+
+// info command
+$("#info").on("click", function(){
+    getClusterHost(window.clusterId, function(obj){
+        var host = window.host;
+        if(host != "all" && host != "" && host != null){
+            getMapInfo(host, function(obj){
+                var info = obj.res.detail;
+                layer.open({
+                    title: 'Info',
+                    type: 1,
+                    area: '600px;',
+                    skin: 'layui-layer-demo', //样式类名
+                    closeBtn: 1, //显示关闭按钮
+                    anim: 2,
+                    shadeClose: true, //开启遮罩关闭
+                    content: '<div style="padding: 20px;">'+ info +'</div>'
+                });
+                console.log(info)
+            })
+        } else {
+            layer.msg("Please select one node");
+        }
+    })
 })
 
 
@@ -86,8 +187,12 @@ function init(){
     monitorGetAvgField(window.clusterId,window.startTime,window.endTime,window.host, "instantaneous_ops_per_sec",function(obj){
         $("#avg-instantaneous").html( obj.res );
     });
-}
 
+    getCluster(window.clusterId, function(obj){
+    console.log(obj)
+        $("#clusterName").html(obj.res.clusterName);
+    });
+}
 
 $("#field-title > th").click(function () {
     var field = $(this).data("field");
@@ -103,11 +208,6 @@ $("#field-title > th").click(function () {
     }
 });
 
-getClusterAddressByid(function(res){
-    nodeList(res.ip, res/port, function(obj){
-        window.nodeList = obj.res;
-    });
-})
 
 
 $("#show_log").click(function(){

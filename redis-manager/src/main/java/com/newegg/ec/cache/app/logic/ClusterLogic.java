@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -77,8 +78,28 @@ public class ClusterLogic {
         return redisManager.getClusterInfo(host.get(0).getIp(), host.get(0).getPort());
     }
 
+    public Map<String, String> getMapInfo(String host){
+        String[] ipAndHost = host.split(":");
+        String ip = ipAndHost[0];
+        int port = Integer.parseInt(ipAndHost[1]);
+        return redisManager.getMapInfo(ip, port);
+    }
+
     public List<Map<String, String>> nodeList(String ip, int port){
         List<Map<String, String>> list = JedisUtil.nodeList( ip, port );
         return list;
+    }
+
+    public Host getClusterHost(int id) {
+        Cluster cluster = getCluster(id);
+        String addressStr = cluster.getAddress();
+        final String[] addressList = addressStr.split(",");
+        // TODO: 多节点时，依次判断节点可用性，返回第一个可用节点
+        String hostStr = addressList[0];
+        String[] ipAndPort = hostStr.split(":");
+        Host host = new Host();
+        host.setIp(ipAndPort[0]);
+        host.setPort(Integer.parseInt(ipAndPort[1]));
+        return host;
     }
 }

@@ -3,6 +3,7 @@ package com.newegg.ec.cache.app.controller;
 import com.newegg.ec.cache.app.dao.impl.NodeInfoDao;
 import com.newegg.ec.cache.app.logic.ClusterLogic;
 import com.newegg.ec.cache.app.model.Cluster;
+import com.newegg.ec.cache.app.model.Host;
 import com.newegg.ec.cache.app.model.Response;
 import com.newegg.ec.cache.core.userapi.UserAccess;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,13 @@ public class ClusterController {
         return Response.Result(0, cluster);
     }
 
+    @RequestMapping(value = "/getClusterHost", method = RequestMethod.GET)
+    @ResponseBody
+    public Response getClusterHost(@RequestParam int id){
+        Host host = logic.getClusterHost( id );
+        return Response.Result(0, host);
+    }
+
     @RequestMapping(value = "/addCluster", method = RequestMethod.POST)
     @ResponseBody
     public Response addCluster(@RequestBody Cluster cluster){
@@ -72,6 +80,13 @@ public class ClusterController {
     @ResponseBody
     public Response getClusterInfoByAddress(@RequestParam String address){
         Map<String, String> res = logic.getClusterInfo(address);
+        return Response.Result(0, res);
+    }
+
+    @RequestMapping(value = "/getMapInfo", method = RequestMethod.GET)
+    @ResponseBody
+    public Response getMapInfo(@RequestParam String host){
+        Map<String, String> res = logic.getMapInfo(host);
         return Response.Result(0, res);
     }
 
