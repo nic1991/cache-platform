@@ -78,22 +78,19 @@ public class ClusterLogic {
         return redisManager.getClusterInfo(host.get(0).getIp(), host.get(0).getPort());
     }
 
-    public Map<String, String> getNodeInfo(String host){
-        String[] ipAndHost = host.split(":");
-        String ip = ipAndHost[0];
-        int port = Integer.parseInt(ipAndHost[1]);
-        return redisManager.getMapInfo(ip, port);
+    public Map<String, String> getNodeInfo(String address){
+        Host host = NetUtil.getHostPassAddress( address );
+        return redisManager.getMapInfo(host.getIp(), host.getPort());
     }
 
-    public Map<String, String> getRedisConfig(String host){
-        String[] ipAndHost = host.split(":");
-        String ip = ipAndHost[0];
-        int port = Integer.parseInt(ipAndHost[1]);
-        return redisManager.getRedisConfig(ip, port);
+    public Map<String, String> getRedisConfig(String address){
+        Host host = NetUtil.getHostPassAddress( address );
+        return redisManager.getRedisConfig(host.getIp(), host.getPort() );
     }
 
-    public List<Map<String, String>> nodeList(String ip, int port){
-        List<Map<String, String>> list = JedisUtil.nodeList( ip, port );
+    public List<Map<String, String>> nodeList(String address){
+        Host host = NetUtil.getHostPassAddress( address );
+        List<Map<String, String>> list = JedisUtil.nodeList( host.getIp(), host.getPort() );
         return list;
     }
 
@@ -108,5 +105,11 @@ public class ClusterLogic {
         host.setIp(ipAndPort[0]);
         host.setPort(Integer.parseInt(ipAndPort[1]));
         return host;
+    }
+
+    public Map<String,Map> detailNodeList(String address) {
+        Host host = NetUtil.getHostPassAddress( address );
+        Map<String, Map> result = JedisUtil.getClusterNodes( host.getIp(), host.getPort() );
+        return result;
     }
 }

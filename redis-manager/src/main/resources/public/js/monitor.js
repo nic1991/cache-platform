@@ -13,9 +13,9 @@ $(document).ready(function(){
     $(".end-time").flatpickr();
 
     // set node options
-    getClusterHost(window.clusterId, function(hostResult){
-        var host = hostResult.res;
-        nodeList(host.ip, host.port, function(nodeObj){
+    getCluster(window.clusterId, function(hostResult){
+        var address = hostResult.res.address;
+        nodeList(address, function(nodeObj){
             var nodeList = nodeObj.res
             window.nodeList = nodeList;
             var options = "";
@@ -96,10 +96,9 @@ $('#dataType').on('changed.bs.select', function (e) {
 
 // cluster info command
 $(".cluster-info").on("click", function(){
-    getClusterHost(window.clusterId, function(obj){
-        var ip = obj.res.ip;
-        var port = parseInt(obj.res.port);
-        getClusterInfo(ip, port, function(obj){
+    getCluster(window.clusterId, function(obj){
+        var address = obj.res.address;
+        getClusterInfo(address, function(obj){
             layer.open({
                 title: 'Cluster Info',
                 type: 1,
