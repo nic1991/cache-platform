@@ -1,7 +1,8 @@
 package com.newegg.ec.cache.app.util;
 
-import com.newegg.ec.cache.app.model.Host;
 
+import com.newegg.ec.cache.app.model.Host;
+import org.apache.commons.lang3.StringUtils;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.*;
@@ -63,6 +64,26 @@ public class NetUtil {
             //ignore
         }
         return false;
+    }
+
+    public static Host getHostPassAddress(String address){
+        Host host = new Host();
+        if( !StringUtils.isBlank( address ) ){
+            String[] addressArr = address.split(",");
+            if( addressArr.length > 0 ){
+                for( String addressStr : addressArr ){
+                    String[] tmpArr = addressStr.split(":");
+                    String ip = tmpArr[0];
+                    int port = Integer.valueOf(tmpArr[1]);
+                    if( checkIpAndPort( ip, port ) ){
+                        host.setIp( ip );
+                        host.setPort( port );
+                        break;
+                    }
+                }
+            }
+        }
+        return host;
     }
 
     public static boolean checkIpAndPort(String ip, Integer port){

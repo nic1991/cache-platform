@@ -85,23 +85,31 @@ public class ClusterController {
 
     @RequestMapping(value = "/getNodeInfo", method = RequestMethod.GET)
     @ResponseBody
-    public Response getNodeInfo(@RequestParam String host){
-        Map<String, String> res = logic.getNodeInfo(host);
+    public Response getNodeInfo(@RequestParam String address){
+        Map<String, String> res = logic.getNodeInfo(address);
         return Response.Result(0, res);
     }
 
     @RequestMapping(value = "/getRedisConfig", method = RequestMethod.GET)
     @ResponseBody
-    public Response getRedisConfig(@RequestParam String host){
-        Map<String, String> res = logic.getRedisConfig(host);
+    public Response getRedisConfig(@RequestParam String address){
+        Map<String, String> res = logic.getRedisConfig(address);
         System.out.println(res);
         return Response.Result(0, res);
     }
 
     @RequestMapping(value = "/nodeList", method = RequestMethod.GET)
     @ResponseBody
-    public Response nodeList(@RequestParam String ip, @RequestParam int port){
-        List<Map<String, String>> list = logic.nodeList(ip, port);
+    public Response nodeList(@RequestParam String address){
+        List<Map<String, String>> list = logic.nodeList(address);
         return Response.Result(0, list);
+    }
+
+
+    @RequestMapping(value = "/detailNodeList", method = RequestMethod.GET)
+    @ResponseBody
+    public Response detailNodeList(@RequestParam String address){
+        Map<String, Map> detailNodeList = logic.detailNodeList(address);
+        return Response.Result(0, detailNodeList);
     }
 }
