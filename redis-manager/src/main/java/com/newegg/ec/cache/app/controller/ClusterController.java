@@ -29,7 +29,7 @@ public class ClusterController {
     private NodeInfoDao nodeInfoTable;
 
     @RequestMapping("/clusterListManager")
-    public String form(Model model, @SessionAttribute(WebSecurityConfig.SESSION_KEY) String user){
+    public String form(Model model){
         return "clusterListManager";
     }
 

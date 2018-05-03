@@ -20,9 +20,9 @@ public class NodeController {
     @Resource
     private NodeManager nodeManager;
 
-    @RequestMapping("/selectNodeType")
+    @RequestMapping("/selectClusterType")
     public String selectType(Model model) {
-        return "selectNodeType";
+        return "selectClusterType";
     }
 
     @RequestMapping("/install")

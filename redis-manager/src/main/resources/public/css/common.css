@@ -167,3 +167,7 @@ a, a:hover{
 .info-color {
 	color: #5cb85c;
 }
+
+.navbar-inverse .navbar-brand,.navbar-inverse .navbar-nav>li>a{
+    color:#fff;
+}
