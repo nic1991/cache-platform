@@ -126,8 +126,9 @@ $("#info").on("click", function(){
                 });
                 console.log(info)
             })
+        } else {
+            layer.msg("Please select one node");
         }
-
     })
 })
 
