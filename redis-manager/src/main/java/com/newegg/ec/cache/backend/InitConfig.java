@@ -19,8 +19,10 @@ public class InitConfig implements ApplicationListener<ContextRefreshedEvent> {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    @Value("${user.api.path}")
+    @Value("${cache.user.api.path}")
     private String userApiPath;
+    @Value("${cache.mysql.scan.package}")
+    private String mysqlScanTable;
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
@@ -34,7 +36,7 @@ public class InitConfig implements ApplicationListener<ContextRefreshedEvent> {
      */
     public void initMysqlTable(){
         List<String> packages = new ArrayList();
-        packages.add( "com.newegg.ec.cache" );
+        packages.add( mysqlScanTable );
         List<String> sqlList = MysqlUtil.initMysqlTable( packages );
         for( String createSql : sqlList ){
             jdbcTemplate.execute( createSql );
@@ -46,9 +48,7 @@ public class InitConfig implements ApplicationListener<ContextRefreshedEvent> {
      */
     public void initUserApi(){
         List<String> packages = new ArrayList<>();
-        packages.add( "com.newegg.ec.cache" );
-        // D:/leo/newegg-cache-platform/redis-manager/src/main/resources/public/core/userApi.js
-        // jay E:/github/cache-platform/redis-manager/src/main/resources/public/core/userApi.js
+        packages.add( mysqlScanTable );
         System.out.println(userApiPath);
         String file = userApiPath;
         UserApiUtil.autoGeneriesAllApi( packages, file);

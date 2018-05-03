@@ -43,7 +43,7 @@ public class HumpbackManager implements INodeOperate,INodeRequest {
 
     @Override
     public String showInstall() {
-        return "createCluster";
+        return "plugin/humpbackCreateCluster";
     }
 
     @Override
