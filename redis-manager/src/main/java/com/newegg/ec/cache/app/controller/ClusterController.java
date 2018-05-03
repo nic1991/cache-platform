@@ -1,17 +1,16 @@
 package com.newegg.ec.cache.app.controller;
 
-import com.newegg.ec.cache.app.component.RedisManager;
+import com.newegg.ec.cache.app.controller.filter.WebSecurityConfig;
 import com.newegg.ec.cache.app.dao.impl.NodeInfoDao;
-import com.newegg.ec.cache.core.userapi.UserAccess;
 import com.newegg.ec.cache.app.logic.ClusterLogic;
 import com.newegg.ec.cache.app.model.Cluster;
 import com.newegg.ec.cache.app.model.Response;
+import com.newegg.ec.cache.core.userapi.UserAccess;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
@@ -29,7 +28,7 @@ public class ClusterController {
     private NodeInfoDao nodeInfoTable;
 
     @RequestMapping("/clusterListManager")
-    public String form(Model model){
+    public String form(Model model, @SessionAttribute(WebSecurityConfig.SESSION_KEY) String user){
         return "clusterListManager";
     }
 

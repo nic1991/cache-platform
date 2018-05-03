@@ -3,11 +3,13 @@ package com.newegg.ec.cache.plugin.docker;
 import com.newegg.ec.cache.plugin.INodeOperate;
 import com.newegg.ec.cache.plugin.INodeRequest;
 import com.newegg.ec.cache.plugin.basemodel.*;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by lzz on 2018/4/20.
  */
-public class DockerNode implements INodeOperate,INodeRequest {
+@Component
+public class DockerManager implements INodeOperate,INodeRequest {
 
     @Override
     public boolean pullImage(String imageUrl) {
@@ -41,7 +43,7 @@ public class DockerNode implements INodeOperate,INodeRequest {
 
     @Override
     public String showInstall() {
-        return null;
+        return "createCluster";
     }
 
     @Override

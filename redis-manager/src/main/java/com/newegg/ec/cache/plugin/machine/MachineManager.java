@@ -3,10 +3,12 @@ package com.newegg.ec.cache.plugin.machine;
 import com.newegg.ec.cache.plugin.INodeOperate;
 import com.newegg.ec.cache.plugin.INodeRequest;
 import com.newegg.ec.cache.plugin.basemodel.*;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by lzz on 2018/4/20.
  */
+@Component
 public class MachineManager implements INodeOperate,INodeRequest {
 
     @Override
@@ -41,7 +43,7 @@ public class MachineManager implements INodeOperate,INodeRequest {
 
     @Override
     public String showInstall() {
-        return null;
+        return "createCluster";
     }
 
     @Override
