@@ -43,7 +43,7 @@ public class DockerManager implements INodeOperate,INodeRequest {
 
     @Override
     public String showInstall() {
-        return "createCluster";
+        return "plugin/dockerCreateCluster";
     }
 
     @Override
