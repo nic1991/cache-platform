@@ -8,6 +8,7 @@
 
 
 .cluster-name-container{
+    margin-left: 18px;
 	font-size: 24px;
 	display: flex;
 	align-items: center;
@@ -157,36 +158,19 @@
 	margin-top: 5px;
 }
 
-/*Important Metric*/
-.echarts{
-	margin-top: 20px;
-	height: auto;
-}
-
-.info-echarts {
-	width: 100%; 
-	height: 500px;
-}
-
-.detail-table, .show-log-container{
-	margin: 20px 0;
+.info-detail {
+    overflow: auto;
+    max-height:400px;
 }
 
 /*show log*/
 .show-log-container{
-	display: flex;
-    align-items: center;
+	margin: 20px 0 0 15px;
 }
 
-.log-progress-bar{
-	width: 60%;
-	margin: 0 20px;
+.log-table-wrapper {
+    overflow: auto;
+    max-height:600px;
+    width:100%;
 }
 
-.show-log {
-	display: inline-block;
-	padding: 5px 10px;
-	border: 1px solid #DADADA;
-	border-radius: 5px;
-	color: #737373;
-}
