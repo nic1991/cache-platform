@@ -8,9 +8,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
+
 import java.io.FileOutputStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -75,6 +79,18 @@ public class UserApiUtil {
         List<String> params = new ArrayList<>();
         RequestMapping methodPath = method.getAnnotation( RequestMapping.class );
         ResponseBody methodReponse = method.getAnnotation( ResponseBody.class );
+        Parameter[] parameters = method.getParameters();
+        int removeId = -1;
+        if( null != parameters ){
+            for(int i = 0; i < parameters.length; i++){
+                SessionAttribute sessionAttribute = parameters[i].getDeclaredAnnotation(SessionAttribute.class);
+                if( sessionAttribute != null ){
+                    removeId = i;
+                    break;
+                }
+            }
+        }
+
         if( methodPath == null || methodReponse == null){  //  有请求路径，和响应体说明是 ajax 请求
             return "";
         }
@@ -107,6 +123,9 @@ public class UserApiUtil {
         String[] paramsArr = u.getParameterNames(method);
         if( null != paramsArr ){
             params = Lists.newArrayList( paramsArr );
+            if( removeId != -1 ){
+                params.remove( removeId );
+            }
         }
         //获取请求方式
         Annotation[][] annotationss = method.getParameterAnnotations();

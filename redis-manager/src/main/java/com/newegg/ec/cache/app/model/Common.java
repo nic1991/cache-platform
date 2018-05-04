@@ -5,4 +5,14 @@ package com.newegg.ec.cache.app.model;
  */
 public class Common {
     public static final String NODE_INFO_TABLE_FORMAT = "node_info_";
+
+    public static final String CLUSTER_NUMBER = "clusterNumber";
+
+    public static final String CLUSTER_OK_NUMBER = "clusterOkNumber";
+
+    public static final String CLUSTER_FAIL_NUMBER = "clusterFailNumber";
+
+    public static final String CLUSTER_STATE = "cluster_state";
+
+
 }

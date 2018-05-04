@@ -2,16 +2,21 @@ package com.newegg.ec.cache.app.logic;
 
 import com.newegg.ec.cache.app.component.RedisManager;
 import com.newegg.ec.cache.app.dao.IClusterDao;
+import com.newegg.ec.cache.app.dao.INodeInfoDao;
+import com.newegg.ec.cache.app.model.RedisQueryParam;
 import com.newegg.ec.cache.app.dao.impl.NodeInfoDao;
 import com.newegg.ec.cache.app.model.Cluster;
 import com.newegg.ec.cache.app.model.Common;
 import com.newegg.ec.cache.app.model.Host;
-import com.newegg.ec.cache.app.model.RedisQueryParam;
 import com.newegg.ec.cache.app.util.JedisUtil;
 import com.newegg.ec.cache.app.util.NetUtil;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,12 +32,12 @@ public class ClusterLogic {
     @Resource
     private RedisManager redisManager;
 
-    public Object query(RedisQueryParam redisQueryParam){
-        return redisManager.query( redisQueryParam );
-    }
-
     public Cluster getCluster(int id){
         return clusterDao.getCluster( id );
+    }
+
+    public Object query(RedisQueryParam redisQueryParam){
+        return redisManager.query( redisQueryParam );
     }
 
     public List<Cluster> getClusterList(String group){
@@ -50,6 +55,32 @@ public class ClusterLogic {
 
         }
         return res;
+    }
+
+    public Map<String, Integer> getClusterListInfo(String userGroup) {
+        Map<String, Integer> clusterListInfo = new HashMap<>();
+        int clusterOkNumber = 0;
+        int clusterFailNumber = 0;
+        if (StringUtils.isNotBlank(userGroup)){
+            List<Cluster> clusterList = clusterDao.getClusterList(userGroup);
+            if (clusterList != null && clusterList.size() > 0){
+                clusterListInfo.put(Common.CLUSTER_NUMBER, clusterList.size());
+                for (Cluster cluster : clusterList){
+                    if (getClusterState(cluster.getId())) {
+                        clusterOkNumber++;
+                    } else {
+                        clusterFailNumber++;
+                    }
+                }
+                clusterListInfo.put(Common.CLUSTER_OK_NUMBER, clusterOkNumber);
+                clusterListInfo.put(Common.CLUSTER_FAIL_NUMBER, clusterFailNumber);
+            } else {
+                clusterListInfo.put(Common.CLUSTER_NUMBER, 0);
+                clusterListInfo.put(Common.CLUSTER_OK_NUMBER, 0);
+                clusterListInfo.put(Common.CLUSTER_FAIL_NUMBER, 0);
+            }
+        }
+        return null;
     }
 
     public boolean addCluster(Cluster cluster){
@@ -99,14 +130,16 @@ public class ClusterLogic {
     public Host getClusterHost(int id) {
         Cluster cluster = getCluster(id);
         String addressStr = cluster.getAddress();
-        final String[] addressList = addressStr.split(",");
-        // TODO: 多节点时，依次判断节点可用性，返回第一个可用节点
-        String hostStr = addressList[0];
-        String[] ipAndPort = hostStr.split(":");
-        Host host = new Host();
-        host.setIp(ipAndPort[0]);
-        host.setPort(Integer.parseInt(ipAndPort[1]));
+        Host host = NetUtil.getHostPassAddress( addressStr );
         return host;
+    }
+
+    public boolean getClusterState(int id){
+        Host host = getClusterHost(id);
+        final Map<String, String> clusterInfo = getClusterInfo(host.getIp(), host.getPort());
+        System.out.println(clusterInfo);
+        String state = clusterInfo.get(Common.CLUSTER_STATE);
+        return  "ok".equals(state);
     }
 
     public Map<String,Map> detailNodeList(String address) {
@@ -114,4 +147,6 @@ public class ClusterLogic {
         Map<String, Map> result = JedisUtil.getClusterNodes( host.getIp(), host.getPort() );
         return result;
     }
+
+
 }
