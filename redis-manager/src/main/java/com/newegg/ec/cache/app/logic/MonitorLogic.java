@@ -49,17 +49,15 @@ public class MonitorLogic {
     }
 
     public List<RedisSlowLog> getSlowLogs(SlowLogParam slowLogParam) {
-        Host host = new Host();
-        if( slowLogParam.getHostList().size() > 0 ){
-            host = slowLogParam.getHostList().get(0);
-        }
-        String ip = host.getIp();
-        int port = host.getPort();
         List<RedisSlowLog>  cmdList = new ArrayList<>();
         List<Host> ipList = slowLogParam.getHostList();
+        int logLimit = 0;
+        if( slowLogParam.getLogLimit() == 0 ){
+            logLimit = 800/ipList.size();
+        }
         for(Host host1 : ipList){
             try {
-                List<Slowlog> slowList = JedisUtil.getSlowLog(host1.getIp(), host1.getPort(), slowLogParam.getLogLimit());
+                List<Slowlog> slowList = JedisUtil.getSlowLog(host1.getIp(), host1.getPort(), logLimit);
                 for( Slowlog log : slowList){
                     String slowDate =DateUtil.getFormatDate( log.getTimeStamp() * 1000 );
                     long logTime = log.getExecutionTime();

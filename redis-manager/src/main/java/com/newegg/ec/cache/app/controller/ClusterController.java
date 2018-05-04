@@ -28,8 +28,13 @@ public class ClusterController {
     private NodeInfoDao nodeInfoTable;
 
     @RequestMapping("/clusterListManager")
-    public String form(Model model){
+    public String clusterListManager(Model model){
         return "clusterListManager";
+    }
+
+    @RequestMapping("/clusterManager")
+    public String clusterManager(Model model){
+        return "clusterManager";
     }
 
     @RequestMapping(value = "/listCluster", method = RequestMethod.GET)

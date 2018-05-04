@@ -24,7 +24,7 @@
                         </a>
                         <div class="operation-btn-swapper">
                             <!-- 后期需要带参 -->
-                            <a href="/pages/managerCluster" class="operation-btn">
+                            <a href="/cluster/clusterManager?clusterId={{$cluster.id}}" class="operation-btn">
                                 <span data-cluster-id="{{$cluster.id}}">Manager</span>
                             </a>
                         </div>

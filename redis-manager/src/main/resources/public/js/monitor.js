@@ -234,7 +234,7 @@ $("#field-title > th").click(function () {
 $("#show_log").click(function(){
     var $btn = $(this).button('loading');
     $("#slow-log-table>tbody").empty();
-    var logParam = {"logLimit":5};
+    var logParam = {};
     logParam.hostList = window.nodeList;
     monitorSlowLogs(logParam,function(obj){
         var items = obj.res;
