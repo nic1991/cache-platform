@@ -328,3 +328,8 @@ function timestampToTime(timestamp) {
     m = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes();
     return Y+M+D+h+m;
 }
+
+$(document).on("click", "#query-key", function(){
+     smarty.popen("/cluster/dbList", JSON.stringify(req_data), "monitor/cluster_query", true, { title: "Query",  width:800, height:550}, function(){
+     });
+});
