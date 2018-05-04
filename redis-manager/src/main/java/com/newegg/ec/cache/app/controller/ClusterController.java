@@ -60,8 +60,7 @@ public class ClusterController {
 
     @RequestMapping(value = "/getClusterListInfo", method = RequestMethod.GET)
     @ResponseBody
-    public Response getClusterListInfo(HttpServletRequest request){
-        User user = (User)request.getSession().getAttribute("user");
+    public Response getClusterListInfo(@SessionAttribute(WebSecurityConfig.SESSION_KEY) User user){
         Map<String, Integer> clusterListInfo = null;
         if (user != null) {
             clusterListInfo = logic.getClusterListInfo(user.getUserGroup());

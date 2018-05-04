@@ -96,6 +96,7 @@
 .query-container button.focus,
 .query-container button:active.focus,
 .query-container button:active.focus {
+    border-radius: 2px;
     border: 1px solid #007fff;
     outline: none;
     background-color: #007fff;

@@ -80,7 +80,7 @@ public class ClusterLogic {
                 clusterListInfo.put(Common.CLUSTER_FAIL_NUMBER, 0);
             }
         }
-        return null;
+        return clusterListInfo;
     }
 
     public boolean addCluster(Cluster cluster){
