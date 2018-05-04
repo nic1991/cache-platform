@@ -35,4 +35,5 @@ public class JedisUtilTest {
         int size = logSize/3;
         System.out.println( size );
     }
+
 }
