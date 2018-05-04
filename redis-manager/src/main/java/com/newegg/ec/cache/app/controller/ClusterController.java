@@ -44,9 +44,8 @@ public class ClusterController {
     @RequestMapping(value = "/redisQuery", method = RequestMethod.POST)
     @ResponseBody
     public Response redisQuery(@RequestBody RedisQueryParam redisQueryParam){
-//        Object res = logic.query( redisQueryParam );
-//        return Response.Result(0, res);
-        return null;
+        Object res = logic.query( redisQueryParam );
+        return Response.Result(0, res);
     }
 
     @RequestMapping(value = "/listCluster", method = RequestMethod.GET)
