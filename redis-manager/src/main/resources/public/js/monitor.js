@@ -205,6 +205,7 @@ function init(){
 
     // set node options
     getCluster(window.clusterId, function(hostResult){
+        window.cluster =hostResult.res;
         var address = hostResult.res.address;
         nodeList(address, function(nodeObj){
             var nodeList = nodeObj.res

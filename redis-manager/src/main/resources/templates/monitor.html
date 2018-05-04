@@ -113,15 +113,21 @@
                                 <span class="label-success cluster-info">Cluster Healthy</span>
                                 Cluster nodes: <b class="label-success">2</b> | Master Size: <b class="label-success">1</b>
                             </div>
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                    Command <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu" role="menu" >
-                                    <li><a href="javascript:void(0);" id="config">config</a></li>
-                                    <li><a href="javascript:void(0);" id="info">info</a></li>
-                                </ul>
+                            <div class="panel-heading-right">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                        Command <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu" >
+                                        <li><a href="javascript:void(0);" id="config">config</a></li>
+                                        <li><a href="javascript:void(0);" id="info">info</a></li>
+                                    </ul>
+                                </div>
+                                <div class="query-container">
+                                    <button type="button" class="btn btn-primary">Query</button>
+                                </div>
                             </div>
+
                         </div>
                         <div class="base-info-list">
                             <ul>
@@ -226,17 +232,17 @@
                             <select id="logNodeList" class="selectpicker show-tick form-control" data-live-search="true" data-width="250px">
                             </select>
                             <button  class="btn btn-default" data-loading-text="loading..." type="button" autocomplete="off" id="slow_log">
-                                <span class="glyphicon" aria-hidden="true">slow-log </span>
+                                <span class="glyphicon" aria-hidden="true">slow-log</span>
                             </button>
                         </div>
                         <div class="panel-body log-table-wrapper scrollbar-div scrollbar-div-1" >
                             <table class="table table-bordered scrollbar" id="slow-log-table">
                                 <thead>
                                 <tr>
-                                    <th width="180px">host</th>
-                                    <th width="120px">slow_date</th>
-                                    <th width="100px">run_time</th>
-                                    <th width="120px">type</th>
+                                    <th width="180px">Host</th>
+                                    <th width="120px">Slow Date</th>
+                                    <th width="100px">Run Time</th>
+                                    <th width="120px">Type</th>
                                     <th>command</th>
                                 </tr>
                                 </thead>

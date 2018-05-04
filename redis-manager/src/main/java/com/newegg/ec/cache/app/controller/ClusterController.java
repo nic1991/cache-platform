@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -60,7 +61,8 @@ public class ClusterController {
 
     @RequestMapping(value = "/getClusterListInfo", method = RequestMethod.GET)
     @ResponseBody
-    public Response getClusterListInfo(@SessionAttribute(WebSecurityConfig.SESSION_KEY) User user){
+    public Response getClusterListInfo(HttpServletRequest request){
+        User user = (User)request.getSession().getAttribute("user");
         Map<String, Integer> clusterListInfo = null;
         if (user != null) {
             clusterListInfo = logic.getClusterListInfo(user.getUserGroup());
