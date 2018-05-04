@@ -35,4 +35,10 @@ public class JedisUtilTest {
         int size = logSize/3;
         System.out.println( size );
     }
+
+    @Test
+    public void testDbMap(){
+        Map map = JedisUtil.dbMap("172.16.35.44", 8379);
+        System.out.println( map );
+    }
 }

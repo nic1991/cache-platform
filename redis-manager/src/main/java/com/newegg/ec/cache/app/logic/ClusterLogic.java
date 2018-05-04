@@ -2,18 +2,16 @@ package com.newegg.ec.cache.app.logic;
 
 import com.newegg.ec.cache.app.component.RedisManager;
 import com.newegg.ec.cache.app.dao.IClusterDao;
-import com.newegg.ec.cache.app.dao.INodeInfoDao;
 import com.newegg.ec.cache.app.dao.impl.NodeInfoDao;
 import com.newegg.ec.cache.app.model.Cluster;
 import com.newegg.ec.cache.app.model.Common;
 import com.newegg.ec.cache.app.model.Host;
+import com.newegg.ec.cache.app.model.RedisQueryParam;
 import com.newegg.ec.cache.app.util.JedisUtil;
 import com.newegg.ec.cache.app.util.NetUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -28,6 +26,10 @@ public class ClusterLogic {
     private NodeInfoDao nodeInfoTable;
     @Resource
     private RedisManager redisManager;
+
+    public Object query(RedisQueryParam redisQueryParam){
+        return redisManager.query( redisQueryParam );
+    }
 
     public Cluster getCluster(int id){
         return clusterDao.getCluster( id );
