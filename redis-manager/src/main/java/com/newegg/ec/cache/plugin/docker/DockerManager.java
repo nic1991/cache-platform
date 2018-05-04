@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import com.newegg.ec.cache.plugin.INodeOperate;
 import com.newegg.ec.cache.plugin.INodeRequest;
 import com.newegg.ec.cache.plugin.basemodel.*;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -54,11 +53,11 @@ public class DockerManager implements INodeOperate,INodeRequest {
 
     @Override
     public String showInstall() {
-        return "plugin/dockerCreateCluster";
+        return "plugin/docker/dockerCreateCluster";
     }
 
     @Override
     public String showManager() {
-        return null;
+        return "plugin/docker/dockerNodeManager";
     }
 }

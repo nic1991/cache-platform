@@ -1,4 +1,4 @@
-smarty.html( "node/humpback/create_cluster_step", {}, "create-cluster-container",function () {
+smarty.html( "plugin/humpback/create_cluster_step", {}, "create-cluster-container",function () {
     // Smart Wizard events
     $("#smartwizard").on("leaveStep", function(e, anchorObject, stepNumber, stepDirection) {
         console.log( stepNumber + "----------" +stepDirection);
@@ -41,11 +41,9 @@ smarty.html( "node/humpback/create_cluster_step", {}, "create-cluster-container"
 
 $(document).on("click", "#start-install-node", function(){
     $('#smartwizard').smartWizard("next");
-    smarty.html( "node/redis_console", {}, "redis-config-tpl",function () {
-        var data = {};
-        data.clusterId = $("input[name='clusterId']").val();
-        connect( JSON.stringify(data), "/webSocket/createClusterLog");
-    });
+    var data = {};
+    data.id = window.user.id;
+    connect( JSON.stringify(data), "/webSocket/createClusterLog");
 });
 
 $(document).on("click", "#install-all-node", function(){

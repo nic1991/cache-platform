@@ -54,11 +54,11 @@ public class HumpbackManager implements INodeOperate,INodeRequest {
 
     @Override
     public String showInstall() {
-        return "plugin/humpbackCreateCluster";
+        return "plugin/humpback/humpbackCreateCluster";
     }
 
     @Override
     public String showManager() {
-        return null;
+        return "plugin/humpback/humpbackNodeManager";
     }
 }

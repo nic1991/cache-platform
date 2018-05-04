@@ -1,9 +1,7 @@
-package com.newegg.ec.cache.app.controller;
+package com.newegg.ec.cache.app.controller.check;
 
-import com.newegg.ec.cache.app.controller.security.WebSecurityConfig;
 import com.newegg.ec.cache.app.model.Response;
 import com.newegg.ec.cache.core.userapi.UserAccess;
-import com.newegg.ec.cache.app.logic.CheckLogic;
 import net.sf.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/check")
 @UserAccess(autoCreate = false)
-public class CheckControl {
+public class CheckController {
     @RequestMapping("/checkPortPass")
     @ResponseBody
     public Response checkPortPass(@RequestParam String ip, @RequestParam int port){
@@ -33,17 +31,12 @@ public class CheckControl {
         return CheckLogic.checkIp(ip);
     }
 
-    @RequestMapping(value = "/checkClusterName", method = RequestMethod.GET)
-    @ResponseBody
-    public Response checkClusterName(@RequestParam String clusterId, @SessionAttribute(WebSecurityConfig.SESSION_KEY) String user){
-        return CheckLogic.checkClusterName(clusterId, user);
-    }
 
     @RequestMapping(value = "/batchHostAccess", method = RequestMethod.POST)
     @ResponseBody
     public Response batchHostAcess(@RequestBody String req){
         JSONObject object = JSONObject.fromObject( req );
         String clusterName = object.getString("clusterId");
-        return CheckLogic.checkClusterName(clusterName, "fdsafdasfd");
+        return Response.Success();
     }
 }

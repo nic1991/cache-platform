@@ -45,7 +45,7 @@
 							<a href="#clusterManager" data-toggle="tab">Cluster Manager</a>
 						</li>
 						<li >
-							<a href="#nodeManager" data-toggle="tab">Node Manager</a>
+							<a href="#nodeManager" target="node-manager" data-toggle="tab">Node Manager</a>
 						</li>
 					</ul>
 		        </div>
@@ -53,7 +53,10 @@
 		        	
 		        </div>
 		        <div id="clsuter-content" class="tab-content" >
-
+					<div role="tabpanel" class="tab-pane active" id="clusterManager">clusterManager</div>
+					<div role="tabpanel" class="tab-pane" id="nodeManager">
+						<iframe src="/user/login" name="node-manager" class="content-page" scrolling="no"  frameborder="0" ></iframe>
+					</div>
 				</div>
 	        </div>
 	        

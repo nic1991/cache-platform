@@ -26,7 +26,7 @@ public class CreateClusterLogHandler implements WebSocketHandler {
     @Override
     public void handleMessage(WebSocketSession webSocketSession, WebSocketMessage<?> webSocketMessage) throws Exception {
         JSONObject reqObject = JSONObject.fromObject(webSocketMessage.getPayload().toString());
-        webSocketAndClustertable.put( reqObject.getString("clusterId"), webSocketSession);
+        webSocketAndClustertable.put( reqObject.getString("id"), webSocketSession);
         while (true){
             BlockingDeque<String> logQueue = getLogQueue( webSocketSession );
             String message = logQueue.poll();

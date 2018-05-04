@@ -1,13 +1,22 @@
 $(document).ready(function(){
+    window.pluginType = getQueryString("pluginType");
     window.clusterId = getQueryString("clusterId");
     getCluster(window.clusterId, function(obj){
         window.cluster = obj.res;
         show_cluster_node_list( window.cluster.address );
     });
-})
+});
+
+$('[href="#nodeManager"]').click(function () {
+    $('iframe[name="node-manager"]').attr("src","/node/manager?pluginType=" + window.pluginType);
+});
+
+$('[href="#clusterManager"]').click(function () {
+    show_cluster_node_list( window.cluster.address );
+});
 
 function show_cluster_node_list(address){
-    smarty.get( "/cluster/detailNodeList?address=" + address, "cluster/cluster_manager_content", "clsuter-content", function(){
+    smarty.get( "/cluster/detailNodeList?address=" + address, "cluster/cluster_manager_content", "clusterManager", function(){
             console.log("get...");
     }, true );
 }
@@ -117,4 +126,4 @@ smarty.register_function( 'cluster_status', function(params){
         return "<span class='label label-danger'>Cluster Bad</span>";
     }
 
-});
+})

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.springframework.org/schema/mvc">
 <head>
     <meta charset="UTF-8" />
     <title>Title</title>
@@ -35,5 +35,10 @@
     </div>
 </div><!-- .container-fluid -->
 </body>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+        window.user = /*[[${user}]]*/;
+    /*]]>*/
+</script>
 <script src="../js/plugin/humpback-create-cluster.js"></script>
 </html>

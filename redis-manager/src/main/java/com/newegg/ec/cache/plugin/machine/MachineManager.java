@@ -50,11 +50,11 @@ public class MachineManager implements INodeOperate,INodeRequest {
 
     @Override
     public String showInstall() {
-        return "plugin/machineCreateCluster";
+        return "plugin/machine/machineCreateCluster";
     }
 
     @Override
     public String showManager() {
-        return null;
+        return "plugin/machine/machineNodeManager";
     }
 }
