@@ -11,24 +11,12 @@ $(document).ready(function(){
     // init time selector
     $(".start-time").flatpickr();
     $(".end-time").flatpickr();
+    $(".start-time").val(timestampToTime(window.startTime));
+    $(".end-time").val(timestampToTime(window.endTime));
 
-    // set node options
-    getCluster(window.clusterId, function(hostResult){
-        var address = hostResult.res.address;
-        nodeList(address, function(nodeObj){
-            var nodeList = nodeObj.res
-            window.nodeList = nodeList;
-            var options = "";
-            for(var i = 0, len = nodeList.length; i < len; i++){
-                var node = nodeList[i];
-                var host = node.ip + ":" + node.port;
-                var role = node.role;
-                options += '<option data-subtext="'+role+'">'+host+'</option>';
-            }
-            $("#nodeList").append(options);
-            $('#nodeList').selectpicker('refresh');
-        });
-    })
+    // set type selector
+    $("#dataType").selectpicker("val", window.type);
+
 });
 
 function getCurrentTime(){
@@ -82,7 +70,6 @@ $("#nodeList").on('changed.bs.select', function (e){
 
 $("body").delegate(".top_request_monitor", "click", function(){
     var host = $(this).text();
-    console.log(host);
     window.host = host;
     reloadMonitor();
 });
@@ -98,7 +85,7 @@ $('#dataType').on('changed.bs.select', function (e) {
 $(".cluster-info").on("click", function(){
     getCluster(window.clusterId, function(obj){
         var address = obj.res.address;
-        getClusterInfo(address, function(obj){
+        getClusterInfoByAddress(address, function(obj){
             layer.open({
                 title: 'Cluster Info',
                 type: 1,
@@ -107,7 +94,7 @@ $(".cluster-info").on("click", function(){
                 closeBtn: 1, //显示关闭按钮
                 anim: 2,
                 shadeClose: true, //开启遮罩关闭
-                content: '<pre style="padding: 20px;">'+ syntaxHighlight(obj.res) +'</pre>'
+                content: '<pre style="padding: 20px; height:auto; border: none;">'+ syntaxHighlight(obj.res) +'</pre>'
             });
         })
     })
@@ -122,14 +109,13 @@ $("#info").on("click", function(){
             layer.open({
                 title: 'Info',
                 type: 1,
-                area: '600px;',
+                area: '800px;',
                 skin: 'layui-layer-demo', //样式类名
                 closeBtn: 1, //显示关闭按钮
                 anim: 2,
                 shadeClose: true, //开启遮罩关闭
-                content: '<pre style="padding: 20px;">'+ syntaxHighlightRedisResult( obj.res ) +'</pre>'
+                content: '<pre style="padding: 20px; border: none;">'+ syntaxHighlightRedisResult( obj.res ) +'</pre>'
             });
-            console.log(info)
         })
     } else {
         layer.msg("Please select one node");
@@ -145,21 +131,18 @@ $("#config").on("click", function(){
             layer.open({
                 title: 'Config',
                 type: 1,
-                area: '600px;',
+                area: '800px;',
                 skin: 'layui-layer-demo', //样式类名
                 closeBtn: 1, //显示关闭按钮
                 anim: 2,
                 shadeClose: true, //开启遮罩关闭
-                content: '<pre style="padding: 20px;">'+ syntaxHighlightRedisResult( obj.res ) +'</pre>'
+                content: '<pre style="padding: 20px; border: none;">'+ syntaxHighlightRedisResult( obj.res ) +'</pre>'
             });
-            console.log(info)
         })
     } else {
         layer.msg("Please select one node");
     }
 })
-
-
 
 function reloadMonitor(){
     window.location.href = "/monitor/manager?clusterId="+window.clusterId+"&startTime=" + window.startTime + "&endTime="+window.endTime + "&host=" + window.host + "&type=" + window.type + "&date=" + window.date;
@@ -217,9 +200,29 @@ function init(){
     });
 
     getCluster(window.clusterId, function(obj){
-    console.log(obj)
         $("#clusterName").html(obj.res.clusterName);
     });
+
+    // set node options
+    getCluster(window.clusterId, function(hostResult){
+        var address = hostResult.res.address;
+        nodeList(address, function(nodeObj){
+            var nodeList = nodeObj.res
+            window.nodeList = nodeList;
+            var options = '<option>all</option>';
+            for(var i = 0, len = nodeList.length; i < len; i++){
+                var node = nodeList[i];
+                var host = node.ip + ":" + node.port;
+                var role = node.role;
+                options += '<option data-subtext="'+role+'">'+host+'</option>';
+            }
+            $("#nodeList").append(options);
+            $("#nodeList").val(window.host);
+            $('#nodeList').selectpicker("refresh");
+            $("#logNodeList").append(options);
+            $('#logNodeList').selectpicker("refresh");
+        });
+    })
 }
 
 $("#field-title > th").click(function () {
@@ -236,12 +239,29 @@ $("#field-title > th").click(function () {
     }
 });
 
-
-$("#show_log").click(function(){
+$("#slow_log").click(function(){
     var $btn = $(this).button('loading');
+    $btn.css("disabled", "true");
+    $btn.html("complete");
+    slowLog();
+});
+
+$("#logNodeList").on('changed.bs.select', function (e) {
+    slowLog();
+})
+
+
+function slowLog(){
     $("#slow-log-table>tbody").empty();
     var logParam = {"logLimit":5};
-    logParam.hostList = window.nodeList;
+    var logNode = $("#logNodeList").selectpicker("val");
+    console.log(logNode)
+    if(logNode == "all"){
+        logParam.hostList = window.nodeList;
+    } else {
+        var ipAndPort = logNode.split(":");
+        logParam.hostList = [{"ip":ipAndPort[0], "port": parseInt(ipAndPort[1])}];
+    }
     monitorSlowLogs(logParam,function(obj){
         var items = obj.res;
         var tr = "";
@@ -260,16 +280,12 @@ $("#show_log").click(function(){
             lengthMenu: [15, 30, 50, 100, 200, 300 ],
             order: [[ 1, 'asc' ]]
         });
-        /*$btn.button('reset');*/
-        $btn.css("disabled", "true")
     });
-});
+}
 
 function makeCharts(theme, bgColor, field, char_data_table) {
     var len = char_data_table.length;
-
     var chart1;
-
     if (chart1) {
         chart1.clear();
     }
@@ -301,4 +317,14 @@ function makeCharts(theme, bgColor, field, char_data_table) {
             balloonText: "[[title]] in [[category]]  <b>[[value]]</b>"
         }]
     });
+}
+
+function timestampToTime(timestamp) {
+    var date = new Date(parseInt(timestamp) * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+    Y = date.getFullYear() + '-';
+    M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+    D = (date.getDate() < 10 ? '0'+ date.getDate() : date.getDate()) + ' ';
+    h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
+    m = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes();
+    return Y+M+D+h+m;
 }
