@@ -108,6 +108,7 @@ public class JedisUtil {
             for(Map.Entry<String, String> db : mapInfo.entrySet()){
                 String key = db.getKey();
                 if( key.contains("db") ){
+                    key =  key.substring(2);
                     String value = db.getValue();
                     Map<String, String> resMap = RedisMsgUtil.changeStrToMap( value );
                     if( null != resMap && !resMap.isEmpty() ){
@@ -122,6 +123,7 @@ public class JedisUtil {
 
     public static Map<Integer, Integer> dbMap(String ip, int port){
         Map<Integer, Integer> resMap = new TreeMap<>(new Comparator<Integer>() {
+            @Override
             public int compare(Integer o1, Integer o2) {
                 return o1.compareTo(o2);
             }
@@ -147,16 +149,7 @@ public class JedisUtil {
 
 
     public static int getDbIndex(String db) {
-        int index = 0;
-        if( !org.apache.commons.lang3.StringUtils.isBlank( db ) ){
-            if( db.contains("db") ){
-                String[] arr = db.split("db");
-                index = Integer.parseInt(arr[1]);
-            }else{
-                index = Integer.parseInt(db);
-            }
-
-        }
+        int index = Integer.parseInt(db);
         return index;
     }
 

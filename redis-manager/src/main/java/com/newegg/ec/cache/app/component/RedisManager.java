@@ -10,6 +10,7 @@ import com.newegg.ec.cache.app.util.JedisUtil;
 import com.newegg.ec.cache.app.util.NetUtil;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -49,6 +50,10 @@ public class RedisManager {
         return res;
     }
 
+    public Map<String,Map> getClusterNodes (String ip, int port) {
+        return JedisUtil.getClusterNodes(ip, port);
+    }
+
     public Map<String, String> getMapInfo(String ip, int port){
         Map<String, String> res = JedisUtil.getMapInfo(ip, port);
         return res;
@@ -56,6 +61,15 @@ public class RedisManager {
 
     public Map<String, String> getRedisConfig(String ip, int port){
         Map<String, String> res = JedisUtil.getRedisConfig(ip, port);
+        return res;
+    }
+
+    public List<Map<String, String>> nodeList (String ip, int port) {
+        return JedisUtil.nodeList(ip, port);
+    }
+
+    public List<Map<String, String>> getRedisDBList(String ip, int port){
+        List<Map<String, String>> res = JedisUtil.dbInfo(ip, port);
         return res;
     }
 
