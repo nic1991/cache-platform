@@ -26,12 +26,18 @@ public class ClusterDaoTest {
     @Test
     public void addTest(){
         Cluster cluster = new Cluster();
-        cluster.setAddress("10.16.46.192:8008");
+        cluster.setAddress("10.16.46.172:8008");
         cluster.setUserGroup("admin");
-        cluster.setClusterName("yat-test2");
+        cluster.setClusterType("machine");
+        cluster.setClusterName("yat-test22");
         clusterDao.addCluster(cluster);
         nodeInfoTable.createTable("node_info_" + cluster.getId());
     }
+    @Test
+    public void createNodeInfoTableTest(){
+        nodeInfoTable.createTable("node_info_45");
+    }
+
     @Test
     public void removeClaster(){
         int id =  33;
