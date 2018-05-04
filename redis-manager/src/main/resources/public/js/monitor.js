@@ -253,7 +253,7 @@ $("#logNodeList").on('changed.bs.select', function (e) {
 
 function slowLog(){
     $("#slow-log-table>tbody").empty();
-    var logParam = {"logLimit":5};
+    var logParam = {};
     var logNode = $("#logNodeList").selectpicker("val");
     console.log(logNode)
     if(logNode == "all"){

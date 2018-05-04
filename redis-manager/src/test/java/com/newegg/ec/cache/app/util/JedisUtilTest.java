@@ -28,4 +28,11 @@ public class JedisUtilTest {
         Map map = JedisUtil.getRedisConfig("10.16.46.192", 8008);
         System.out.println( map );
     }
+
+    @Test
+    public void testDivice(){
+        int logSize = 10000;
+        int size = logSize/3;
+        System.out.println( size );
+    }
 }

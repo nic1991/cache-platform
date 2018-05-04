@@ -1,10 +1,12 @@
 package com.newegg.ec.cache.app.controller;
 
+import com.newegg.ec.cache.app.controller.security.WebSecurityConfig;
 import com.newegg.ec.cache.app.dao.impl.NodeInfoDao;
 import com.newegg.ec.cache.app.logic.ClusterLogic;
 import com.newegg.ec.cache.app.model.Cluster;
 import com.newegg.ec.cache.app.model.Host;
 import com.newegg.ec.cache.app.model.Response;
+import com.newegg.ec.cache.app.model.User;
 import com.newegg.ec.cache.core.userapi.UserAccess;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,14 +30,22 @@ public class ClusterController {
     private NodeInfoDao nodeInfoTable;
 
     @RequestMapping("/clusterListManager")
-    public String form(Model model){
+    public String clusterListManager(Model model){
         return "clusterListManager";
+    }
+
+    @RequestMapping("/clusterManager")
+    public String clusterManager(Model model){
+        return "clusterManager";
     }
 
     @RequestMapping(value = "/listCluster", method = RequestMethod.GET)
     @ResponseBody
-    public Response listCluster(@RequestParam String group){
-        List<Cluster> listCluster = logic.getClusterList( group );
+    public Response listCluster(@SessionAttribute(WebSecurityConfig.SESSION_KEY) User user){
+        List<Cluster> listCluster = null;
+        if (user != null) {
+            listCluster = logic.getClusterList( user.getUserGroup());
+        }
         return Response.Result(0, listCluster);
     }
 
