@@ -123,7 +123,7 @@ public class ClusterLogic {
 
     public List<Map<String, String>> nodeList(String address){
         Host host = NetUtil.getHostPassAddress( address );
-        List<Map<String, String>> list = JedisUtil.nodeList( host.getIp(), host.getPort() );
+        List<Map<String, String>> list = redisManager.nodeList( host.getIp(), host.getPort() );
         return list;
     }
 
@@ -144,9 +144,13 @@ public class ClusterLogic {
 
     public Map<String,Map> detailNodeList(String address) {
         Host host = NetUtil.getHostPassAddress( address );
-        Map<String, Map> result = JedisUtil.getClusterNodes( host.getIp(), host.getPort() );
+        Map<String, Map> result = redisManager.getClusterNodes( host.getIp(), host.getPort() );
         return result;
     }
 
+    public List<Map<String, String>> getRedisDBList(String address){
+        Host host = NetUtil.getHostPassAddress(address);
+        return redisManager.getRedisDBList(host.getIp(), host.getPort());
+    }
 
 }

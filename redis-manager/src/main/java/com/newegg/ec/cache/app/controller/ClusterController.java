@@ -48,6 +48,13 @@ public class ClusterController {
         return Response.Result(0, res);
     }
 
+    @RequestMapping(value = "/redisDbList", method = RequestMethod.GET)
+    @ResponseBody
+    public Response redisDbList(@RequestParam String address){
+        List<Map<String, String>> redisDBList = logic.getRedisDBList(address);
+        return Response.Result(0, redisDBList);
+    }
+
     @RequestMapping(value = "/listCluster", method = RequestMethod.GET)
     @ResponseBody
     public Response listCluster(@SessionAttribute(WebSecurityConfig.SESSION_KEY) User user){

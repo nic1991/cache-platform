@@ -109,7 +109,7 @@ $("#info").on("click", function(){
             layer.open({
                 title: 'Info',
                 type: 1,
-                area: '800px;',
+                area: '800px',
                 skin: 'layui-layer-demo', //样式类名
                 closeBtn: 1, //显示关闭按钮
                 anim: 2,
@@ -126,23 +126,28 @@ $("#info").on("click", function(){
 $("#config").on("click", function(){
     var host = window.host;
     if(host != "all" && host != "" && host != null){
-        getRedisConfig(host, function(obj){
-            var info = obj.res;
-            layer.open({
-                title: 'Config',
-                type: 1,
-                area: '800px;',
-                skin: 'layui-layer-demo', //样式类名
-                closeBtn: 1, //显示关闭按钮
-                anim: 2,
-                shadeClose: true, //开启遮罩关闭
-                content: '<pre style="padding: 20px; border: none;">'+ syntaxHighlightRedisResult( obj.res ) +'</pre>'
-            });
-        })
+        smarty.fopen( "/cluster/getRedisConfig?address="+window.host, "cluster/redis_format", true, { title: "Config", area: '800px', type: 1, closeBtn: 1, anim: 2, shadeClose: true},  function(obj){
+
+        } );
     } else {
         layer.msg("Please select one node");
     }
 })
+
+smarty.register_function( 'format_redis_result', function( params ){
+    var content = params['content'];
+    return syntaxHighlightRedisResult( content );
+});
+
+
+// query dbx
+$("#query-db").on("click", function(){
+    smarty.fopen( "/cluster/redisDbList?address="+window.host, "monitor/redis_query", true, { title: "Query", width:800, height:500},  function(obj){
+        console.log(obj)
+    } );
+})
+
+
 
 function reloadMonitor(){
     window.location.href = "/monitor/manager?clusterId="+window.clusterId+"&startTime=" + window.startTime + "&endTime="+window.endTime + "&host=" + window.host + "&type=" + window.type + "&date=" + window.date;

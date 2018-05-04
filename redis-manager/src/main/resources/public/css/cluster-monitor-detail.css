@@ -6,7 +6,6 @@
 	padding: 20px 10px;
 }
 
-
 .cluster-name-container{
     margin-left: 18px;
 	font-size: 24px;
@@ -96,11 +95,14 @@
 .query-container button.focus,
 .query-container button:active.focus,
 .query-container button:active.focus {
-    border-radius: 2px;
     border: 1px solid #007fff;
     outline: none;
     background-color: #007fff;
     color: #FFFFFF;
+}
+
+.detail-header button, .panel-heading button {
+    border-radius: 3px;
 }
 
 .my-panel {
@@ -193,3 +195,29 @@
     width:100%;
 }
 
+
+/* query */
+.query-wrapper {
+    padding: 20px;
+}
+
+.query-wrapper input, .query-wrapper button, .query-wrapper span {
+    border-radius: 3px;
+}
+
+.query-up-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.query-input {
+    width: 90%;
+}
+
+.show-result {
+    display: block;
+    border: 1px solid #dadada;
+    height: auto;
+    margin: 10px auto;
+    padding: 10px;
+}

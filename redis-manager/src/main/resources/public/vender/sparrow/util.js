@@ -103,6 +103,7 @@ var sparrow_win ={
 			}
 			arg.content = '<div '+ attr.join( ' ' ) +'>'+ content +'</div>';
 			var wid = sparrow_layer.open( arg );
+			//var wid = sparrow_layer.open( option );
 			if ( arg.cancel )
 			{
 				current_win_id.push( [wid, option.beforeclose] );
