@@ -1,5 +1,6 @@
 package com.newegg.ec.cache.app.controller.security;
 
+import com.newegg.ec.cache.app.model.User;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
@@ -19,13 +20,14 @@ public class WebSecurityConfig  extends WebMvcConfigurerAdapter {
     /**
      * 登录session key
      */
-    public final static String SESSION_KEY = "userId";
+    public final static String SESSION_KEY = "user";
 
     @Bean
     public SecurityInterceptor getSecurityInterceptor() {
         return new SecurityInterceptor();
     }
 
+    @Override
     public void addInterceptors(InterceptorRegistry registry) {
         InterceptorRegistration addInterceptor = registry.addInterceptor(getSecurityInterceptor());
 
@@ -43,7 +45,11 @@ public class WebSecurityConfig  extends WebMvcConfigurerAdapter {
         @Override
         public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
             HttpSession session = request.getSession();
-            session.setAttribute(SESSION_KEY, "aaadd");
+            // new user
+            User user = new User();
+            user.setId(1);
+            user.setUserGroup("admin");
+            session.setAttribute(SESSION_KEY, user);
             if (session.getAttribute(SESSION_KEY) != null){
                 return true;
             }

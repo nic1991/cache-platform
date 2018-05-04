@@ -5054,6 +5054,7 @@
 	 */
 	function _fnLog( settings, level, msg, tn )
 	{
+	/*
 		msg = 'DataTables warning: '+
 			(settings!==null ? 'table id='+settings.sTableId+' - ' : '')+msg;
 	
@@ -5061,7 +5062,7 @@
 			msg += '. For more information about this error, please see '+
 			'http://datatables.net/tn/'+tn;
 		}
-	
+
 		if ( ! level  ) {
 			// Backwards compatibility pre 1.10
 			var ext = DataTable.ext;
@@ -5082,8 +5083,9 @@
 		else if ( window.console && console.log ) {
 			console.log( msg );
 		}
+		*/
 	}
-	
+
 	
 	/**
 	 * See if a property is defined on one object, if so assign it to the other object

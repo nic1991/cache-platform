@@ -5,6 +5,7 @@
     <title>Title</title>
     <link href="../vender/datatables/dataTables.bootstrap.css" rel="stylesheet" charset="utf-8" />
     <link rel="stylesheet" href="../lib/bootstrap-3.3.7/css/bootstrap.css"/>
+    <!--<link rel="stylesheet" href="../css/bootstrap-reset.css"/>-->
     <!-- icon font -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
@@ -19,7 +20,7 @@
     <script type="text/javascript" src="../lib/bootstrap-3.3.7/js/bootstrap.js"></script>
     <script type="text/javascript" src="../lib/layer/layer.js"></script>
     <script type="text/javascript" src="../lib/bootstrap-select-1.12.4/dist/js/bootstrap-select.js"></script>
-    <script src="../vender/datatables/jquery.dataTables.min.js"></script>
+    <script src="../vender/datatables/jquery.dataTables.js"></script>
     <script src="../vender/datatables/dataTables.bootstrap.min.js"></script>
 
     <script src="../vender/amcharts/amcharts.js" type="text/javascript"></script>
@@ -43,16 +44,15 @@
                     <form class="form-horizontal" role="form">
                         <div class="col-lg-10">
                             <select id="nodeList" class="selectpicker show-tick form-control" data-live-search="true" data-width="250px">
-                                <option>all</option>
                             </select>
                         </div>
                     </form>
                 </div>
                 <div class="value-type-container">
                     <select class="selectpicker" data-width="100%" id="dataType">
-                        <option>Max</option>
-                        <option>Min</option>
-                        <option>Avg</option>
+                        <option value="max">max</option>
+                        <option value="min">min</option>
+                        <option value="avg">avg</option>
                     </select>
                 </div>
                 <div class="time-filter-container">
@@ -178,10 +178,10 @@
                                 <div id="node-info-chart" class="col-md-12" style="height: 450px"></div>
                             </div>
                         </div>
-                        <div class="panel-body info-detail">
-                            <table class="table table-bordered" id="command-table">
+                        <div class="panel-body info-detail scrollbar-div scrollbar-div-1">
+                            <table class="table table-bordered scrollbar" id="command-table">
                                 <thead>
-                                <tr id="field-title">
+                                <tr id="field-title" class="scrollbar">
                                     <th class="select-hover" data-field="date">date</th>
                                     <th class="select-hover selected" data-field="responseTime">response_time</th>
                                     <th class="select-hover" data-field="usedCpuSys">used_cpu_sys</th>
@@ -217,18 +217,20 @@
                                     <th class="select-hover" data-field="totalKeys">total_keys</th>
                                 </tr>
                                 </thead>
-                                <tbody id="node-info-table">
+                                <tbody id="node-info-table" class="scrollbar">
 
                                 </tbody>
                             </table>
                         </div><!-- .panel-body -->
-                        <div class="show-log-container">
-                            <button  class="btn btn-default" data-loading-text="loading..." type="button" autocomplete="off" id="show_log">
+                        <div class="slow-log-container">
+                            <select id="logNodeList" class="selectpicker show-tick form-control" data-live-search="true" data-width="250px">
+                            </select>
+                            <button  class="btn btn-default" data-loading-text="loading..." type="button" autocomplete="off" id="slow_log">
                                 <span class="glyphicon" aria-hidden="true">slow-log </span>
                             </button>
                         </div>
-                        <div class="panel-body log-table-wrapper" >
-                            <table class="table table-bordered" id="slow-log-table">
+                        <div class="panel-body log-table-wrapper scrollbar-div scrollbar-div-1" >
+                            <table class="table table-bordered scrollbar" id="slow-log-table">
                                 <thead>
                                 <tr>
                                     <th width="180px">host</th>
