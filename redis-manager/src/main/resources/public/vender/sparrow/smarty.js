@@ -52,7 +52,7 @@ window.smarty = {
 		//var url = window.SCRIPT_FILE.replace( 'index.php', 'static/jstpl/' );
 		/* lzz */
 		var url = window.JSTPL_URL;
-		url += tpl_name + '.tpl?r=' + Math.random();
+		url += tpl_name + '.html?r=' + Math.random();
 		return url;
 	},
 	/**
@@ -75,7 +75,7 @@ window.smarty = {
 	 */
 	parse_tpl : function( tpl, tpl_name )
 	{
-		tpl_name = tpl_name.replace( '.tpl', '' );
+		tpl_name = tpl_name.replace( '.html', '' );
 		tpl_name = smarty_tpl_name( tpl_name );
 		return smarty_parse_tpl( tpl, tpl_name, false );
 	},
@@ -627,7 +627,7 @@ var smartySyntax = {
 	},
 	parseinclude : function( str )
 	{
-		if ( !/^file\s*=\s*"([^\.]+)\.tpl"$/.test( str ) )
+		if ( !/^file\s*=\s*"([^\.]+)\.html"$/.test( str ) )
 		{
 			smarty_exception( 'error include expresion:' + str );
 		}
