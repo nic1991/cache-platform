@@ -61,8 +61,7 @@ public class UserController {
     public Response listGroup(@RequestParam int id){
         List<String> list = new ArrayList<>();
         list.add("admin");
-        list.add("admin2");
-        list.add("itemservice");
+        list.add("others");
         return Response.Result(0, list);
     }
 }

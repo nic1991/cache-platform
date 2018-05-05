@@ -1,12 +1,15 @@
 $(function(){
 
+    /**/
     getClusterListInfo(function(obj){
         var clusterListInfo = obj.res;
         $("#cluster-number").text(clusterListInfo.clusterNumber);
         $("#cluster-ok-number").text(clusterListInfo.clusterOkNumber);
         $("#cluster-fail-number").text(clusterListInfo.clusterFailNumber);
         updateWarningCount();
+        $('.my-list-panel-header').eq(0).find("a").trigger("click");;
     })
+
 })
 
 
