@@ -217,6 +217,7 @@
 .show-result {
     display: block;
     border: 1px solid #dadada;
+    min-height: 50px;
     height: auto;
     margin: 10px auto;
     padding: 10px;

@@ -48,7 +48,7 @@ public abstract class RedisClientBase{
 
     public List<String> scanRedis(RedisClientBase redisClient, String key) {
         ScanParams params = new ScanParams();
-        params.count(200);
+        params.count(10);
         key = key.trim();
         if( StringUtils.isEmpty( key ) ){
             key = "*";
@@ -63,7 +63,7 @@ public abstract class RedisClientBase{
             ScanResult<String> scanResult = redisClient.redisMultiKeyCommands().scan(cursor, params);
             for(String sResult : scanResult.getResult()){
                 resList.add( sResult );
-                if( resList.size() > 200 ){
+                if( resList.size() > 10 ){
                     isBreak = true;
                 }
             }

@@ -5,6 +5,9 @@ $(document).ready(function(){
     window.host = getQueryString("host") || "all";
     window.date = getQueryString("date") || "minute";
     window.type = getQueryString("type") || "max";
+    getCluster(window.clusterId, function(obj){
+        window.address = obj.res.address;
+    })
     $('th[data-field="responseTime"]').trigger("click");
     init();
 
@@ -138,16 +141,6 @@ smarty.register_function( 'format_redis_result', function( params ){
     var content = params['content'];
     return syntaxHighlightRedisResult( content );
 });
-
-
-// query dbx
-$("#query-db").on("click", function(){
-    smarty.fopen( "/cluster/redisDbList?address="+window.host, "monitor/redis_query", true, { title: "Query", width:800, height:500},  function(obj){
-        console.log(obj)
-    } );
-})
-
-
 
 function reloadMonitor(){
     window.location.href = "/monitor/manager?clusterId="+window.clusterId+"&startTime=" + window.startTime + "&endTime="+window.endTime + "&host=" + window.host + "&type=" + window.type + "&date=" + window.date;
@@ -334,8 +327,3 @@ function timestampToTime(timestamp) {
     m = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes();
     return Y+M+D+h+m;
 }
-
-$(document).on("click", "#query-key", function(){
-     smarty.popen("/cluster/dbList", JSON.stringify(req_data), "monitor/cluster_query", true, { title: "Query",  width:800, height:550}, function(){
-     });
-});
