@@ -12,6 +12,7 @@
         body{padding:0px;margin:0px;height:100%;width:100%}
     </style>
     <link rel="stylesheet"  type="text/css"  href="../../tools/bootstrap/css/bootstrap.css"/>
+    <link rel="stylesheet"  type="text/css"  href="../../base/css/about.css"/>
     <script  src="../../tools/jquery-1.9.1.js" ></script>
     <script  src="../../tools/newegg/newegg.js" ></script>
     <script  src="../../tools/bootstrap/js/bootstrap.js" ></script>
@@ -28,21 +29,21 @@
     </script>
 </head>
 <body>
-<div style="position:relative;height:100%;width:100%">
-    <div class="headDiv" style="width:100%;height:50px;background:#3c8dbc;padding:0px">
+<div class="content-div">
+    <div class="headDiv">
 
-        <div style="float:left;height:50px;width:200px;line-height:50px;font-size:18px;text-align:center;position:relative;z-index:10">
-            <div id="ha_locate" style="cursor:pointer;position:absolute;left:0px;top:0px;z-index:400;width:200px;height:40px;color:white">
-                Newegg * <span style="color:#63B8FF">Base</span>
+        <div class="head-leftBlock">
+            <div class="head-home-button">
+                Newegg * Base
             </div>
         </div>
 
-        <div style="cursor:pointer;float:right;height:50px;width:100px;text-align:center;" onclick="backToLogin()">
-            <div style="cursor:pointer;margin:auto;height:50px;width:100px;line-height:50px;font-size:14px;color:white;background:none;border:none"><font>login</font></div>
+        <div class="head-rightBlock" onclick="backToLogin()">
+            <div class="head-ordinary-button"><font>login</font></div>
         </div>
 
     </div>
-     <div style="margin-top:50px;margin-left:100px;margin-right:100px;padding:10px;line-height:30px;font-size:16px;background:#eee">
+     <div class="description-cnt">
          This is web base framework .<br />
          it include the management and the control of user,role,menu and url.<br />
          by using this we can accelerate step of our web project development.

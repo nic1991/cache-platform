@@ -1,0 +1,222 @@
+html,body{
+    padding:0px;
+    margin:0px;
+    height:100%;
+    width:100%;
+}
+
+.bodyDiv{
+    width:100%;
+    height:100%
+}
+
+#menuBlock{
+    display:block;
+    position:fixed;
+    width:200px;
+    left:0px;
+    top:0px;
+    bottom:0px;
+    z-index:10;
+    background:#222d32
+}
+
+.main-head-left-block{
+    background:#367fa9;
+    height:50px;
+    line-height:50px;
+    text-align:center
+}
+
+
+.btnCnt{
+    float:left;
+    height:50px;
+    width:80px;
+    line-height:50px;
+    font-size:14px;
+    text-align:center;
+    position:relative;
+    color:white
+}
+
+.homeBtn{
+    cursor:pointer;
+    height:50px;
+    line-height:50px;
+    font-size:16px;
+    text-align:center;
+    color:white
+}
+
+.userItem{
+    cursor:pointer;
+    padding-left:8px;
+    height:30px;
+    line-height:30px;
+    text-align:left;
+    color:black
+}
+
+.userItem:hover{
+    background:#3c8dbc;
+    color:white
+}
+
+a:{
+    text-decoration: none;
+}
+
+a:hover{
+    font-weight:bold;
+    text-decoration: none;
+}
+
+#menuCnt{
+    color:white;
+    line-height:40px;
+    font-size:13px
+}
+
+#contentBlock{
+    display:block;
+    position:fixed;
+    z-index:500;
+    left:200px;
+    top:0px;
+    right:0px;
+    bottom:0px;
+    text-align:right
+}
+
+.content-head{
+    width:100%;
+    height:50px;
+    background:#3c8dbc;
+    padding:0px
+}
+
+.menu_switch{
+    cursor:pointer;
+    float:left;
+    height:50px;
+    line-height:50px;
+    width:50px;
+    text-align:center;
+    font-size:12px;
+    color:white
+}
+
+.menu_switch:hover{
+    background:#222d32
+}
+
+
+
+
+
+.breadcrumb-cnt{
+    position:absolute;
+    top:50px;
+    left:0px;
+    right:0px;
+    height:40px;
+    line-height:40px;
+    background:white;
+}
+
+#hrefUl{
+    background:white;
+    height:40px;
+    line-height:24px;
+    float:left;
+}
+
+.breadcrumb-item{
+    background:white;
+    text-decoration:none;
+}
+
+.breadcrumb-item:hover{
+    text-decoration:none;
+    font-weight:bold;
+}
+
+#content{
+    position:absolute;
+    top:90px;
+    left:0px;
+    right:0px;
+    bottom:30px
+}
+
+#frameBody{
+    width:100%;
+    height:100%;
+    border:none;
+}
+
+.main-foot{
+    position:absolute;
+    bottom:0px;
+    left:0px;
+    right:0px;
+    height:30px;
+    line-height:30px;
+    background:#eee;
+    text-align:left;
+    padding-left:5px
+}
+
+.divide-line{
+    height:1px;
+    background:#ccc
+}
+
+.user-title-div{
+    padding-left:8px;
+    height:50px;
+    line-height:50px;
+    text-align:left;
+    font-size:14px;
+    font-weight:bold
+}
+
+#userBtn{
+    float:right;
+    height:50px;
+    width:100px;
+    text-align:center;
+    position:relative
+}
+
+.button-div{
+    cursor:pointer;
+    margin:auto;
+    height:50px;
+    width:100px;
+    line-height:50px;
+    font-size:12px;
+    color:white;
+    background:none;
+    border:none
+}
+
+#userPad{
+    position:absolute;
+    top:50px;
+    right:0px;
+    width:100px;
+    background:white;
+    z-index:1000;
+    display:none;
+    box-shadow:0 0 10px #ccc;
+}
+
+#content{
+background:#f9f9f9;
+}
+
+
+
+

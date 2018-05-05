@@ -8,156 +8,149 @@
     <meta HTTP-EQUIV="expires" CONTENT="0" />
     <meta http-equiv="Cache" content="no-cache" />
     <title>Base</title>
-
-    <style type="text/css">
-         body{padding:0px;margin:0px;height:100%;width:100%;background:background:#222d32}
-
-        .btnCnt{float:left;height:50px;width:80px;line-height:50px;font-size:14px;text-align:center;position:relative;color:white}
-
-        .homeBtn{cursor:pointer;height:50px;line-height:50px;font-size:16px;text-align:center;color:white}
-
-        .menu_switch{cursor:pointer;float:left;height:50px;line-height:50px;width:50px;text-align:center;font-size:12px}
-
-        .menu_switch:hover{background:#222d32}
-
-        .userItem{cursor:pointer;padding-left:8px;height:30px;line-height:30px;text-align:left;color:black}
-
-        .userItem:hover{background:#3c8dbc;color:white}
-
-        a:{
-          text-decoration: none;
-        }
-        a:hover {
-            font-weight:bold;
-        }
-
-
-    </style>
-<link rel="stylesheet"  type="text/css"  href="../../tools/bootstrap/css/bootstrap.css"/>
-<link rel="stylesheet"  type="text/css"  href="../../tools/newegg/menu.css"/>
-<script  src="../../tools/jquery-1.9.1.js" ></script>
-<script  src="../../tools/newegg/newegg.js" ></script>
-<script  src="../../tools/newegg/menu.js" ></script>
-<script  src="../../tools/bootstrap/js/bootstrap.js" ></script>
-<script>
-
-    function getUser(){
-        $.njx(
-             basePath + "/rest/user/getUser",
-              null,
-              true,
-             "GET",
-             "JSON",
-             "application/json",
-              function(data){
-                  if(data.result!=null){
-                      $("#username").html(data.result.name);
+    <link rel="stylesheet"  type="text/css"  href="../../tools/bootstrap/css/bootstrap.css"/>
+    <link rel="stylesheet"  type="text/css"  href="../../base/css/menu.css"/>
+    <link rel="stylesheet"  type="text/css"  href="../../base/css/main.css"/>
+    <script  src="../../tools/jquery-1.9.1.js" ></script>
+    <script  src="../../tools/newegg/newegg.js" ></script>
+    <script  src="../../base/menu.js" ></script>
+    <script  src="../../tools/bootstrap/js/bootstrap.js" ></script>
+    <script>
+        function getUser(){
+            $.njx(
+                 basePath + "/rest/user/getUser",
+                  null,
+                  true,
+                 "GET",
+                 "JSON",
+                 "application/json",
+                  function(data){
+                      if(data.result!=null){
+                          $("#username").html(data.result.name);
+                      }
+                  },
+                  function(){
+                        alert("error!");
                   }
-              },
-              function(){
-                    alert("error!");
-              }
-        );
-     };
+            );
+         };
 
-     function setUser(name){
-          $("#username").html(name);
-     }
+         function setUser(name){
+              $("#username").html(name);
+         }
 
-     function getMenus(){
-         $.njx(
-             basePath + "/rest/menu/getMenus",
-              null,
-              true,
-             "GET",
-             "JSON",
-             "application/json",
-              function(data){
-                  if(data.result!=null){
-                      menu = transferMenuData(data.result);
-                      buildMenu(menu);
+         function getMenus(){
+             $.njx(
+                 basePath + "/rest/menu/getMenus",
+                  null,
+                  true,
+                 "GET",
+                 "JSON",
+                 "application/json",
+                  function(data){
+                      if(data.result!=null){
+                          menu = transferMenuData(data.result);
+                          buildMenu(menu);
+                      }
+                  },
+                  function(){
+                        alert("error!");
                   }
-              },
-              function(){
-                    alert("error!");
-              }
-         );
-     }
+             );
+         }
 
-    $(document).ready(function(){
-        getUser();
-        getMenus();
-        initMenu();
-    });
+        function getAppName(){
+             $.njx(
+                 basePath + "/base/getAppName",
+                  null,
+                  true,
+                 "GET",
+                 "JSON",
+                 "application/json",
+                  function(data){
+                      if(data.result!=null){
+                         $("#appName").html(data.result);
+                      }
+                  },
+                  function(){
+                        alert("error!");
+                  }
+             );
+        }
 
-    function profile(){
-         $("#frameBody").attr("src",basePath+'/rest/pages/profile');
-    };
+        $(document).ready(function(){
+            $("#frameBody").attr("src",basePath+'/rest/pages/home');
+            getAppName();
+            getUser();
+            getMenus();
+            initMenu();
+        });
 
-    function logout(){
-          location.href = basePath + '/rest/user/logout';
-    };
+        function profile(){
+             $("#frameBody").attr("src",basePath+'/rest/pages/profile');
+        };
+
+        function logout(){
+              location.href = basePath + '/rest/user/logout';
+        };
 
 
-</script>
+    </script>
 </head>
 <body>
-     <div>
-           <div class="bodyDiv" style="width:100%;height:100%">
-               <div id="menuBlock" style="display:block;position:fixed;z-index:500;width:200px;left:0px;top:0px;bottom:0px;z-index:10;background:#222d32">
-                   <div style="background:#367fa9;height:50px;line-height:50px;text-align:center">
-                       <div id="home" class="homeBtn">
-                           Newegg * <span style="color:white">Base</span>
-                       </div>
-                   </div>
-                   <div id="menuCnt" style="color:white;line-height:40px;font-size:13px">
 
-                   </div>
+   <div class="bodyDiv">
+       <div id="menuBlock">
+           <div class="main-head-left-block">
+               <div id="home" class="homeBtn">
+                   <span id="expandTitle">Newegg * </span><span id="appName"></span>
                </div>
-               <div id="contentBlock" style="display:block;position:fixed;z-index:500;left:200px;top:0px;right:0px;bottom:0px;text-align:right">
-                   <div class="head" style="width:100%;height:50px;background:#3c8dbc;padding:0px">
+           </div>
+           <div id="menuCnt">
 
-                       <div id="menu_switch" class="menu_switch">
-                           <span class="glyphicon glyphicon-align-justify" style="color:white"></span>
+           </div>
+       </div>
+       <div id="contentBlock">
+           <div class="content-head">
+
+               <div id="menu_switch" class="menu_switch">
+                   <span class="glyphicon glyphicon-align-justify"></span>
+               </div>
+
+               <div id="userBtn" tabindex="3">
+                   <div class="button-div"><span class="glyphicon glyphicon-user"></span>&nbsp;<font style="" id="username"></font>&nbsp;<b class="caret"></b></div>
+                   <div id="userPad">
+                       <div class="user-title-div">
+                           user
                        </div>
-
-                       <div style="cursor:pointer;float:right;height:50px;width:10px;" >
-                       </div>
-
-                       <div id="userBtn" style="float:right;height:50px;width:100px;text-align:center;position:relative" tabindex="3">
-                           <div style="cursor:pointer;margin:auto;height:50px;width:100px;line-height:50px;font-size:12px;color:white;background:none;border:none"><span class="glyphicon glyphicon-user"></span>&nbsp;<font style="" id="username"></font>&nbsp;<b class="caret"></b></div>
-                           <div id="userPad" style="position:absolute;top:50px;right:0px;width:100px;background:white;z-index:1000;display:none;box-shadow:0 0 10px #ccc;">
-                               <div style="padding-left:8px;height:50px;line-height:50px;text-align:left;font-size:14px;font-weight:bold">
-                                   user
-                               </div>
-                               <div style="height:1px;width:100%;background:#ccc"></div>
-                               <div style="margin-top:3px">
-                                   <div class="userItem" onclick="profile()">
-                                       <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span> profile</span>
-                                   </div>
-                                   <div class="userItem" onclick="logout()">
-                                       <span class="glyphicon glyphicon-log-out"></span>&nbsp;<span> logout</span>
-                                   </div>
-                               </div>
+                       <div class="divide-line"></div>
+                       <div>
+                           <div class="userItem" onclick="profile()">
+                               <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span> profile</span>
+                           </div>
+                           <div class="userItem" onclick="logout()">
+                               <span class="glyphicon glyphicon-log-out"></span>&nbsp;<span> logout</span>
                            </div>
                        </div>
                    </div>
-                   <div style="position:absolute;top:50px;left:0px;right:0px;height:40px;line-height:40px;background:#white">
-                       <ol class="breadcrumb" id="hrefUl" style="background:white;height:40px;line-height:24px;float:left">
-                           <li ><a style="text-decoration:none" href="javascript:home()">home</a></li>
-                       </ol>
-                       <div style="position:absolute;bottom:0px;height:1px;width:100%;background:#ccc"></div>
-                   </div>
-                   <div id="content" style="position:absolute;top:90px;left:0px;right:0px;bottom:30px">
-                       <iframe id="frameBody" src="" width="100%" height="100%" style="border:none">
-
-                       </iframe>
-                   </div>
-                   <div style="position:absolute;bottom:0px;left:0px;right:0px;height:30px;line-height:30px;background:#eee;text-align:left;padding-left:5px">
-                       <strong>Copyright © 2016-2017 <a href="http://www.newegg.com">Newegg Inc</a>.</strong> All rights reserved.
-                   </div>
-                </div>
+               </div>
            </div>
-     </div>
+           <div class="breadcrumb-cnt">
+               <ol class="breadcrumb" id="hrefUl">
+                   <li ><a class="breadcrumb-item" href="javascript:home()">home</a></li>
+               </ol>
+               <div class="divide-line"></div>
+           </div>
+           <div id="content">
+               <iframe id="frameBody" src="">
+
+               </iframe>
+           </div>
+           <div class="main-foot">
+               <strong>Copyright © 2016-2017 <a href="http://www.newegg.com">Newegg Inc</a>.</strong> All rights reserved.
+           </div>
+        </div>
+   </div>
+
 </body>
 </html>

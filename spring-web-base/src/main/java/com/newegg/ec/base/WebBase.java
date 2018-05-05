@@ -1,10 +1,12 @@
 package com.newegg.ec.base;
 
 import com.newegg.ec.base.filter.AuthenticationFIlter;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 
 import javax.servlet.Filter;
 
@@ -13,7 +15,8 @@ import javax.servlet.Filter;
  * Created by jn50 on 2018/1/27.
  */
 @SpringBootApplication
-@EnableWebBase
+@ComponentScan(basePackages={"com.newegg.ec.base"})
+@MapperScan(basePackages={"com.newegg.ec.base.dao.mysql"})
 public class WebBase {
 
     public static void main(String[] args) {

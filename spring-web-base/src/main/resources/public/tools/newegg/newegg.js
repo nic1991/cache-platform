@@ -19,9 +19,9 @@ $(function(){
                  if(d.status!=1){
                       alert(d.error);
                       if(d.status==0){
-                            document.location=basePath + "/base/session_timeout.html";
+                            document.location=basePath + "/rest/pages/session_timeout";
                       }else if(d.status==-1){
-                            document.location=basePath + "/base/not_permitted.html";
+                            document.location=basePath + "/rest/pages/not_permitted";
                       }
                  }else{
                     successfnc(d);
