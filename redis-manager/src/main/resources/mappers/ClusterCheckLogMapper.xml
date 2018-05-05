@@ -48,6 +48,9 @@
         delete from cluster_check_logs
         <where>
              0 = 0
+            <if test="params.id != null and params.id !=''">
+                and id = #{params.id}
+            </if>
             <if test="params.clusterId != null and params.clusterId !=''">
                 and cluster_id = #{params.clusterId}
             </if>

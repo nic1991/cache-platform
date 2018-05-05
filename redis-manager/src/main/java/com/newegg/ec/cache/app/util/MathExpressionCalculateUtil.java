@@ -31,22 +31,26 @@ public class MathExpressionCalculateUtil {
 
     }
 
-    public static int checkRule(String formula){
-        int isCorrect = 0;
+
+    public static void main(String[] args) {
+        String rule = "@{mem_fragmentation_ratio}>2.2";
+        System.out.println(checkRule(rule));
+    }
+    public static boolean checkRule(String formula) {
         try {
             String result = String.valueOf(calculate(format(formula), params));
-            if ("true".equals(result) || "false".equals(result)){
-                isCorrect = 1;
-                System.out.println(result);
+            if ("true".equals(result) || "false".equals(result)) {
+                return true;
+            }else {
+                return false;
             }
-
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println(formula + " checked result is bad");
+            return false;
         }
-        return isCorrect;
     }
     //-------------------------------------------------calculate-------------------------//
+
 
     public static final Pattern varPattern = Pattern.compile("(\\@\\{[\\w:]+\\})");
 

@@ -11,47 +11,60 @@
 
     <script src="../vender/sparrow/layer/layer.js"></script>
     <script src="../vender/sparrow/ajax.js"></script>
+    <script src="../core/userApi.js"></script>
     <script src="../vender/sparrow/util.js"></script>
     <script src="../vender/sparrow/smarty.js"></script>
+    <script src="../vender/sparrow/validate.js"></script>
+    <script src="../js/common.js"></script>
     <link rel="stylesheet" href="../css/common.css"/>
     <link rel="stylesheet" href="../css/manager-cluster.css"/>
 
+    <style>
+
+        .tab-position{
+            margin-bottom:5px
+        }
+
+        .sort-span{
+            margin-top:5px;
+            float:right;
+            color:#85929E;
+            cursor:pointer;
+        }
+
+        .display-hide{
+            display:none;
+        }
+
+    </style>
 </head>
 <body>
-
     <div class="body-contain container-color">
         <div class="header-swapper">
             <div class="title-container">
-                <span>Cluster Name</span>
-                <span class="state-ok detail-state-font">OK</span>
-            </div>
-            <div class="select-btn">
-                <form class="form-horizontal" role="form">
-                    <select id="basic" class="selectpicker show-tick form-control" data-live-search="true" data-width="220px">
-                        <option>ssecbigdata</option>
-                        <option>ssspark</option>
-                    </select>
-                </form>
+                <span id="cluster-name">Cluster Name</span>
+                <span class="state-ok detail-state-font "> </span>
             </div>
         </div>
-    </div>
-    <div class="main-swapper">
-        <div class="cluster-header">
-            <ul class="nav nav-tabs">
-                <li class="active">
-                    <a href="#alarmHistory" data-toggle="tab">Alarm Cases</a>
-                </li>
-                <li >
-                    <a href="#alarmRule" data-toggle="tab">Alarm Rule</a>
-                </li>
-            </ul>
-        </div>
-        <div id="clsuterContent" class="tab-content" >
-            <div class="tab-pane fade in active" id="alarm-content">
-                hhh
+        <div class="main-swapper">
+            <div class="cluster-header tab-position">
+                <ul class="nav nav-tabs">
+                    <li class="active">
+                        <a href="#alarmHistory" data-toggle="tab">Alarm Cases</a>
+                    </li>
+                    <li >
+                        <a href="#alarmRule" data-toggle="tab">Alarm Rule</a>
+                    </li>
+                </ul>
+            </div>
+            <div id="clusterContent" class="tab-content" >
+                <div class="tab-pane fade in active" id="alarm-content">
+                    hhh
+                </div>
             </div>
         </div>
     </div>
+
 </body>
 <script src="../js/alarm.js"></script>
 </html>
