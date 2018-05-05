@@ -221,7 +221,8 @@ function init(){
             $("#logNodeList").append(options);
             $('#logNodeList').selectpicker("refresh");
         });
-    })
+    });
+
 }
 
 $("#field-title > th").click(function () {

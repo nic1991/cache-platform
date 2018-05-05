@@ -84,11 +84,14 @@
         </where>
     </update>
 
-    <select id="countWarningLogNum" parameterType="java.lang.String" resultType="java.lang.Integer">
+    <select id="countTotalWarningLog" parameterType="List" resultType="java.lang.Integer">
         SELECT COUNT(id) FROM  cluster_check_logs
         WHERE
-        cluster_id = #{clusterId}
-         AND
+        cluster_id in
+        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        AND
         is_checked = 0
     </select>
 
