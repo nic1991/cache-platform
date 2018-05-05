@@ -24,7 +24,7 @@
                         </a>
                         <div class="operation-btn-swapper">
                             <!-- 后期需要带参 -->
-                            <a href="/cluster/clusterManager?clusterId={{$cluster.id}}&pluginType=humpback" class="operation-btn">
+                            <a href="/cluster/clusterManager?clusterId={{$cluster.id}}&pluginType={{$cluster.clusterType}}" class="operation-btn">
                                 <span data-cluster-id="{{$cluster.id}}">Manager</span>
                             </a>
                         </div>
@@ -33,7 +33,7 @@
         {{/foreach}}
     {{/if}}
     <li class="add-li" title="import cluster">
-        <div class="add-btn">
+        <div class="add-btn" id="add-cluster">
             <i class="glyphicon glyphicon-plus"></i>
         </div>
     </li>

@@ -440,9 +440,9 @@ function input_box_blur()
 	}
 
 	//服务端检测
-	var url = input.data( 'server-check' ), url_check_msg = '';
+	var urlstr = input.data( 'server-check' ), url_check_msg = '';
 	//如果是调用 sparrow_form.encode方法, 不会执行这里
-	if ( url && !is_encode_eve && require_check && type_check && len_check )
+	if ( urlstr && !is_encode_eve && require_check && type_check && len_check )
 	{
 		var checking = input.data( 'checking' );
 		if ( checking )
@@ -490,20 +490,23 @@ function input_box_blur()
 			function ajax_check (  re, arg ){
                 arg.data( 'checking', 0 );
                 reset_tip_box( tip_box, tip_box_type );
-                if ( re.code > 0 )
-                {
+                if ( re.code > 0 ){
                     url_check = false;
                     url_check_msg = re.msg;
                 }
                 show_check_result();
 			};
-			if( ajax_type != "get" ){
-			    ajax.post( url, JSON.stringify(data), ajax_check, false, input);
-			}else{
-			    var param_url = sparrow.url_format_param(url, data);
-			    ajax.get( param_url, ajax_check, false, input);
-			}
-
+			var urlarr = urlstr.split(",");
+			urlarr.forEach(function(url){
+			    if( url_check == true ){
+			        if( ajax_type != "get" ){
+                        ajax.post( url, JSON.stringify(data), ajax_check, false, input);
+                    }else{
+                        var param_url = sparrow.url_format_param(url, data);
+                        ajax.get( param_url, ajax_check, false, input);
+                    }
+			    }
+			});
 		}
 	}
 	else

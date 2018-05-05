@@ -17,7 +17,7 @@ public class DockerManager implements INodeOperate,INodeRequest {
     private String dockerImage;
 
     @Override
-    public boolean pullImage(String imageUrl) {
+    public boolean pullImage(List<String> ipList, String imageUrl) {
         return false;
     }
 

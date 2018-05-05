@@ -25,6 +25,7 @@
 		<script src="../vender/sparrow/util.js"></script>
 		<script src="../vender/sparrow/smarty.js"></script>
 		<script src="../core/userApi.js"></script>
+		<script src="../vender/sparrow/validate.js"></script>
 	</head>
 	<body>
 		<div class="body-contain scrollbar-div scrollbar-div-1">
@@ -34,58 +35,9 @@
 
 				</div>
 			</div>
-
-			<div class="modal fade" id="redis-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"  data-backdrop="static" data-keyboard="false">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h4 class="modal-title" >Add New Cluster</h4>
-						</div>
-						<div class="modal-body">
-							<div class="input-group item">
-								<span class="input-group-addon input-title" >Cluster Name</span>
-								<input id="clusterName" type="text" class="form-control"  maxlength="20" placeholder="cluster name" />
-							</div>
-							<div class="input-group item">
-								<span class="input-group-addon input-title" >Address</span>
-								<input id="address" type="text" class="form-control" placeholder="127.0.0.1:6380" />
-							</div>
-							<!--<div class="input-group item">
-								<span class="input-group-addon input-title" >Port</span>
-								<input id="redisPort" type="text" class="form-control" maxlength="5" style="ime-mode:disabled" onpaste="return false" placeholder="6379" />
-							</div>-->
-							<div class="input-group item">
-								<span class="input-group-addon input-title">Group</span>
-								<select id="group" class="form-control">
-									<option disabled="disabled" selected="selected" value="0"></option>
-									<option value="admin">admin</option>
-									<!--<option value="2">BBB</option>
-									<option value="3">CCC</option>-->
-								</select>
-							</div>
-							<span class="no-machine" style="display: none;" >
-								<div class="tip">
-									<span>*All node machines must have the same username and password</span>
-								</div>
-								<div class="input-group item">
-									<span class="input-group-addon input-title" >User Name</span>
-									<input id="userName" type="text" class="form-control" placeholder="please enter user name" />
-								</div>
-								<div class="input-group item">
-									<span class="input-group-addon input-title" >Password</span>
-									<input id="password" type="password" class="form-control" placeholder="please enter user password" />
-								</div>
-							</span>
-							<div class="modal-footer">
-								<button id="close" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-								<button id="save" type="button" class="btn btn-primary">Save</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
 		</div>
 
-		<script type="text/javascript" src="../js/cluster-list-manager.js"></script>
+
 	</body>
+	<script type="text/javascript" src="../js/cluster-list-manager.js"></script>
 </html>
