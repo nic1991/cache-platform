@@ -18,14 +18,14 @@ $('[href="#alarmHistory"]').click(function(){
 
 function reBuildRuleList(){
    smarty.get( "/alarm/getRuleList?clusterId=" + window.clusterId, "alarm/rule_list_content", "alarm-content", function(){
-        //$("table").dataTable({});
+        $("table").dataTable({});
     }, true );
 }
 
 
 function reBuildCaseHistory(){
    smarty.get( "/alarm/getCaseLogs?clusterId=" + window.clusterId, "alarm/history_list_content", "alarm-content", function(){
-        //$("table").dataTable({});
+        $("table").dataTable({});
     }, true );
 }
 
