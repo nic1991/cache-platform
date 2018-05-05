@@ -13,8 +13,9 @@ import java.util.List;
 @Component
 public class MachineManager implements INodeOperate,INodeRequest {
 
+
     @Override
-    public boolean pullImage(String imageUrl) {
+    public boolean pullImage(List<String> ipList, String imageUrl) {
         return false;
     }
 

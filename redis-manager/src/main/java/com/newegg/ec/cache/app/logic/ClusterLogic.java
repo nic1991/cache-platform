@@ -153,4 +153,9 @@ public class ClusterLogic {
         return redisManager.getRedisDBList(host.getIp(), host.getPort());
     }
 
+    public int checkRedisVersion(String address) {
+        Host host = NetUtil.getHostPassAddress( address );
+        int version = JedisUtil.getRedisVersion(host.getIp(), host.getPort());
+        return version;
+    }
 }

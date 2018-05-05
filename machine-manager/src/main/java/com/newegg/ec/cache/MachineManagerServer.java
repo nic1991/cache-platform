@@ -1,6 +1,7 @@
 package com.newegg.ec.cache;
 
 import com.newegg.ec.base.filter.AuthenticationFIlter;
+import com.newegg.ec.base.util.Constant;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -17,6 +18,7 @@ import javax.servlet.Filter;
 public class MachineManagerServer {
 
     public static void main(String[] args) {
+        Constant.APPNAME="MC";
         SpringApplication.run(MachineManagerServer.class, args);
     }
 

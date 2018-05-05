@@ -15,15 +15,12 @@ $(function(){
 
 function updateWarningCount(){
     listCluster(function(obj){
-        console.log( obj.res );
         var clusterIds = [];
         var clusters = obj.res;
         clusters.forEach(function(element){
             clusterIds.push(element.id);
         });
-        console.log( clusterIds );
         countTotalAlarm(clusterIds, function(obj){
-            console.log(obj);
             $("#cluster-alarm-count").text(obj.res);
         });
     });

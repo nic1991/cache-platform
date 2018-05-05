@@ -61,7 +61,7 @@ public class DemoController {
     public Response check(@RequestBody JSONObject req) throws InterruptedException {
         System.out.println( req );
         Thread.sleep(2000);
-        return Response.Success();
+        return Response.Error("fail");
     }
 
     @RequestMapping(value = "/ajaxPost", method = RequestMethod.POST)
