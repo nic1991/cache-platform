@@ -67,7 +67,7 @@ public class NetUtil {
     }
 
     public static Host getHostPassAddress(String address){
-        Host host = new Host();
+        Host host = null;
         if( !StringUtils.isBlank( address ) ){
             String[] addressArr = address.split(",");
             if( addressArr.length > 0 ){
@@ -76,6 +76,7 @@ public class NetUtil {
                     String ip = tmpArr[0];
                     int port = Integer.valueOf(tmpArr[1]);
                     if( checkIpAndPort( ip, port ) ){
+                        host = new Host();
                         host.setIp( ip );
                         host.setPort( port );
                         break;

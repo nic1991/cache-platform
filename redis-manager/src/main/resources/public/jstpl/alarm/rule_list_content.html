@@ -101,7 +101,7 @@
             <td  >{{$rule.limitName}} </td>
             <td  >{{$rule.description}}</td>
             <td  >{{$rule.formula}}</td>
-            <td  >{{$rule.updateTime}}</td>
+            <td  >{{format_time time=$rule.updateTime}}</td>
             <td  style="width:100px">
                 <div class="btn-group">
                     <button class=" btn btn-danger btn-xs btn-rule-delete" data-id="{{$rule.id}}" style="width:48px;height:28px;">Delete</button>

@@ -22,7 +22,7 @@
                 <td  >{{$caseHistory.description}}</td>
                 <td  >{{$caseHistory.logInfo}}</td>
                 <td  >{{$caseHistory.formula}}</td>
-                <td  >{{$caseHistory.updateTime}}</td>
+                <td  >{{format_time time=$caseHistory.updateTime}}</td>
                 <td  style="width:100px">
                     <div class="btn-group">
                         <button class=" btn btn-danger btn-xs btn-history-delete" data-id="{{$caseHistory.id}}" style="width:48px;height:28px;">Delete</button>
