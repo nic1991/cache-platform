@@ -16,7 +16,6 @@ $(function(){
 			$(".sidebar").animate({width: '100px'}, 200);
 			$(".sidebar ul p").hide(300);
 			$(".logo").html('<img src="../img/redis.svg" class="logo-img"/>');
-			
 		} else {
 			object.attr("isHide", "0");
 			$(".sidebar").removeClass("small-sidebar");
@@ -27,13 +26,11 @@ $(function(){
 			$(".sidebar ul p").show(300);
 		}
 	})
-	
-	
-
-	
 })
+
+/*
 function resizeIframeParentHeight() {
 	var h = $('body').outerHeight();
 	alert(h);
 	$(".content-page", window.parent.document).css('height', $('body').outerHeight());
-}
+}*/

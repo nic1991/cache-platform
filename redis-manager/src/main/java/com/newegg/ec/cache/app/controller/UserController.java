@@ -7,7 +7,10 @@ import com.newegg.ec.cache.app.model.Response;
 import com.newegg.ec.cache.app.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,6 +22,11 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserLogic logic;
+
+    @RequestMapping("/login")
+    public String form(Model model){
+        return "login";
+    }
 
     @RequestMapping(value = "/listUser", method = RequestMethod.GET)
     @ResponseBody
@@ -46,5 +54,15 @@ public class UserController {
     public Response removeUser(@RequestParam int id){
         boolean res = logic.removeUser( id );
         return Response.Result(0, res);
+    }
+
+    @RequestMapping(value = "/listGroup", method = RequestMethod.GET)
+    @ResponseBody
+    public Response listGroup(@RequestParam int id){
+        List<String> list = new ArrayList<>();
+        list.add("admin");
+        list.add("admin2");
+        list.add("itemservice");
+        return Response.Result(0, list);
     }
 }

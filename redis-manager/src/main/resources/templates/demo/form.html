@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <title>Demo List</title>
     <link href="../vender/sparrow/sparrow.css" rel="stylesheet" charset="utf-8" />
-    <script src="../vender/jquery/jquery-2.2.3.min.js"></script>
+    <script type="text/javascript" src="../vender/jquery/jquery-3.3.1.min.js"></script>
     <script src="../vender/sparrow/layer/layer.js"></script>
     <script src="../vender/sparrow/ajax.js"></script>
     <script src="../vender/sparrow/util.js"></script>
@@ -59,7 +59,7 @@
 
         <div class="form-group">
             <label>IP</label>
-            <input name="service_ip"  data-relation="service_ip" data-alias="ip"  data-check-fields="port" data-server-check="/demo/check" type="text" class="form-control" placeholder="redis_host:127.0.0.1" data-require="1" data-len="5-20" data-len-msg="length range 5-20" data-format="[0-9]+[\.][0-9]+[\.][0-9]+[\.][0-9]+" data-format-msg="error format(127.0.0.1)" />
+            <input name="service_ip"  data-relation="service_ip" data-alias="ip"  data-check-fields="port" data-server-check="/demo/check" data-ajax-type="get" type="text" class="form-control" placeholder="redis_host:127.0.0.1" data-require="1" data-len="5-20" data-len-msg="length range 5-20" data-format="[0-9]+[\.][0-9]+[\.][0-9]+[\.][0-9]+" data-format-msg="error format(127.0.0.1)" />
             <div id="service_ip_tip"></div>
         </div>
         <div class="form-group">

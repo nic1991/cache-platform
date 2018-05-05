@@ -48,6 +48,9 @@
         delete from cluster_check_logs
         <where>
              0 = 0
+            <if test="params.id != null and params.id !=''">
+                and id = #{params.id}
+            </if>
             <if test="params.clusterId != null and params.clusterId !=''">
                 and cluster_id = #{params.clusterId}
             </if>
@@ -81,11 +84,14 @@
         </where>
     </update>
 
-    <select id="countWarningLogNum" parameterType="java.lang.String" resultType="java.lang.Integer">
+    <select id="countTotalWarningLog" parameterType="List" resultType="java.lang.Integer">
         SELECT COUNT(id) FROM  cluster_check_logs
         WHERE
-        cluster_id = #{clusterId}
-         AND
+        cluster_id in
+        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        AND
         is_checked = 0
     </select>
 

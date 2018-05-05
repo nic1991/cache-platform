@@ -103,6 +103,7 @@ var sparrow_win ={
 			}
 			arg.content = '<div '+ attr.join( ' ' ) +'>'+ content +'</div>';
 			var wid = sparrow_layer.open( arg );
+			//var wid = sparrow_layer.open( option );
 			if ( arg.cancel )
 			{
 				current_win_id.push( [wid, option.beforeclose] );
@@ -331,7 +332,13 @@ var sparrow ={
     	}
     	return new_arr;
     },
-
+    url_format_param: function( url, param ){
+        url += "?"
+        for(var key in param){
+            url += key + "=" + param[key] + "&";
+        }
+        return url;
+    }
 }
 
 /**

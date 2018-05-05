@@ -1,0 +1,28 @@
+ .tab-position{
+    margin-bottom:5px
+}
+
+.sort-span{
+    margin-top:5px;
+    float:right;
+    color:#85929E;
+    cursor:pointer;
+}
+
+.display-hide{
+    display:none;
+}
+
+.main-wrapper {
+    padding: 10px;
+}
+
+.item-container {
+    margin-bottom: 10px;
+}
+
+.btn-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

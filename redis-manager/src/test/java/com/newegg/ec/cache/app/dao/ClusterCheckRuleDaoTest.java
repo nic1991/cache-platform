@@ -1,11 +1,13 @@
 package com.newegg.ec.cache.app.dao;
 
 import com.newegg.ec.cache.Application;
+import com.newegg.ec.cache.app.logic.ClusterLogic;
 import com.newegg.ec.cache.app.model.ClusterCheckRule;
 import com.newegg.ec.cache.app.util.CommonUtil;
 import com.newegg.ec.cache.app.util.DateUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -23,11 +25,14 @@ public class ClusterCheckRuleDaoTest {
     @Resource
     private IClusterCheckRuleDao ruleDao;
 
+    @Autowired
+    private ClusterLogic clusterLogic;
+
     @Test
     public void addTest(){
         ClusterCheckRule rule= new ClusterCheckRule();
         rule.setId(CommonUtil.getUuid());
-        rule.setClusterId("ssspark");
+        rule.setClusterId("test-tc72");
         rule.setFormula("@{totalKeys}>10000");
         rule.setLimitName("totalKeys");
         rule.setDescription("totalKeys is to more");
@@ -58,6 +63,5 @@ public class ClusterCheckRuleDaoTest {
         param.put("clusterId","ssecbigdata");
         System.out.println(ruleDao.delClusterCheckRule(param));
     }
-
 
 }

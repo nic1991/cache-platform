@@ -53,6 +53,7 @@ public class JedisUtil {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        resMap.put("detail", strInfo);
         return resMap;
     }
 
@@ -61,6 +62,27 @@ public class JedisUtil {
         return  getMapInfo(strInfo);
     }
 
+    public static Map<String, String> getRedisConfig(String ip, int port){
+        Jedis jedis = new Jedis( ip, port);
+        Map<String, String> configMap = new HashMap();
+        try {
+            List<String> list = jedis.configGet("*");
+            String field = "";
+            for(String item : list){
+                if( "".equals(field) ){
+                    field = item;
+                }else{
+                    configMap.put( field, item );
+                    field = "";
+                }
+            }
+        }catch ( Exception e ){
+
+        }finally {
+            jedis.close();
+        }
+        return configMap;
+    }
 
     public static int getRedisVersion(String ip, int port){
         int res = 0;
@@ -86,6 +108,7 @@ public class JedisUtil {
             for(Map.Entry<String, String> db : mapInfo.entrySet()){
                 String key = db.getKey();
                 if( key.contains("db") ){
+                    key =  key.substring(2);
                     String value = db.getValue();
                     Map<String, String> resMap = RedisMsgUtil.changeStrToMap( value );
                     if( null != resMap && !resMap.isEmpty() ){
@@ -100,6 +123,7 @@ public class JedisUtil {
 
     public static Map<Integer, Integer> dbMap(String ip, int port){
         Map<Integer, Integer> resMap = new TreeMap<>(new Comparator<Integer>() {
+            @Override
             public int compare(Integer o1, Integer o2) {
                 return o1.compareTo(o2);
             }
@@ -125,16 +149,7 @@ public class JedisUtil {
 
 
     public static int getDbIndex(String db) {
-        int index = 0;
-        if( !org.apache.commons.lang3.StringUtils.isBlank( db ) ){
-            if( db.contains("db") ){
-                String[] arr = db.split("db");
-                index = Integer.parseInt(arr[1]);
-            }else{
-                index = Integer.parseInt(db);
-            }
-
-        }
+        int index = Integer.parseInt(db);
         return index;
     }
 
@@ -163,7 +178,6 @@ public class JedisUtil {
         try {
             String info  = jedis.clusterInfo();
             result = RedisMsgUtil.changeClusterInfoMap( info );
-            result.put("detail", info);
         }catch ( Exception e ){
             e.printStackTrace();
         }finally {
@@ -343,6 +357,7 @@ public class JedisUtil {
         }
         return list;
     }
+
 
 
 }

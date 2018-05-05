@@ -66,7 +66,7 @@ public class ClusterCheckLogDaoTest {
 
     @Test
     public void countWarningLogNumTest(){
-        System.out.println(logDao.countWarningLogNum("ssecbigdata"));
+        System.out.println(logDao.countTotalWarningLog(null) + "---------------------------");
     }
 
 

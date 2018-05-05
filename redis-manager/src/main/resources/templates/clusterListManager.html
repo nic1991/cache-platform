@@ -10,14 +10,14 @@
 
 		<title>Redis Cluster</title>
 		<link href="../vender/sparrow/sparrow.css" rel="stylesheet" charset="utf-8" />
-		<link rel="stylesheet" href="../lib/bootstrap-3.3.7/css/bootstrap.css"/>
+		<link rel="stylesheet" href="../vender/bootstrap-3.3.7/css/bootstrap.css"/>
 		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 		<link rel="stylesheet" href="../css/common.css"/>
 		<link rel="stylesheet" href="../css/cluster-list-manager.css"/>
 
-		<script type="text/javascript" src="../lib/jquery-3.3.1.min.js"></script>
-		<script type="text/javascript" src="../lib/bootstrap-3.3.7/js/bootstrap.js"></script>
-		<script type="text/javascript" src="../lib/bootbox.min.js"></script>
+		<script type="text/javascript" src="../vender/jquery/jquery-3.3.1.min.js"></script>
+		<script type="text/javascript" src="../vender/bootstrap-3.3.7/js/bootstrap.js"></script>
+		<script type="text/javascript" src="../vender/bootbox.min.js"></script>
 		<script type="text/javascript" src="../js/common.js"></script>
 
 		<script src="../vender/sparrow/layer/layer.js"></script>
@@ -47,20 +47,20 @@
 								<input id="clusterName" type="text" class="form-control"  maxlength="20" placeholder="cluster name" />
 							</div>
 							<div class="input-group item">
-								<span class="input-group-addon input-title" >IP</span>
-								<input id="redisIp" type="text" class="form-control" maxlength="15" placeholder="127.0.0.1" />
+								<span class="input-group-addon input-title" >Address</span>
+								<input id="address" type="text" class="form-control" placeholder="127.0.0.1:6380" />
 							</div>
-							<div class="input-group item">
+							<!--<div class="input-group item">
 								<span class="input-group-addon input-title" >Port</span>
 								<input id="redisPort" type="text" class="form-control" maxlength="5" style="ime-mode:disabled" onpaste="return false" placeholder="6379" />
-							</div>
+							</div>-->
 							<div class="input-group item">
 								<span class="input-group-addon input-title">Group</span>
 								<select id="group" class="form-control">
 									<option disabled="disabled" selected="selected" value="0"></option>
-									<option value="1">AAA</option>
-									<option value="2">BBB</option>
-									<option value="3">CCC</option>
+									<option value="admin">admin</option>
+									<!--<option value="2">BBB</option>
+									<option value="3">CCC</option>-->
 								</select>
 							</div>
 							<span class="no-machine" style="display: none;" >

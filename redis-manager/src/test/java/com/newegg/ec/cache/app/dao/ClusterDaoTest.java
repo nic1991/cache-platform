@@ -26,11 +26,23 @@ public class ClusterDaoTest {
     @Test
     public void addTest(){
         Cluster cluster = new Cluster();
-        cluster.setAddress("10.16.46.192:8008");
+        cluster.setAddress("172.16.35.44:8379");
         cluster.setUserGroup("admin");
-        cluster.setClusterName("ssspark");
+        cluster.setClusterType("machine");
+        cluster.setClusterName("redis_2_8");
         clusterDao.addCluster(cluster);
         nodeInfoTable.createTable("node_info_" + cluster.getId());
+    }
+    @Test
+    public void createNodeInfoTableTest(){
+        nodeInfoTable.createTable("node_info_45");
+    }
+
+    @Test
+    public void removeClaster(){
+        int id =  33;
+        clusterDao.removeCluster( id );
+        nodeInfoTable.dropTable( "node_info_" + id );
     }
 
     @Test
@@ -45,8 +57,4 @@ public class ClusterDaoTest {
         System.out.println( clusterList );
     }
 
-    @Test
-    public void removeClusterTest(){
-        clusterDao.removeCluster(1, "");
-    }
 }

@@ -13,7 +13,7 @@ public interface IClusterDao {
 
     Cluster getCluster(int id);
 
-    int removeCluster(int id, String clusterName);
+    int removeCluster(int id );
 
     int addCluster(Cluster cluster);
 }

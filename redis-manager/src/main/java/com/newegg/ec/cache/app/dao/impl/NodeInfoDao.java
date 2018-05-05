@@ -18,7 +18,6 @@ public class NodeInfoDao {
         boolean res = true;
         try {
             Class claz = NodeInfo.class;
-            MysqlUtil mysqlUtil = new MysqlUtil();
             String createTable = MysqlUtil.createTableSql( claz, tableName);
             System.out.println( createTable );
             jdbcTemplate.execute( createTable );
@@ -28,5 +27,15 @@ public class NodeInfoDao {
         return res;
     }
 
+    public boolean dropTable(String tableName){
+        boolean res = false;
+        try {
+            String sql = "drop table " + tableName;
+            jdbcTemplate.execute( sql );
+            res = true;
+        }catch ( Exception e ){
 
+        }
+        return res;
+    }
 }

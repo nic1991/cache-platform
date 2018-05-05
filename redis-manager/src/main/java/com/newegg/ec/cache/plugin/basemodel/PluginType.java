@@ -6,5 +6,5 @@ package com.newegg.ec.cache.plugin.basemodel;
 public enum PluginType {
     machine,
     docker,
-    humback
+    humpback
 }

@@ -113,7 +113,7 @@ public class RedisInfoChecker {
                             if (isWarning){
                                 ClusterCheckLog log = new ClusterCheckLog();
                                 log.setId(CommonUtil.getUuid());
-                                log.setClusterId(clusterName);
+                                log.setClusterId(cluster.getId()+"");
                                 log.setNodeId(node.get("ip") + ":" + node.get("port"));
                                 log.setFormula(formula);
                                 log.setLogInfo(MathExpressionCalculateUtil.getRuleDataStr(formula, nodeInfoMap));
