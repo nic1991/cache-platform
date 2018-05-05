@@ -3,6 +3,17 @@ $(document).ready(function(){
     window.clusterId = getQueryString("clusterId");
     getCluster(window.clusterId, function(obj){
         window.cluster = obj.res;
+        checkRedisVersion(window.cluster.address,function(obj){
+            if( obj.res  == 2 ){
+                layer.alert( "redis version only support monitor", {
+                  icon: 1,
+                  skin: 'layer-ext-moon',
+                  title: 'redis version'
+                },function(){
+                    window.location.href = "/monitor/clusterMonitorList";
+                });
+            }
+        });
         show_cluster_node_list( window.cluster.address );
     });
 });

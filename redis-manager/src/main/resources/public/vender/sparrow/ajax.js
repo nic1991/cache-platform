@@ -103,10 +103,15 @@ sparrow_ajax.prototype = {
 	is_loading: true,
 	data_type: 'text',
 	type: 'GET',
+	async: true,
 	set_data_type: function( data_type )
 	{
 		this.data_type = data_type;
 	},
+	set_async: function( async )
+    {
+        this.async = async;
+    },
 	set_type: function( type )
 	{
 		this.type = type;
@@ -118,6 +123,7 @@ sparrow_ajax.prototype = {
 			dataType : this.data_type,
 			contentType: 'application/json',
 			type : this.type,
+			async: this.async,
 			error : bind( this.error_handle, this ),
 			success: bind( this.success_handle, this ),
 			complete: bind( this.complete_handle, this )
@@ -205,6 +211,19 @@ var ajax = {
 		tmp_req.set_type( 'POST' );
 		ajax_push_pool( tmp_req );
 	},
+	sync_get: function( url, callback, is_loading, callback_arg ){
+        var tmp_req = new sparrow_ajax( url, callback, null, is_loading, callback_arg );
+        tmp_req.set_data_type( 'json' );
+        tmp_req.set_async(false);
+        ajax_push_pool( tmp_req );
+    },
+    sync_post: function( url, data, callback, is_loading, callback_arg ){
+        var tmp_req = new sparrow_ajax( url, callback, data, is_loading, callback_arg );
+        tmp_req.set_data_type( 'json' );
+        tmp_req.set_type( 'POST' );
+        tmp_req.set_async(false);
+        ajax_push_pool( tmp_req );
+    },
 	async_post: function (url, data, callback) {
 		var tmp_req = new sparrow_ajax( url, callback, JSON.stringify(data), true, null );
 		tmp_req.set_data_type( 'json' );

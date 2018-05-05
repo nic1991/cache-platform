@@ -27,7 +27,12 @@
                         <br>
                         <p>Select image for redis install</p>
                         <div class="form-inline" style="height:55px">
-                              <input name="docker_image" type="text" class="form-control" value="humpback-hub.newegg.org/shec/redis3.0.6:v3" style="width:99%" >
+                            <select name="image" class="form-control" data-live-search="true" data-require="1">
+                                <option></option>
+                                {{foreach from=$res item=image}}
+                                <option>{{$image}}</option>
+                                {{/foreach}}
+                            </select>
                         </div>
                         <br>
                         <span style="color:#5d5c5c;"> <span class="glyphicon glyphicon-info-sign"></span> If without image you should push of redis image</span>
@@ -48,21 +53,23 @@
                             <tr class="input-format">
                               <td class="container-table-tag">Team</td>
                                     <td class="input-format selecte-button">
-                                        <select name="team" id="team"  class="form-control table-select">
-
+                                        <select name="userGroup" class="form-control table-select">
+                                            {{foreach from=$groups item=group}}
+                                            <option>{{$group}}</option>
+                                            {{/foreach}}
                                         </select>
                                     </td>
-                              <td class="container-table-tag">Container Name <a tabindex="0" data-placement="right" class="detail-button glyphicon glyphicon-question-sign" role="button" data-toggle="popover" data-trigger="focus" data-content="container name is unique"></a></td>
+                              <td class="container-table-tag">Container Name </td>
                               <td>
-                                clusterId
+                                  <input name="containerName" type="text" class="form-control" data-require="1" data-len="5-20" data-len-msg="length range 5-20" data-format-msg="only support letter and number" placeholder="redis1234">
                               </td>
                             </tr>
                             <tr class="pointer batch-ip-list" >
-                              <td class="container-table-tag" >Batch IP List <a tabindex="0" data-placement="right" class="detail-button glyphicon glyphicon-question-sign" role="button" data-toggle="popover" data-trigger="focus" data-content="batch add container ip or port list <br> example:<br>127.0.0.1 8008<br>127.0.0.2 8009"></a></td>
+                              <td class="container-table-tag" >Batch IP List </td>
                               <td colspan="3">
                                 <div class="node-value text-value ip-list-value">
-                                    <textarea class="host-list" name="hostlist" data-relation="clusterId" data-require="1" data-server-check="/check/batchHostAccess"  placeholder="example 127.0.0.1:8008" ></textarea>
-                                    <div id="hostlist_tip"></div>
+                                    <textarea class="host-list" name="iplist"  data-require="1" data-server-check="/logcheck/batchHostNotPass,/logcheck/batchHumpbackContainerName"  placeholder="example 127.0.0.1:8008" ></textarea>
+                                    <div id="iplist_tip"></div>
                                 </div>
                               </td>
                             </tr>
