@@ -31,6 +31,23 @@ function isJSON(str) {
     return false;
 }
 
+function timestampToDate(timestamp) {
+    var date = new Date(timestamp * 1000);
+    Y = date.getFullYear() + '-';
+    M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+    D = date.getDate() + ' ';
+    h = date.getHours() + ':';
+    m = date.getMinutes() + ':';
+    s = date.getSeconds();
+    return Y+M+D+h+m+s;
+}
+
+smarty.register_function( 'format_time', function( params ){
+    var time = params['time'];
+    return timestampToDate( time );
+});
+
+
 function syntaxHighlightRedisResult(content){
     if( !content ){
         return;

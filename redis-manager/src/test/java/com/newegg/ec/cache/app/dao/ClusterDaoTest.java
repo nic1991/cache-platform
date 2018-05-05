@@ -26,10 +26,10 @@ public class ClusterDaoTest {
     @Test
     public void addTest(){
         Cluster cluster = new Cluster();
-        cluster.setAddress("10.16.46.172:8008");
+        cluster.setAddress("172.16.35.44:8379");
         cluster.setUserGroup("admin");
         cluster.setClusterType("machine");
-        cluster.setClusterName("yat-test22");
+        cluster.setClusterName("redis_2_8");
         clusterDao.addCluster(cluster);
         nodeInfoTable.createTable("node_info_" + cluster.getId());
     }

@@ -6,10 +6,15 @@
                     <span><b>{{$cluster.clusterName}}</b></span>
                 </div>
                 <div id="cluster-info-{{$cluster.id}}"></div>
-                <div class="detail">
-                    <!-- 后期更改带参数 -->
-                    <a href="/monitor/manager?clusterId={{$cluster.id}}"><button class="btn btn-primary btn-sm" type="button">Detail</button></a>
-                </div>
+                    <div class="detail">
+                        <!-- 后期更改带参数 -->
+                        <a href="/monitor/manager?clusterId={{$cluster.id}}" class="option-container">
+                            <button class="btn btn-primary btn-sm" type="button">Detail</button>
+                        </a>
+                        <a href="/alarm/alarmSystem?clusterId={{$cluster.id}}" class="option-container">
+                            <button class="btn btn-danger btn-sm" type="button">Alarm</button>
+                        </a>
+                    </div>
             </div>
         </li>
     {{/foreach}}

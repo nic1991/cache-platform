@@ -1,17 +1,15 @@
 package com.newegg.ec.cache.app.controller;
 
-import com.newegg.ec.cache.app.dao.IClusterCheckRuleDao;
-import com.newegg.ec.cache.app.model.Cluster;
+import com.newegg.ec.cache.app.logic.AlarmLogic;
+import com.newegg.ec.cache.app.model.ClusterCheckLog;
 import com.newegg.ec.cache.app.model.ClusterCheckRule;
 import com.newegg.ec.cache.app.model.Response;
+import com.newegg.ec.cache.core.userapi.UserAccess;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -19,9 +17,10 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/alarm")
+@UserAccess
 public class AlarmController {
-    @Resource
-    IClusterCheckRuleDao clusterCheckRuleDao;
+    @Autowired
+    private AlarmLogic logic;
 
     @RequestMapping("/alarmSystem")
     public String ruleList(Model model){
@@ -31,7 +30,63 @@ public class AlarmController {
     @RequestMapping(value = "/getRuleList", method = RequestMethod.GET)
     @ResponseBody
     public Response getRuleList(@RequestParam String clusterId){
-        List<ClusterCheckRule> res = clusterCheckRuleDao.getClusterRuleList( clusterId );
+        List<ClusterCheckRule> res = logic.getRuleList( clusterId );
         return Response.Result(0, res);
     }
+
+    @RequestMapping(value = "/addRule", method = RequestMethod.POST)
+    @ResponseBody
+    public Response addRule(@RequestBody ClusterCheckRule rule){
+        Boolean res = logic.addRule(rule);
+        return Response.Result(0, res);
+    }
+
+    @RequestMapping(value = "/checkRule", method = RequestMethod.POST)
+    @ResponseBody
+    public Response checkRule(@RequestBody ClusterCheckRule rule){
+       Boolean check = logic.checkRule(rule);
+        if(check){
+            return Response.Info("success!");
+        }else {
+            return Response.Warn("you are fail");
+        }
+    }
+
+    @RequestMapping(value = "/deleteRule", method = RequestMethod.GET)
+    @ResponseBody
+    public Response deleteRule(@RequestParam String ruleId){
+        Boolean boo = logic.deleteRule(ruleId);
+        if(boo){
+            return Response.Info("success!");
+        }else {
+            return Response.Warn("you are fail");
+        }
+    }
+
+    @RequestMapping(value = "/getCaseLogs", method = RequestMethod.GET)
+    @ResponseBody
+    public Response getCaseList(@RequestParam String clusterId){
+        List<ClusterCheckLog> res = logic.getCaseList(clusterId);
+        return Response.Result(0, res);
+    }
+
+    @RequestMapping(value = "/deleteCaseLog", method = RequestMethod.GET)
+    @ResponseBody
+    public Response deleteCaseLog(@RequestParam String logId){
+        Boolean boo = logic.deleteCaseLog(logId);
+        if(boo){
+            return Response.Info("success!");
+        }else {
+            return Response.Warn("you are fail");
+        }
+    }
+
+    @RequestMapping(value = "/countTotal", method = RequestMethod.POST)
+    @ResponseBody
+    public Response countTotalAlarm(@RequestBody List<String> clusterIds){
+
+        Integer count = logic.countTotalLog(clusterIds);
+        return Response.Result(0,count);
+    }
+
 }

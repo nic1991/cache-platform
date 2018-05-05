@@ -33,7 +33,7 @@ public class AuthenticationFIlter implements Filter {
         String url = ((HttpServletRequest) servletRequest).getRequestURI();
         if(url.endsWith(".html")) {
             ((HttpServletResponse) servletResponse).sendRedirect(Constant.BASEPATH + Constant.PAGEPATH + "/session_timeout");
-        }else if(url.startsWith(Constant.BASEPATH+Constant.RESTPATH+"/user/login") || url.startsWith(Constant.BASEPATH+Constant.RESTPATH+"/user/logout") ||  url.startsWith(Constant.BASEPATH+Constant.RESTPATH+"/user/loginAlert") || url.equals(Constant.BASEPATH+Constant.PAGEPATH+"/index") || url.startsWith(Constant.BASEPATH + Constant.RESTPATH + "/user/neweggLogin") || url.equals(Constant.BASEPATH+Constant.PAGEPATH+"/session_timeout") || url.equals(Constant.BASEPATH+Constant.PAGEPATH+"/about")) {
+        }else if(url.startsWith(Constant.BASEPATH+Constant.RESTPATH+"/user/login") || url.startsWith(Constant.BASEPATH+Constant.RESTPATH+"/user/logout") ||  url.startsWith(Constant.BASEPATH+Constant.RESTPATH+"/user/loginAlert") || url.equals(Constant.BASEPATH+Constant.PAGEPATH+"/index") || url.startsWith(Constant.BASEPATH + Constant.RESTPATH + "/user/domainLogin") || url.equals(Constant.BASEPATH+Constant.PAGEPATH+"/session_timeout") || url.equals(Constant.BASEPATH+Constant.PAGEPATH+"/about")) {
             filterChain.doFilter(servletRequest, servletResponse);
         }else{
                 String name = (String) ((HttpServletRequest) servletRequest).getSession().getAttribute("name");

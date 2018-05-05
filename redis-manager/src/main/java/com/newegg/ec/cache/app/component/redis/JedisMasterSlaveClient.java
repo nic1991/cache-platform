@@ -15,6 +15,7 @@ public class JedisMasterSlaveClient extends RedisClientBase implements IRedis {
         jedis = new Jedis( ip, port );
     }
 
+    @Override
     public Object getRedisValue(int db, String key) {
         jedis.select( db );
         return super.getRedisValue(this, db, key);

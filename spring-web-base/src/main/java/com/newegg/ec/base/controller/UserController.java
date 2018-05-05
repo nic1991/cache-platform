@@ -52,7 +52,7 @@ public class UserController {
 
     @RequestMapping(value="/domainLogin",method= RequestMethod.GET)
     @ResponseBody
-    public CommonResponse neweggLogin(@RequestParam("nameStr") String nameStr,HttpServletRequest request){
+    public CommonResponse domainLogin(@RequestParam("nameStr") String nameStr,HttpServletRequest request){
         CommonResponse cmmResponse = new CommonResponse();
         User user = userService.getDomainLoginUser(nameStr);
         if(user!=null) {

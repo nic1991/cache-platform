@@ -2,31 +2,26 @@
     <!-- query db-->
     <div class="query-up-wrapper">
         <div class="input-group query-input">
-            <input type="text" class="form-control">
+            <input type="text" class="form-control" id="query-input">
             <div class="input-group-btn">
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                <button type="button" class="btn btn-default dropdown-toggle db-dropdown" data-toggle="dropdown">
                     db
                     <span class="caret"></span>
                 </button>
-                <ul class="dropdown-menu pull-right">
+                <ul class="dropdown-menu pull-right db-list">
                     {{foreach from=$res item=dbItem}}
-                        <li><a href="javascript:void(0);" data-db="{{$dbItem.db}}">db{{$dbItem.db}}[{{$dbItem.keys}}]</a></li>
+                        <li><a href="javascript:void(0);" data-db="{{$dbItem.db}}" class="select-db">db{{$dbItem.db}}[{{$dbItem.keys}}]</a></li>
                     {{/foreach}}
                 </ul>
             </div><!-- /btn-group -->
         </div><!-- /input-group -->
         <div class="query-container">
-            <button type="button" class="btn btn-primary">Query</button>
+            <button type="button" class="btn btn-primary" id="query-key" data-db="">Query</button>
         </div>
     </div>
     <div>
         <pre class="show-result" id="show-result">
-            hahah
+
         </pre>
-    </div>
-    <div>
-        <span>
-            <pre style="border: none;" id="example-keys">hhe</pre>
-        </span>
     </div>
 </div>
