@@ -46,6 +46,11 @@ public class HtmlController {
         return "base/session_timeout";
     }
 
+    @RequestMapping("/not_permitted")
+    public String not_permitted(Model model) {
+        return "base/not_permitted";
+    }
+
     @RequestMapping("/menuManage")
     public String menuManage(Model model) {
         return "base/menuManage";

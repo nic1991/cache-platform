@@ -5,6 +5,8 @@ package com.newegg.ec.base.util;
  */
 public class Constant {
 
+    public static String APPNAME="Base";
+
     public static String BASEPATH="";
 
     public static String RESTPATH="/rest";
