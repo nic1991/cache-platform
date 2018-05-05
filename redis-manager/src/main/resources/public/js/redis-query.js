@@ -29,7 +29,9 @@ $("body").delegate("#query-key", "click", function(){
         db = parseInt($(".db-list li").eq(0).find("a").attr("data-db"));
         $("#query-key").attr("data-db", db);
         $(".db-dropdown").html('db' + db + '<span class="caret"></span>');
+        alert("555")
     }
+    console.log(db)
     query(db)
 })
 
@@ -39,8 +41,10 @@ function query(db){
     redisQueryParam.address = window.address;
     redisQueryParam.db = db;
     redisQueryParam.key = queryKey || "*";
+    console.log(redisQueryParam)
     redisQuery(redisQueryParam, function(obj){
         var result = obj.res;
+        console.log(result)
         $("#show-result").html(syntaxHighlightRedisResult(result));
     })
 }

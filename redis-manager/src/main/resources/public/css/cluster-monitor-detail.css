@@ -95,9 +95,9 @@
 .query-container button.focus,
 .query-container button:active.focus,
 .query-container button:active.focus {
-    border: 1px solid #007fff;
+    border: 1px solid #3fa7dc;
     outline: none;
-    background-color: #007fff;
+    background-color: #3fa7dc;
     color: #FFFFFF;
 }
 
@@ -121,7 +121,6 @@
 .base-info-list ul li{
 	width: 24%;
     height: auto;
-    padding: 10px;
 	border: 1px solid #dadada;
 	border-radius: 3px;
 	background-color: white;
@@ -131,7 +130,11 @@
 	display: flex;
 	align-items: center;
 	font-size:20px;
-    margin-bottom:10px;
+    padding: 10px 10px 10px 18px;
+    color: #FFFFFF;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    background-color: #546570;
 }
 
 .title {

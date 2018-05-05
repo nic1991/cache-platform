@@ -5,12 +5,13 @@ $(document).ready(function(){
     window.host = getQueryString("host") || "all";
     window.date = getQueryString("date") || "minute";
     window.type = getQueryString("type") || "max";
+    window.address = ""
     getCluster(window.clusterId, function(obj){
         window.address = obj.res.address;
+        console.log(window.address);
+        init();
     })
     $('th[data-field="responseTime"]').trigger("click");
-    init();
-
     // init time selector
     $(".start-time").flatpickr();
     $(".end-time").flatpickr();
@@ -129,8 +130,8 @@ $("#info").on("click", function(){
 $("#config").on("click", function(){
     var host = window.host;
     if(host != "all" && host != "" && host != null){
-        smarty.fopen( "/cluster/getRedisConfig?address="+window.host, "cluster/redis_format", true, { title: "Config", area: '800px', type: 1, closeBtn: 1, anim: 2, shadeClose: true},  function(obj){
-
+        smarty.fopen( "/cluster/getRedisConfig?address="+window.address, "cluster/redis_format", true, { title: "Config", area: '800px', type: 1, closeBtn: 1, anim: 2, shadeClose: true},  function(obj){
+        console.log(obj)
         } );
     } else {
         layer.msg("Please select one node");
@@ -202,26 +203,25 @@ function init(){
     });
 
     // set node options
-    getCluster(window.clusterId, function(hostResult){
-        window.cluster =hostResult.res;
-        var address = hostResult.res.address;
-        nodeList(address, function(nodeObj){
-            var nodeList = nodeObj.res
-            window.nodeList = nodeList;
-            var options = '<option>all</option>';
-            for(var i = 0, len = nodeList.length; i < len; i++){
-                var node = nodeList[i];
-                var host = node.ip + ":" + node.port;
-                var role = node.role;
-                options += '<option data-subtext="'+role+'">'+host+'</option>';
-            }
-            $("#nodeList").append(options);
-            $("#nodeList").val(window.host);
-            $('#nodeList').selectpicker("refresh");
-            $("#logNodeList").append(options);
-            $('#logNodeList').selectpicker("refresh");
-        });
-    })
+    var address = window.address
+    nodeList(address, function(nodeObj){
+        var nodeList = nodeObj.res
+        window.nodeList = nodeList;
+        var options = '<option>all</option>';
+        for(var i = 0, len = nodeList.length; i < len; i++){
+            var node = nodeList[i];
+            var host = node.ip + ":" + node.port;
+            var role = node.role;
+            options += '<option data-subtext="'+role+'">'+host+'</option>';
+        }
+        var nodeListObj = $("#nodeList")
+        nodeListObj.append(options);
+        nodeListObj.val(window.host);
+        nodeListObj.selectpicker("refresh");
+        var logNodeListObj = $("#logNodeList");
+        logNodeListObj.append(options);
+        logNodeListObj.selectpicker("refresh");
+    });
 }
 
 $("#field-title > th").click(function () {
@@ -231,6 +231,7 @@ $("#field-title > th").click(function () {
         $(this).addClass("selected");
         ajax.async_get("/monitor/getGroupNodeInfo?clusterId=" + window.clusterId + "&startTime="+ window.startTime +"&endTime=" + window.endTime + "&host=" + window.host + "&type=" + window.type + "&date=" + window.date, function(obj){
             makeCharts("light", "#FFFFFF", field, obj.res);
+            console.log(obj.res)
             smarty.html( "monitor/node_info_table", obj, "node-info-table",function () {
                 console.log("html ...");
             });
@@ -238,18 +239,11 @@ $("#field-title > th").click(function () {
     }
 });
 
-$("#slow_log").click(function(){
-    var $btn = $(this).button('loading');
-    $btn.css("disabled", "true");
-    $btn.html("complete");
-    slowLog();
-});
-
+// slow log
 $("#logNodeList").on('changed.bs.select', function (e) {
     slowLog();
 })
-
-
+// slow log function
 function slowLog(){
     $("#slow-log-table>tbody").empty();
     var logParam = {};
@@ -300,7 +294,6 @@ function makeCharts(theme, bgColor, field, char_data_table) {
         dataProvider: char_data_table,
         categoryField: "date",
         startDuration: 1,
-
         categoryAxis: {
             gridPosition: "start"
         },
@@ -314,7 +307,8 @@ function makeCharts(theme, bgColor, field, char_data_table) {
             lineAlpha: 0,
             fillAlphas: 0.8,
             balloonText: "[[title]] in [[category]]  <b>[[value]]</b>"
-        }]
+        }],
+        colors:	["#61a0a8"]
     });
 }
 

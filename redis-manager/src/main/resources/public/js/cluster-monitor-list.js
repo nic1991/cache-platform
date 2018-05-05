@@ -1,14 +1,6 @@
 $(function(){
-    // get slave number
-    /*smarty.getSlaveNumber('cluster_slave', function(params){
-        var nodes = parseInt(params['nodes']);
-        var master = parseInt(params["master"]);
-        var slave = nodesNum - master;
-        return slave;
-    });*/
 
     getClusterListInfo(function(obj){
-        console.log(obj);
         var clusterListInfo = obj.res;
         $("#cluster-number").text(clusterListInfo.clusterNumber);
         $("#cluster-ok-number").text(clusterListInfo.clusterOkNumber);

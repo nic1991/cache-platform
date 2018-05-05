@@ -132,19 +132,19 @@
                         <div class="base-info-list">
                             <ul>
                                 <li>
+                                    <span class="info-container">
+                                        <span class="glyphicon glyphicon-hourglass info"></span>
+                                        <span class="title"> AvgResponse : <span id="avg-response">1</span>/ms</span>
+                                    </span>
                                     <div class="panel-body" id="top-response-time">
-                                        <span class="info-container">
-                                            <span class="glyphicon glyphicon-hourglass info"></span>
-                                            <span class="title"> AvgResponse : <span id="avg-response">1</span>/ms</span>
-                                        </span>
                                     </div>
                                 </li>
                                 <li>
+                                    <span class="info-container">
+                                        <span class="glyphicon glyphicon-piggy-bank info"></span>
+                                        <span class="title"> AllKeys : <span id="all-key">931001</span></span>
+                                    </span>
                                     <div class="panel-body" id="top-connection">
-                                        <span class="info-container">
-                                            <span class="glyphicon glyphicon-piggy-bank info"></span>
-                                            <span class="title"> AllKeys : <span id="all-key">931001</span></span>
-                                        </span>
                                         <p class="top-item">Max: [<span class="top_request_monitor" id="max-all-host">10.16.46.192:8018</span>]
                                             <span class="danger" id="max-all-key">931026</span>
                                         </p>
@@ -154,19 +154,19 @@
                                     </div>
                                 </li>
                                 <li>
+                                    <span class="info-container">
+                                        <span class="glyphicon glyphicon-transfer info"></span>
+                                        <span class="title"> AvgConnection : <span id="avg-connection">147</span></span>
+                                    </span>
                                     <div class="panel-body" id="top-avg-connection">
-                                        <span class="info-container">
-                                            <span class="glyphicon glyphicon-transfer info"></span>
-                                            <span class="title"> AvgConnection : <span id="avg-connection">147</span></span>
-                                        </span>
                                     </div>
                                 </li>
                                 <li>
+                                    <span class="info-container">
+                                        <span class="glyphicon glyphicon-transfer info"></span>
+                                        <span class="title"> Instantaneous : <span id="avg-instantaneous">147</span></span>
+                                    </span>
                                     <div class="panel-body" id="top-avg-instantaneous">
-                                        <span class="info-container">
-                                            <span class="glyphicon glyphicon-transfer info"></span>
-                                            <span class="title"> Instantaneous : <span id="avg-instantaneous">147</span></span>
-                                        </span>
                                     </div>
                                 </li>
                             </ul>
@@ -229,11 +229,11 @@
                             </table>
                         </div><!-- .panel-body -->
                         <div class="slow-log-container">
-                            <select id="logNodeList" class="selectpicker show-tick form-control" data-live-search="true" data-width="250px">
+                            <select id="logNodeList" class="selectpicker show-tick form-control" title="Slow Log" data-live-search="true" data-width="250px">
                             </select>
-                            <button  class="btn btn-default" data-loading-text="loading..." type="button" autocomplete="off" id="slow_log">
+                            <!--<button  class="btn btn-default" data-loading-text="loading..." type="button" autocomplete="off" id="slow_log">
                                 <span class="glyphicon" aria-hidden="true">slow-log</span>
-                            </button>
+                            </button>-->
                         </div>
                         <div class="panel-body log-table-wrapper scrollbar-div scrollbar-div-1" >
                             <table class="table table-bordered scrollbar" id="slow-log-table">
