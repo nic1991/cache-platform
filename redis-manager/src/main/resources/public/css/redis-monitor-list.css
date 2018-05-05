@@ -159,6 +159,9 @@
 }
 
 .detail button {
-	width: 100px;
+	width: 60px;
 }
 
+.option-container {
+    margin: 0px 5px;
+}
