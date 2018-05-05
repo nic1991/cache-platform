@@ -40,10 +40,6 @@ public interface IClusterCheckLogDao {
      */
     Boolean checkWarningLogs(@Param("params")Map<String,Object> params);
 
-    /**
-     * 获取某个cluster warning日志的数目
-     * @param clusterId
-     * @return
-     */
-    Integer countWarningLogNum(String clusterId);
+
+    Integer countTotalWarningLog(List<String> clusterIds);
 }

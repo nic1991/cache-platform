@@ -1,2 +1,35 @@
-<h1>history</h1>
+<div class="normalPane">
 
+    <table id="alarmHistoryTable" data-toggle="table" class="table table-hover table-bordered fixed-table-header"  >
+        <thead>
+        <tr >
+            <th  style="width:100px">#</th>
+            <th  class="display-hide">id</th>
+            <th  >节点 <span class="glyphicon glyphicon-sort sort-span" ></span></th>
+            <th  >描述 <span class="glyphicon glyphicon-sort sort-span" ></span></th>
+            <th  >详情 <span class="glyphicon glyphicon-sort sort-span" ></span></th>
+            <th  >规则 <span class="glyphicon glyphicon-sort sort-span" ></span></th>
+            <th  >日期 <span class="glyphicon glyphicon-sort sort-span" ></span></th>
+            <th  style="width:100px">Operation</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{foreach from=$res item=caseHistory }}
+            <tr>
+                <td  style="width:100px"> </td>
+                <td  class="display-hide">{{$caseHistory.id}}</td>
+                <td  >{{$caseHistory.nodeId}} </td>
+                <td  >{{$caseHistory.description}}</td>
+                <td  >{{$caseHistory.logInfo}}</td>
+                <td  >{{$caseHistory.formula}}</td>
+                <td  >{{$caseHistory.updateTime}}</td>
+                <td  style="width:100px">
+                    <div class="btn-group">
+                        <button class=" btn btn-danger btn-xs btn-history-delete" data-id="{{$caseHistory.id}}" style="width:48px;height:28px;">Delete</button>
+                    </div>
+                </td>
+            </tr>
+        {{/foreach}}
+        </tbody>
+    </table>
+</div>

@@ -5,8 +5,27 @@ $(function(){
         $("#cluster-number").text(clusterListInfo.clusterNumber);
         $("#cluster-ok-number").text(clusterListInfo.clusterOkNumber);
         $("#cluster-fail-number").text(clusterListInfo.clusterFailNumber);
+        updateWarningCount();
     })
 })
+
+
+function updateWarningCount(){
+    listCluster(function(obj){
+        console.log( obj.res );
+        var clusterIds = [];
+        var clusters = obj.res;
+        clusters.forEach(function(element){
+            clusterIds.push(element.id);
+        });
+        console.log( clusterIds );
+        countTotalAlarm(clusterIds, function(obj){
+            console.log(obj);
+            $("#cluster-alarm-count").text(obj.res);
+        });
+    });
+}
+
 smarty.get( "/user/listGroup?id=1", "monitor/monitor_list", "group-classify", function(){
    /* console.log("get...");*/
 }, true );

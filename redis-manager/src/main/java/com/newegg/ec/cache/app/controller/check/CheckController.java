@@ -1,6 +1,7 @@
 package com.newegg.ec.cache.app.controller.check;
 
 import com.newegg.ec.cache.app.model.Response;
+import com.newegg.ec.cache.app.util.MathExpressionCalculateUtil;
 import com.newegg.ec.cache.core.userapi.UserAccess;
 import net.sf.json.JSONObject;
 import org.springframework.stereotype.Controller;
@@ -39,4 +40,14 @@ public class CheckController {
         String clusterName = object.getString("clusterId");
         return Response.Success();
     }
+
+    @RequestMapping(value = "/checkRule", method = RequestMethod.POST)
+    @ResponseBody
+    public Response checkRule(@RequestBody String req){
+        JSONObject object = JSONObject.fromObject( req );
+        String formula = object.getString("formula");
+        Boolean check = MathExpressionCalculateUtil.checkRule( formula );
+        return check ? Response.Success() : Response.Error("fail");
+    }
+
 }

@@ -32,7 +32,7 @@ public class ClusterCheckRuleDaoTest {
     public void addTest(){
         ClusterCheckRule rule= new ClusterCheckRule();
         rule.setId(CommonUtil.getUuid());
-        rule.setClusterId("ssspark");
+        rule.setClusterId("test-tc72");
         rule.setFormula("@{totalKeys}>10000");
         rule.setLimitName("totalKeys");
         rule.setDescription("totalKeys is to more");
