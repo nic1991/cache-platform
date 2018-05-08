@@ -22,13 +22,15 @@ import java.util.concurrent.Future;
 @Component
 public class HumpbackManager implements INodeOperate,INodeRequest {
     static ExecutorService executorService = Executors.newFixedThreadPool(100);
-    @Value("${cache.humpback.image}")
-    private String humpbackImage;
-    @Value("${cache.humpback.api.format}")
-    private String humpbackApiFormat;
+    private int userId;
+    private static String humpbackImage;
+    private static String humpbackApiFormat;
 
     public HumpbackManager(){
 
+    }
+    public HumpbackManager(int userId){
+        this.userId = userId;
     }
 
 
@@ -115,5 +117,22 @@ public class HumpbackManager implements INodeOperate,INodeRequest {
             }
             return res;
         }
+    }
+
+    @Value("${cache.humpback.image}")
+    public void setHumpbackImage(String humpbackImage) {
+        HumpbackManager.humpbackImage = humpbackImage;
+    }
+    @Value("${cache.humpback.api.format}")
+    public void setHumpbackApiFormat(String humpbackApiFormat) {
+        HumpbackManager.humpbackApiFormat = humpbackApiFormat;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }

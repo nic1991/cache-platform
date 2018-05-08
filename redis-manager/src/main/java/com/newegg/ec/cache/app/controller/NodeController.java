@@ -11,7 +11,6 @@ import com.newegg.ec.cache.plugin.basemodel.PluginType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import javax.annotation.Resource;
 import java.util.List;
 
@@ -34,15 +33,15 @@ public class NodeController {
 
     @RequestMapping("/install")
     public String cluster(Model model, @RequestParam PluginType pluginType, @SessionAttribute(WebSecurityConfig.SESSION_KEY) User user) {
-        nodeRequest = nodeManager.factoryRequest(pluginType);
+        nodeRequest = nodeManager.factoryRequest(pluginType, user.getId());
         String template = nodeRequest.showInstall();
         model.addAttribute("user", user);
         return template;
     }
 
     @RequestMapping("/manager")
-    public String manager(Model model, @RequestParam PluginType pluginType) {
-        nodeRequest = nodeManager.factoryRequest(pluginType);
+    public String manager(Model model, @RequestParam PluginType pluginType, @SessionAttribute(WebSecurityConfig.SESSION_KEY) User user) {
+        nodeRequest = nodeManager.factoryRequest(pluginType, user.getId());
         String template = nodeRequest.showManager();
         return template;
     }
@@ -50,8 +49,8 @@ public class NodeController {
 
     @RequestMapping(value = "/getImageList", method = RequestMethod.GET)
     @ResponseBody
-    public Response getImageList(@RequestParam PluginType pluginType){
-        nodeOperate = nodeManager.factoryOperate( pluginType );
+    public Response getImageList(@RequestParam PluginType pluginType, @SessionAttribute(WebSecurityConfig.SESSION_KEY) User user){
+        nodeOperate = nodeManager.factoryOperate( pluginType, user.getId() );
         List<String> imageList = nodeOperate.getImageList();
         return Response.Result(Response.DEFAULT, imageList);
     }

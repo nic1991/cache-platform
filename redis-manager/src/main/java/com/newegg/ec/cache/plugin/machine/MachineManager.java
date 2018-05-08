@@ -13,6 +13,13 @@ import java.util.List;
 @Component
 public class MachineManager implements INodeOperate,INodeRequest {
 
+    private int userId;
+    public MachineManager(){
+        //ignore
+    }
+    public MachineManager(int userId){
+        this.userId = userId;
+    }
 
     @Override
     public boolean pullImage(List<String> ipList, String imageUrl) {

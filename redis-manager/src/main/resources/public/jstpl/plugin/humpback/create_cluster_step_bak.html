@@ -13,21 +13,26 @@
                 <div class="create-center-content">
                     <h2>Step 1 Create Cluster</h2>
                     <table class="table table-bordered" id="create-create-cluster">
-                      <tbody>
+                        <tbody>
                         <tr class="input-format">
                             <td class="container-table-tag">Cluster Name</td>
                             <td>
-                                <input name="clusterId" type="text" class="form-control" data-ajax-type="get"  placeholder="cluster-name"  data-require="1" data-len="3-20" data-len-msg="length range5-20" data-format="[a-zA-Z0-9_]+" data-format-msg="only support letter and number or _"  data-server-check="/check/checkClusterName"  >
+                                <input name="clusterId" type="text" class="form-control" data-ajax-type="get"  placeholder="cluster-name"  data-require="1" data-len="3-20" data-len-msg="length range5-20" data-format="[a-zA-Z0-9_]+" data-format-msg="only support letter and number or _"  data-server-check="/logcheck/checkClusterName"  >
                                 <div id="clusterId_tip"></div>
                             </td>
                         </tr>
-                      </tbody>
+                        </tbody>
                     </table>
                     <div>
                         <br>
                         <p>Select image for redis install</p>
                         <div class="form-inline" style="height:55px">
-                              <input name="docker_image" type="text" class="form-control" value="humpback-hub.newegg.org/shec/redis3.0.6:v3" style="width:99%" >
+                            <select name="image" class="form-control" data-live-search="true" data-require="1">
+                                <option></option>
+                                {{foreach from=$res item=image}}
+                                <option>{{$image}}</option>
+                                {{/foreach}}
+                            </select>
                         </div>
                         <br>
                         <span style="color:#5d5c5c;"> <span class="glyphicon glyphicon-info-sign"></span> If without image you should push of redis image</span>
@@ -44,29 +49,31 @@
                     <h2>Step 2 Install Node</h2>
                     <div>
                         <table class="table table-bordered" id="docker-container-form">
-                          <tbody>
+                            <tbody>
                             <tr class="input-format">
-                              <td class="container-table-tag">Team</td>
-                                    <td class="input-format selecte-button">
-                                        <select name="team" id="team"  class="form-control table-select">
-
-                                        </select>
-                                    </td>
-                              <td class="container-table-tag">Container Name <a tabindex="0" data-placement="right" class="detail-button glyphicon glyphicon-question-sign" role="button" data-toggle="popover" data-trigger="focus" data-content="container name is unique"></a></td>
-                              <td>
-                                clusterId
-                              </td>
+                                <td class="container-table-tag">Team</td>
+                                <td class="input-format selecte-button">
+                                    <select name="userGroup" class="form-control table-select">
+                                        {{foreach from=$groups item=group}}
+                                        <option>{{$group}}</option>
+                                        {{/foreach}}
+                                    </select>
+                                </td>
+                                <td class="container-table-tag">Container Name </td>
+                                <td>
+                                    <input name="containerName" type="text" class="form-control" data-require="1" data-len="5-20" data-len-msg="length range 5-20" data-format-msg="only support letter and number" placeholder="redis1234">
+                                </td>
                             </tr>
                             <tr class="pointer batch-ip-list" >
-                              <td class="container-table-tag" >Batch IP List <a tabindex="0" data-placement="right" class="detail-button glyphicon glyphicon-question-sign" role="button" data-toggle="popover" data-trigger="focus" data-content="batch add container ip or port list <br> example:<br>127.0.0.1 8008<br>127.0.0.2 8009"></a></td>
-                              <td colspan="3">
-                                <div class="node-value text-value ip-list-value">
-                                    <textarea class="host-list" name="hostlist" data-relation="clusterId" data-require="1" data-server-check="/check/batchHostAccess"  placeholder="example 127.0.0.1:8008" ></textarea>
-                                    <div id="hostlist_tip"></div>
-                                </div>
-                              </td>
+                                <td class="container-table-tag" >Batch IP List </td>
+                                <td colspan="3">
+                                    <div class="node-value text-value ip-list-value">
+                                        <textarea class="host-list" name="iplist"  data-require="1" data-server-check="/logcheck/batchHostNotPass,/logcheck/batchHumpbackContainerName"  placeholder="example 127.0.0.1:8008" ></textarea>
+                                        <div id="iplist_tip"></div>
+                                    </div>
+                                </td>
                             </tr>
-                          </tbody>
+                            </tbody>
                         </table>
                         <div class="row">
                             <button class="btn btn-default second-selected" id="install-all-node">Install all node</button>
@@ -86,16 +93,16 @@
                 <div class="create-center-content" id="step-3-content">
                     <h2>Step 3 Select Master</h2>
                     <table class="table table-bordered">
-                      <thead>
+                        <thead>
                         <tr>
-                          <th>IP</th>
-                          <th>Port</th>
-                          <th>Operate</th>
+                            <th>IP</th>
+                            <th>Port</th>
+                            <th>Operate</th>
                         </tr>
-                      </thead>
-                      <tbody id="select-master-list">
+                        </thead>
+                        <tbody id="select-master-list">
 
-                      </tbody>
+                        </tbody>
                     </table>
                     <div class="row">
                         <button class="btn btn-default second-selected" id="set-master-finish">Finish and go to set slave</button>
@@ -116,8 +123,8 @@
 </div><!-- .col-md-6 -->
 <div class="col-md-6">
     <div class="panel panel-default">
-      <div id="redis-config-tpl">
-        {{include file="node/config/redis_3_config.html"}}
-      </div>
+        <div>
+            {{include file="plugin/redis_console.html"}}
+        </div>
     </div>
 </div>
