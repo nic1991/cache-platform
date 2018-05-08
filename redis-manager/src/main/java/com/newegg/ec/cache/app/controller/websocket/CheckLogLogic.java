@@ -1,25 +1,40 @@
 package com.newegg.ec.cache.app.controller.websocket;
 
+import com.newegg.ec.cache.app.dao.IClusterCheckLogDao;
+import com.newegg.ec.cache.app.dao.IClusterDao;
+import com.newegg.ec.cache.app.dao.IUserDao;
+import com.newegg.ec.cache.app.model.Cluster;
 import com.newegg.ec.cache.app.model.Response;
+import com.newegg.ec.cache.app.model.User;
 import com.newegg.ec.cache.app.util.NetUtil;
+import com.newegg.ec.cache.app.util.RequestUtil;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created by lzz on 2018/5/4.
  */
+@Component
 public class CheckLogLogic {
-    private int userId;
-    public CheckLogLogic(int userId){
-        this.userId = userId;
-    }
+    @Resource
+    private IClusterDao clusterDao;
+
     private String checkLog(String msg){
-        CreateClusterLogHandler.appendLog(String.valueOf(this.userId), msg);
+        CreateClusterLogHandler.appendLog(String.valueOf( RequestUtil.getUser().getId() ), msg);
         return msg + "<br>";
     }
 
     public  Response checkClusterName(String clusterName) {
-        checkLog("check cluster is ok");
-        return Response.Error("errror");
+        User user  = RequestUtil.getUser();
+        List<Cluster> resList = clusterDao.getClusterList( user.getUserGroup() );
+        if( resList.size() > 0 ){
+            return Response.Success();
+        }else{
+            return Response.Error("errror");
+        }
     }
 
     public  Response checkBatchHostNotPass(String iplist) {

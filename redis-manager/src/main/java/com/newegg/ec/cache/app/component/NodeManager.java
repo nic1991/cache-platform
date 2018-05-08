@@ -1,5 +1,6 @@
 package com.newegg.ec.cache.app.component;
 
+import com.newegg.ec.cache.app.util.RequestUtil;
 import com.newegg.ec.cache.plugin.INodeOperate;
 import com.newegg.ec.cache.plugin.INodeRequest;
 import com.newegg.ec.cache.plugin.basemodel.PluginType;
@@ -7,7 +8,9 @@ import com.newegg.ec.cache.plugin.docker.DockerManager;
 import com.newegg.ec.cache.plugin.humpback.HumpbackManager;
 import com.newegg.ec.cache.plugin.machine.MachineManager;
 import org.springframework.stereotype.Component;
+
 import javax.annotation.Resource;
+import javax.annotation.Resources;
 
 /**
  * Created by lzz on 2018/4/20.
@@ -15,11 +18,11 @@ import javax.annotation.Resource;
 @Component
 public class NodeManager {
     @Resource
-    private HumpbackManager humpbackManager;
-    @Resource
     private MachineManager machineManager;
     @Resource
     private DockerManager dockerManager;
+    @Resource
+    private HumpbackManager humpbackManager;
 
     public NodeManager(){
 
@@ -35,7 +38,7 @@ public class NodeManager {
                 nodeOperate = dockerManager;
                 break;
             case humpback:
-                nodeOperate = new HumpbackManager();
+                nodeOperate = humpbackManager;
                 break;
         }
         return nodeOperate;

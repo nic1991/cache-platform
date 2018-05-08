@@ -1,0 +1,28 @@
+<table id="alarmHistoryTable" data-toggle="table" class="table table-hover table-bordered fixed-table-header"  >
+    <thead>
+    <tr >
+        <th  style="width:10px">#</th>
+        <th  class="display-hide">id</th>
+        <th  >Container Name</th>
+        <th  >Image Version</th>
+        <th  >Ip</th>
+        <th  >Port</th>
+        <th  >AddTime</th>
+        <th  style="width:100px">Operation</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{foreach from=$res item=humpback }}
+         <tr>
+             <td  style="width:10px"> </td>
+             <td>{{$humpback.id}}</td>
+             <td>{{$humpback.image}}</td>
+             <td>{{$humpback.image}}</td>
+             <td>{{$humpback.image}}</td>
+             <td>{{$humpback.image}}</td>
+             <td>{{$humpback.image}}</td>
+             <td>{{$humpback.image}}</td>
+         </tr>
+     {{/foreach}}
+    </tbody>
+</table>

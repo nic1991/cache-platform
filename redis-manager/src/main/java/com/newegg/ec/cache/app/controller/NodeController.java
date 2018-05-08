@@ -1,12 +1,13 @@
 package com.newegg.ec.cache.app.controller;
 
 import com.newegg.ec.cache.app.component.NodeManager;
-import com.newegg.ec.cache.app.controller.security.WebSecurityConfig;
+import com.newegg.ec.cache.app.model.Common;
 import com.newegg.ec.cache.app.model.Response;
 import com.newegg.ec.cache.app.model.User;
 import com.newegg.ec.cache.core.userapi.UserAccess;
 import com.newegg.ec.cache.plugin.INodeOperate;
 import com.newegg.ec.cache.plugin.INodeRequest;
+import com.newegg.ec.cache.plugin.basemodel.Node;
 import com.newegg.ec.cache.plugin.basemodel.PluginType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,7 +34,7 @@ public class NodeController {
     }
 
     @RequestMapping("/install")
-    public String cluster(Model model, @RequestParam PluginType pluginType, @SessionAttribute(WebSecurityConfig.SESSION_KEY) User user) {
+    public String cluster(Model model, @RequestParam PluginType pluginType, @SessionAttribute(Common.SESSION_USER_KEY) User user) {
         nodeRequest = nodeManager.factoryRequest(pluginType);
         String template = nodeRequest.showInstall();
         model.addAttribute("user", user);
@@ -41,7 +42,7 @@ public class NodeController {
     }
 
     @RequestMapping("/manager")
-    public String manager(Model model, @RequestParam PluginType pluginType) {
+    public String manager(Model model, @RequestParam PluginType pluginType, @SessionAttribute(Common.SESSION_USER_KEY) User user) {
         nodeRequest = nodeManager.factoryRequest(pluginType);
         String template = nodeRequest.showManager();
         return template;
@@ -50,10 +51,18 @@ public class NodeController {
 
     @RequestMapping(value = "/getImageList", method = RequestMethod.GET)
     @ResponseBody
-    public Response getImageList(@RequestParam PluginType pluginType){
-        nodeOperate = nodeManager.factoryOperate( pluginType );
+    public Response getImageList(@RequestParam PluginType pluginType, @SessionAttribute(Common.SESSION_USER_KEY) User user){
+        nodeOperate = nodeManager.factoryOperate(pluginType);
         List<String> imageList = nodeOperate.getImageList();
         return Response.Result(Response.DEFAULT, imageList);
+    }
+
+    @RequestMapping(value = "/getNodeList", method = RequestMethod.GET)
+    @ResponseBody
+    public Response getNodeList(@RequestParam PluginType pluginType, @SessionAttribute(Common.SESSION_USER_KEY) User user,@RequestParam int clusterId){
+        nodeOperate = nodeManager.factoryOperate( pluginType );
+        List<Node> nodeList = nodeOperate.getNodeList(clusterId);
+        return Response.Result(Response.DEFAULT, nodeList);
     }
 
 }

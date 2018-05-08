@@ -1,11 +1,14 @@
 package com.newegg.ec.cache.plugin.humpback;
 
 import com.google.common.collect.Lists;
+import com.newegg.ec.cache.app.model.User;
 import com.newegg.ec.cache.app.util.HttpUtil;
+import com.newegg.ec.cache.app.util.RequestUtil;
 import com.newegg.ec.cache.plugin.INodeOperate;
 import com.newegg.ec.cache.plugin.INodeRequest;
 import com.newegg.ec.cache.plugin.basemodel.*;
 import net.sf.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -26,6 +29,9 @@ public class HumpbackManager implements INodeOperate,INodeRequest {
     private String humpbackImage;
     @Value("${cache.humpback.api.format}")
     private String humpbackApiFormat;
+
+    @Autowired
+    IHumpbackNodeDao humpbackNodeDao;
 
     public HumpbackManager(){
 
@@ -76,7 +82,16 @@ public class HumpbackManager implements INodeOperate,INodeRequest {
 
     @Override
     public List<String> getImageList() {
+        User user  = RequestUtil.getUser();
+        System.out.println( user );
         return Lists.newArrayList(humpbackImage.split(","));
+    }
+
+    @Override
+    public List<Node> getNodeList(int clusterId) {
+        List list = humpbackNodeDao.getHumbackNodeList(clusterId);
+
+        return list;
     }
 
     @Override

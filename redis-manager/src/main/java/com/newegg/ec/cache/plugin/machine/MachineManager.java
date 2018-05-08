@@ -13,6 +13,13 @@ import java.util.List;
 @Component
 public class MachineManager implements INodeOperate,INodeRequest {
 
+    private int userId;
+    public MachineManager(){
+        //ignore
+    }
+    public MachineManager(int userId){
+        this.userId = userId;
+    }
 
     @Override
     public boolean pullImage(List<String> ipList, String imageUrl) {
@@ -46,6 +53,11 @@ public class MachineManager implements INodeOperate,INodeRequest {
 
     @Override
     public List<String> getImageList() {
+        return null;
+    }
+
+    @Override
+    public List<Node> getNodeList(int clusterId) {
         return null;
     }
 

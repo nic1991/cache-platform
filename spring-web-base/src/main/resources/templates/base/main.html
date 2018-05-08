@@ -79,11 +79,11 @@
         }
 
         $(document).ready(function(){
-            $("#frameBody").attr("src",basePath+'/rest/pages/home');
             getAppName();
             getUser();
             getMenus();
             initMenu();
+            home();
         });
 
         function profile(){
@@ -102,7 +102,7 @@
    <div class="bodyDiv">
        <div id="menuBlock">
            <div class="main-head-left-block">
-               <div id="home" class="homeBtn">
+               <div id="home" class="homeBtn" onClick="home()">
                    <span id="expandTitle">Newegg * </span><span id="appName"></span>
                </div>
            </div>

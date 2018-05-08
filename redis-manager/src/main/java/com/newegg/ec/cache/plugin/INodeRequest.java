@@ -6,4 +6,5 @@ package com.newegg.ec.cache.plugin;
 public interface INodeRequest {
     String showInstall();
     String showManager();
+
 }

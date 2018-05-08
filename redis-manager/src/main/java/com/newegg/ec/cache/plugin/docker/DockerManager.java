@@ -13,8 +13,15 @@ import java.util.List;
  */
 @Component
 public class DockerManager implements INodeOperate,INodeRequest {
-
+    private int userId;
     private String dockerImage;
+
+    public DockerManager(){
+        //ignore
+    }
+    public DockerManager(int userId){
+        this.userId = userId;
+    }
 
     @Override
     public boolean pullImage(List<String> ipList, String imageUrl) {
@@ -49,6 +56,11 @@ public class DockerManager implements INodeOperate,INodeRequest {
     @Override
     public List<String> getImageList() {
         return Lists.newArrayList(dockerImage.split(","));
+    }
+
+    @Override
+    public List<Node> getNodeList(int clusterId) {
+        return null;
     }
 
     @Override

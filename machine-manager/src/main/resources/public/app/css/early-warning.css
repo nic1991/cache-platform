@@ -29,7 +29,7 @@ html,body{padding:0px;margin:0px;height:100%;width:100%}
 .tab-pane-div{
 	background: white;
 	padding: 10px;
-	margin: 10px 20px 20px 20px;
+	margin: 5px 20px 20px 20px;
 	box-shadow: 0px 0px 1px 1px #ccc;
 	height: auto;
 }
@@ -105,7 +105,7 @@ html,body{padding:0px;margin:0px;height:100%;width:100%}
 }
 
 #warnings-table{
-	margin-top: 20px;
+	margin-top: 10px;
 }
 
 .no-rules{
@@ -152,7 +152,7 @@ html,body{padding:0px;margin:0px;height:100%;width:100%}
 .operate-group{
     display: flex;
     justify-content: flex-end;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 #checkAll{
