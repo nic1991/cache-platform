@@ -87,7 +87,7 @@
     margin-left: 10px;
 }
 
-.query-container button,
+/*.query-container button,
 .query-container button:focus,
 .query-container button:hover,
 .query-container button:active:focus,
@@ -99,7 +99,7 @@
     outline: none;
     background-color: #3fa7dc;
     color: #FFFFFF;
-}
+}*/
 
 .detail-header button, .panel-heading button {
     border-radius: 3px;
@@ -145,8 +145,12 @@
     white-space: nowrap;
 }
 
-.select-hover:hover{
-    background-color:#5bc0de;
+.select-hover {
+    cursor: pointer;
+}
+
+.select-hover:hover, .selected{
+    background-color: #81b3b9;
     color: #fff;
 }
 
@@ -189,6 +193,7 @@
     overflow: auto;
     max-height:400px;
 }
+
 
 /*slow log*/
 .slow-log-container{

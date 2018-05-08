@@ -30,8 +30,8 @@ function getCurrentTime(){
 // select time
 $(".relative-section ul li").on("click", function(){
     var timeRangeObj = $(this);
-    timeRangeObj.addClass("selected").siblings().removeClass("selected");
-    timeRangeObj.parent().siblings().children().removeClass('selected');
+    timeRangeObj.addClass("time-selected").siblings().removeClass("time-selected");
+    timeRangeObj.parent().siblings().children().removeClass('time-selected');
     var timeRange = parseInt(timeRangeObj.attr("data"));
     var currentTime = getCurrentTime();
     window.endTime = currentTime;
