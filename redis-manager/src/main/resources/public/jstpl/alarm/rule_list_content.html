@@ -41,7 +41,7 @@
 <div class="normalPane">
     <div class="normalTitle">
         <span><b>支持的语法</b>
-        <span class="tip" > 示例：@{memory_use}/@{memory_total}&gt;=0.8</span>
+        <span class="tip" > 示例：@{expireKeys}/@{totalKeys}&gt;=0.5</span>
         </span>
     </div>
     <ul class="normalContent pagination pagination-support">
@@ -84,7 +84,7 @@
     <table id="ruleTable" data-toggle="table" class="table table-hover table-bordered fixed-table-header"  >
         <thead>
             <tr >
-                <th  style="width:100px">#</th>
+                <th  style="width:10px">#</th>
                 <th  class="display-hide">id</th>
                 <th  >属性 </th>
                 <th  >描述 </th>
@@ -96,7 +96,7 @@
         <tbody>
         {{foreach from=$res item=rule}}
         <tr >
-            <td  style="width:100px"> </td>
+            <td  style="width:10px"> </td>
             <td  class="display-hide">{{$rule.id}}</td>
             <td  >{{$rule.limitName}} </td>
             <td  >{{$rule.description}}</td>
