@@ -43,7 +43,7 @@ public class NodeController {
     }
 
     @RequestMapping("/manager")
-    public String manager(Model model, @RequestParam PluginType pluginType) {
+    public String manager(Model model, @RequestParam PluginType pluginType, @SessionAttribute(Common.SESSION_USER_KEY) User user) {
         nodeRequest = nodeManager.factoryRequest(pluginType);
         String template = nodeRequest.showManager();
         return template;
@@ -52,7 +52,7 @@ public class NodeController {
 
     @RequestMapping(value = "/getImageList", method = RequestMethod.GET)
     @ResponseBody
-    public Response getImageList(@RequestParam PluginType pluginType){
+    public Response getImageList(@RequestParam PluginType pluginType, @SessionAttribute(Common.SESSION_USER_KEY) User user){
         nodeOperate = nodeManager.factoryOperate(pluginType);
         List<String> imageList = nodeOperate.getImageList();
         return Response.Result(Response.DEFAULT, imageList);
@@ -60,17 +60,26 @@ public class NodeController {
 
     @RequestMapping(value = "/getNodeList", method = RequestMethod.GET)
     @ResponseBody
-    public Response getNodeList(@RequestParam PluginType pluginType,@RequestParam int clusterId){
-        nodeOperate = nodeManager.factoryOperate( pluginType );
+    public Response getNodeList(@RequestParam PluginType pluginType, @SessionAttribute(Common.SESSION_USER_KEY) User user,@RequestParam int clusterId){
+        nodeOperate = nodeManager.factoryOperate(pluginType);
         List<Node> nodeList = nodeOperate.getNodeList(clusterId);
         return Response.Result(Response.DEFAULT, nodeList);
     }
+
+    @RequestMapping(value = "/start", method = RequestMethod.GET)
+    @ResponseBody
+    public Response nodeStart(@RequestParam PluginType pluginType, @SessionAttribute(Common.SESSION_USER_KEY) User user,@RequestParam String containerName){
+        nodeOperate = nodeManager.factoryOperate( pluginType );
+       // boolean result = nodeOperate.start();
+        return null;
+    }
+
 
     @RequestMapping(value = "/nodeRemove", method = RequestMethod.POST)
     @ResponseBody
     public Response nodeRemove(@RequestParam PluginType pluginType, @RequestBody RemovePram removePram){
         nodeOperate = nodeManager.factoryOperate( pluginType );
-        boolean res = nodeOperate.remove( removePram );
+        boolean res = nodeOperate.remove(removePram);
         return Response.Result(Response.DEFAULT, res);
     }
 }

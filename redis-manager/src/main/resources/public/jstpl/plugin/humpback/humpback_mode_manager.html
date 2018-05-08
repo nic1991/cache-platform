@@ -28,9 +28,15 @@
              <td>{{$humpback.userGroup}}</td>
              <td>{{$humpback.addTime}}</td>
              <td>
-                 <button class="btn btn-danger btn-sm " type="button">Delete</button>&nbsp
-                 <button class="btn btn-primary btn-sm" type="button">Stop</button>&nbsp
-                 <button class="btn btn-primary btn-sm" type="button">start</button>
+                 <a href="/node/delete?pluginType=humpback&containerName={{$humpback.containerName}}" class="option-container">
+                     <button class="btn btn-danger btn-sm " type="button">Delete</button>&nbsp
+                 </a>
+                 <a href="/node/stop?pluginType=humpback&containerName={{$humpback.containerName}}" class="option-container">
+                     <button class="btn btn-primary btn-sm" type="button">Stop</button>&nbsp
+                 </a>
+                 <a href="/node/start?pluginType=humpback&containerName={{$humpback.containerName}}" class="option-container">
+                     <button class="btn btn-primary btn-sm" type="button">start</button>
+                 </a>
              </td>
          </tr>
      {{/foreach}}
