@@ -57,11 +57,9 @@ public class ClusterController {
 
     @RequestMapping(value = "/listCluster", method = RequestMethod.GET)
     @ResponseBody
-    public Response listCluster(@SessionAttribute(WebSecurityConfig.SESSION_KEY) User user){
+    public Response listCluster(@RequestParam String group){
         List<Cluster> listCluster = null;
-        if (user != null) {
-            listCluster = logic.getClusterList( user.getUserGroup());
-        }
+        listCluster = logic.getClusterList( group );
         return Response.Result(0, listCluster);
     }
 

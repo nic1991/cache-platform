@@ -89,4 +89,11 @@ public class AlarmController {
         return Response.Result(0,count);
     }
 
+    @RequestMapping(value = "/countWarningLogByClusterId", method = RequestMethod.POST)
+    @ResponseBody
+    public Response countWarningLogByClusterId(@RequestBody Integer clusterId){
+        Integer count = logic.countWarningLogByClusterId(clusterId);
+        return Response.Result(0,count);
+    }
+
 }

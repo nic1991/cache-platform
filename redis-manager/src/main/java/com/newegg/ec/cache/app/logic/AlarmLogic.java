@@ -64,8 +64,18 @@ public class AlarmLogic {
 
     public Integer countTotalLog(List<String> clusterIds){
         System.out.println( StringUtils.join(clusterIds, ",") );
-        Integer count =  clusterCheckLogDao.countTotalWarningLog( clusterIds );
+        Integer count = 0;
+        if (clusterIds != null && clusterIds.size() > 0){
+            count =  clusterCheckLogDao.countTotalWarningLog( clusterIds );
+        }
         return count;
     }
 
+    public Integer countWarningLogByClusterId(Integer clusterId){
+        int count = 0;
+        if (StringUtils.isNotBlank(clusterId.toString())){
+            count = clusterCheckLogDao.countWarningLogByClusterId(clusterId);
+        }
+        return count;
+    }
 }
