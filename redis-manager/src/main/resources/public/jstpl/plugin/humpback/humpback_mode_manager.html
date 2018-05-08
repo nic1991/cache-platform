@@ -3,11 +3,11 @@
     <tr >
         <th  style="width:10px">#</th>
         <th  class="display-hide">id</th>
-        <th  >节点</th>
-        <th  >描述</th>
-        <th  >详情</th>
-        <th  >规则</th>
-        <th  >日期</th>
+        <th  >Container Name</th>
+        <th  >Image Version</th>
+        <th  >Ip</th>
+        <th  >Port</th>
+        <th  >AddTime</th>
         <th  style="width:100px">Operation</th>
     </tr>
     </thead>
@@ -15,6 +15,12 @@
     {{foreach from=$res item=humpback }}
          <tr>
              <td  style="width:10px"> </td>
+             <td>{{$humpback.id}}</td>
+             <td>{{$humpback.image}}</td>
+             <td>{{$humpback.image}}</td>
+             <td>{{$humpback.image}}</td>
+             <td>{{$humpback.image}}</td>
+             <td>{{$humpback.image}}</td>
              <td>{{$humpback.image}}</td>
          </tr>
      {{/foreach}}
