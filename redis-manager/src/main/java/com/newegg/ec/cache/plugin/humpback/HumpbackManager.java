@@ -104,17 +104,7 @@ public class HumpbackManager implements INodeOperate,INodeRequest {
     @Override
     public List<Node> getNodeList(int clusterId) {
         String addr = clusterDao.getCluster(clusterId).getAddress();
-        List<String> clusterNode = JedisUtil.getClusterAllNode(addr);
         List<Node> list = humpbackNodeDao.getHumbackNodeList(clusterId);
-        for(Node node : list){
-            HumpbackNode humpbackNode =  (HumpbackNode)node;
-            if(clusterNode.contains(humpbackNode.getIp()+":"+humpbackNode.getPort())){
-                humpbackNode.setIncluster("YES");
-            }else{
-                humpbackNode.setIncluster("NO");
-            }
-            humpbackNode.setStatus("OK");
-        }
         return list;
     }
 

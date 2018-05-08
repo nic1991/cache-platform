@@ -26,24 +26,6 @@ public class HumpbackNode extends Node{
     @MysqlField(field = "add_time", type = "int",  notNull = true)
     private int addTime;
 
-    private String status;
-    private String incluster;
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getIncluster() {
-        return incluster;
-    }
-
-    public void setIncluster(String incluster) {
-        this.incluster = incluster;
-    }
 
     public int getId() {
         return id;
