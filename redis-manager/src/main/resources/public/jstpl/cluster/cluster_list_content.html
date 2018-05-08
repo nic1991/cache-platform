@@ -5,8 +5,9 @@
                     <div class="cluster-item">
                         <div class="delete-container" data-cluster-id="{{$cluster.id}}">
                             <i class="material-icons">close</i>
+                            <!--<i class="icon-remove"></i>-->
                         </div>
-                        <a href="/pages/redisMonitorDetail" class="to-detail" title="see cluster detail">
+                        <a href="/cluster/clusterManager?clusterId={{$cluster.id}}&pluginType={{$cluster.clusterType}}"  title="manager cluster">
                             <div class="one-data">
                                 <span><b>{{$cluster.clusterName}}</b></span>
                             </div>
@@ -15,19 +16,19 @@
                             </div>
                             <div class="one-data">
                                 <span>Group:&nbsp</span>
-                                <span><b>{{$cluster.userGroup}}</b></span>
+                                <span>{{$cluster.userGroup}}</span>
                             </div>
-                            <div class="one-data">
+                            <!--<div class="one-data">
                                 <span>Address:&nbsp</span>
                                 <span><b>{{$cluster.address}}</b></span>
-                            </div>
+                            </div>-->
                         </a>
-                        <div class="operation-btn-swapper">
-                            <!-- 后期需要带参 -->
+                        <!--<div class="operation-btn-swapper">
+                            &lt;!&ndash; 后期需要带参 &ndash;&gt;
                             <a href="/cluster/clusterManager?clusterId={{$cluster.id}}&pluginType={{$cluster.clusterType}}" class="operation-btn">
                                 <span data-cluster-id="{{$cluster.id}}">Manager</span>
                             </a>
-                        </div>
+                        </div>-->
                     </div>
                 </li>
         {{/foreach}}

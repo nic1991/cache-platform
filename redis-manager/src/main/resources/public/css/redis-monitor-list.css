@@ -44,7 +44,11 @@
 	margin: 0 0.5% 1%;
 	border-radius: 3px;
 	border: 1px solid #ddd;
-	box-shadow: 0 5px 20px -6px rgba(0,0,0,.2)
+	box-shadow: 0 5px 10px -6px rgba(0,0,0,.2);
+}
+
+.list-container ul li:hover {
+    box-shadow: 0 6px 25px -6px rgba(0,0,0,.2);
 }
 
 .icon-chart-container {
@@ -125,11 +129,31 @@
 	text-decoration: none;
 }
 
-.cluster-name {
+.cluster-title {
 	font-size: 16px;
 	padding-bottom: 10px;
 	border-bottom: 1px solid #dadada;
 	cursor: pointer;
+	display: flex;
+    align-items: center;
+}
+
+.cluster-title a, cluster-title a:hover{
+    color: #FFFFFF;
+    background-color: #FFB800;
+    padding:0 5px;
+    margin-left: 10px;
+    font-size: 12px;
+    text-decoration: none;
+}
+
+.info-wrapper a{
+    color: #555555;
+    text-decoration: none;
+}
+
+.info-wrapper a:hover {
+    color: #333333;
 }
 
 .summary {
@@ -151,8 +175,13 @@
 	margin-right: 5px;
 }
 
+.data-item {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 .detail {
-	padding-top: 8%;
+	padding-top: 4%;
     display: flex;
     justify-content: center;
 }
@@ -162,5 +191,5 @@
 }
 
 .option-container {
-    margin: 0px 5px;
+    margin: 0px 10px;
 }

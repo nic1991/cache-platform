@@ -35,7 +35,7 @@
 
         <!-- body-->
         <div style="background:white;padding:5px;padding-top:0px;margin:20px;margin-top:5px;position:relative;box-shadow:0px 0px 1px 1px #ccc;">
-            <div id="tableCnt" class="tableCnt" style="margin-top:10px">
+            <div id="tableCnt" class="tableCnt">
                 <div class="tableHead" style="position:relative;height:30px;line-height:30px;padding-left:5px;">
                     <div style="position:absolute;left:5px;top:0px;margin-top:10px;font-size:12px;font-weight:bold;">
                         Machine
@@ -45,7 +45,7 @@
                     </button>
                 </div>
                 <div class="table-responsive">
-                    <table id="MachineTable" style="margin-top:20px;" class="table table-striped text-nowrap table-bordered table-hover table-condensed executions-table">
+                    <table id="MachineTable" style="margin-top:20px;margin-bottom:0px" class="table table-striped text-nowrap table-bordered table-hover table-condensed executions-table">
                         <thead>
                         <tr>
                             <th>#</th>
@@ -72,9 +72,9 @@
 
                 <!--分页-->
                 <div class="bs-docs-example" id="paging">
-                    <ul class="pager">
-                        <li><a onclick="pages(0)" id="prev" style="text-size:14px;color:black;cursor:pointer">上一页</a></li>
-                        <li><a onclick="pages(1)" id="next" style="text-size:14px;color:black;cursor:pointer">下一页</a></li>
+                    <ul class="pager" style="margin:0px;margin-top:5px">
+                        <li><a onclick="pages(0)" id="prev" style="text-size:14px;color:black;cursor:pointer">prev</a></li>
+                        <li><a onclick="pages(1)" id="next" style="text-size:14px;color:black;cursor:pointer">next</a></li>
                     </ul>
                 </div>
             </div>

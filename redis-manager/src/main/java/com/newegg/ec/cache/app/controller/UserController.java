@@ -1,5 +1,7 @@
 package com.newegg.ec.cache.app.controller;
 
+import com.newegg.ec.cache.app.controller.security.WebSecurityConfig;
+import com.newegg.ec.cache.app.model.Common;
 import com.newegg.ec.cache.core.userapi.UserAccess;
 import com.newegg.ec.cache.app.logic.UserLogic;
 import com.newegg.ec.cache.app.model.Cluster;
@@ -58,7 +60,7 @@ public class UserController {
 
     @RequestMapping(value = "/listGroup", method = RequestMethod.GET)
     @ResponseBody
-    public Response listGroup(@RequestParam int id){
+    public Response listGroup(@SessionAttribute(Common.SESSION_USER_KEY) User user){
         List<String> list = new ArrayList<>();
         list.add("admin");
         list.add("others");

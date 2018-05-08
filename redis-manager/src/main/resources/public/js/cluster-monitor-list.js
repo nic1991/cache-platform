@@ -10,9 +10,8 @@ $(function(){
 
 })
 
-
 function updateWarningCount(){
-    listCluster(function(obj){
+    listClusterByUser(function(obj){
         var clusterIds = [];
         var clusters = obj.res;
         clusters.forEach(function(element){
@@ -24,7 +23,7 @@ function updateWarningCount(){
     });
 }
 
-smarty.get( "/user/listGroup?id=1", "monitor/monitor_list", "group-classify", function(){
+smarty.get( "/user/listGroup", "monitor/monitor_list", "group-classify", function(){
    /* console.log("get...");*/
 }, true );
 
@@ -33,8 +32,9 @@ smarty.get( "/user/listGroup?id=1", "monitor/monitor_list", "group-classify", fu
 $(document).on("click", ".list-active", function(res){
     var group = $(this).data("group");
     var isGetData = $(this).attr("aria-expanded");
+    console.log( group );
     smarty.get( "/cluster/listCluster?group=" + group, "monitor/cluster_info_list", "group-id-" + group, function(obj){
-        $(".cluster-info-detail").click();
+        $(".cluster-info-detail-" + group).click();
     }, true );
 });
 
@@ -42,7 +42,9 @@ $(document).on("click", ".cluster-info-detail", function(res){
     var clusterId = $(this).data("cluster-id");
     var address = $(this).data("cluster-address");
     smarty.get( "/cluster/getClusterInfoByAddress?address=" + address, "monitor/cluster_info", "cluster-info-" + clusterId, function(obj){
-        /*console.log(obj);*/
+       countWarningLogByClusterId(clusterId, function(obj){
+            $("#cluster-alarm-" + clusterId).text( obj.res );
+       });
     }, true );
 });
 

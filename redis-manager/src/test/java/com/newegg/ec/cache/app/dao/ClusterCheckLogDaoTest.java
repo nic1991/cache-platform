@@ -66,7 +66,8 @@ public class ClusterCheckLogDaoTest {
 
     @Test
     public void countWarningLogNumTest(){
-        System.out.println(logDao.countTotalWarningLog(null) + "---------------------------");
+        //System.out.println(logDao.countTotalWarningLog(null) + "---------------------------");
+        System.out.println(logDao.countWarningLogByClusterId(1));
     }
 
 

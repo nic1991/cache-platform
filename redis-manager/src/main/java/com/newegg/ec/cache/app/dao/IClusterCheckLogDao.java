@@ -42,4 +42,6 @@ public interface IClusterCheckLogDao {
 
 
     Integer countTotalWarningLog(List<String> clusterIds);
+
+    Integer countWarningLogByClusterId(Integer clusterId);
 }
