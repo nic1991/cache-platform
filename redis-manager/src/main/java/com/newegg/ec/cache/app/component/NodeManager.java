@@ -1,6 +1,5 @@
 package com.newegg.ec.cache.app.component;
 
-import com.newegg.ec.cache.app.util.RequestUtil;
 import com.newegg.ec.cache.plugin.INodeOperate;
 import com.newegg.ec.cache.plugin.INodeRequest;
 import com.newegg.ec.cache.plugin.basemodel.PluginType;
@@ -10,7 +9,6 @@ import com.newegg.ec.cache.plugin.machine.MachineManager;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import javax.annotation.Resources;
 
 /**
  * Created by lzz on 2018/4/20.

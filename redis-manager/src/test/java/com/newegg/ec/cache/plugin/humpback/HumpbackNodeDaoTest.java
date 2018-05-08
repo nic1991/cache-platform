@@ -35,7 +35,7 @@ public class HumpbackNodeDaoTest {
         HumpbackNode humpbackNode = new HumpbackNode();
         humpbackNode.setClusterId(1);
         humpbackNode.setContainerName("redis8018");
-        humpbackNode.setGroup("admin");
+        humpbackNode.setUserGroup("admin");
         humpbackNode.setImage("redis3.0.6:v3");
         humpbackNode.setIp("10.16.46.192");
         humpbackNode.setPort(8018);
@@ -50,7 +50,7 @@ public class HumpbackNodeDaoTest {
 
     @Test
     public void testGetCluster(){
-        HumpbackNode humpbackNode = humpbackNodeDao.getHumpbackNode( 2 );
+        HumpbackNode humpbackNode = humpbackNodeDao.getHumpbackNode( 3 );
         System.out.println( humpbackNode );
     }
 }
