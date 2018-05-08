@@ -1,10 +1,10 @@
-.container-color, .data-container  {
+/*.container-color, .data-container  {
 	background-color: #FFFFFF;
-}
+}*/
 
-.data-container {
+/*.data-container {
 	padding: 20px 10px;
-}
+}*/
 
 .cluster-name-container{
     margin-left: 18px;
@@ -20,11 +20,11 @@
 }
 
 .detail-header{
-	padding-bottom: 10px;
-	margin-right: 10px;
+	padding: 10px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	background-color: #FFFFFF;
 }
 
 /*filter container*/
@@ -81,25 +81,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border: none;
 }
 
 .query-container {
     margin-left: 10px;
 }
-
-/*.query-container button,
-.query-container button:focus,
-.query-container button:hover,
-.query-container button:active:focus,
-.query-container button.active:focus,
-.query-container button.focus,
-.query-container button:active.focus,
-.query-container button:active.focus {
-    border: 1px solid #3fa7dc;
-    outline: none;
-    background-color: #3fa7dc;
-    color: #FFFFFF;
-}*/
 
 .detail-header button, .panel-heading button {
     border-radius: 3px;
@@ -113,14 +100,14 @@
 .base-info-list ul{
 	display: flex;
 	justify-content: space-between;
-	margin: 20px 0;
-	padding: 0;
+	padding: 20px 0;
 	list-style-type: none;
 }
 
 .base-info-list ul li{
 	width: 24%;
     height: auto;
+    margin: 0 10px;
 	border: 1px solid #dadada;
 	border-radius: 3px;
 	background-color: white;

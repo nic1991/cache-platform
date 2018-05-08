@@ -35,7 +35,7 @@ public class LogAdvice {
         return value;
     }
 
-    @Around( "execution(* com.newegg.ec.cache.app.controller.websocket.*.*(..))" )
+    @Around( "execution(* com.newegg.ec.cache.app.controller.websocket.CheckLogController.*(..))" )
     public  Object arroundExecuteWebsocket( ProceedingJoinPoint proceedingJoinPoint ){
         Object value = accessInit(proceedingJoinPoint);
         return value;
