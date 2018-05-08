@@ -89,9 +89,20 @@ public class HumpbackManager implements INodeOperate,INodeRequest {
         return false;
     }
 
+
     @Override
     public boolean remove(RemovePram removePram) {
-        return false;
+        HumbackRemoveParam humbackRemoveParam = (HumbackRemoveParam) removePram;
+        try {
+            String url = getApiAddress( humbackRemoveParam.getIp() );
+            if( HttpClientUtil.getDeleteResponse(url, humbackRemoveParam.getContainerId() ) == null) {
+                return false;
+            }
+        } catch (IOException e) {
+            logger.error(e);
+            return false;
+        }
+        return true;
     }
 
     @Override

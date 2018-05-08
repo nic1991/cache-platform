@@ -9,6 +9,7 @@ import com.newegg.ec.cache.plugin.INodeOperate;
 import com.newegg.ec.cache.plugin.INodeRequest;
 import com.newegg.ec.cache.plugin.basemodel.Node;
 import com.newegg.ec.cache.plugin.basemodel.PluginType;
+import com.newegg.ec.cache.plugin.basemodel.RemovePram;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -42,7 +43,7 @@ public class NodeController {
     }
 
     @RequestMapping("/manager")
-    public String manager(Model model, @RequestParam PluginType pluginType, @SessionAttribute(Common.SESSION_USER_KEY) User user) {
+    public String manager(Model model, @RequestParam PluginType pluginType) {
         nodeRequest = nodeManager.factoryRequest(pluginType);
         String template = nodeRequest.showManager();
         return template;
@@ -51,7 +52,7 @@ public class NodeController {
 
     @RequestMapping(value = "/getImageList", method = RequestMethod.GET)
     @ResponseBody
-    public Response getImageList(@RequestParam PluginType pluginType, @SessionAttribute(Common.SESSION_USER_KEY) User user){
+    public Response getImageList(@RequestParam PluginType pluginType){
         nodeOperate = nodeManager.factoryOperate(pluginType);
         List<String> imageList = nodeOperate.getImageList();
         return Response.Result(Response.DEFAULT, imageList);
@@ -59,10 +60,17 @@ public class NodeController {
 
     @RequestMapping(value = "/getNodeList", method = RequestMethod.GET)
     @ResponseBody
-    public Response getNodeList(@RequestParam PluginType pluginType, @SessionAttribute(Common.SESSION_USER_KEY) User user,@RequestParam int clusterId){
+    public Response getNodeList(@RequestParam PluginType pluginType,@RequestParam int clusterId){
         nodeOperate = nodeManager.factoryOperate( pluginType );
         List<Node> nodeList = nodeOperate.getNodeList(clusterId);
         return Response.Result(Response.DEFAULT, nodeList);
     }
 
+    @RequestMapping(value = "/nodeRemove", method = RequestMethod.POST)
+    @ResponseBody
+    public Response nodeRemove(@RequestParam PluginType pluginType, @RequestBody RemovePram removePram){
+        nodeOperate = nodeManager.factoryOperate( pluginType );
+        boolean res = nodeOperate.remove( removePram );
+        return Response.Result(Response.DEFAULT, res);
+    }
 }
