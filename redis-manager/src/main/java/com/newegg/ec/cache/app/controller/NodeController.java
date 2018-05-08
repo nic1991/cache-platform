@@ -9,6 +9,7 @@ import com.newegg.ec.cache.plugin.INodeOperate;
 import com.newegg.ec.cache.plugin.INodeRequest;
 import com.newegg.ec.cache.plugin.basemodel.Node;
 import com.newegg.ec.cache.plugin.basemodel.PluginType;
+import com.newegg.ec.cache.plugin.basemodel.RemovePram;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -60,9 +61,25 @@ public class NodeController {
     @RequestMapping(value = "/getNodeList", method = RequestMethod.GET)
     @ResponseBody
     public Response getNodeList(@RequestParam PluginType pluginType, @SessionAttribute(Common.SESSION_USER_KEY) User user,@RequestParam int clusterId){
-        nodeOperate = nodeManager.factoryOperate( pluginType );
+        nodeOperate = nodeManager.factoryOperate(pluginType);
         List<Node> nodeList = nodeOperate.getNodeList(clusterId);
         return Response.Result(Response.DEFAULT, nodeList);
     }
 
+    @RequestMapping(value = "/start", method = RequestMethod.GET)
+    @ResponseBody
+    public Response nodeStart(@RequestParam PluginType pluginType, @SessionAttribute(Common.SESSION_USER_KEY) User user,@RequestParam String containerName){
+        nodeOperate = nodeManager.factoryOperate( pluginType );
+       // boolean result = nodeOperate.start();
+        return null;
+    }
+
+
+    @RequestMapping(value = "/nodeRemove", method = RequestMethod.POST)
+    @ResponseBody
+    public Response nodeRemove(@RequestParam PluginType pluginType, @RequestBody RemovePram removePram){
+        nodeOperate = nodeManager.factoryOperate( pluginType );
+        boolean res = nodeOperate.remove(removePram);
+        return Response.Result(Response.DEFAULT, res);
+    }
 }

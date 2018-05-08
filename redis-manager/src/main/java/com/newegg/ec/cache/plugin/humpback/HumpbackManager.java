@@ -2,16 +2,19 @@ package com.newegg.ec.cache.plugin.humpback;
 
 import com.google.common.collect.Lists;
 import com.newegg.ec.cache.app.model.User;
+import com.newegg.ec.cache.app.util.HttpClientUtil;
 import com.newegg.ec.cache.app.util.HttpUtil;
 import com.newegg.ec.cache.app.util.RequestUtil;
 import com.newegg.ec.cache.plugin.INodeOperate;
 import com.newegg.ec.cache.plugin.INodeRequest;
 import com.newegg.ec.cache.plugin.basemodel.*;
 import net.sf.json.JSONObject;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -24,6 +27,9 @@ import java.util.concurrent.Future;
  */
 @Component
 public class HumpbackManager implements INodeOperate,INodeRequest {
+
+    private static Logger logger= Logger.getLogger(HumpbackManager.class);
+
     static ExecutorService executorService = Executors.newFixedThreadPool(100);
     @Value("${cache.humpback.image}")
     private String humpbackImage;
@@ -75,9 +81,20 @@ public class HumpbackManager implements INodeOperate,INodeRequest {
         return false;
     }
 
+
     @Override
     public boolean remove(RemovePram removePram) {
-        return false;
+        HumbackRemoveParam humbackRemoveParam = (HumbackRemoveParam) removePram;
+        try {
+            String url = getApiAddress( humbackRemoveParam.getIp() );
+            if( HttpClientUtil.getDeleteResponse(url, humbackRemoveParam.getContainerId() ) == null) {
+                return false;
+            }
+        } catch (IOException e) {
+            logger.error(e);
+            return false;
+        }
+        return true;
     }
 
     @Override
@@ -89,8 +106,7 @@ public class HumpbackManager implements INodeOperate,INodeRequest {
 
     @Override
     public List<Node> getNodeList(int clusterId) {
-        List list = humpbackNodeDao.getHumbackNodeList(clusterId);
-
+        List<Node> list = humpbackNodeDao.getHumbackNodeList(clusterId);
         return list;
     }
 
@@ -131,4 +147,49 @@ public class HumpbackManager implements INodeOperate,INodeRequest {
             return res;
         }
     }
+
+    /**
+     * container option
+     * @param ip
+     * @param containerName
+     * @param option
+     * @return
+     */
+    public boolean optionContainer(String ip,String containerName, String option) {
+        JSONObject object = new JSONObject();
+        object.put("Action",option);
+        object.put("Container",containerName);
+        try {
+            String url = getApiAddress(ip)+"containers";
+            if(HttpClientUtil.getPutResponse(url, object)==null){
+                return false;
+            }
+        } catch (IOException e) {
+            logger.error(e);
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * delete container
+     * @param ip
+     * @param containerName
+     * @return
+     *   1.containerId 不存在依然会正确返回delete success;
+     *   2.删除操作前需要先执行一次stop操作，不能正常删除，但是返回结果为true
+     */
+    public boolean deleteContainer(String ip, String containerName) {
+        try {
+            String url = getApiAddress(ip)+"containers";
+            if( HttpClientUtil.getDeleteResponse(url, containerName) == null) {
+                return false;
+            }
+        } catch (IOException e) {
+            logger.error(e);
+            return false;
+        }
+        return true;
+    }
+
 }
