@@ -8,6 +8,7 @@ import com.newegg.ec.cache.plugin.INodeOperate;
 import com.newegg.ec.cache.plugin.INodeRequest;
 import com.newegg.ec.cache.plugin.basemodel.*;
 import net.sf.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -28,6 +29,9 @@ public class HumpbackManager implements INodeOperate,INodeRequest {
     private String humpbackImage;
     @Value("${cache.humpback.api.format}")
     private String humpbackApiFormat;
+
+    @Autowired
+    IHumpbackNodeDao humpbackNodeDao;
 
     public HumpbackManager(){
 
@@ -81,6 +85,13 @@ public class HumpbackManager implements INodeOperate,INodeRequest {
         User user  = RequestUtil.getUser();
         System.out.println( user );
         return Lists.newArrayList(humpbackImage.split(","));
+    }
+
+    @Override
+    public List<Node> getNodeList(int clusterId) {
+        List list = humpbackNodeDao.getHumbackNodeList(clusterId);
+
+        return list;
     }
 
     @Override

@@ -1,17 +1,18 @@
 package com.newegg.ec.cache.app.controller;
 
 import com.newegg.ec.cache.app.component.NodeManager;
-import com.newegg.ec.cache.app.controller.security.WebSecurityConfig;
 import com.newegg.ec.cache.app.model.Common;
 import com.newegg.ec.cache.app.model.Response;
 import com.newegg.ec.cache.app.model.User;
 import com.newegg.ec.cache.core.userapi.UserAccess;
 import com.newegg.ec.cache.plugin.INodeOperate;
 import com.newegg.ec.cache.plugin.INodeRequest;
+import com.newegg.ec.cache.plugin.basemodel.Node;
 import com.newegg.ec.cache.plugin.basemodel.PluginType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
 import javax.annotation.Resource;
 import java.util.List;
 
@@ -51,9 +52,17 @@ public class NodeController {
     @RequestMapping(value = "/getImageList", method = RequestMethod.GET)
     @ResponseBody
     public Response getImageList(@RequestParam PluginType pluginType, @SessionAttribute(Common.SESSION_USER_KEY) User user){
-        nodeOperate = nodeManager.factoryOperate( pluginType );
+        nodeOperate = nodeManager.factoryOperate(pluginType);
         List<String> imageList = nodeOperate.getImageList();
         return Response.Result(Response.DEFAULT, imageList);
+    }
+
+    @RequestMapping(value = "/getNodeList", method = RequestMethod.GET)
+    @ResponseBody
+    public Response getNodeList(@RequestParam PluginType pluginType, @SessionAttribute(Common.SESSION_USER_KEY) User user,@RequestParam int clusterId){
+        nodeOperate = nodeManager.factoryOperate( pluginType );
+        List<Node> nodeList = nodeOperate.getNodeList(clusterId);
+        return Response.Result(Response.DEFAULT, nodeList);
     }
 
 }

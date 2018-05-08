@@ -1,7 +1,7 @@
 package com.newegg.ec.cache.plugin.humpback;
 
 import com.newegg.ec.cache.Application;
-import com.newegg.ec.cache.app.dao.IClusterCheckRuleDao;
+import com.newegg.ec.cache.plugin.basemodel.Node;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,26 +21,31 @@ public class HumpbackNodeDaoTest {
 
     @Test
     public void testHumbackNodeList(){
-        List list = humpbackNodeDao.getHumbackNodeList("admin");
+        int id = 1;
+        List<Node> list = humpbackNodeDao.getHumbackNodeList(id);
+        for(Node node :list){
+            HumpbackNode temp =   (HumpbackNode)node;
+            System.out.println(temp.getClusterId());
+        }
         System.out.println( list );
     }
 
     @Test
     public void testAddHumbackNode(){
         HumpbackNode humpbackNode = new HumpbackNode();
-        humpbackNode.setClusterName("fdas");
-        humpbackNode.setContainerName("fdas");
+        humpbackNode.setClusterId(1);
+        humpbackNode.setContainerName("redis8018");
         humpbackNode.setGroup("admin");
-        humpbackNode.setImage("fffffffff");
-        humpbackNode.setIp("127.0.0.1");
-        humpbackNode.setPort(8081);
-        humpbackNodeDao.addHumbackNode( humpbackNode );
+        humpbackNode.setImage("redis3.0.6:v3");
+        humpbackNode.setIp("10.16.46.192");
+        humpbackNode.setPort(8018);
+        System.out.println(humpbackNodeDao.addHumbackNode(humpbackNode));
     }
 
     @Test
     public void testRemoveHumpbackNode(){
-        int id = 1;
-        humpbackNodeDao.removeHumbackNode( id );
+        int id = 6;
+        System.out.println(humpbackNodeDao.removeHumbackNode( id ));
     }
 
     @Test

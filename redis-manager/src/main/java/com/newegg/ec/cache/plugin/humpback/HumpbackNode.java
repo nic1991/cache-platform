@@ -2,20 +2,21 @@ package com.newegg.ec.cache.plugin.humpback;
 
 import com.newegg.ec.cache.core.mysql.MysqlField;
 import com.newegg.ec.cache.core.mysql.MysqlTable;
+import com.newegg.ec.cache.plugin.basemodel.Node;
 
 /**
  * Created by gl49 on 2018/4/22.
  */
 @MysqlTable( name = "humpback_node", autoCreate = true)
-public class HumpbackNode {
+public class HumpbackNode extends Node{
     @MysqlField(isPrimaryKey = true, field = "id", type = "int")
     private int id;
     @MysqlField(field = "image", type = "varchar(250)", notNull = true)
     private String image;
     @MysqlField(field = "container_name", type = "varchar(40)", notNull = true)
     private String containerName;
-    @MysqlField(field = "cluster_name", type = "varchar(25)", notNull = true)
-    private String clusterName;
+    @MysqlField(field = "cluster_id", type = "int", notNull = true)
+    private int clusterId;
     @MysqlField(field = "user_group", type = "varchar(25)", notNull = true)
     private String group;
     @MysqlField(field = "ip", type = "varchar(25)", notNull = true)
@@ -49,12 +50,12 @@ public class HumpbackNode {
         this.containerName = containerName;
     }
 
-    public String getClusterName() {
-        return clusterName;
+    public int getClusterId() {
+        return clusterId;
     }
 
-    public void setClusterName(String clusterName) {
-        this.clusterName = clusterName;
+    public void setClusterId(int clusterId) {
+        this.clusterId = clusterId;
     }
 
     public String getGroup() {
@@ -95,7 +96,7 @@ public class HumpbackNode {
                 "id=" + id +
                 ", image='" + image + '\'' +
                 ", containerName='" + containerName + '\'' +
-                ", clusterName='" + clusterName + '\'' +
+                ", clusterId='" + clusterId + '\'' +
                 ", group='" + group + '\'' +
                 ", ip='" + ip + '\'' +
                 ", port=" + port +

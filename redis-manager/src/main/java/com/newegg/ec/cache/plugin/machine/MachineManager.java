@@ -57,6 +57,11 @@ public class MachineManager implements INodeOperate,INodeRequest {
     }
 
     @Override
+    public List<Node> getNodeList(int clusterId) {
+        return null;
+    }
+
+    @Override
     public String showInstall() {
         return "plugin/machine/machineCreateCluster";
     }

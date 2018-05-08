@@ -1,6 +1,6 @@
 package com.newegg.ec.cache.plugin.humpback;
 
-import com.newegg.ec.cache.app.model.Cluster;
+import com.newegg.ec.cache.plugin.basemodel.Node;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -10,11 +10,32 @@ import java.util.List;
  */
 @Repository
 public interface IHumpbackNodeDao {
-    List<HumpbackNode> getHumbackNodeList(String userGroup);
 
-    HumpbackNode getHumpbackNode(int id);
+    /**
+     * get humbackNode list
+     * @param cluster_id
+     * @return
+     */
+    public List<Node> getHumbackNodeList(int cluster_id);
 
-    int removeHumbackNode(int id );
+    /**
+     * get a humpbackNode by id
+     * @param id
+     * @return
+     */
+    public HumpbackNode getHumpbackNode(int id);
 
-    int addHumbackNode(HumpbackNode humpbackNode);
+    /**
+     * remove humpbackNode
+     * @param id
+     * @return
+     */
+    public Boolean removeHumbackNode(int id);
+
+    /**
+     * add a humpbackNode
+     * @param humpbackNode
+     * @return
+     */
+    public Boolean addHumbackNode(HumpbackNode humpbackNode);
 }
