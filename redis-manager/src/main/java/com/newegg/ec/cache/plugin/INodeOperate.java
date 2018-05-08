@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by lzz on 2018/4/20.
  */
-public interface INodeOperate {
+public interface INodeOperate{
     boolean pullImage(List<String> ipList, String imageUrl);
     boolean install(InstallParam installParam);
     boolean start(StartParam startParam);
