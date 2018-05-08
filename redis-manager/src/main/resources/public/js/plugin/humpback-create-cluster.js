@@ -1,21 +1,13 @@
 $(document).ready(function(){
-    getImageList("humpback", function(obj){
-        console.log( obj );
-        var userGroup = window.user.userGroup || "";
-        var groupList = [];
-        if( userGroup != "" ){
-            groupList = userGroup.split(",");
-        }
-        obj.groups = groupList;
-        createClusterStep( obj );
-    });
-
+  rebuildHumpbackNodeListTable();
 });
-function  createClusterStep( data ){
-    smarty.html( "plugin/humpback/create_cluster_step", data, "create-cluster-container",function () {
-        autosize(document.querySelectorAll('textarea'));
-        var data = {};
-        data.id = window.user.id;
-        connect( JSON.stringify(data), "/webSocket/createClusterLog");
-    });
+
+function rebuildHumpbackNodeListTable(){
+    //var clusterId = window.clusterId;
+    var clusterId = 9;
+    smarty.get( "/node/getNodeList?pluginType=humpback&clusterId=" + clusterId , "plugin/humpback/humpback_mode_manager", "node-content", function(){
+        $("table").dataTable({});
+    }, true );
+
+
 }

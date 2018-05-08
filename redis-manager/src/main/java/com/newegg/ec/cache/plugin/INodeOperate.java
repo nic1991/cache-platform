@@ -14,6 +14,7 @@ public interface INodeOperate {
     boolean stop(StopParam stopParam);
     boolean restart(RestartParam restartParam);
     boolean remove(RemovePram removePram);
-
     List<String> getImageList();
+
+    List<Node> getNodeList(String clusterId);
 }

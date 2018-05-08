@@ -59,6 +59,11 @@ public class DockerManager implements INodeOperate,INodeRequest {
     }
 
     @Override
+    public List<Node> getNodeList(String clusterId) {
+        return null;
+    }
+
+    @Override
     public String showInstall() {
         return "plugin/docker/dockerCreateCluster";
     }
