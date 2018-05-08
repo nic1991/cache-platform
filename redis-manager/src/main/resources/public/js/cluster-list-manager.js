@@ -10,9 +10,9 @@ smarty.register_function( 'cluster_state', function( params ){
     getClusterInfoByAddress(address, function(obj){
         var state = obj.res.cluster_state;
         if(state == "ok"){
-            $("#" + div_id).html( "<span>state:&nbsp</span><span class='state-ok'>OK</span>" );
+            $("#" + div_id).html( "<span>State:&nbsp</span><span class='state-ok'>OK</span>" );
         } else {
-            $("#" + div_id).html( "<span>state:&nbsp</span><span class='state-fail'>Fail</span>" );
+            $("#" + div_id).html( "<span>State:&nbsp</span><span class='state-fail'>Fail</span>" );
         }
 
     });

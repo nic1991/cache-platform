@@ -1,3 +1,7 @@
+.body-container {
+    padding: 0px;
+}
+
 .data-container {
 	padding: 0;
 	margin: 0;
@@ -17,7 +21,7 @@
 
 .cluster-list-container ul li{
 	width: 19%;
-	height: 200px;
+	height: 180px;
 	float: left;
 	padding: 0.5%;
     margin: 0 0.5% 1%;
@@ -79,7 +83,6 @@
 	margin: 0 0 5px 10px;
     font-size: 18px;
     font-weight: 200;
-    font-family: -webkit-body;
 }
 
 .see-details {
