@@ -30,7 +30,18 @@ public class LogAdvice {
      * @return
      */
     @Around( "execution(* com.newegg.ec.cache.app.controller.*.*(..))" )
-    public  Object arroundExecute( ProceedingJoinPoint proceedingJoinPoint ){
+    public  Object arroundExecuteController( ProceedingJoinPoint proceedingJoinPoint ){
+        Object value = accessInit(proceedingJoinPoint);
+        return value;
+    }
+
+    @Around( "execution(* com.newegg.ec.cache.app.controller.websocket.*.*(..))" )
+    public  Object arroundExecuteWebsocket( ProceedingJoinPoint proceedingJoinPoint ){
+        Object value = accessInit(proceedingJoinPoint);
+        return value;
+    }
+
+    private Object accessInit(ProceedingJoinPoint proceedingJoinPoint) {
         Object value = null;
         try {
             String currentDate  = DateUtil.getCurrentDate();

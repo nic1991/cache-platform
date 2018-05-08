@@ -88,7 +88,7 @@ public class HumpbackManager implements INodeOperate,INodeRequest {
     }
 
     @Override
-    public List<Node> getNodeList(String clusterId) {
+    public List<Node> getNodeList(int clusterId) {
         List list = humpbackNodeDao.getHumbackNodeList(clusterId);
 
         return list;

@@ -16,7 +16,7 @@ public interface IHumpbackNodeDao {
      * @param cluster_id
      * @return
      */
-    public List<Node> getHumbackNodeList(String cluster_id);
+    public List<Node> getHumbackNodeList(int cluster_id);
 
     /**
      * get a humpbackNode by id

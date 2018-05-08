@@ -21,11 +21,11 @@ public class HumpbackNodeDaoTest {
 
     @Test
     public void testHumbackNodeList(){
-        String id = "9";
+        int id = 1;
         List<Node> list = humpbackNodeDao.getHumbackNodeList(id);
         for(Node node :list){
             HumpbackNode temp =   (HumpbackNode)node;
-            System.out.println(temp.getClusterName());
+            System.out.println(temp.getClusterId());
         }
         System.out.println( list );
     }
@@ -33,7 +33,7 @@ public class HumpbackNodeDaoTest {
     @Test
     public void testAddHumbackNode(){
         HumpbackNode humpbackNode = new HumpbackNode();
-        humpbackNode.setClusterName("9");
+        humpbackNode.setClusterId(1);
         humpbackNode.setContainerName("redis8018");
         humpbackNode.setGroup("admin");
         humpbackNode.setImage("redis3.0.6:v3");

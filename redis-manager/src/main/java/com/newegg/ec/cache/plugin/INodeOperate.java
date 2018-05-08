@@ -16,5 +16,5 @@ public interface INodeOperate {
     boolean remove(RemovePram removePram);
     List<String> getImageList();
 
-    List<Node> getNodeList(String clusterId);
+    List<Node> getNodeList(int clusterId);
 }

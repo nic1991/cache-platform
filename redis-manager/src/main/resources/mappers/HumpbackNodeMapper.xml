@@ -5,10 +5,10 @@
 
 <mapper namespace="com.newegg.ec.cache.plugin.humpback.IHumpbackNodeDao">
 
-    <select id="getHumbackNodeList"  resultType="com.newegg.ec.cache.plugin.humpback.HumpbackNode" parameterType="String">
+    <select id="getHumbackNodeList"  resultType="com.newegg.ec.cache.plugin.humpback.HumpbackNode" parameterType="int">
         select * from humpback_node
         <if test="_parameter != null">
-            where cluster_name =#{id}
+            where cluster_id =#{id}
         </if>
         limit 500
     </select>
@@ -22,7 +22,7 @@
     </delete>
 
     <insert id="addHumbackNode"  parameterType="com.newegg.ec.cache.plugin.humpback.HumpbackNode"  useGeneratedKeys="true" keyProperty="id">
-        insert into humpback_node(image,container_name,cluster_name, user_group, ip,port, add_time ) values(#{image},#{containerName},#{clusterName},#{group},#{ip},#{port},#{addTime})
+        insert into humpback_node(image,container_name,cluster_id, user_group, ip,port, add_time ) values(#{image},#{containerName},#{clusterId},#{group},#{ip},#{port},#{addTime})
     </insert>
 
 </mapper>

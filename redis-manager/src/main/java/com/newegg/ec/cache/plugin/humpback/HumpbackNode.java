@@ -15,8 +15,8 @@ public class HumpbackNode extends Node{
     private String image;
     @MysqlField(field = "container_name", type = "varchar(40)", notNull = true)
     private String containerName;
-    @MysqlField(field = "cluster_name", type = "varchar(25)", notNull = true)
-    private String clusterName;
+    @MysqlField(field = "cluster_id", type = "int", notNull = true)
+    private int clusterId;
     @MysqlField(field = "user_group", type = "varchar(25)", notNull = true)
     private String group;
     @MysqlField(field = "ip", type = "varchar(25)", notNull = true)
@@ -50,12 +50,12 @@ public class HumpbackNode extends Node{
         this.containerName = containerName;
     }
 
-    public String getClusterName() {
-        return clusterName;
+    public int getClusterId() {
+        return clusterId;
     }
 
-    public void setClusterName(String clusterName) {
-        this.clusterName = clusterName;
+    public void setClusterId(int clusterId) {
+        this.clusterId = clusterId;
     }
 
     public String getGroup() {
@@ -96,7 +96,7 @@ public class HumpbackNode extends Node{
                 "id=" + id +
                 ", image='" + image + '\'' +
                 ", containerName='" + containerName + '\'' +
-                ", clusterName='" + clusterName + '\'' +
+                ", clusterId='" + clusterId + '\'' +
                 ", group='" + group + '\'' +
                 ", ip='" + ip + '\'' +
                 ", port=" + port +

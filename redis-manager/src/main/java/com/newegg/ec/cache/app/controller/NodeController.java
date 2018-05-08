@@ -59,7 +59,7 @@ public class NodeController {
 
     @RequestMapping(value = "/getNodeList", method = RequestMethod.GET)
     @ResponseBody
-    public Response getNodeList(@RequestParam PluginType pluginType, @SessionAttribute(Common.SESSION_USER_KEY) User user,@RequestParam String clusterId){
+    public Response getNodeList(@RequestParam PluginType pluginType, @SessionAttribute(Common.SESSION_USER_KEY) User user,@RequestParam int clusterId){
         nodeOperate = nodeManager.factoryOperate( pluginType );
         List<Node> nodeList = nodeOperate.getNodeList(clusterId);
         return Response.Result(Response.DEFAULT, nodeList);
