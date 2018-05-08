@@ -38,7 +38,7 @@ public class UserService implements IUserService{
     @Override
     public User getDomainLoginUser(String nameStr) {
         try {
-            String name = DecryptUtil.DecryptDES(nameStr, "xxx");
+            String name = DecryptUtil.DecryptDES(nameStr, "newegg123greg");
             return userDao.getLoginUserByName(name);
         } catch (Exception e) {
             e.printStackTrace();

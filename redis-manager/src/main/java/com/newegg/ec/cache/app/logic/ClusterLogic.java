@@ -3,11 +3,8 @@ package com.newegg.ec.cache.app.logic;
 import com.newegg.ec.cache.app.component.RedisManager;
 import com.newegg.ec.cache.app.dao.IClusterDao;
 import com.newegg.ec.cache.app.dao.INodeInfoDao;
-import com.newegg.ec.cache.app.model.RedisQueryParam;
+import com.newegg.ec.cache.app.model.*;
 import com.newegg.ec.cache.app.dao.impl.NodeInfoDao;
-import com.newegg.ec.cache.app.model.Cluster;
-import com.newegg.ec.cache.app.model.Common;
-import com.newegg.ec.cache.app.model.Host;
 import com.newegg.ec.cache.app.util.JedisUtil;
 import com.newegg.ec.cache.app.util.NetUtil;
 import org.apache.commons.lang.StringUtils;
@@ -158,5 +155,15 @@ public class ClusterLogic {
         Host host = NetUtil.getHostPassAddress( address );
         int version = JedisUtil.getRedisVersion(host.getIp(), host.getPort());
         return version;
+    }
+
+    public List<Cluster> getClusterListByUser(User user) {
+        String addressStr = user.getUserGroup();
+        String[] addressArr = addressStr.split(",");
+        List<Cluster> listCluster = new ArrayList<>();
+        for(String adddress : addressArr ){
+            listCluster.addAll( getClusterList( adddress ) );
+        }
+        return listCluster;
     }
 }
