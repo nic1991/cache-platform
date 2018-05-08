@@ -21,8 +21,8 @@
 	float: left;
 	padding: 0.5%;
     margin: 0 0.5% 1%;
-	border: 1px solid #dadada;
-	border-radius: 5px;
+	border: 1px solid #ddd;
+	border-radius: 3px;
 	background: white;
 }
 
@@ -42,7 +42,6 @@
 	cursor: pointer;
 	-webkit-transition:-webkit-transform 1s;  
 }
-
 
 .delete-container i{  
 	color: #dadada;
@@ -70,7 +69,6 @@
 	justify-content: center;
 	font-size: 56px;
 	color: #DADADA;
-
 }
 
 .add-btn i {
@@ -79,6 +77,9 @@
 
 .one-data{
 	margin: 0 0 5px 10px;
+    font-size: 18px;
+    font-weight: 200;
+    font-family: -webkit-body;
 }
 
 .see-details {
@@ -97,7 +98,6 @@
 	color: #8C8C8C;
 	margin-bottom: 10px;
 }
-
 
 .btn-container {
     display: flex;

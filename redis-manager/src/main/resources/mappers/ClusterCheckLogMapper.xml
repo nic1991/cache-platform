@@ -95,4 +95,14 @@
         is_checked = 0
     </select>
 
+    <select id="countWarningLogByClusterId" resultType="java.lang.Integer">
+        SELECT COUNT(id)
+        FROM
+            cluster_check_logs
+        WHERE
+            cluster_id = #{clusterId}
+        AND
+            is_checked = 0
+    </select>
+
 </mapper>

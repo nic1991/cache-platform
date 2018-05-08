@@ -1,21 +1,29 @@
 <ul>
     {{foreach from=$res item=cluster}}
+        {{if !empty($cluster) }}
         <li>
             <div>
-                <div class="cluster-info-detail cluster-name"  data-cluster-address="{{$cluster.address}}" data-cluster-id="{{$cluster.id}}" >
+                <div class="cluster-info-detail cluster-title cluster-info-detail-{{$cluster.userGroup}}"  data-cluster-address="{{$cluster.address}}" data-group="{{$cluster.userGroup}}" data-cluster-id="{{$cluster.id}}" >
                     <span><b>{{$cluster.clusterName}}</b></span>
+                    <a href="/alarm/alarmSystem?clusterId={{$cluster.id}}" id="cluster-alarm-{{$cluster.id}}" class="alarm" target="_blank" title="cluster alarm">
+
+                    </a>
                 </div>
-                <div id="cluster-info-{{$cluster.id}}"></div>
-                    <div class="detail">
-                        <!-- 后期更改带参数 -->
-                        <a href="/monitor/manager?clusterId={{$cluster.id}}" class="option-container">
-                            <button class="btn btn-primary btn-sm" type="button">Detail</button>
-                        </a>
-                        <a href="/alarm/alarmSystem?clusterId={{$cluster.id}}" class="option-container">
-                            <button class="btn btn-danger btn-sm" type="button">Alarm</button>
-                        </a>
-                    </div>
+                <div class="info-wrapper">
+                    <a href="/monitor/manager?clusterId={{$cluster.id}}" id="cluster-info-{{$cluster.id}}" title="cluster detail">
+
+                    </a>
+                </div>
+                <div class="detail">
+                    <a href="/monitor/manager?clusterId={{$cluster.id}}" class="option-container">
+                        <button class="btn btn-primary btn-sm" type="button">Detail</button>
+                    </a>
+                    <a href="/alarm/alarmSystem?clusterId={{$cluster.id}}" class="option-container">
+                        <button class="btn btn-danger btn-sm" type="button">Alarm</button>
+                    </a>
+                 </div>
             </div>
         </li>
+        {{/if}}
     {{/foreach}}
 </ul>

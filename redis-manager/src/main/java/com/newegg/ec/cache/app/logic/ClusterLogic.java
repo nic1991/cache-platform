@@ -41,6 +41,7 @@ public class ClusterLogic {
     }
 
     public List<Cluster> getClusterList(String group){
+        System.out.println( group + "--------------");
         return clusterDao.getClusterList( group );
     }
 
