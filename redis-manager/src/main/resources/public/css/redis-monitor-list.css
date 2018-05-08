@@ -6,7 +6,7 @@
 
 .list-info ul {
 	width: 100%;
-	margin: 0 0 50px 0;
+	margin: 0 0 30px 0;
 	padding: 0;
 	display: flex;
 	justify-content: space-between;
@@ -42,9 +42,9 @@
 	height: auto;
 	padding: 1%;
 	margin: 0 0.5% 1%;
-	border-radius: 5px;
-	border: 1px solid #dadada;
-	box-shadow: 0 9px 30px -6px rgba(0,0,0,.2);
+	border-radius: 3px;
+	border: 1px solid #ddd;
+	box-shadow: 0 5px 20px -6px rgba(0,0,0,.2)
 }
 
 .icon-chart-container {
@@ -111,7 +111,6 @@
 .my-list-panel-header {
 	margin: 0;
 	border-radius: 3px;
-	border: 1px solid #EBEBEB;
 	background-color: #F9F9F9;
 }
 

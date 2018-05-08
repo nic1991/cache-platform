@@ -23,6 +23,7 @@ a, a:hover{
 .body-contain{
 	width: 100%;
     height: 100%;
+    padding: 10px;
     overflow-y: auto;
     background: #f1f2f7;
 }
@@ -168,7 +169,6 @@ a, a:hover{
 .btn-primary:active:focus,
 .btn-primary.active:focus,
 .btn-primary.focus,
-.btn-primary:active.focus,
 .btn-primary:active.focus {
     border: 1px solid #3fa7dc;
     outline: none;

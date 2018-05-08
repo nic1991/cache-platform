@@ -76,13 +76,13 @@
 	color: #333333;
 }
 
-.selected {
+.time-selected {
 	border-bottom: 1px solid #33B5E5;
 }
 
-.selected a{
+.time-selected a{
 	color: #33B5E5;
 }
-.selected a:hover{
+.time-selected a:hover{
 	color: #33B5E5;
 }
