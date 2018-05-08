@@ -3,11 +3,7 @@ package com.newegg.ec.cache.app.controller;
 import com.newegg.ec.cache.app.controller.security.WebSecurityConfig;
 import com.newegg.ec.cache.app.dao.impl.NodeInfoDao;
 import com.newegg.ec.cache.app.logic.ClusterLogic;
-import com.newegg.ec.cache.app.model.Cluster;
-import com.newegg.ec.cache.app.model.Host;
-import com.newegg.ec.cache.app.model.RedisQueryParam;
-import com.newegg.ec.cache.app.model.Response;
-import com.newegg.ec.cache.app.model.User;
+import com.newegg.ec.cache.app.model.*;
 import com.newegg.ec.cache.core.userapi.UserAccess;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -57,7 +53,7 @@ public class ClusterController {
 
     @RequestMapping(value = "/listCluster", method = RequestMethod.GET)
     @ResponseBody
-    public Response listCluster(@SessionAttribute(WebSecurityConfig.SESSION_KEY) User user){
+    public Response listCluster(@SessionAttribute(Common.SESSION_USER_KEY) User user){
         List<Cluster> listCluster = null;
         if (user != null) {
             listCluster = logic.getClusterList( user.getUserGroup());
@@ -67,7 +63,7 @@ public class ClusterController {
 
     @RequestMapping(value = "/getClusterListInfo", method = RequestMethod.GET)
     @ResponseBody
-    public Response getClusterListInfo(@SessionAttribute(WebSecurityConfig.SESSION_KEY) User user){
+    public Response getClusterListInfo(@SessionAttribute(Common.SESSION_USER_KEY) User user){
         Map<String, Integer> clusterListInfo = null;
         if (user != null) {
             clusterListInfo = logic.getClusterListInfo(user.getUserGroup());

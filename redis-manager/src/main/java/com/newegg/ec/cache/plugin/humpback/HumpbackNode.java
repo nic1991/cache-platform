@@ -88,4 +88,18 @@ public class HumpbackNode {
     public void setAddTime(int addTime) {
         this.addTime = addTime;
     }
+
+    @Override
+    public String toString() {
+        return "HumpbackNode{" +
+                "id=" + id +
+                ", image='" + image + '\'' +
+                ", containerName='" + containerName + '\'' +
+                ", clusterName='" + clusterName + '\'' +
+                ", group='" + group + '\'' +
+                ", ip='" + ip + '\'' +
+                ", port=" + port +
+                ", addTime=" + addTime +
+                '}';
+    }
 }

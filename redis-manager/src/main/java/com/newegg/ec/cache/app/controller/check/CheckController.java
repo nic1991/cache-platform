@@ -1,6 +1,7 @@
 package com.newegg.ec.cache.app.controller.check;
 
 import com.newegg.ec.cache.app.controller.security.WebSecurityConfig;
+import com.newegg.ec.cache.app.model.Common;
 import com.newegg.ec.cache.app.model.Response;
 import com.newegg.ec.cache.app.model.User;
 import com.newegg.ec.cache.app.util.MathExpressionCalculateUtil;
@@ -46,7 +47,7 @@ public class CheckController {
 
     @RequestMapping(value = "/checkClusterName", method = RequestMethod.GET)
     @ResponseBody
-    public Response checkClusterName(@RequestParam String clusterId, @SessionAttribute(WebSecurityConfig.SESSION_KEY) User user){
+    public Response checkClusterName(@RequestParam String clusterId, @SessionAttribute(Common.SESSION_USER_KEY) User user){
         return logic.checkClusterNameByUserid( clusterId, user.getId());
     }
 

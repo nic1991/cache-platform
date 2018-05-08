@@ -1,9 +1,11 @@
 package com.newegg.ec.cache.app.controller.advice;
 
 
+import com.newegg.ec.cache.app.model.Common;
+import com.newegg.ec.cache.app.model.User;
 import com.newegg.ec.cache.app.util.DateUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.newegg.ec.cache.app.util.RequestUtil;
+import com.newegg.ec.cache.core.logger.CommonLogger;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -20,14 +22,14 @@ import javax.servlet.http.HttpSession;
 @Aspect
 @Component
 public class LogAdvice {
-    private static Logger logger = LoggerFactory.getLogger(LogAdvice.class);
+    public static final CommonLogger logger = new CommonLogger( RequestUtil.class );
     private static final String LOG_SEPARATOR = ",";
     /**
      * 用于记录 access log
      * @param proceedingJoinPoint
      * @return
      */
-    @Around( "execution(* com.newegg.ec.cache.controller.*.*(..))" )
+    @Around( "execution(* com.newegg.ec.cache.app.controller.*.*(..))" )
     public  Object arroundExecute( ProceedingJoinPoint proceedingJoinPoint ){
         Object value = null;
         try {
@@ -40,8 +42,10 @@ public class LogAdvice {
             }
             String path = request.getServletPath();
             HttpSession session = request.getSession();
-            String userid = "userid001";
-            String groups = "group001";
+            User user = (User) session.getAttribute( Common.SESSION_USER_KEY );
+            RequestUtil.setUser( user );
+            int userid = user.getId();
+            String groups = user.getUserGroup();
             /* 请求参数 */
             Object[] params = proceedingJoinPoint.getArgs();
             String param = "";
@@ -64,7 +68,6 @@ public class LogAdvice {
             }
             String msg = currentDate + LOG_SEPARATOR + msgType + LOG_SEPARATOR + clientIp + LOG_SEPARATOR + userid + LOG_SEPARATOR + groups + LOG_SEPARATOR + path + LOG_SEPARATOR + param + LOG_SEPARATOR + stopWatch.getTotalTimeMillis();
             System.out.println( msg );
-            logger.info( msg );
             stopWatch.stop();
         } catch (Throwable e) {
             logger.error( "", e );

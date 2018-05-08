@@ -1,7 +1,9 @@
 package com.newegg.ec.cache.plugin.humpback;
 
 import com.google.common.collect.Lists;
+import com.newegg.ec.cache.app.model.User;
 import com.newegg.ec.cache.app.util.HttpUtil;
+import com.newegg.ec.cache.app.util.RequestUtil;
 import com.newegg.ec.cache.plugin.INodeOperate;
 import com.newegg.ec.cache.plugin.INodeRequest;
 import com.newegg.ec.cache.plugin.basemodel.*;
@@ -22,15 +24,13 @@ import java.util.concurrent.Future;
 @Component
 public class HumpbackManager implements INodeOperate,INodeRequest {
     static ExecutorService executorService = Executors.newFixedThreadPool(100);
-    private int userId;
-    private static String humpbackImage;
-    private static String humpbackApiFormat;
+    @Value("${cache.humpback.image}")
+    private String humpbackImage;
+    @Value("${cache.humpback.api.format}")
+    private String humpbackApiFormat;
 
     public HumpbackManager(){
 
-    }
-    public HumpbackManager(int userId){
-        this.userId = userId;
     }
 
 
@@ -78,6 +78,8 @@ public class HumpbackManager implements INodeOperate,INodeRequest {
 
     @Override
     public List<String> getImageList() {
+        User user  = RequestUtil.getUser();
+        System.out.println( user );
         return Lists.newArrayList(humpbackImage.split(","));
     }
 
@@ -117,22 +119,5 @@ public class HumpbackManager implements INodeOperate,INodeRequest {
             }
             return res;
         }
-    }
-
-    @Value("${cache.humpback.image}")
-    public void setHumpbackImage(String humpbackImage) {
-        HumpbackManager.humpbackImage = humpbackImage;
-    }
-    @Value("${cache.humpback.api.format}")
-    public void setHumpbackApiFormat(String humpbackApiFormat) {
-        HumpbackManager.humpbackApiFormat = humpbackApiFormat;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
     }
 }

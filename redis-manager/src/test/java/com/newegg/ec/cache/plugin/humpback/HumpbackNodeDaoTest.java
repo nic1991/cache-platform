@@ -42,4 +42,10 @@ public class HumpbackNodeDaoTest {
         int id = 1;
         humpbackNodeDao.removeHumbackNode( id );
     }
+
+    @Test
+    public void testGetCluster(){
+        HumpbackNode humpbackNode = humpbackNodeDao.getHumpbackNode( 2 );
+        System.out.println( humpbackNode );
+    }
 }

@@ -1,5 +1,6 @@
 package com.newegg.ec.cache.app.controller.security;
 
+import com.newegg.ec.cache.app.model.Common;
 import com.newegg.ec.cache.app.model.User;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,11 +17,6 @@ import javax.servlet.http.HttpSession;
  */
 @Configuration
 public class WebSecurityConfig  extends WebMvcConfigurerAdapter {
-
-    /**
-     * 登录session key
-     */
-    public final static String SESSION_KEY = "user";
 
     @Bean
     public SecurityInterceptor getSecurityInterceptor() {
@@ -49,8 +45,8 @@ public class WebSecurityConfig  extends WebMvcConfigurerAdapter {
             User user = new User();
             user.setId(1);
             user.setUserGroup("admin");
-            session.setAttribute(SESSION_KEY, user);
-            if (session.getAttribute(SESSION_KEY) != null){
+            session.setAttribute(Common.SESSION_USER_KEY, user);
+            if (session.getAttribute(Common.SESSION_USER_KEY) != null){
                 return true;
             }
             // 跳转登录
