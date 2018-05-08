@@ -11,7 +11,7 @@ $(function(){
 })
 
 function updateWarningCount(){
-    listCluster(function(obj){
+    listClusterByUser(function(obj){
         var clusterIds = [];
         var clusters = obj.res;
         clusters.forEach(function(element){
@@ -32,6 +32,7 @@ smarty.get( "/user/listGroup", "monitor/monitor_list", "group-classify", functio
 $(document).on("click", ".list-active", function(res){
     var group = $(this).data("group");
     var isGetData = $(this).attr("aria-expanded");
+    console.log( group );
     smarty.get( "/cluster/listCluster?group=" + group, "monitor/cluster_info_list", "group-id-" + group, function(obj){
         $(".cluster-info-detail-" + group).click();
     }, true );

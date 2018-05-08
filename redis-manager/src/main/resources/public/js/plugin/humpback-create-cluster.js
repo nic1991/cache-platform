@@ -1,4 +1,3 @@
-
 $(document).ready(function(){
     getImageList("humpback", function(obj){
         console.log( obj );
