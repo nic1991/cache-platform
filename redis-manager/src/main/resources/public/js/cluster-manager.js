@@ -43,6 +43,7 @@ smarty.register_function('slave_tag', function( params ){
     }
     return "";
 });
+
 smarty.register_function( 'node_status_tag', function( params ){
     var status = params['status'];
     var index = params['index'];

@@ -91,10 +91,18 @@
     /*background: linear-gradient(to top, #DADADA, white);*/
 }
 
-
 .tip {
 	display: flex;
 	justify-content: center;
 	color: #8C8C8C;
 	margin-bottom: 10px;
+}
+
+
+.btn-container {
+    display: flex;
+}
+
+.btn-container button{
+    width: 300px;00px;
 }

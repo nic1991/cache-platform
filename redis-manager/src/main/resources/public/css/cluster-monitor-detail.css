@@ -140,6 +140,9 @@
 .title {
     margin-left: 5px;
     font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .select-hover:hover{

@@ -1,6 +1,4 @@
 $(function(){
-
-    /**/
     getClusterListInfo(function(obj){
         var clusterListInfo = obj.res;
         $("#cluster-number").text(clusterListInfo.clusterNumber);

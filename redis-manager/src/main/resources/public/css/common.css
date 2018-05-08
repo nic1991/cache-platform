@@ -162,6 +162,34 @@ a, a:hover{
 }
 
 
+.btn-primary,
+.btn-primary:focus,
+.btn-primary:hover,
+.btn-primary:active:focus,
+.btn-primary.active:focus,
+.btn-primary.focus,
+.btn-primary:active.focus,
+.btn-primary:active.focus {
+    border: 1px solid #3fa7dc;
+    outline: none;
+    background-color: #3fa7dc;
+    color: #FFFFFF;
+}
+
+.btn-danger,
+.btn-danger:focus,
+.btn-danger:hover,
+.btn-danger:active:focus,
+.btn-danger.active:focus,
+.btn-danger.focus,
+.btn-danger:active.focus,
+.btn-danger:active.focus {
+    border: 1px solid #FFB800;
+    outline: none;
+    background-color: #FFB800;
+    color: #FFFFFF;
+}
+
 /*color*/
 
 .info-color {
