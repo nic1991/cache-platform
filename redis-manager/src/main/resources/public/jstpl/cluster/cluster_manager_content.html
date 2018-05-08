@@ -1,45 +1,44 @@
-<div class="row">
-    <div class="panel panel-default">
-        <div class="panel-body" id="node-list-table" style="padding:0px">
-            <table class="table table-bordered" id="nodes-table">
-                <thead>
-                <tr>
-                    <th style="width:100px">Expand <span class="glyphicon glyphicon-triangle-bottom pull-right pointer expand-all"></span></th>
-                    <th style="width:200px">Status
-                        <div class="pull-right">
-                            <span class="badge status-type background-danger pointer table-title-span-button" data-type="fail" >bad ↑</span>
-                            <span class="badge status-type background-success pointer table-title-span-button" data-type="ok">health ↑</span>
-                        </div>
-                    </th>
-                    <th>Role</th>
-                    <th>Host</th>
-                    <th>Node</th>
-                    <th>Slot
-                        <div class="pull-right">
-                            <span class="badge slot-type background-danger pointer table-title-span-button" data-type="empty" >empty ↑</span>
-                            <span class="badge slot-type pointer table-title-span-button" data-type="normal">normal ↑</span>
-                            <span class="badge slot-type background-warning pointer table-title-span-button" data-type="warn">warn ↑</span>
-                        </div>
-                    </th>
-                    <th>Options <a class="glyphicon glyphicon-refresh success pull-right" id="refresh-list"></a></th>
-                </tr>
-                </thead>
-                <tbody id="nodes-details">
-                {{assign name="index" value=0}}
-                {{foreach from=$res item=clusterNodes}}
-                {{$index++}}
-                <tr {{cycle_color id=$index role=$clusterNodes.role}} class="master {{new_node_show slaveList=$clusterNodes.slaveList}}" data-index="{{$index}}">
-                    {{include file="cluster/redis_list_master_row.html"}}
-                </tr>
-                {{foreach from=$clusterNodes.slaveList item=slave}}
-                <tr {{cycle_color id=$index role=$slave.role}} class="slave" data-index="{{$index}}">
-                    {{include file="cluster/redis_list_slave_row.html"}}
-                </tr>
-                {{/foreach}}
-                {{/foreach}}
-                </tbody>
-            </table>
 
-        </div><!-- .panel-body -->
-    </div><!-- .panel -->
-</div><!-- .row -->
+<div class="panel panel-default">
+    <div class="panel-body" id="node-list-table" style="padding:0px">
+        <table class="table table-bordered" id="nodes-table">
+            <thead>
+            <tr>
+                <th style="width:100px">Expand <span class="glyphicon glyphicon-triangle-bottom pull-right pointer expand-all"></span></th>
+                <th style="width:200px">Status
+                    <div class="pull-right">
+                        <span class="badge status-type background-danger pointer table-title-span-button" data-type="fail" >bad ↑</span>
+                        <span class="badge status-type background-success pointer table-title-span-button" data-type="ok">health ↑</span>
+                    </div>
+                </th>
+                <th>Role</th>
+                <th>Host</th>
+                <th>Node</th>
+                <th>Slot
+                    <div class="pull-right">
+                        <span class="badge slot-type background-danger pointer table-title-span-button" data-type="empty" >empty ↑</span>
+                        <span class="badge slot-type pointer table-title-span-button" data-type="normal">normal ↑</span>
+                        <span class="badge slot-type background-warning pointer table-title-span-button" data-type="warn">warn ↑</span>
+                    </div>
+                </th>
+                <th>Options <a class="glyphicon glyphicon-refresh success pull-right" id="refresh-list"></a></th>
+            </tr>
+            </thead>
+            <tbody id="nodes-details">
+            {{assign name="index" value=0}}
+            {{foreach from=$res item=clusterNodes}}
+            {{$index++}}
+            <tr {{cycle_color id=$index role=$clusterNodes.role}} class="master {{new_node_show slaveList=$clusterNodes.slaveList}}" data-index="{{$index}}">
+                {{include file="cluster/redis_list_master_row.html"}}
+            </tr>
+            {{foreach from=$clusterNodes.slaveList item=slave}}
+            <tr {{cycle_color id=$index role=$slave.role}} class="slave" data-index="{{$index}}">
+                {{include file="cluster/redis_list_slave_row.html"}}
+            </tr>
+            {{/foreach}}
+            {{/foreach}}
+            </tbody>
+        </table>
+
+    </div><!-- .panel-body -->
+</div><!-- .panel -->
