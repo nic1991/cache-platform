@@ -358,6 +358,15 @@ public class JedisUtil {
         return list;
     }
 
+    public static List<String> getClusterAllNode(String ipport) {
+        String[] addr = ipport.split(":");
+        List<Map<String, String>> list =  nodeList(addr[0], Integer.parseInt(addr[1]));
+        List<String> result = new ArrayList(list.size());
+        for (Map<String, String> map : list) {
+            result.add(map.get("ip")+":"+map.get("port"));
+        }
+        return result;
+    }
 
 
 }

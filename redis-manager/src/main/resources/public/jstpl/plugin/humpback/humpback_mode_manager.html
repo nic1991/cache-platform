@@ -1,27 +1,37 @@
-<table id="alarmHistoryTable" data-toggle="table" class="table table-hover table-bordered fixed-table-header"  >
+<table id="humpbackNodeList" data-toggle="table" class="table table-hover table-bordered fixed-table-header"  >
     <thead>
     <tr >
         <th  style="width:10px">#</th>
         <th  class="display-hide">id</th>
+        <th  >Status</th>
+        <th  >InCluster</th>
         <th  >Container Name</th>
         <th  >Image Version</th>
         <th  >Ip</th>
         <th  >Port</th>
+        <th  >User Group</th>
         <th  >AddTime</th>
-        <th  style="width:100px">Operation</th>
+        <th  style="width:170px">Operation</th>
     </tr>
     </thead>
     <tbody>
     {{foreach from=$res item=humpback }}
          <tr>
              <td  style="width:10px"> </td>
-             <td>{{$humpback.id}}</td>
+             <td  class="display-hide">{{$humpback.id}}</td>
+             <td>{{$humpback.status}}</td>
+             <td>{{$humpback.incluster}}</td>
+             <td>{{$humpback.containerName}}</td>
              <td>{{$humpback.image}}</td>
-             <td>{{$humpback.image}}</td>
-             <td>{{$humpback.image}}</td>
-             <td>{{$humpback.image}}</td>
-             <td>{{$humpback.image}}</td>
-             <td>{{$humpback.image}}</td>
+             <td>{{$humpback.ip}}</td>
+             <td>{{$humpback.port}}</td>
+             <td>{{$humpback.userGroup}}</td>
+             <td>{{$humpback.addTime}}</td>
+             <td>
+                 <button class="btn btn-danger btn-sm " type="button">Delete</button>&nbsp
+                 <button class="btn btn-primary btn-sm" type="button">Stop</button>&nbsp
+                 <button class="btn btn-primary btn-sm" type="button">start</button>
+             </td>
          </tr>
      {{/foreach}}
     </tbody>
